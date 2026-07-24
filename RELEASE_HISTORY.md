@@ -40,7 +40,10 @@ They are all available in this Github repository.
 <details>
 <summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2026 Releases</summary>
 
-### [<ins>v2.0.44 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.44) ###
+<br>
+<br>
+
+## [<ins>v2.0.44 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.44)  ##
 
 #### FLAM3H™ v2.0.44 indie -> H22.0 UP</br>FLAM3H™ v2.0.36 indie -> H21.0</br>FLAM3H™ v2.0.30 indie -> H20.5</br>FLAM3H™ v1.9.85 indie -> H19.0 to H20 ####
 
@@ -49,6 +52,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 - **New H22 Only**: First migration release to: **python 3.13.10** ( _from Python 3.11.7_ ).
 - **New H22 Only**: Parameters' tooltips now uses the new html formatting syntax. Too bad Action Button parameters can not take advantage of it in their help/tooltip field.
 - **New H22 Only**: New banner image (_Documentation and About box panel_).
+- **Fix**: A rare bug preventing FLAM3H™ to clear the FF copy/paste data if also an iterator was not being marked for copying as well. It is now fixed.
 - **Python code improvements H22 Only**
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -70,7 +74,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.37) ###
+## [<ins>v2.0.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.37)  ##
 
 #### FLAM3H™ v2.0.37 indie -> H22.0 UP</br>FLAM3H™ v2.0.35 indie -> H21.0</br>FLAM3H™ v2.0.29 indie -> H20.5</br>FLAM3H™ v1.9.84 indie -> H19.0 to H20 ####
 
@@ -99,7 +103,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.35) ###
+## [<ins>v2.0.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.35)  ##
 
 #### FLAM3H™ v2.0.35 indie -> H21.0 UP</br>FLAM3H™ v2.0.29 indie -> H20.5</br>FLAM3H™ v1.9.84 indie -> H19.0 to H20 ####
 
@@ -121,7 +125,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.33) ###
+## [<ins>v2.0.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.33)  ##
 
 #### FLAM3H™ v2.0.33 indie -> H21.0 UP</br>FLAM3H™ v2.0.28 indie -> H20.5</br>FLAM3H™ v1.9.83 indie -> H19.0 to H20 ####
 
@@ -146,7 +150,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.32 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.32) ###
+## [<ins>v2.0.32 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.32)  ##
 
 #### FLAM3H™ v2.0.32 indie -> H21.0 UP</br>FLAM3H™ v2.0.27 indie -> H20.5</br>FLAM3H™ v1.9.83 indie -> H19.0 to H20 ####
 
@@ -165,7 +169,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.31 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.31) ###
+## [<ins>v2.0.31 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.31)  ##
 
 #### FLAM3H™ v2.0.31 indie -> H21.0 UP</br>FLAM3H™ v2.0.26 indie -> H20.5</br>FLAM3H™ v1.9.83 indie -> H19.0 to H20 ####
 
@@ -184,7 +188,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.30 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.30) ###
+## [<ins>v2.0.30 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.30)  ##
 
 #### FLAM3H™ v2.0.30 indie -> H21.0 UP</br>FLAM3H™ v2.0.25 indie -> H20.5</br>FLAM3H™ v1.9.83 indie -> H19.0 to H20 ####
 
@@ -203,7 +207,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.28 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.28) ###
+## [<ins>v2.0.28 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.28)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
@@ -226,7 +230,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v2.0.26 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.26) ###
+## [<ins>v2.0.26 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.26)  ##
 
 #### FLAM3H™ v2.0.26 indie -> H21.0 UP</br>FLAM3H™ v2.0.21 indie -> H20.5</br>FLAM3H™ v1.9.83 indie -> H19.0 to H20 ####
 
@@ -247,7 +251,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v2.0.25 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.25) ###
+## [<ins>v2.0.25 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.25)  ##
 
 #### FLAM3H™ v2.0.25 indie -> H21.0 UP</br>FLAM3H™ v2.0.20 indie -> H20.5</br>FLAM3H™ v1.9.82 indie -> H19.0 to H20 ####
 
@@ -276,7 +280,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v2.0.23 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.23) ###
+## [<ins>v2.0.23 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.23)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
@@ -298,7 +302,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.22 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.22) ###
+## [<ins>v2.0.22 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.22)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
@@ -320,7 +324,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.20 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.20) ###
+## [<ins>v2.0.20 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.20)  ##
 
 #### FLAM3H™ v2.0.20 indie -> H21.0 UP</br>FLAM3H™ v2.0.16 indie -> H20.5</br>FLAM3H™ v1.9.79 indie -> H19.0 to H20 ####
 
@@ -340,7 +344,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v2.0.18 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.18) ###
+## [<ins>v2.0.18 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.18)  ##
 
 #### FLAM3H™ v2.0.18 indie -> H21.0 UP</br>FLAM3H™ v2.0.16 indie -> H20.5</br>FLAM3H™ v1.9.79 indie -> H19.0 to H20 ####
 
@@ -360,7 +364,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v2.0.17 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.17) ###
+## [<ins>v2.0.17 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.17)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
@@ -384,7 +388,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v2.0.14 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.14) ###
+## [<ins>v2.0.14 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.14)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
@@ -406,7 +410,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v2.0.13 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.13) ###
+## [<ins>v2.0.13 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.13)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
@@ -427,7 +431,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v2.0.11 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.11) ###
+## [<ins>v2.0.11 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.11)  ##
 
 #### FLAM3H™ v2.0.11 indie -> H21.0 UP</br>FLAM3H™ v2.0.11 indie -> H20.5</br>FLAM3H™ v1.9.78 indie -> H19.0 to H20 ####
 
@@ -444,7 +448,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v2.0.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.10) ###
+## [<ins>v2.0.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.10)  ##
 
 #### FLAM3H™ v2.0.10 indie -> H21.0 UP</br>FLAM3H™ v2.0.10 indie -> H20.5</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
 
@@ -463,7 +467,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.09 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.09) ###
+## [<ins>v2.0.09 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.09)  ##
 
 #### FLAM3H™ v2.0.09 indie -> H21.0 UP</br>FLAM3H™ v2.0.09 indie -> H20.5</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
 
@@ -483,7 +487,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.07) ###
+## [<ins>v2.0.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.07)  ##
 
 #### FLAM3H™ v2.0.07 indie -> H21.0 UP</br>FLAM3H™ v2.0.07 indie -> H20.5</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
 
@@ -504,7 +508,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.04 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.04) ###
+## [<ins>v2.0.04 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.04)  ##
 
 #### FLAM3H™ v2.0.04 indie -> H21.0 UP</br>FLAM3H™ v2.0.04 indie -> H20.5</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
 
@@ -522,7 +526,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.02 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.02) ###
+## [<ins>v2.0.02 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.02)  ##
 
 #### FLAM3H™ v2.0.02 indie -> H21.0 UP</br>FLAM3H™ v2.0.02 indie -> H20.5</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
 
@@ -541,7 +545,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v2.0.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.00) ###
+## [<ins>v2.0.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.00)  ##
 
 #### FLAM3H™ v2.0.00 indie -> H21.0 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20.5 ####
 
@@ -561,7 +565,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v1.9.85 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.85) ###
+## [<ins>v1.9.85 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.85)  ##
 
 #### FLAM3H™ v1.9.85 indie -> H21.0 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20.5 ####
 
@@ -584,7 +588,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.84 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.84) ###
+## [<ins>v1.9.84 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.84)  ##
 
 #### FLAM3H™ v1.9.84 indie -> H21.0 UP</br>FLAM3H™ v1.9.76 indie -> H19.0 to H20.5 ####
 
@@ -605,7 +609,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.83 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.83) ###
+## [<ins>v1.9.83 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.83)  ##
 
 #### FLAM3H™ v1.9.83 indie -> H21.0 UP</br>FLAM3H™ v1.9.75 indie -> H19.0 to H20.5 ####
 
@@ -630,7 +634,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.82 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.82) ###
+## [<ins>v1.9.82 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.82)  ##
 
 #### FLAM3H™ v1.9.82 indie -> H21.0 UP</br>FLAM3H™ v1.9.75 indie -> H19.0 to H20.5 ####
 
@@ -655,7 +659,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.81 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.81) ###
+## [<ins>v1.9.81 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.81)  ##
 
 #### FLAM3H™ v1.9.81 indie -> H21.0 UP</br>FLAM3H™ v1.9.74 indie -> H19.0 to H20.5 ####
 
@@ -677,7 +681,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.80) ###
+## [<ins>v1.9.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.80)  ##
 
 #### FLAM3H™ v1.9.80 indie -> H21.0 UP</br>FLAM3H™ v1.9.72 indie -> H19.0 to H20.5 ####
 
@@ -695,7 +699,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.79 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.79) ###
+## [<ins>v1.9.79 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.79)  ##
 
 #### FLAM3H™ v1.9.79 indie -> H21.0 UP</br>FLAM3H™ v1.9.64 indie -> H19.0 to H20.5 ####
 
@@ -713,7 +717,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.78 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.78) ###
+## [<ins>v1.9.78 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.78)  ##
 
 #### FLAM3H™ v1.9.78 indie -> H21.0 UP</br>FLAM3H™ v1.9.64 indie -> H19.0 to H20.5 ####
 
@@ -734,7 +738,7 @@ _This update may require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v1.9.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.77) ###
+## [<ins>v1.9.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.77)  ##
 
 #### FLAM3H™ v1.9.77 indie -> H21.0 UP</br>FLAM3H™ v1.9.64 indie -> H19.0 to H20.5 ####
 
@@ -754,7 +758,7 @@ _This update may require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v1.9.76 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.76) ###
+## [<ins>v1.9.76 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.76)  ##
 
 #### FLAM3H™ v1.9.76 indie -> H21.0 UP</br>FLAM3H™ v1.9.64 indie -> H19.0 to H20.5 ####
 
@@ -774,7 +778,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.75) ###
+## [<ins>v1.9.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.75)  ##
 
 #### FLAM3H™ v1.9.75 indie -> H21.0 UP</br>FLAM3H™ v1.9.63 indie -> H19.0 to H20.5 ####
 
@@ -795,7 +799,7 @@ _This update may require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v1.9.74 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.74) ###
+## [<ins>v1.9.74 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.74)  ##
 
 #### FLAM3H™ v1.9.74 indie -> H21.0 UP</br>FLAM3H™ v1.9.61 indie -> H19.0 to H20.5 ####
 
@@ -817,7 +821,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v1.9.73 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.73) ###
+## [<ins>v1.9.73 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.73)  ##
 
 #### FLAM3H™ v1.9.73 indie -> H21.0 UP</br>FLAM3H™ v1.9.59 indie -> H19.0 to H20.5 ####
 
@@ -835,7 +839,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v1.9.71 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.71) ###
+## [<ins>v1.9.71 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.71)  ##
 
 #### FLAM3H™ v1.9.71 indie -> H21.0 UP</br>FLAM3H™ v1.9.59 indie -> H19.0 to H20.5 ####
 
@@ -851,7 +855,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v1.9.70 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.70) ###
+## [<ins>v1.9.70 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.70)  ##
 
 #### FLAM3H™ v1.9.70 indie -> H21.0 UP</br>FLAM3H™ v1.9.59 indie -> H19.0 to H20.5 ####
 
@@ -868,7 +872,10 @@ _This update require a restart of Houdini to fully pickup the changes_.
 <details>
 <summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2025 Releases</summary>
 
-### [<ins>v1.9.65 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.65) ###
+<br>
+<br>
+
+## [<ins>v1.9.65 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.65)  ##
 
 #### FLAM3H™ v1.9.65 indie -> H21.0 UP</br>FLAM3H™ v1.9.58 indie -> H19.0 to H20.5 ####
 
@@ -884,7 +891,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v1.9.64 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.64) ###
+## [<ins>v1.9.64 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.64)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
@@ -909,7 +916,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.63 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.63) ###
+## [<ins>v1.9.63 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.63)  ##
 
 #### FLAM3H™ v1.9.63 indie -> H21.0 UP</br>FLAM3H™ v1.9.56 indie -> H19.0 to H20.5 ####
 
@@ -926,7 +933,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.62 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.62) ###
+## [<ins>v1.9.62 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.62)  ##
 
 _This updated will require a restart of Houdini to fully pickup the changes_.
 
@@ -944,7 +951,7 @@ _This updated will require a restart of Houdini to fully pickup the changes_.
 
 
 
-### [<ins>v1.9.61 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.61) ###
+## [<ins>v1.9.61 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.61)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
@@ -963,7 +970,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.60) ###
+## [<ins>v1.9.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.60)  ##
 
 #### FLAM3H™ v1.9.60 indie -> H21.0 UP</br>FLAM3H™ v1.9.54 indie -> H19.0 to H20.5 ####
 
@@ -983,7 +990,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.57 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.57) ###
+## [<ins>v1.9.57 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.57)  ##
 
 #### FLAM3H™ v1.9.57 indie -> H21.0 UP</br>FLAM3H™ v1.9.51 indie -> H19.0 to H20.5 ####
 
@@ -1000,7 +1007,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.56 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.56) ###
+## [<ins>v1.9.56 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.56)  ##
 
 #### FLAM3H™ v1.9.56 indie -> H21.0 UP</br>FLAM3H™ v1.9.50 indie -> H19.0 to H20.5 ####
 
@@ -1022,7 +1029,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.55) ###
+## [<ins>v1.9.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.55)  ##
 
 #### FLAM3H™ v1.9.55 indie -> H21.0 UP</br>FLAM3H™ v1.9.49 indie -> H19.0 to H20.5 ####
 
@@ -1038,7 +1045,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.54 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.54) ###
+## [<ins>v1.9.54 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.54)  ##
 
 #### FLAM3H™ v1.9.54 indie -> H21.0 UP</br>FLAM3H™ v1.9.48 indie -> H19.0 to H20.5 ####
 
@@ -1058,7 +1065,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.53 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.53) ###
+## [<ins>v1.9.53 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.53)  ##
 
 #### FLAM3H™ v1.9.53 indie -> H21.0 UP</br>FLAM3H™ v1.9.47 indie -> H19.0 to H20.5 ####
 
@@ -1074,7 +1081,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.52 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.52) ###
+## [<ins>v1.9.52 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.52)  ##
 
 #### FLAM3H™ v1.9.52 indie -> H21.0 UP</br>FLAM3H™ v1.9.46 indie -> H19.0 to H20.5 ####
 
@@ -1090,7 +1097,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.51 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.51) ###
+## [<ins>v1.9.51 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.51)  ##
 
 #### FLAM3H™ v1.9.51 indie -> H21.0 UP</br>FLAM3H™ v1.9.45 indie -> H19.0 to H20.5 ####
 
@@ -1106,7 +1113,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.50) ###
+## [<ins>v1.9.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.50)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
@@ -1125,7 +1132,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.49 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.49) ###
+## [<ins>v1.9.49 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.49)  ##
 
 #### FLAM3H™ v1.9.49 indie -> H21.0 UP</br>FLAM3H™ v1.9.43 indie -> H19.0 to H20.5 ####
 
@@ -1142,7 +1149,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.47 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.47) ###
+## [<ins>v1.9.47 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.47)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
@@ -1162,7 +1169,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.46 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.46) ###
+## [<ins>v1.9.46 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.46)  ##
 
 #### FLAM3H™ v1.9.46 indie -> H21.0 UP</br>FLAM3H™ v1.9.40 indie -> H19.0 to H20.5 ####
 
@@ -1179,7 +1186,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-### [<ins>v1.9.45 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.45) ###
+## [<ins>v1.9.45 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.45)  ##
 
 _This an only H21 release (FLAM3H™)_.
 
@@ -1197,7 +1204,7 @@ _This an only H21 release (FLAM3H™)_.
 
 
 
-### [<ins>v1.9.44 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.44) ###
+## [<ins>v1.9.44 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.44)  ##
 
 _This an only H21 release (FLAM3H™)_.
 
@@ -1215,7 +1222,7 @@ _This an only H21 release (FLAM3H™)_.
 
 
 
-### [<ins>v1.9.43 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.43) ###
+## [<ins>v1.9.43 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.43)  ##
 
 _This an only H21 release (FLAM3H™ and FLAM3H™USD)_.
 
@@ -1239,7 +1246,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD)_.
 
 
 
-### [<ins>v1.9.41 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.41) ###
+## [<ins>v1.9.41 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.41)  ##
 
 _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only version to be updated from now moving forward_.
 
@@ -1262,7 +1269,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.39 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.39) ###
+## [<ins>v1.9.39 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.39)  ##
 
 #### FLAM3H™ ####
 
@@ -1279,7 +1286,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.37) ###
+## [<ins>v1.9.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.37)  ##
 
 #### FLAM3H™ ####
 
@@ -1299,7 +1306,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.36 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.36) ###
+## [<ins>v1.9.36 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.36)  ##
 
 #### FLAM3H™ ####
 
@@ -1315,7 +1322,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.35) ###
+## [<ins>v1.9.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.35)  ##
 
 #### FLAM3H™ ####
 
@@ -1333,7 +1340,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.33) ###
+## [<ins>v1.9.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.33)  ##
 
 #### FLAM3H™ ####
 
@@ -1350,7 +1357,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.31 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.31) ###
+## [<ins>v1.9.31 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.31)  ##
 
 #### FLAM3H™ ####
 
@@ -1367,7 +1374,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.29 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.29) ###
+## [<ins>v1.9.29 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.29)  ##
 
 #### FLAM3H™ ####
 
@@ -1387,7 +1394,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.28 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.28) ###
+## [<ins>v1.9.28 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.28)  ##
 
 #### FLAM3H™ ####
 
@@ -1408,7 +1415,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.27 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.27) ###
+## [<ins>v1.9.27 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.27)  ##
 
 #### FLAM3H™ ####
 
@@ -1425,7 +1432,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.25 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.25) ###
+## [<ins>v1.9.25 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.25)  ##
 
 #### FLAM3H™ ####
 
@@ -1442,7 +1449,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.23 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.23) ###
+## [<ins>v1.9.23 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.23)  ##
 
 #### FLAM3H™ ####
 
@@ -1459,7 +1466,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.21 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.21) ###
+## [<ins>v1.9.21 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.21)  ##
 
 #### FLAM3H™ ####
 
@@ -1479,7 +1486,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.20 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.20) ###
+## [<ins>v1.9.20 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.20)  ##
 
 #### FLAM3H™ ####
 
@@ -1497,7 +1504,7 @@ _This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only v
 
 
 
-### [<ins>v1.9.17 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.17) ###
+## [<ins>v1.9.17 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.17)  ##
 
 _This is a re-release of the same version with some minor fixes/improvements that did not make it in the first attempt_.
 
@@ -1520,7 +1527,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 
 
-### [<ins>v1.9.16 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.16) ###
+## [<ins>v1.9.16 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.16)  ##
 
 #### FLAM3H™ ####
 
@@ -1538,7 +1545,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 
 
-### [<ins>v1.9.14 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.14) ###
+## [<ins>v1.9.14 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.14)  ##
 
 _This is a re-release of the same version with some minor fixes/improvements that did not make it in the first attempt_.
 
@@ -1560,7 +1567,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 
 
-### [<ins>v1.9.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.10) ###
+## [<ins>v1.9.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.10)  ##
 
 #### FLAM3H™ ####
 
@@ -1576,7 +1583,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 
 
-### [<ins>v1.9.09 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.09) ###
+## [<ins>v1.9.09 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.09)  ##
 
 #### FLAM3H™ ####
 
@@ -1592,7 +1599,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 
 
-### [<ins>v1.9.08 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.08) ###
+## [<ins>v1.9.08 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.08)  ##
 
 #### FLAM3H™ ####
 
@@ -1609,7 +1616,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 
 
-### [<ins>v1.9.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.07) ###
+## [<ins>v1.9.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.07)  ##
 
 #### FLAM3H™ ####
 
@@ -1634,7 +1641,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 
 
-### [<ins>v1.9.06 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.06) ###
+## [<ins>v1.9.06 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.06)  ##
 
 #### FLAM3H™ ####
 
@@ -1655,7 +1662,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 
 
-### [<ins>v1.9.05 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.05) ###
+## [<ins>v1.9.05 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.05)  ##
 
 _This is a re-release of the same version with some minor fixes/improvements that did not make it in the first attempt_.
 
@@ -1685,7 +1692,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 
 
-### [<ins>v1.9.04 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.04) ###
+## [<ins>v1.9.04 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.04)  ##
 
 _A restart of Houdini maybe needed for the new changes to correctly pickup_.
 
@@ -1715,7 +1722,7 @@ _A restart of Houdini maybe needed for the new changes to correctly pickup_.
 
 
 
-### [<ins>v1.9.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.00) ###
+## [<ins>v1.9.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.00)  ##
 
 #### FLAM3H™ ####
 
@@ -1740,7 +1747,7 @@ _A restart of Houdini maybe needed for the new changes to correctly pickup_.
 
 
 
-### [<ins>v1.8.99 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.99) ###
+## [<ins>v1.8.99 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.99)  ##
 
 #### FLAM3H™ ####
 
@@ -1769,7 +1776,7 @@ _**Transmission** and **Tone map** parameters are available only from FLAM3H™U
 
 
 
-### [<ins>v1.8.98 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98) ###
+## [<ins>v1.8.98 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98)  ##
 
 #### FLAM3H™ ####
 
@@ -1793,7 +1800,7 @@ _**Transmission** and **Tone map** parameters are available only from FLAM3H™U
 
 
 
-### [<ins>v1.8.96 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.96) ###
+## [<ins>v1.8.96 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.96)  ##
 
 #### FLAM3H™ ####
 
@@ -1809,7 +1816,7 @@ _**Transmission** and **Tone map** parameters are available only from FLAM3H™U
 
 
 
-### [<ins>v1.8.95 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.95) ###
+## [<ins>v1.8.95 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.95)  ##
 
 #### FLAM3H™ ####
 
@@ -1825,7 +1832,7 @@ _**Transmission** and **Tone map** parameters are available only from FLAM3H™U
 
 
 
-### [<ins>v1.8.94 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.94) ###
+## [<ins>v1.8.94 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.94)  ##
 
 #### FLAM3H™ ####
 
@@ -1841,7 +1848,7 @@ _**Transmission** and **Tone map** parameters are available only from FLAM3H™U
 
 
 
-### [<ins>v1.8.92 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.92) ###
+## [<ins>v1.8.92 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.92)  ##
 
 _This is a re-release of the same version but with some minor updates that were not included in the first attempt._
 
@@ -1860,7 +1867,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 
-### [<ins>v1.8.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.90) ###
+## [<ins>v1.8.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.90)  ##
 
 _This is a re-release of the same version but with some minor updates that were not included in the first attempt._
 
@@ -1878,7 +1885,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 
-### [<ins>v1.8.89 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.89) ###
+## [<ins>v1.8.89 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.89)  ##
 
 _This is a re-release of the same version but with some minor updates that were not included in the first attempt._
 
@@ -1895,7 +1902,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 
-### [<ins>v1.8.88 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.88) ###
+## [<ins>v1.8.88 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.88)  ##
 
 #### FLAM3H™ ####
 
@@ -1913,7 +1920,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 
-### [<ins>v1.8.86 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.86) ###
+## [<ins>v1.8.86 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.86)  ##
 
 #### FLAM3H™ ####
 
@@ -1935,7 +1942,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 
-### [<ins>v1.8.85 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.85) ###
+## [<ins>v1.8.85 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.85)  ##
 
 #### FLAM3H™ ####
 
@@ -1959,7 +1966,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 
-### [<ins>v1.8.82 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.82) ###
+## [<ins>v1.8.82 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.82)  ##
 
 #### FLAM3H™ ####
 
@@ -1974,7 +1981,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 
-### [<ins>v1.8.81 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.81) ###
+## [<ins>v1.8.81 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.81)  ##
 
 #### FLAM3H™ ####
 
@@ -1988,7 +1995,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 
-### [<ins>v1.8.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.80) ###
+## [<ins>v1.8.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.80)  ##
 
 #### FLAM3H™ ####
 
@@ -2006,7 +2013,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 
-### [<ins>v1.8.79 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.79) ###
+## [<ins>v1.8.79 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.79)  ##
 
 #### FLAM3H™ ####
 
@@ -2021,7 +2028,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 
-### [<ins>v1.8.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.77) ###
+## [<ins>v1.8.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.77)  ##
 
 #### FLAM3H™ ####
 
@@ -2036,7 +2043,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 
-### [<ins>v1.8.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.75) ###
+## [<ins>v1.8.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.75)  ##
 
 #### FLAM3H™ ####
 
@@ -2066,7 +2073,7 @@ _Some of the small fixes/improvements include_:
 
 
 
-### [<ins>v1.8.68 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.68) ###
+## [<ins>v1.8.68 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.68)  ##
 
 #### FLAM3H™ ####
 
@@ -2082,7 +2089,7 @@ _Some of the small fixes/improvements include_:
 
 
 
-### [<ins>v1.8.67 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.67) ###
+## [<ins>v1.8.67 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.67)  ##
 
 _Renamed some files in this Github repository and updated some additional licenses informations_.
 
@@ -2103,7 +2110,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 
 
-### [<ins>v1.8.66 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.66) ###
+## [<ins>v1.8.66 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.66)  ##
 
 #### FLAM3H™ ####
 
@@ -2119,7 +2126,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 
 
-### [<ins>v1.8.64 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.64) ###
+## [<ins>v1.8.64 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.64)  ##
 
 #### FLAM3H™ ####
 
@@ -2133,7 +2140,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 
 
-### [<ins>v1.8.63 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.63) ###
+## [<ins>v1.8.63 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.63)  ##
 
 #### FLAM3H™ ####
 
@@ -2148,7 +2155,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 
 
-### [<ins>v1.8.61 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.61) ###
+## [<ins>v1.8.61 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.61)  ##
 
 #### FLAM3H™ ####
 
@@ -2162,7 +2169,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 
 
-### [<ins>v1.8.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.60) ###
+## [<ins>v1.8.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.60)  ##
 
 #### FLAM3H™ ####
 
@@ -2180,7 +2187,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 
 
-### [<ins>v1.8.57 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.57) ###
+## [<ins>v1.8.57 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.57)  ##
 
 #### FLAM3H™ ####
 
@@ -2196,7 +2203,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 
 
-### [<ins>v1.8.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.55) ###
+## [<ins>v1.8.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.55)  ##
 
 #### FLAM3H™ ####
 
@@ -2212,7 +2219,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 
 
-### [<ins>v1.8.52 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.52) ###
+## [<ins>v1.8.52 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.52)  ##
 
 #### FLAM3H™ ####
 
@@ -2227,7 +2234,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 
 
-### [<ins>v1.8.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.50) ###
+## [<ins>v1.8.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.50)  ##
 
 #### FLAM3H™ ####
 
@@ -2242,7 +2249,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 
 
-### [<ins>v1.8.47 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.47) ###
+## [<ins>v1.8.47 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.47)  ##
 
 #### FLAM3H™ ####
 
@@ -2258,7 +2265,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 
 
-### [<ins>v1.8.45 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.45) ###
+## [<ins>v1.8.45 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.45)  ##
 
 _This release complete a very, very long polyshing period of all that was done in FLAM3H™ up to todays date_.
 
@@ -2277,7 +2284,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.42 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.42) ###
+## [<ins>v1.8.42 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.42)  ##
 
 #### FLAM3H™ ####
 
@@ -2293,7 +2300,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.40 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.40) ###
+## [<ins>v1.8.40 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.40)  ##
 
 #### FLAM3H™ ####
 
@@ -2308,7 +2315,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.39 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.39) ###
+## [<ins>v1.8.39 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.39)  ##
 
 #### FLAM3H™ ####
 
@@ -2322,7 +2329,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.38 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.38) ###
+## [<ins>v1.8.38 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.38)  ##
 
 #### FLAM3H™ ####
 
@@ -2336,7 +2343,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.36 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.36) ###
+## [<ins>v1.8.36 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.36)  ##
 
 #### FLAM3H™ ####
 
@@ -2350,7 +2357,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.35) ###
+## [<ins>v1.8.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.35)  ##
 
 #### FLAM3H™ ####
 
@@ -2364,7 +2371,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.33) ###
+## [<ins>v1.8.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.33)  ##
 
 #### FLAM3H™ ####
 
@@ -2378,7 +2385,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.31 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.31) ###
+## [<ins>v1.8.31 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.31)  ##
 
 #### FLAM3H™ ####
 
@@ -2391,7 +2398,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.30 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.30) ###
+## [<ins>v1.8.30 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.30)  ##
 
 #### FLAM3H™ ####
 
@@ -2405,7 +2412,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.28 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.28) ###
+## [<ins>v1.8.28 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.28)  ##
 
 #### FLAM3H™ ####
 
@@ -2420,7 +2427,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.25 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.25) ###
+## [<ins>v1.8.25 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.25)  ##
 
 #### FLAM3H™ ####
 
@@ -2435,7 +2442,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.22 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.22) ###
+## [<ins>v1.8.22 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.22)  ##
 
 #### FLAM3H™ ####
 
@@ -2448,7 +2455,7 @@ _This release complete a very, very long polyshing period of all that was done i
 
 
 
-### [<ins>v1.8.20 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.20) ###
+## [<ins>v1.8.20 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.20)  ##
 
 _This is a migration release to a newer python version, for now to: python **3.11** as of: **Houdini 20.5.x**._<br>
 _No much changes yet but it is a start and it will be the way forward._
@@ -2468,7 +2475,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.8.15 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.15) ###
+## [<ins>v1.8.15 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.15)  ##
 
 #### FLAM3H™ ####
 
@@ -2481,7 +2488,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.8.14 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.14) ###
+## [<ins>v1.8.14 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.14)  ##
 
 #### FLAM3H™ ####
 
@@ -2495,7 +2502,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.8.13 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.13) ###
+## [<ins>v1.8.13 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.13)  ##
 
 #### FLAM3H™ ####
 
@@ -2512,7 +2519,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.8.12 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.12) ###
+## [<ins>v1.8.12 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.12)  ##
 
 #### FLAM3H™ ####
 
@@ -2526,7 +2533,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.8.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.10) ###
+## [<ins>v1.8.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.10)  ##
 
 #### FLAM3H™ ####
 
@@ -2540,7 +2547,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.8.08 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.08) ###
+## [<ins>v1.8.08 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.08)  ##
 
 #### FLAM3H™ ####
 
@@ -2553,7 +2560,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.8.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.07) ###
+## [<ins>v1.8.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.07)  ##
 
 #### FLAM3H™ ####
 
@@ -2567,7 +2574,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.8.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.00) ###
+## [<ins>v1.8.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.00)  ##
 
 #### FLAM3H™ ####
 
@@ -2580,7 +2587,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.98 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.98) ###
+## [<ins>v1.7.98 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.98)  ##
 
 #### FLAM3H™ ####
 
@@ -2597,7 +2604,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.94 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.94) ###
+## [<ins>v1.7.94 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.94)  ##
 
 #### FLAM3H™ ####
 
@@ -2610,7 +2617,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.90) ###
+## [<ins>v1.7.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.90)  ##
 
 #### FLAM3H™ ####
 
@@ -2622,7 +2629,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.88 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.88) ###
+## [<ins>v1.7.88 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.88)  ##
 
 #### FLAM3H™ ####
 
@@ -2636,7 +2643,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.85 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.85) ###
+## [<ins>v1.7.85 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.85)  ##
 
 #### FLAM3H™ ####
 
@@ -2648,7 +2655,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.84 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.84) ###
+## [<ins>v1.7.84 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.84)  ##
 
 #### FLAM3H™ ####
 
@@ -2660,7 +2667,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.83 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.83) ###
+## [<ins>v1.7.83 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.83)  ##
 
 #### FLAM3H™ ####
 
@@ -2672,7 +2679,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.82 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.82) ###
+## [<ins>v1.7.82 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.82)  ##
 
 #### FLAM3H™ ####
 
@@ -2684,7 +2691,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.80) ###
+## [<ins>v1.7.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.80)  ##
 
 #### FLAM3H™ ####
 
@@ -2698,7 +2705,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.77) ###
+## [<ins>v1.7.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.77)  ##
 
 #### FLAM3H™ ####
 
@@ -2720,7 +2727,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.60) ###
+## [<ins>v1.7.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.60)  ##
 
 #### FLAM3H™ ####
 
@@ -2735,7 +2742,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.55) ###
+## [<ins>v1.7.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.55)  ##
 
 #### FLAM3H™ ####
 
@@ -2750,7 +2757,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.51 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.51) ###
+## [<ins>v1.7.51 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.51)  ##
 
 #### FLAM3H™ ####
 
@@ -2765,7 +2772,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.47 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.47) ###
+## [<ins>v1.7.47 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.47)  ##
 
 #### FLAM3H™ ####
 
@@ -2778,7 +2785,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 
 
-### [<ins>v1.7.45 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.45) ###
+## [<ins>v1.7.45 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.45)  ##
 
 #### FLAM3H™ ####
 
@@ -2798,7 +2805,7 @@ _No much changes yet but it is a start and it will be the way forward._
 <br>
 
 
-### [<ins>v1.7.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.35) ###
+## [<ins>v1.7.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.35)  ##
 
 #### FLAM3H™ ####
 
@@ -2813,7 +2820,7 @@ _No much changes yet but it is a start and it will be the way forward._
 <br>
 
 
-### [<ins>v1.7.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.33) ###
+## [<ins>v1.7.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.33)  ##
 
 #### FLAM3H™ ####
 
@@ -2826,7 +2833,7 @@ _No much changes yet but it is a start and it will be the way forward._
 <br>
 
 
-### [<ins>v1.7.30 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.30) ###
+## [<ins>v1.7.30 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.30)  ##
 
 #### FLAM3H™ ####
 
@@ -2839,7 +2846,7 @@ _No much changes yet but it is a start and it will be the way forward._
 <br>
 
 
-### [<ins>v1.7.27 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.27) ###
+## [<ins>v1.7.27 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.27)  ##
 
 #### FLAM3H™ ####
 
@@ -2855,7 +2862,7 @@ _No much changes yet but it is a start and it will be the way forward._
 <br>
 
 
-### [<ins>v1.7.22 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.22) ###
+## [<ins>v1.7.22 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.22)  ##
 
 #### FLAM3H™ ####
 
@@ -2873,7 +2880,7 @@ _No much changes yet but it is a start and it will be the way forward._
 <br>
 
 
-### [<ins>v1.7.12 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.12) ###
+## [<ins>v1.7.12 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.12)  ##
 
 #### FLAM3H™ ####
 
@@ -2893,7 +2900,7 @@ _No much changes yet but it is a start and it will be the way forward._
 <br>
 
 
-### [<ins>v1.7.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.07) ###
+## [<ins>v1.7.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.07)  ##
 
 #### FLAM3H™ ####
 
@@ -2913,7 +2920,7 @@ _No much changes yet but it is a start and it will be the way forward._
 <br>
 
 
-### [<ins>v1.7.04 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.04) ###
+## [<ins>v1.7.04 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.04)  ##
 
 #### FLAM3H™ ####
 
@@ -2933,7 +2940,7 @@ _No much changes yet but it is a start and it will be the way forward._
 <br>
 
 
-### [<ins>v1.7.01 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.01) ###
+## [<ins>v1.7.01 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.01)  ##
 
 #### FLAM3H™ ####
 
@@ -2944,7 +2951,7 @@ _No much changes yet but it is a start and it will be the way forward._
 <br>
 
 
-### [<ins>v1.7.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.00) ###
+## [<ins>v1.7.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.00)  ##
 
 #### FLAM3H™ ####
 
@@ -2961,7 +2968,7 @@ _No much changes yet but it is a start and it will be the way forward._
 <br>
 
 
-### [<ins>v1.6.97 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.97) ###
+## [<ins>v1.6.97 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.97)  ##
 
 #### FLAM3H™ ####
 
@@ -2984,7 +2991,7 @@ _No much changes yet but it is a start and it will be the way forward._
 <br>
 
 
-### [<ins>v1.6.91 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.91) ###
+## [<ins>v1.6.91 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.91)  ##
 
 _This update is all about FLAM3H™USD._
 
@@ -3006,7 +3013,7 @@ _This update is all about FLAM3H™USD._
 <br>
 
 
-### [<ins>v1.6.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.90) ###
+## [<ins>v1.6.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.90)  ##
 
 #### FLAM3H™ ####
 
@@ -3031,7 +3038,7 @@ _This update is all about FLAM3H™USD._
 <br>
 
 
-### [<ins>v1.6.84 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.84) ###
+## [<ins>v1.6.84 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.84)  ##
 
 #### FLAM3H™ ####
 
@@ -3053,7 +3060,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### [<ins>v1.6.82 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.82) ###
+## [<ins>v1.6.82 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.82)  ##
 
 #### FLAM3H™ ####
 
@@ -3064,7 +3071,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### [<ins>v1.6.81 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.81) ###
+## [<ins>v1.6.81 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.81)  ##
 
 #### FLAM3H™ ####
 
@@ -3075,7 +3082,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### [<ins>v1.6.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.80) ###
+## [<ins>v1.6.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.80)  ##
 
 #### FLAM3H™ ####
 
@@ -3089,7 +3096,10 @@ _This simple utility node got an upgrade._
 <details>
 <summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2024 Releases</summary>
 
-### [<ins>v1.6.78 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.78) ###
+<br>
+<br>
+
+## [<ins>v1.6.78 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.78)  ##
 
 #### FLAM3H™ ####
 
@@ -3101,7 +3111,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### [<ins>v1.6.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.77) ###
+## [<ins>v1.6.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.77)  ##
 
 #### FLAM3H™ ####
 
@@ -3113,7 +3123,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### [<ins>v1.6.76 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.76) ###
+## [<ins>v1.6.76 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.76)  ##
 
 #### FLAM3H™ ####
 
@@ -3125,7 +3135,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### [<ins>v1.6.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.75) ###
+## [<ins>v1.6.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.75)  ##
 
 #### FLAM3H™ ####
 
@@ -3140,7 +3150,7 @@ _This simple utility node got an upgrade._
 
 
 
-### [<ins>v1.6.65 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.65) ###
+## [<ins>v1.6.65 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.65)  ##
 
 _This release is a tentative: **Final** as of **H20.5.x**:_
 
@@ -3154,7 +3164,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 <br>
 
 
-### [<ins>v1.6.63 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.63) ###
+## [<ins>v1.6.63 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.63)  ##
 
 #### FLAM3H™ ####
 
@@ -3168,7 +3178,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 <br>
 
 
-### [<ins>v1.6.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.60) ###
+## [<ins>v1.6.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.60)  ##
 
 #### FLAM3H™ ####
 
@@ -3184,7 +3194,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 <br>
 
 
-### [<ins>v1.6.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.50) ###
+## [<ins>v1.6.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.50)  ##
 
 #### FLAM3H™ ####
 
@@ -3214,7 +3224,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 <br>
 
 
-### [<ins>v1.6.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.10) ###
+## [<ins>v1.6.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.10)  ##
 
 _This is the last update of 2024, after a very long time of development and unit test (**years**) it is now considered in good shape ;D_
 
@@ -3232,7 +3242,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### [<ins>v1.6.09 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.09) ###
+## [<ins>v1.6.09 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.09)  ##
 
 #### FLAM3H™ ####
 
@@ -3245,7 +3255,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### [<ins>v1.6.06 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.06) ###
+## [<ins>v1.6.06 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.06)  ##
 
 #### FLAM3H™ ####
 
@@ -3257,7 +3267,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### [<ins>v1.6.05 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.05) ###
+## [<ins>v1.6.05 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.05)  ##
 
 #### FLAM3H™ ####
 
@@ -3270,7 +3280,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### [<ins>v1.6.02 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.02) ###
+## [<ins>v1.6.02 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.02)  ##
 
 #### FLAM3H™ ####
 
@@ -3281,7 +3291,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### [<ins>v1.6.01 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.01) ###
+## [<ins>v1.6.01 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.01)  ##
 
 #### FLAM3H™ ####
 
@@ -3293,7 +3303,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### [<ins>v1.6.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.00) ###
+## [<ins>v1.6.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.00)  ##
 
 #### FLAM3H™ ####
 
@@ -3314,7 +3324,7 @@ _Some of those small fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.98 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.98) ###
+## [<ins>v1.5.98 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.98)  ##
 
 #### FLAM3H™ ####
 
@@ -3326,7 +3336,7 @@ _Some of those small fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.97 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.97) ###
+## [<ins>v1.5.97 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.97)  ##
 
 #### FLAM3H™ ####
 
@@ -3337,7 +3347,7 @@ _Some of those small fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.96 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.96) ###
+## [<ins>v1.5.96 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.96)  ##
 
 #### FLAM3H™ ####
 
@@ -3353,7 +3363,7 @@ _Some of those small fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.95 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.95) ###
+## [<ins>v1.5.95 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.95)  ##
 
 #### FLAM3H™ ####
 
@@ -3372,7 +3382,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.93 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.93) ###
+## [<ins>v1.5.93 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.93)  ##
 
 #### FLAM3H™ ####
 
@@ -3385,7 +3395,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.90) ###
+## [<ins>v1.5.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.90)  ##
 
 #### FLAM3H™ ####
 
@@ -3400,7 +3410,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.88 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.88) ###
+## [<ins>v1.5.88 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.88)  ##
 
 #### FLAM3H™ ####
 
@@ -3413,7 +3423,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.85 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.85) ###
+## [<ins>v1.5.85 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.85)  ##
 
 #### FLAM3H™ ####
 
@@ -3425,7 +3435,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.84 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.84) ###
+## [<ins>v1.5.84 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.84)  ##
 
 #### FLAM3H™ ####
 
@@ -3439,7 +3449,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.82 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.82) ###
+## [<ins>v1.5.82 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.82)  ##
 
 #### FLAM3H™ ####
 
@@ -3450,7 +3460,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.81 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.81) ###
+## [<ins>v1.5.81 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.81)  ##
 
 #### FLAM3H™ ####
 
@@ -3462,7 +3472,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.80) ###
+## [<ins>v1.5.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.80)  ##
 
 #### FLAM3H™ ####
 
@@ -3474,7 +3484,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.78 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.78) ###
+## [<ins>v1.5.78 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.78)  ##
 
 #### FLAM3H™ ####
 
@@ -3485,7 +3495,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.77) ###
+## [<ins>v1.5.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.77)  ##
 
 #### FLAM3H™ ####
 
@@ -3498,7 +3508,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.74 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.74) ###
+## [<ins>v1.5.74 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.74)  ##
 
 #### FLAM3H™ ####
 
@@ -3512,7 +3522,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.72 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.72) ###
+## [<ins>v1.5.72 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.72)  ##
 
 #### FLAM3H™ ####
 
@@ -3524,7 +3534,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.70 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.70) ###
+## [<ins>v1.5.70 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.70)  ##
 
 #### FLAM3H™ ####
 
@@ -3537,7 +3547,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.68 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.68) ###
+## [<ins>v1.5.68 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.68)  ##
 
 #### FLAM3H™ ####
 
@@ -3549,7 +3559,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.66 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.66) ###
+## [<ins>v1.5.66 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.66)  ##
 
 #### FLAM3H™ ####
 
@@ -3565,7 +3575,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.64 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.64) ###
+## [<ins>v1.5.64 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.64)  ##
 
 #### FLAM3H™ ####
 
@@ -3578,7 +3588,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.62 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.62) ###
+## [<ins>v1.5.62 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.62)  ##
 
 #### FLAM3H™ ####
 
@@ -3589,7 +3599,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.60) ###
+## [<ins>v1.5.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.60)  ##
 
 #### FLAM3H™ ####
 
@@ -3606,7 +3616,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.56 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.56) ###
+## [<ins>v1.5.56 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.56)  ##
 
 #### FLAM3H™ ####
 
@@ -3618,7 +3628,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.55) ###
+## [<ins>v1.5.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.55)  ##
 
 #### FLAM3H™ ####
 
@@ -3631,7 +3641,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.54 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.54) ###
+## [<ins>v1.5.54 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.54)  ##
 
 #### FLAM3H™ ####
 
@@ -3644,7 +3654,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.53c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.53c) ###
+## [<ins>v1.5.53c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.53c)  ##
 
 #### FLAM3H™ ####
 
@@ -3656,7 +3666,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.53b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.53b) ###
+## [<ins>v1.5.53b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.53b)  ##
 
 #### FLAM3H™ ####
 
@@ -3668,7 +3678,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.53 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.53) ###
+## [<ins>v1.5.53 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.53)  ##
 
 #### FLAM3H™ ####
 
@@ -3679,7 +3689,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.52 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.52) ###
+## [<ins>v1.5.52 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.52)  ##
 
 #### FLAM3H™ ####
 
@@ -3692,7 +3702,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.50) ###
+## [<ins>v1.5.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.50)  ##
 
 #### FLAM3H™ ####
 
@@ -3704,7 +3714,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.45 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.45) ###
+## [<ins>v1.5.45 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.45)  ##
 
 #### FLAM3H™ ####
 
@@ -3718,7 +3728,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.42 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.42) ###
+## [<ins>v1.5.42 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.42)  ##
 
 #### FLAM3H™ ####
 
@@ -3730,7 +3740,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.41 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.41) ###
+## [<ins>v1.5.41 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.41)  ##
 
 #### FLAM3H™ ####
 
@@ -3743,7 +3753,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.39 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.39) ###
+## [<ins>v1.5.39 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.39)  ##
 
 #### FLAM3H™ ####
 
@@ -3755,7 +3765,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.37) ###
+## [<ins>v1.5.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.37)  ##
 
 #### FLAM3H™ ####
 
@@ -3768,7 +3778,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.35) ###
+## [<ins>v1.5.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.35)  ##
 
 #### FLAM3H™ ####
 
@@ -3779,7 +3789,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.33) ###
+## [<ins>v1.5.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.33)  ##
 
 #### FLAM3H™ ####
 
@@ -3793,7 +3803,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.30b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.30b) ###
+## [<ins>v1.5.30b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.30b)  ##
 
 #### FLAM3H™ ####
 
@@ -3804,7 +3814,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.30 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.30) ###
+## [<ins>v1.5.30 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.30)  ##
 
 #### FLAM3H™ ####
 
@@ -3817,7 +3827,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.26 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.26) ###
+## [<ins>v1.5.26 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.26)  ##
 
 #### FLAM3H™ ####
 
@@ -3831,7 +3841,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.22 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.22) ###
+## [<ins>v1.5.22 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.22)  ##
 
 #### FLAM3H™ ####
 
@@ -3844,7 +3854,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.20 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.20) ###
+## [<ins>v1.5.20 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.20)  ##
 
 #### FLAM3H™ ####
 
@@ -3856,7 +3866,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.17 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.17) ###
+## [<ins>v1.5.17 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.17)  ##
 
 #### FLAM3H™ ####
 
@@ -3868,7 +3878,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.15 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.15) ###
+## [<ins>v1.5.15 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.15)  ##
 
 #### FLAM3H™ ####
 
@@ -3883,7 +3893,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.10) ###
+## [<ins>v1.5.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.10)  ##
 
 #### FLAM3H™ ####
 
@@ -3897,7 +3907,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.06 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.06) ###
+## [<ins>v1.5.06 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.06)  ##
 
 #### FLAM3H™ ####
 
@@ -3908,7 +3918,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.05 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.05) ###
+## [<ins>v1.5.05 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.05)  ##
 
 #### FLAM3H™ ####
 
@@ -3923,7 +3933,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.00b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.00b) ###
+## [<ins>v1.5.00b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.00b)  ##
 
 #### FLAM3H™ ####
 
@@ -3934,7 +3944,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.5.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.00) ###
+## [<ins>v1.5.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.00)  ##
 
 #### FLAM3H™ ####
 
@@ -3959,7 +3969,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.4.95 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.95) ###
+## [<ins>v1.4.95 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.95)  ##
 
 #### FLAM3H™ ####
 
@@ -3972,7 +3982,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.4.94 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.94) ###
+## [<ins>v1.4.94 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.94)  ##
 
 #### FLAM3H™ ####
 
@@ -3989,7 +3999,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.4.88 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.88) ###
+## [<ins>v1.4.88 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.88)  ##
 
 #### FLAM3H™ ####
 
@@ -4003,7 +4013,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.4.84 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.84) ###
+## [<ins>v1.4.84 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.84)  ##
 
 #### FLAM3H™ ####
 
@@ -4015,7 +4025,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.4.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.80) ###
+## [<ins>v1.4.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.80)  ##
 
 #### FLAM3H™ ####
 
@@ -4030,7 +4040,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.4.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.77) ###
+## [<ins>v1.4.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.77)  ##
 
 #### FLAM3H™ ####
 
@@ -4043,7 +4053,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### [<ins>v1.4.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.75) ###
+## [<ins>v1.4.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.75)  ##
 
 _This update focus is mainly to improve the UI performance_:
 
@@ -4066,7 +4076,7 @@ _This update focus is mainly to improve the UI performance_:
 <br>
 
 
-### [<ins>v1.4.65c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.65c) ###
+## [<ins>v1.4.65c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.65c)  ##
 
 #### FLAM3H™ ####
 
@@ -4078,7 +4088,7 @@ _This update focus is mainly to improve the UI performance_:
 <br>
 
 
-### [<ins>v1.4.65b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.65b) ###
+## [<ins>v1.4.65b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.65b)  ##
 
 _Updated py_flam3 version number_:
 
@@ -4103,7 +4113,7 @@ _Updated py_flam3 version number_:
 <br>
 
 
-### [<ins>v1.4.48 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.48) ###
+## [<ins>v1.4.48 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.48)  ##
 
 #### FLAM3H™ ####
 
@@ -4117,7 +4127,7 @@ _Updated py_flam3 version number_:
 <br>
 
 
-### [<ins>v1.4.44 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.44) ###
+## [<ins>v1.4.44 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.44)  ##
 
 #### FLAM3H™ ####
 
@@ -4132,7 +4142,7 @@ _Updated py_flam3 version number_:
 <br>
 
 
-### [<ins>v1.4.38 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.38) ###
+## [<ins>v1.4.38 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.38)  ##
 
 #### FLAM3H™ ####
 
@@ -4145,7 +4155,7 @@ _Updated py_flam3 version number_:
 <br>
 
 
-### [<ins>v1.4.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.35) ###
+## [<ins>v1.4.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.35)  ##
 
 #### FLAM3H™ ####
 
@@ -4159,7 +4169,7 @@ _Updated py_flam3 version number_:
 <br>
 
 
-### [<ins>v1.4.31 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.31) ###
+## [<ins>v1.4.31 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.31)  ##
 
 #### FLAM3H™ ####
 
@@ -4170,7 +4180,7 @@ _Updated py_flam3 version number_:
 <br>
 
 
-### [<ins>v1.4.30 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.30) ###
+## [<ins>v1.4.30 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.30)  ##
 
 _More small things:_
 
@@ -4188,7 +4198,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.4.23 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.23) ###
+## [<ins>v1.4.23 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.23)  ##
 
 #### FLAM3H™ ####
 
@@ -4201,7 +4211,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.4.15 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.15) ###
+## [<ins>v1.4.15 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.15)  ##
 
 #### FLAM3H™ ####
 
@@ -4222,7 +4232,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.4.05b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.05b) ###
+## [<ins>v1.4.05b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.05b)  ##
 
 #### FLAM3H™ ####
 
@@ -4233,7 +4243,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.4.05 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.05) ###
+## [<ins>v1.4.05 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.05)  ##
 
 #### FLAM3H™ ####
 
@@ -4247,14 +4257,14 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.4.01 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.01) ###
+## [<ins>v1.4.01 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.01)  ##
 
 #### FLAM3H™ ####
 
 - **Fix**: When copy the OUT preset flame name it will now print the copied name with a flash message or give a warning message in the status bar otherwise.
 
 
-### [<ins>v1.4.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.00) ###
+## [<ins>v1.4.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.00)  ##
 
 #### FLAM3H™ ####
 
@@ -4269,7 +4279,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.96 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.96) ###
+## [<ins>v1.3.96 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.96)  ##
 
 #### FLAM3H™ ####
 
@@ -4285,7 +4295,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.90) ###
+## [<ins>v1.3.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.90)  ##
 
 #### FLAM3H™ ####
 
@@ -4308,7 +4318,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.77) ###
+## [<ins>v1.3.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.77)  ##
 
 #### FLAM3H™ ####
 
@@ -4324,7 +4334,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.70 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.70) ###
+## [<ins>v1.3.70 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.70)  ##
 
 #### FLAM3H™ ####
 
@@ -4343,7 +4353,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.62 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.62) ###
+## [<ins>v1.3.62 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.62)  ##
 
 #### FLAM3H™ ####
 
@@ -4359,7 +4369,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.56 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.56) ###
+## [<ins>v1.3.56 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.56)  ##
 
 #### FLAM3H™ ####
 
@@ -4370,7 +4380,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.54 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.54) ###
+## [<ins>v1.3.54 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.54)  ##
 
 #### FLAM3H™ ####
 
@@ -4381,7 +4391,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.53 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.53) ###
+## [<ins>v1.3.53 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.53)  ##
 
 #### FLAM3H™ ####
 
@@ -4394,7 +4404,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.50) ###
+## [<ins>v1.3.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.50)  ##
 
 #### FLAM3H™ ####
 
@@ -4410,7 +4420,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.45 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.45) ###
+## [<ins>v1.3.45 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.45)  ##
 
 #### FLAM3H™ ####
 
@@ -4423,7 +4433,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.44 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.44) ###
+## [<ins>v1.3.44 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.44)  ##
 
 #### FLAM3H™ ####
 
@@ -4437,7 +4447,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.40 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.40) ###
+## [<ins>v1.3.40 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.40)  ##
 
 #### FLAM3H™ ####
 
@@ -4452,7 +4462,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.37) ###
+## [<ins>v1.3.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.37)  ##
 
 #### FLAM3H™ ####
 
@@ -4466,7 +4476,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.35) ###
+## [<ins>v1.3.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.35)  ##
 
 #### FLAM3H™ ####
 
@@ -4479,7 +4489,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.33) ###
+## [<ins>v1.3.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.33)  ##
 
 #### FLAM3H™ ####
 
@@ -4500,7 +4510,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.20 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.20) ###
+## [<ins>v1.3.20 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.20)  ##
 
 #### FLAM3H™ ####
 
@@ -4520,7 +4530,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.3.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.07) ###
+## [<ins>v1.3.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.07)  ##
 
 #### FLAM3H™ ####
 
@@ -4568,7 +4578,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.2.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.75) ###
+## [<ins>v1.2.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.75)  ##
 
 #### FLAM3H™ ####
 
@@ -4598,7 +4608,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.2.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.60) ###
+## [<ins>v1.2.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.60)  ##
 
 - **New**: Added check for chaotica XML style files, wich are not supported but now it wont error out if the user try to load them anyway.
 - **New**: Added few more flash messages for IN/OUT flame actions and few others.
@@ -4612,7 +4622,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.2.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.55) ###
+## [<ins>v1.2.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.55)  ##
 
 #### FLAM3H™ ####
 
@@ -4629,7 +4639,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.2.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.50) ###
+## [<ins>v1.2.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.50)  ##
 
 #### FLAM3H™ ####
 
@@ -4654,7 +4664,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.2.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.37) ###
+## [<ins>v1.2.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.37)  ##
 
 #### FLAM3H™ ####
 
@@ -4679,7 +4689,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.2.25 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.25) ###
+## [<ins>v1.2.25 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.25)  ##
 
 #### FLAM3H™ ####
 
@@ -4708,7 +4718,10 @@ _More small things:_
 <details>
 <summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2023 Releases</summary>
 
-### [<ins>v1.1.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.90) ###
+<br>
+<br>
+
+## [<ins>v1.1.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.90)  ##
 
 #### FLAM3H™ ####
 
@@ -4728,7 +4741,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.1.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.80) ###
+## [<ins>v1.1.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.80)  ##
 
 #### FLAM3H™ ####
 
@@ -4747,7 +4760,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.1.70 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.70) ###
+## [<ins>v1.1.70 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.70)  ##
 
 #### FLAM3H™ ####
 
@@ -4765,7 +4778,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.1.62 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.62) ###
+## [<ins>v1.1.62 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.62)  ##
 
 #### FLAM3H™ ####
 
@@ -4782,7 +4795,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.1.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.55) ###
+## [<ins>v1.1.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.55)  ##
 
 #### FLAM3H™ ####
 
@@ -4803,7 +4816,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.1.45 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.45) ###
+## [<ins>v1.1.45 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.45)  ##
 
 #### FLAM3H™ ####
 
@@ -4825,7 +4838,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.1.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.33) ###
+## [<ins>v1.1.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.33)  ##
 
 #### FLAM3H™ ####
 
@@ -4847,7 +4860,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.1.23 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.23) ###
+## [<ins>v1.1.23 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.23)  ##
 
 #### FLAM3H™ ####
 
@@ -4861,7 +4874,7 @@ _More small things:_
 <br>
 
 
-### [<ins>v1.1.22 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.22) ###
+## [<ins>v1.1.22 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.22)  ##
 
 _This update improves upon nearly everything, focusing mostly on the  workflow and user experience that was already in place. For example the method for the copy/paste iterator's data has been completely rebuilt to integrate with the Xaos method. Now that Xaos is completely automated, they employ their own techniques to handle Undo's actions. Additionally, it addresses a tonne of minor issues that were overlooked in preview releases._
 
@@ -4909,7 +4922,7 @@ _This update improves upon nearly everything, focusing mostly on the  workflow a
 <br>
 
 
-### [<ins>v1.0.28 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.0.28) ###
+## [<ins>v1.0.28 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.0.28)  ##
 
 _Will update once H20 release._ 
 
@@ -4928,7 +4941,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v1.0.25 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.0.25) ###
+## [<ins>v1.0.25 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.0.25)  ##
 
 #### FLAM3H™ ####
 
@@ -4954,7 +4967,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v1.0.23 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.0.23) ###
+## [<ins>v1.0.23 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.0.23)  ##
 
 #### FLAM3H™ ####
 
@@ -4981,7 +4994,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v1.0.15 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.0.15) ###
+## [<ins>v1.0.15 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.0.15)  ##
 
 #### FLAM3H™ ####
 
@@ -5011,7 +5024,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v1.0.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.0.0) ###
+## [<ins>v1.0.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.0.0)  ##
 
 #### FLAM3H™ ####
 
@@ -5060,7 +5073,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.9.5.2 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.5.2) ###
+## [<ins>v0.9.5.2 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.5.2)  ##
 
 #### FLAM3H™ ####
 
@@ -5080,7 +5093,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.9.5 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.5) ###
+## [<ins>v0.9.5 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.5)  ##
 
 #### FLAM3H™ ####
 
@@ -5113,7 +5126,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.9.3d indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.3d) ###
+## [<ins>v0.9.3d indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.3d)  ##
 
 #### FLAM3H™ ####
 
@@ -5128,7 +5141,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.9.3c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.3c) ###
+## [<ins>v0.9.3c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.3c)  ##
 
 #### FLAM3H™ ####
 
@@ -5145,7 +5158,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.9.3 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.3) ###
+## [<ins>v0.9.3 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.3)  ##
 
 #### FLAM3H™ ####
 
@@ -5164,7 +5177,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.9.2b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.2b) ###
+## [<ins>v0.9.2b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.2b)  ##
 
 #### FLAM3H™ ####
 
@@ -5181,7 +5194,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.9.2 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.2) ###
+## [<ins>v0.9.2 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.2)  ##
 
 #### FLAM3H™ ####
 
@@ -5197,7 +5210,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.9.1c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.1c) ###
+## [<ins>v0.9.1c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.1c)  ##
 
 #### FLAM3H™ ####
 
@@ -5214,7 +5227,10 @@ _Will update once H20 release._
 <details>
 <summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2022 Releases</summary>
 
-### [<ins>v0.9.1 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.1) ###
+<br>
+<br>
+
+## [<ins>v0.9.1 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.1)  ##
 
 #### FLAM3H™ ####
 
@@ -5235,7 +5251,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.9.0c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.0c) ###
+## [<ins>v0.9.0c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.0c)  ##
 
 #### FLAM3H™ ####
 
@@ -5251,7 +5267,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.9.0b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.0b) ###
+## [<ins>v0.9.0b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.0b)  ##
 
 #### FLAM3H™ ####
 
@@ -5266,7 +5282,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.9.0 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.0) ###
+## [<ins>v0.9.0 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.0)  ##
 
 #### FLAM3H™ ####
 
@@ -5282,7 +5298,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.8.9b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.9b) ###
+## [<ins>v0.8.9b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.9b)  ##
 
 #### FLAM3H™ ####
 
@@ -5295,7 +5311,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.8.8 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.8) ###
+## [<ins>v0.8.8 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.8)  ##
 
 #### FLAM3H™ ####
 
@@ -5308,7 +5324,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.8.7 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.7) ###
+## [<ins>v0.8.7 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.7)  ##
 
 #### FLAM3H™ ####
 
@@ -5319,7 +5335,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.8.6 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.6) ###
+## [<ins>v0.8.6 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.6)  ##
 
 #### FLAM3H™ ####
 
@@ -5334,7 +5350,10 @@ _Will update once H20 release._
 <details>
 <summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2021 Releases</summary>
 
-### [<ins>v0.8.5 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.5) ###
+<br>
+<br>
+
+## [<ins>v0.8.5 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.5)  ##
 
 #### FLAM3H™ ####
 
@@ -5352,7 +5371,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.8.0 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.0) ###
+## [<ins>v0.8.0 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.0)  ##
 
 #### FLAM3H™ ####
 
@@ -5367,7 +5386,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.7.9 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.9) ###
+## [<ins>v0.7.9 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.9)  ##
 
 #### FLAM3H™ ####
 
@@ -5380,7 +5399,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.7.8b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.8b) ###
+## [<ins>v0.7.8b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.8b)  ##
 
 #### FLAM3H™ H18.x ####
 
@@ -5394,7 +5413,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.7.7c3 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.7c3) ###
+## [<ins>v0.7.7c3 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.7c3)  ##
 
 #### FLAM3H™ H18.x ####
 
@@ -5405,7 +5424,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.7.7c2 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.7c2) ###
+## [<ins>v0.7.7c2 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.7c2)  ##
 
 #### FLAM3H™ H18.x ####
 
@@ -5416,7 +5435,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.7.7c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.7c) ###
+## [<ins>v0.7.7c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.7c)  ##
 
 #### FLAM3H™ H18.x ####
 
@@ -5430,7 +5449,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.7.6 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.6) ###
+## [<ins>v0.7.6 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.6)  ##
 
 #### FLAM3H™ H18.x ####
 
@@ -5441,7 +5460,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.7.5d indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.5d) ###
+## [<ins>v0.7.5d indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.5d)  ##
 
 #### FLAM3H™ H18.x ####
 
@@ -5452,7 +5471,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.7.5c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.5c) ###
+## [<ins>v0.7.5c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.5c)  ##
 
 #### FLAM3H™ H18.x ####
 
@@ -5461,7 +5480,7 @@ _Will update once H20 release._
 <br>
 
 
-### [<ins>v0.7.5 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.5) ###
+## [<ins>v0.7.5 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.5)  ##
 
 #### FLAM3H™ H18.x ####
 
