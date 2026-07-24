@@ -77,10 +77,10 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_F_docStarSVG.svg
 | **SYS** | `sys_reframe` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
-<p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_FrameRedUSDSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameRedSVG.svg
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameRedUSDSVG.svg
 ```
 
 </br>
