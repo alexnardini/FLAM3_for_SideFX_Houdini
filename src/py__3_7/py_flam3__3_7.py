@@ -7701,9 +7701,20 @@ class flam3h_iterator_utils
         
         try:
             hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
-            from_FLAM3HNODE: Union[hou.SopNode, None] = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
+            
         except:
-            from_FLAM3HNODE = None
+            
+            try:
+                hou.session.F3H_MARKED_FF_NODE.type() # type: ignore
+                
+            except:
+                from_FLAM3HNODE = None
+                
+            else:
+                from_FLAM3HNODE: Union[hou.SopNode, None] = hou.session.F3H_MARKED_FF_NODE # type: ignore
+            
+        else:
+            from_FLAM3HNODE: Union[hou.SopNode, None] = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
         
         if from_FLAM3HNODE is not None and node == from_FLAM3HNODE:  # type: ignore
             hou.session.F3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = None # type: ignore

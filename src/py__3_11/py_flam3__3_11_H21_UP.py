@@ -8625,7 +8625,15 @@ class flam3h_iterator_utils
             hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
             
         except (AttributeError, hou.ObjectWasDeleted):
-            from_FLAM3HNODE = None
+            
+            try:
+                hou.session.F3H_MARKED_FF_NODE.type() # type: ignore
+                
+            except (AttributeError, hou.ObjectWasDeleted):
+                from_FLAM3HNODE = None
+                
+            else:
+                from_FLAM3HNODE: TA_MNode = hou.session.F3H_MARKED_FF_NODE # type: ignore
             
         else:
             from_FLAM3HNODE: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore

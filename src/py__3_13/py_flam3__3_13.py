@@ -8749,7 +8749,15 @@ class flam3h_iterator_utils
             hou.session.F3H_MARKED_ITERATOR_NODE.type() # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
             
         except (AttributeError, hou.ObjectWasDeleted):
-            from_FLAM3HNODE = None
+            
+            try:
+                hou.session.F3H_MARKED_FF_NODE.type() # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+                
+            except (AttributeError, hou.ObjectWasDeleted):
+                from_FLAM3HNODE = None
+                
+            else:
+                from_FLAM3HNODE: TA_MNode = hou.session.F3H_MARKED_FF_NODE # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
             
         else:
             from_FLAM3HNODE: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
