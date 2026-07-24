@@ -19,7 +19,7 @@
 
 # FLAM3H™USD -> UI_ICON_map
 
-- ### Houdini versions:  `H19 to H21 UP`
+- ### Houdini versions:  `H19.0 to H22.0 UP`
 - ### Contents
     - _List of all the UI parameters with ICONS associated with and the command string they are called from and from where_.
 
