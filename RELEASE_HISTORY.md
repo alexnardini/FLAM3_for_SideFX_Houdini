@@ -21,10 +21,12 @@ _One code base, multiple platforms._
 
 ## Houdini versions
 _The following are Houdini versions where FLAM3H™ is fully functional, tested and supported._
-- **H22.0 CL**
+- **H22.0 CL***
 - **H21.0 CL**
 - **H20.5 CL**
 - **H19.0** to **H20.0**
+
+_(*)_ _Indicate the version allowed to run on future Houdini releases._
 
 </br>
 </br>
@@ -38,9 +40,9 @@ They are all available in this Github repository.
 <details>
 <summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2026 Releases</summary>
 
-### [<ins>v2.0.40 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.40) ###
+### [<ins>v2.0.44 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.44) ###
 
-#### FLAM3H™ v2.0.40 indie -> H22.0 UP</br>FLAM3H™ v2.0.35 indie -> H21.0</br>FLAM3H™ v2.0.29 indie -> H20.5</br>FLAM3H™ v1.9.84 indie -> H19.0 to H20 ####
+#### FLAM3H™ v2.0.44 indie -> H22.0 UP</br>FLAM3H™ v2.0.36 indie -> H21.0</br>FLAM3H™ v2.0.30 indie -> H20.5</br>FLAM3H™ v1.9.85 indie -> H19.0 to H20 ####
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
@@ -78,6 +80,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 - **New H22.0 Only**: Reworked a little the iterators/FF UI parameter interface.
 - **New**: Recompiled all **Cvex** code using the latest **H22.0.368** vcc compiler (_No major changes but for piece of mind_).
 - **New**: Updated Houdini version' compatibilities ranges for each HDA (FLAM3H™ and FLAM3H™USD).
+- **Fix**: A rare bug preventing to clear the FF marked node data for copy/paste if no iterators were being marked at the same time. It is now fixed.
 - **Updated HDA documentation.**
 - **Updated GIT documentation.**
 
