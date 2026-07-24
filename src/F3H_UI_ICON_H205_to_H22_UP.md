@@ -1071,7 +1071,7 @@ Here you will create your fractal Flame logic.<br>Since every parameter has the 
 | **FLAME** | `mp_add_#` | `from H21 UP` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> H21 Action Button icon 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H22 Action Button icon 
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H22 Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_AddDelIteratorSVG.svg" /></p>
 
 ```
