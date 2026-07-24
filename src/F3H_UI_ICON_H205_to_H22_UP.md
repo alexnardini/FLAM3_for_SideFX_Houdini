@@ -708,10 +708,10 @@ opdef:/alexnardini::Sop/FLAM3H?icon_SierpinskyDefSVG.svg
 | **SYS** | `frameview` | `from H20.5` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
-<p align="left"><img width="80" height="80" src="../icons/icon_FrameBlueSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_FrameBlueToolSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueToolSVG.svg
 ```
 
 </br>
