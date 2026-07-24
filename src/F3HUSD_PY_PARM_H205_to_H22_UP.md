@@ -19,7 +19,7 @@
 
 # FLAM3H™USD -> PY_PARM_map
 
-- #### Houdini versions:  `H20.5 to H22.0 UP`
+- ### Houdini versions:  `H20.5 to H22.0 UP`
 - ### Contents
     - _Collection of all the python modules run by the tool inside the HDA Type properties -> Script tab_.
     - _List of all the UI parameters wired with a python definition and the command string they actually run and from where_.
