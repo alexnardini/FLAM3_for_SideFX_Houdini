@@ -959,7 +959,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Fra
 
 <p align="center">
   <img width="160" height="160" src="./icon_FrameRedUSDToolSVG.svg" /></p>
-<b><p align="center">icon_FrameRedUSDToolSVG.svg</b> (<i>unused</i>)</p>
+<b><p align="center">icon_FrameRedUSDToolSVG.svg</b></p>
 <p align="center">......</p>
 <p align="center">
 
