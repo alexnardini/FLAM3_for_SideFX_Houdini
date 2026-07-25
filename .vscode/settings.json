@@ -10,7 +10,7 @@
 
     "python.analysis.extraPaths": [
         // Houdini Python libraries
-        "C:/Program Files/Side Effects Software/Houdini 22.0.368/houdini/python3.13libs",
+        "C:/Program Files/Side Effects Software/Houdini 22.0.389/houdini/python3.13libs",
         // User Python packages
         "C:/Users/${env:USERNAME}/AppData/Local/Programs/Python/Python313/Lib/site-packages",
     ],
