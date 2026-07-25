@@ -144,7 +144,7 @@ FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
 
 FLAM3H(tm) Next/Prev [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: F3HNEXTPREV
-    [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg]
+    [Largeicon:opdef:.?icon_optionFlameINEntrieToolSVG.svg]
 
     Import and/or cycle through the available FLAM3H™ nodes instances.
 
