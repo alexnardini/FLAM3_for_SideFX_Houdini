@@ -86,7 +86,7 @@
             parmtag { "oprelative" "." }
             parmtag { "script_action" "node = kwargs['node']\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_cycle_import()\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
             parmtag { "script_action_help" "[LMB] to import a FLAM3H node or to import the next FLAM3H node instance. [SHIFT+LMB] to import a FLAM3H node or to import the preview FLAM3H node instance. If nothing has been imported yet, it will import the FLAM3H node that has not been imported already by others FLAM3USD nodes if any, otherwise it will import the first one to start with. See the HDA documentation for more infos." }
-            parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionFlameINEntrieSVG.svg" }
+            parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionFlameINEntrieToolSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam3h_node(), kwargs['parm'].deleteAllKeyframes()" }
             parmtag { "script_callback_language" "python" }
         }

@@ -76,6 +76,13 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_F_docStarSVG.svg
 |:---|:---|---:|
 | **SYS** | `sys_reframe` | `from H19` |
 
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H19.0 to H20.0 Button icon (_v1.x_)
+<p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG_old.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameRedSVG.svg
+```
+
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H20.5 Button icon (_v1.x, v2.x_)
 <p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG_old.svg" /></p>
 
