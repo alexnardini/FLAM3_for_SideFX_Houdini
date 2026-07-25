@@ -250,7 +250,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<b>F3C</b>: Unchecked -> Chaotica behavior<br/><br/>[<b>LMB</b>] to enable <b>F3C</b>.<br/><br/>The behavior of the:<br/><b>Cos</b>, <b>Cosh</b> <b>Cot</b>, <b>Coth</b>, <b>Csc</b>, <b>Csch</b>, <b>Sec</b>, <b>Sech</b>, <b>Sin</b>, <b>Sinh</b>, <b>Tan</b>, <b>Tanh</b>, <b>Cross</b>, <b>Curve</b>, <b>Edisc</b>, <b>Escher</b>, <b>Fan2</b><br/>variations are different in flam3/Apophysis versus Chaotica.<h3>Checked</h3>Use the Apophysis behavior.<h3>Unchecked</h3>Use the Chaotica behavior.<br/><br/>The behavior of the:<br/><b>Bipolar</b>, <b>Glynnia</b>, <b>Julia</b>, <b>JuliaN</b>, <b>JuliaScope</b><br/>variations are also different in Flam3/Apophysis versus Chaotica<br/>and FLAM3H™ do not implement these Chaotica variants just yet (<i>Fractorium does</i>).<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
+            help    "<b>F3C</b>: Unchecked -> Chaotica behavior<br/><br/>[<b>LMB</b>] to enable <b>F3C</b>.<br/><br/>The behavior of the:<br/><b>Cos</b>, <b>Cosh</b> <b>Cot</b>, <b>Coth</b>, <b>Csc</b>, <b>Csch</b>, <b>Sec</b>, <b>Sech</b>, <b>Sin</b>, <b>Sinh</b>, <b>Tan</b>, <b>Tanh</b>, <b>Cross</b>, <b>Curve</b>, <b>Edisc</b>, <b>Escher</b>, <b>Fan2</b><br/>variations are different in flam3/Apophysis versus Chaotica.<h2>Checked</h2>Use the Apophysis behavior.<h2>Unchecked</h2>Use the Chaotica behavior.<br/><br/>The behavior of the:<br/><b>Bipolar</b>, <b>Glynnia</b>, <b>Julia</b>, <b>JuliaN</b>, <b>JuliaScope</b><br/>variations are also different in Flam3/Apophysis versus Chaotica<br/>and FLAM3H™ do not implement these Chaotica variants just yet (<i>Fractorium does</i>).<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { f3c == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CDisabledSVG.svg" }
@@ -264,7 +264,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<b>F3C</b>: Checked -> Flam3/Apophysis behavior<br/><br/>[<b>LMB</b>] to enable <b>F3C</b>.<br/><br/>The behavior of the:<br/><b>Cos</b>, <b>Cosh</b> <b>Cot</b>, <b>Coth</b>, <b>Csc</b>, <b>Csch</b>, <b>Sec</b>, <b>Sech</b>, <b>Sin</b>, <b>Sinh</b>, <b>Tan</b>, <b>Tanh</b>, <b>Cross</b>, <b>Curve</b>, <b>Edisc</b>, <b>Escher</b>, <b>Fan2</b><br/>variations are different in flam3/Apophysis versus Chaotica.<h3>Checked</h3>Use the Apophysis behavior.<h3>Unchecked</h3>Use the Chaotica behavior.<br/><br/>The behavior of the:<br/><b>Bipolar</b>, <b>Glynnia</b>, <b>Julia</b>, <b>JuliaN</b>, <b>JuliaScope</b><br/>variations are also different in Flam3/Apophysis versus Chaotica<br/>and FLAM3H™ do not implement these Chaotica variants just yet (<i>Fractorium does</i>).<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
+            help    "<b>F3C</b>: Checked -> Flam3/Apophysis behavior<br/><br/>[<b>LMB</b>] to enable <b>F3C</b>.<br/><br/>The behavior of the:<br/><b>Cos</b>, <b>Cosh</b> <b>Cot</b>, <b>Coth</b>, <b>Csc</b>, <b>Csch</b>, <b>Sec</b>, <b>Sech</b>, <b>Sin</b>, <b>Sinh</b>, <b>Tan</b>, <b>Tanh</b>, <b>Cross</b>, <b>Curve</b>, <b>Edisc</b>, <b>Escher</b>, <b>Fan2</b><br/>variations are different in flam3/Apophysis versus Chaotica.<h2>Checked</h2>Use the Apophysis behavior.<h2>Unchecked</h2>Use the Chaotica behavior.<br/><br/>The behavior of the:<br/><b>Bipolar</b>, <b>Glynnia</b>, <b>Julia</b>, <b>JuliaN</b>, <b>JuliaScope</b><br/>variations are also different in Flam3/Apophysis versus Chaotica<br/>and FLAM3H™ do not implement these Chaotica variants just yet (<i>Fractorium does</i>).<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { f3c == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CEnabledSVG.svg" }
@@ -5414,7 +5414,7 @@
                 label   "F3H affine style"
                 type    toggle
                 default { "1" }
-                help    "Save the Flame out with also the <b>F3H affine style</b> format.<br/><br/><b>F3H affine style</b> format are useful when you rotate iterators using the <b>Rot angle</b> parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded back into FLAM3H™.<br/><br/><b>NOTE</b>:<br/>When this toggle is <b>ON</b>, both affine and F3H affine style formats are saved with the Flame preset so that you can still load the saved Flame into other applications."
+                help    "Save the Flame out with also the <b>F3H affine style</b> format.<br/><br/><b>F3H affine style</b> format are useful when you rotate iterators using the <b>Rot angle</b> parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded back into FLAM3H™.<br/><br/><b>NOTE</b>:<br/>When this toggle is <b>ON</b>, both <b>affine</b> and <b>F3H affine style</b> formats are saved with the Flame preset so that you can still load the saved Flame into other applications."
                 parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
             }
@@ -5887,7 +5887,7 @@
                     label   "GPU"
                     type    toggle
                     default { "1" }
-                    help    "Run the algorithm entirely on the GPU device.<br/><br/>This can be hundreds of times faster compared to the <b>CPU</b>(<i>CVEX</i>) implementation depending on the system' GPU device being used.<br/><br/><b>NOTE</b>:<br/>when switching this toggle <b>OFF</b> for the very first time,<br/>Houdini will compile all the FLAM3H™ <b>CPU</b>(<i>CVEX</i>) nodes.<br/>Depending on your PC configuration it can take up to <b>1</b>(<i>one</i>) minute.<br/>It is a one time compile process.<br/><br/><b>TIPS</b>:<br/>When in GPU mode, having the SYS Tab RIP(<i><b>R</b>emove <b>I</b>nvalid <b>P</b>oints</i>) toggle <b>ON</b> will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.<br/>Keep the RIP(<i><b>R</b>emove <b>I</b>nvalid <b>P</b>oints</i>) toggle <b>OFF</b> while editing your fractal Flames in GPU mode to go full speed and Activate it only if/when needed:<br/>(<i>e.g. before any rendering or to check the final result from time to time if any iterators' opacity is <b>0</b>(Zero) or NaN values are present</i>)."
+                    help    "Run the algorithm entirely on the GPU device.<br/><br/>This can be hundreds of times faster compared to the <b>CPU</b>(<i>CVEX</i>) implementation depending on the system' GPU device being used.<br/><br/><b>NOTE</b>:<br/>when switching this toggle <b>OFF</b> for the very first time,<br/>Houdini will compile all the FLAM3H™ <b>CPU</b>(<i>CVEX</i>) nodes.<br/>Depending on your PC configuration it can take up to <b>1</b>(<i>one</i>) minute.<br/>It is a one time compile process.<br/><br/><b>TIPS</b>:<br/>When in GPU mode, having the SYS Tab <b>RIP</b>(<i><b>R</b>emove <b>I</b>nvalid <b>P</b>oints</i>) toggle <b>ON</b> will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.<br/>Keep the <b>RIP</b>(<i><b>R</b>emove <b>I</b>nvalid <b>P</b>oints</i>) toggle <b>OFF</b> while editing your fractal Flames in GPU mode to go full speed and Activate it only if/when needed:<br/>(<i>e.g. before any rendering or to check the final result from time to time if any iterators' opacity is <b>0</b>(Zero) or <b>NaN</b> values are present</i>)."
                     parmtag { "script_callback" "hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6010,7 +6010,7 @@
                     label   "flash messages"
                     type    toggle
                     default { "1" }
-                    help    "Causes a message to appear briefly in the upper left corner of the network editor, then fade away.<br/><br/>Copy/Paste iterators and FF data uses flash messages, as well as some other features."
+                    help    "Causes a message to appear briefly in the upper left corner of the network editor, then fade away.<br/><br/>Copy/Paste <b>iterators</b> and <b>FF</b> data uses flash messages, as well as some other features."
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6019,7 +6019,7 @@
                     label   "iterative color attribute"
                     type    toggle
                     default { "0" }
-                    help    "Output the iterative color float point attribute <b>@clr</b> used internally by FLAM3H™ to map the palette colors to the points.<br/><br/>The attribute values are computed inside the chaos game<br/>and can be usefull to post process the output point cloud in many ways.<br/><br/>It is dependent of each iterator shader location and speed parameters values<br/>along with the number of iterations being used. "
+                    help    "Output the iterative color float point attribute <b>@clr</b> used internally by FLAM3H™ to map the palette colors to the points.<br/><br/>The attribute values are computed inside the chaos game<br/>and can be usefull to post process the output point cloud in many ways.<br/><br/>It is dependent of each iterator shader location and speed parameters values along with the number of iterations being used. "
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
