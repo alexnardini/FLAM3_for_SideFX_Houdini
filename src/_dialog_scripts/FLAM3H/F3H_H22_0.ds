@@ -466,7 +466,7 @@
             default { "0" }
             help    "Re-frame current viewport based on a centered bounding box.<br/><br/>[<b>LMB</b>]<br/>Reframe keeping the current viewports type.<br/><br/>[<b>SHIFT+LMB</b>]<br/>Reframe while setting the viewports to Front type.<br/><br/>This is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.<br/><br/>When in camera sensor mode the re-frame will be based on the Camera sensor bounding box instead.<br/><br/><i>Additionally</i>,<br/><i>it will set the viewports clipping planes to proper values every time is invoked</i>.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
             hidewhen "{ outsensor == 1 }"
-            parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg" }
+            parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueToolSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame(), kwargs['parm'].deleteAllKeyframes()" }
             parmtag { "script_callback_language" "python" }
         }
@@ -649,7 +649,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "Allow you to Enable or Disable this iterator.<br/><br/>For example this iterator is now Disabled. [<b>LMB</b>] to Enable it.<br/><br/>If an xform/iterator is disabled<br/>it wont be included when saving the Flame out into a flame file.<br/>In case you still want to include the inactive iterator into the file<br/>set its Weight to 0(Zero) instead.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
+                help    "Allow you to Enable or Disable this iterator.<br/><br/>For example this iterator is now Disabled. [<b>LMB</b>] to Enable it.<br/><br/>If an xform/iterator is disabled<br/>it wont be included when saving the Flame out into a flame file.<br/>In case you still want to include the inactive iterator into the file<br/>set its Weight to <b>0</b>(<i>Zero</i>) instead.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
                 hidewhen "{ vactive_# == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()" }
@@ -662,7 +662,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "Allow you to Enable or Disable this iterator.<br/><br/>For example this iterator is now Enabled. [<b>LMB</b>] to Disable it.<br/><br/>If an xform/iterator is disabled<br/>it wont be included when saving the Flame out into a flame file.<br/>In case you still want to include the inactive iterator into the file<br/>set its Weight to 0(Zero) instead.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
+                help    "Allow you to Enable or Disable this iterator.<br/><br/>For example this iterator is now Enabled. [<b>LMB</b>] to Disable it.<br/><br/>If an xform/iterator is disabled<br/>it wont be included when saving the Flame out into a flame file.<br/>In case you still want to include the inactive iterator into the file<br/>set its Weight to <b>0</b>(<i>Zero</i>) instead.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
                 hidewhen "{ vactive_# == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()" }
@@ -855,7 +855,7 @@
                     label   "opacity"
                     type    float
                     default { "1" }
-                    help    "It will be fully opaque at opacity <b>1</b>(<i>one</i>) and completely transparent at opacity <b>0</b>(<i>Zero</i>).<br/><br/>It can also be used to adjust the prominence of different portions of your fractal Flame,<br/>independent of the iterator’s Weight.<br/><br/>When an iterator's opacity is <b>0</b>(<i>Zero</i>), you can activate the SYS Tab RIP option to get rid of those points.<br/>( <i>Since Opacity == <b>@</b>pscale or <b>@</b>widths in Solaris, you don't need them anymore</i> )"
+                    help    "It will be fully opaque at opacity <b>1</b>(<i>one</i>) and completely transparent at opacity <b>0</b>(<i>Zero</i>).<br/><br/>It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator’s Weight.<br/><br/>When an iterator's opacity is <b>0</b>(<i>Zero</i>), you can activate the SYS Tab RIP option to get rid of those points.<br/>( <i>Since Opacity == <b>@</b>pscale or <b>@</b>widths in Solaris, you don't need them anymore</i> )"
                     range   { 0! 1! }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils.destroy_cachedUserData(kwargs['node'], 'iter_sel')" }
                     parmtag { "script_callback_language" "python" }
@@ -5175,7 +5175,7 @@
                 label   "F3H affine style"
                 type    toggle
                 default { "1" }
-                help    "Use the F3H affine style format on load if they are present.<br/><br/>To be used when loading Flame presets that posses F3H affine style format in it.<br/>If not nothing will happen and FLAM3H™ will load the Flame preset using the standard Flam3 affine style.<br/><br/>F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded.<br/><br/><b>NOTE</b>:<br/>F3H affine style format are only available when you save a Flame preset out from FLAM3H™ using the OUT tab option's \"F3H affine style\" whitch is ON by default.<br/><br/>You need to reload the current Flame preset for this change to take effect."
+                help    "Use the <b>F3H affine style</b> format on load if they are present.<br/><br/>To be used when loading Flame presets that posses <b>F3H affine style</b> format in it. If not nothing will happen and FLAM3H™ will load the Flame preset using the standard <b>Flam3 affine style</b>.<br/><br/><b>F3H affine style</b> format are useful when you rotate iterators using the <b>Rot angle</b> parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded.<br/><br/><b>NOTE</b>:<br/><b>F3H affine style</b> format are only available when you save a Flame preset out from FLAM3H™ using the OUT tab option's \"F3H affine style\" whitch is <b>ON</b> by default.<br/><br/>You need to reload the current Flame preset for this change to take effect."
                 parmtag { "script_action" "kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_f3h_affine()" }
                 parmtag { "script_action_help" "[LMB] to switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings. [ALT+LMB] to perform the same operation but while loading a Flame from the Clipboard instead." }
                 parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteToolSVG.svg" }
@@ -5432,7 +5432,7 @@
                 label   "use Fractorium paramtetrics"
                 type    toggle
                 default { "1" }
-                help    "To export the parameter names for parametric variations to the one that Fractorium uses.<br/><br/>This is only useful if you have used the Oscope and/or the Mobius variations and you would like to load the saved Flame into Fractorium as it uses diferent parametric paramter's names for these.<br/><br/><b>NOTE</b>:<br/>For a Flame to be loaded inside Apophysis check this toggle OFF when saving it out if it is using the <b>Oscope</b> and/or the <b>Mobius</b> variations."
+                help    "To export the parameter names for parametric variations to the one that Fractorium uses.<br/><br/>This is only useful if you have used the <b>Oscope</b> and/or the <b>Mobius</b> variations and you would like to load the saved Flame into Fractorium as it uses diferent parametric parameter's names for these.<br/><br/><b>NOTE</b>:<br/>For a Flame to be loaded inside Apophysis check this toggle <b>OFF</b> when saving it out if it is using the <b>Oscope</b> and/or the <b>Mobius</b> variations."
                 parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
             }
@@ -5542,7 +5542,7 @@
                     type    button
                     nolabel
                     default { "0" }
-                    help    "<br/>[<b>LMB</b>] to copy ALL the currently loaded IN Flame preset render properties (<i><b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b> settings</i>) into here, the OUT render properties.<br/>When you load a Flame preset from a file or from the Clipboard, this icon will become available.<br/><br/>All the render properties of a Flame preset loaded from the clipboard will be automatically copied into here, the OUT render properties, on load.<br/><br/><b>NOTE</b>:<br/>You can load all the render properties of a Flame preset stored in the Clipboard into here<br/>using [<b>ALT+LMB</b>] from the above \"edit render properties\" toggle parameter kwargs star icon. "
+                    help    "<br/>[<b>LMB</b>] to copy ALL the currently loaded IN Flame preset render properties (<i><b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b> settings</i>) into here, the OUT render properties.<br/>When you load a Flame preset from a file or from the Clipboard, this icon will become available.<br/><br/>All the render properties of a Flame preset loaded from the clipboard will be automatically copied into here, the OUT render properties, on load.<br/><br/><b>NOTE</b>:<br/>You can load all the render properties of a Flame preset stored in the Clipboard into here using [<b>ALT+LMB</b>] from the above \"edit render properties\" toggle parameter kwargs star icon. "
                     disablewhen "{ inisvalidpreset == 0 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg" }
                     parmtag { "script_callback" "hou.phm().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()" }
