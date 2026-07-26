@@ -1969,7 +1969,7 @@
                         type    vector4
                         size    4
                         default { "1" "2" "1" "1" }
-                        help    "\\nFREQUENCY, SCALE, SYMMETRY, WEIGHT"
+                        help    "<br/><i>Auger</i> <u><b>F</b></u><i>requency</i>, <u><b>S</b></u><i>cale</i>, <u><b>S</b></u><i>ymmetry</i>, <u><b>W</b></u><i>eight</i> <h2>X -> Frequency</h2> Controls the size of the waves. Higher values create smaller, more frequent ripples. <h2>Y -> Scale</h2> Adjusts the size of the wave deformation. Higher values produce broader, more noticeable bends. <h2>Z -> Symmetry</h2> Balances how evenly the effect is applied across the pattern. <h2>W -> Weight</h2> Controls the overall strength of the deformation. Higher values produce a stronger effect."
                         hidewhen "{ p1type_# != 94 pre1type_# != 94 pre2type_# != 94 v1type_# != 94 v2type_# != 94 v3type_# != 94 v4type_# != 94 v5type_# != 94 }"
                         range   { 0 4 }
                         parmtag { "script_callback_language" "python" }
@@ -1980,7 +1980,7 @@
                         type    vector2
                         size    2
                         default { "1.5" "0" }
-                        help    "\\nX, Y"
+                        help    "<br/><i>Bent2</i> <u><b>X</b></u>, <u><b>Y</b></u> <h2>X</h2> Controls how much the negative X (<i>left</i>) side of the pattern is stretched or compressed. <h2>Y</h2> Controls how much the negative Y (<i>bottom</i>) side of the pattern is stretched or compressed."
                         hidewhen "{ p1type_# != 52 pre1type_# != 52 pre2type_# != 52 v1type_# != 52 v2type_# != 52 v3type_# != 52 v4type_# != 52 v5type_# != 52 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -1990,18 +1990,18 @@
                         label   "shift BIPOLAR"
                         type    float
                         default { "1" }
-                        help    "\\nSHIFT"
+                        help    "<br/><i>Bipolar</i> <u><b>Shift</b></u> <h2>Shift</h2> Moves the seam of the bipolar mapping around the pattern, changing where the transformation wraps."
                         hidewhen "{ p1type_# != 53 pre1type_# != 53 pre2type_# != 53 v1type_# != 53 v2type_# != 53 v3type_# != 53 v4type_# != 53 v5type_# != 53 }"
                         range   { 0 10 }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
                         name    "blob_#"
-                        label   "low/high/wave BLOB"
+                        label   "low/high/waves BLOB"
                         type    vector
                         size    3
                         default { "0.2" "1" "6" }
-                        help    "\\nLOW, HIGH, WAVE"
+                        help    "<br/><i>Blob</i> <u><b>Low</b></u>, <u><b>High</b></u>, <u><b>Waves</b></u> <h2>X -> Low</h2> Sets the minimum size of the blob. <h2>Y -> High</h2> Sets the maximum size of the blob. <h2>Z -> Waves</h2> Controls the number of bulges or lobes around the blob. Higher values create more repeating bumps."
                         hidewhen "{ pre1type_# != 30 pre2type_# != 30 p1type_# != 30 v1type_# != 30 v2type_# != 30 v3type_# != 30 v4type_# != 30 v5type_# != 30 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2012,7 +2012,7 @@
                         type    vector
                         size    3
                         default { "0.5" "0" "1" }
-                        help    "\\nSIZE, SPACE, GAIN"
+                        help    "<br/><i>Bwraps</i> <u><b>S</b></u><i>ize</i>, <u><b>S</b></u><i>pace</i>, <u><b>G</b></u><i>ain</i> <h2>X -> Size</h2> Controls the size of each bubble wrap cell. Larger values create bigger wrapped areas. <h2>Y -> Space</h2> Controls the spacing between bubble cells. Higher values spread the bubbles farther apart. <h2>Z -> Gain</h2> Controls the intensity of the bubble distortion. Higher values create a stronger wrapping effect."
                         hidewhen "{ p1type_# != 99 pre1type_# != 99 pre2type_# != 99 v1type_# != 99 v2type_# != 99 v3type_# != 99 v4type_# != 99 v5type_# != 99 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -2023,7 +2023,7 @@
                         type    vector2
                         size    2
                         default { "3" "0" }
-                        help    "\\nIN TWIST, OUT TWIST"
+                        help    "<br/><i>Bwraps</i> <u><b>IN Twist</b></u>, <u><b>OUT Twist</b></u> <h2>X -> IN Twist</h2> Controls the amount of rotation applied toward the center of each bubble. <h2>Y -> OUT Twist</h2> Controls the amount of rotation applied toward the outside of each bubble."
                         hidewhen "{ p1type_# != 99 pre1type_# != 99 pre2type_# != 99 v1type_# != 99 v2type_# != 99 v3type_# != 99 v4type_# != 99 v5type_# != 99 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -2033,7 +2033,7 @@
                         label   "size CELL"
                         type    float
                         default { "0.05" }
-                        help    "\\nSIZE"
+                        help    "<br/><i>Cell</i> <u><b>Size</b></u> <h2>Size</h2> Controls the size of the repeating cells. Smaller values create more, smaller cells; larger values create fewer, larger cells."
                         hidewhen "{ p1type_# != 56 pre1type_# != 56 pre2type_# != 56 v1type_# != 56 v2type_# != 56 v3type_# != 56 v4type_# != 56 v5type_# != 56 }"
                         range   { 0 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2044,7 +2044,7 @@
                         type    vector2
                         size    2
                         default { "0.5" "0.5" }
-                        help    "\\nECCENTRICITY, HOLES"
+                        help    "<br/><i>Conic</i> <u><b>Eccentricity</b></u>, <u><b>Holes</b></u> <h2>X -> Eccentricity</h2> Controls the shape and intensity of the cone distortion. <h2>Y -> Holes</h2> Adjusts the amount of open space in the conic pattern."
                         hidewhen "{ p1type_# != 50 pre1type_# != 50 pre2type_# != 50 v1type_# != 50 v2type_# != 50 v3type_# != 50 v4type_# != 50 v5type_# != 50 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2055,7 +2055,7 @@
                         type    vector
                         size    3
                         default { "2" "1" "0.25" }
-                        help    "\\nPOWER, R, I"
+                        help    "<br/><i>Cpow</i> <u><b>Power</b></u>, <u><b>R</b></u>, <u><b>I</b></u> <h2>X -> Power</h2> Controls the number of repeated spiral sections. Higher values create more repetitions and finer details. <h2>Y -> R</h2> Controls the radial distortion, affecting how the pattern expands or contracts from the center. <h2>Z -> I</h2> Controls the angular distortion, changing the twist and rotation of the pattern."
                         hidewhen "{ p1type_# != 57 pre1type_# != 57 pre2type_# != 57 v1type_# != 57 v2type_# != 57 v3type_# != 57 v4type_# != 57 v5type_# != 57 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2066,7 +2066,7 @@
                         type    vector4
                         size    4
                         default { "-1" "-1" "1" "1" }
-                        help    "\\nLEFT, TOP, RIGHT, BOTTOM"
+                        help    "<br/><i>Crop</i> <u><b>L</b></u><i>eft</i>, <u><b>T</b></u><i>op</i>, <u><b>R</b></u><i>ight</i>, <u><b>B</b></u><i>ottom</i> <h2>X -> Left</h2> Sets the left boundary of the crop area. <h2>Y -> Top</h2> Sets the top boundary of the crop area. <h2>Z -> Right</h2> Sets the right boundary of the crop area. <h2>W -> Bottom</h2> Sets the bottom boundary of the crop area."
                         hidewhen "{ p1type_# != 102 pre1type_# != 102 pre2type_# != 102 v1type_# != 102 v2type_# != 102 v3type_# != 102 v4type_# != 102 v5type_# != 102 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2077,7 +2077,7 @@
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "\\nAREA, ZERO( [int] either 0 or 1 )"
+                        help    "<br/><i>Crop</i> <u><b>Area</b></u>, <u><b>Zero</b></u> <h2>X -> Area</h2> Controls the amount of random repositioning inside the crop area. Higher values create a larger randomized region. <h2>Y -> Zero</h2> Controls what happens to points outside the crop area. When enabled (<i>it just need to be higher than <b>0</b>(Zero)</i>), outside points are moved to the center instead."
                         hidewhen "{ p1type_# != 102 pre1type_# != 102 pre2type_# != 102 v1type_# != 102 v2type_# != 102 v3type_# != 102 v4type_# != 102 v5type_# != 102 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2088,7 +2088,7 @@
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "\\nCURL coefficients: c1, c2"
+                        help    "<br/><i>Curl</i> <u><b>C1</b></u>, <u><b>C2</b></u> <h2>X -> C1 (Curl Strength)</h2> Controls the overall curl direction and strength. Higher values create a stronger bending effect. <h2>Y -> C2 (Curl Twist)</h2> Controls the secondary curl behavior, adding more twisting and variation to the distortion."
                         hidewhen "{ pre1type_# != 27 pre2type_# != 27 p1type_# != 27 v1type_# != 27 v2type_# != 27 v3type_# != 27 v4type_# != 27 v5type_# != 27 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2099,7 +2099,7 @@
                         type    vector2
                         size    2
                         default { "1" "1" }
-                        help    "\\nLENGHT X, LENGTH Y"
+                        help    "<br/><i>Curve</i> <u><b>Lenght X</b></u>, <u><b>Lenght Y</b></u> <h2>X -> Lenght X</h2> Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area. <h2>Y -> Lenght Y</h2> Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
                         hidewhen "{ p1type_# != 97 pre1type_# != 97 pre2type_# != 97 v1type_# != 97 v2type_# != 97 v3type_# != 97 v4type_# != 97 v5type_# != 97 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -2110,7 +2110,7 @@
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "\\nAMPLITUDE X, AMPLITUDE Y"
+                        help    "<br/><i>Curve</i> <u><b>Amplitude X</b></u>, <u><b>Amplitude Y</b></u> <h2>X -> Amplitude X</h2> Controls the strength of the horizontal bend. Higher values create a stronger curve along X. <h2>Y -> Amplitude Y</h2> Controls the strength of the vertical bend. Higher values create a stronger curve along Y."
                         hidewhen "{ p1type_# != 97 pre1type_# != 97 pre2type_# != 97 v1type_# != 97 v2type_# != 97 v3type_# != 97 v4type_# != 97 v5type_# != 97 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -2121,7 +2121,7 @@
                         type    vector2
                         size    2
                         default { "6" "0.5" }
-                        help    "\\nROTATION, TWIST"
+                        help    "<br/><i>Disc2</i> <u><b>Rotation</b></u>, <u><b>Twist</b></u> <h2>X -> Rotation</h2> Rotates the disc pattern. Adjust this to change the overall orientation of the effect. <h2>Y -> Twist</h2> Adds a twisting offset to the disc pattern, changing how tightly or loosely it spirals."
                         hidewhen "{ p1type_# != 47 pre1type_# != 47 pre2type_# != 47 v1type_# != 47 v2type_# != 47 v3type_# != 47 v4type_# != 47 v5type_# != 47 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2131,18 +2131,18 @@
                         label   "beta ESCHER"
                         type    float
                         default { "1" }
-                        help    "\\nBETA"
+                        help    "<br/><i>Escher</i> <u><b>Beta</b></u> <h2>Beta</h2> Controls the intensity of the Escher distortion. Lower values create a subtle transformation, while higher values produce stronger twisting and scaling effects."
                         hidewhen "{ p1type_# != 61 pre1type_# != 61 pre2type_# != 61 v1type_# != 61 v2type_# != 61 v3type_# != 61 v4type_# != 61 v5type_# != 61 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
                         name    "fan2_#"
-                        label   "xy FAN2"
+                        label   "size/rot FAN2"
                         type    vector2
                         size    2
                         default { "-0.933803" "0.873941" }
-                        help    "\\nX, Y"
+                        help    "<br/><i>Fan2</i> <u><b>Size</b></u>, <u><b>Rotation</b></u> <h2>X -> Size</h2> Controls how wide each fan segment is. Lower values create many thin segments, while higher values create fewer, broader segments. <h2>Y -> Rotation</h2> Rotates the entire fan pattern around the center without changing its shape."
                         hidewhen "{ p1type_# != 34 pre1type_# != 34 pre2type_# != 34 v1type_# != 34 v2type_# != 34 v3type_# != 34 v4type_# != 34 v5type_# != 34 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2153,7 +2153,7 @@
                         type    vector2
                         size    2
                         default { "5" "0.5" }
-                        help    "\\nPETALS, HOLES"
+                        help    "<br/><i>Flower</i> <u><b>Petals</b></u>, <u><b>Holes</b></u> <h2>X -> Petals</h2> Controls the number of petals in the flower pattern. Higher values create more petals and finer details. <h2>Y -> Holes</h2> Controls the amount of empty space between petals. Higher values create a more open, hollow flower shape."
                         hidewhen "{ p1type_# != 49 pre1type_# != 49 pre2type_# != 49 v1type_# != 49 v2type_# != 49 v3type_# != 49 v4type_# != 49 v5type_# != 49 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2163,7 +2163,7 @@
                         label   "spread FLUX"
                         type    float
                         default { "0.5" }
-                        help    "\\nSPREAD"
+                        help    "<br/><i>Flux</i> <u><b>Spread</b></u> <h2>Spread</h2> Controls the intensity of the flux effect. Higher values create a wider, stronger flow distortion; lower values keep the effect tighter and more subtle."
                         hidewhen "{ p1type_# != 95 pre1type_# != 95 pre2type_# != 95 v1type_# != 95 v2type_# != 95 v3type_# != 95 v4type_# != 95 v5type_# != 95 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -2174,7 +2174,7 @@
                         type    vector2
                         size    2
                         default { "6" "1" }
-                        help    "\\nPOWER, DISTANCE"
+                        help    "<br/><i>JuliaN</i> <u><b>Power</b></u>, <u><b>Distance</b></u> <h2>X -> Power</h2> Controls the number of repeated sections in the pattern. Higher values create more symmetrical repetitions and finer details. <h2>Y -> Distance</h2> Controls how the pattern expands or contracts from the center. Higher values change the overall spread and shape of the distortion. <br/><br/> <b>TIP</b>:<br/> <i>The copies all rotate in the same direction, creating a more continuous spiral or radial repetition.</i>"
                         hidewhen "{ p1type_# != 31 pre1type_# != 31 pre2type_# != 31 v1type_# != 31 v2type_# != 31 v3type_# != 31 v4type_# != 31 v5type_# != 31 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2185,7 +2185,7 @@
                         type    vector2
                         size    2
                         default { "5" "1" }
-                        help    "\\nPOWER, DISTANCE"
+                        help    "<br/><i>JuliaScope</i> <u><b>Power</b></u>, <u><b>Distance</b></u> <h2>X -> Power</h2> Controls the number of repeated sections in the pattern. Higher values create more symmetrical details and tighter repetitions. <h2>Y -> Distance</h2> Controls how the pattern expands or contracts from the center, affecting the overall size and spread of the distortion. <br/><br/> <b>TIP</b>:<br/> <i>Creates a mirrored repetition around the center, producing kaleidoscope-like fractal patterns.</i>"
                         hidewhen "{ p1type_# != 32 pre1type_# != 32 pre2type_# != 32 v1type_# != 32 v2type_# != 32 v3type_# != 32 v4type_# != 32 v5type_# != 32 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2196,7 +2196,7 @@
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "\\nX, Y"
+                        help    "<br/><i>Lazysusan</i> <u><b>X</b></u>, <u><b>Y</b></u> <h2>X</h2> Moves the center of the effect horizontally. <h2>Y</h2> Moves the center of the effect vertically."
                         hidewhen "{ p1type_# != 63 pre1type_# != 63 pre2type_# != 63 v1type_# != 63 v2type_# != 63 v3type_# != 63 v4type_# != 63 v5type_# != 63 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2207,7 +2207,7 @@
                         type    vector
                         size    3
                         default { "3.14159" "0" "0" }
-                        help    "\\nSPIN, TWIST, SPACE"
+                        help    "<br/><i>Lazysusan</i> <u><b>S</b></u><i>pin</i>, <u><b>T</b></u><i>wist</i>, <u><b>S</b></u><i>pace</i> <h2>X -> Spin</h2> Rotates the area near the center. Higher values increase the amount of rotation. <h2>Y -> Twist</h2> Adds extra twisting toward the center, creating a spiral-like effect. <h2>Z -> Space</h2> Controls how strongly points outside the center are pushed away."
                         hidewhen "{ p1type_# != 63 pre1type_# != 63 pre2type_# != 63 v1type_# != 63 v2type_# != 63 v3type_# != 63 v4type_# != 63 v5type_# != 63 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2218,7 +2218,7 @@
                         type    vector4
                         size    4
                         default { "1" "0" "0" "1" }
-                        help    "\\nreA, reB, reC, reD -> Real"
+                        help    "<br/><i>Mobius real</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> A - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> B - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> C - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> D - Balance</h2> Controls the final shift and overall transformation balance."
                         hidewhen "{ p1type_# != 96 pre1type_# != 96 pre2type_# != 96 v1type_# != 96 v2type_# != 96 v3type_# != 96 v4type_# != 96 v5type_# != 96 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -2229,7 +2229,7 @@
                         type    vector4
                         size    4
                         default { "0" "0" "1" "0" }
-                        help    "\\nimA, imB, imC, imD -> Imaginary"
+                        help    "<br/><i>Mobius imaginary</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> A - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> B - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> C - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> D - Balance</h2> Controls the final shift and overall transformation balance."
                         hidewhen "{ p1type_# != 96 pre1type_# != 96 pre2type_# != 96 v1type_# != 96 v2type_# != 96 v3type_# != 96 v4type_# != 96 v5type_# != 96 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -5927,7 +5927,7 @@
                     default { "1" }
                     help    "Enable <b>-cl-fast-relaxed-math</b> compiler flag.<br/><br/>Let the compiler optimize aggressively."
                     disablewhen "{ gpu == 0 }"
-                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -5945,7 +5945,7 @@
                     default { "1" }
                     help    "Enable fused multiply-add if desired."
                     disablewhen "{ gpu == 0 }"
-                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -5955,7 +5955,7 @@
                     default { "1" }
                     help    "Enable faster native OpenCL math functions (<i><b>native_*</b></i>).<br/><br/>These may reduce precision and produce device-dependent results."
                     disablewhen "{ gpu == 0 }"
-                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -5966,7 +5966,7 @@
                     help    "Enable <b>RNG</b> (<i><b>R</b>andom <b>N</b>umber <b>G</b>enerator</i>) <b>Xoroshiro128+</b>.<br/><br/>Produces different random sequences with better randomness and longer period.<br/><br/>When <b>OFF</b> it will use the older <b>MWC64X</b>."
                     disablewhen "{ gpu == 0 }"
                     parmtag { "export_disable" "1" }
-                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
             }
