@@ -6013,7 +6013,7 @@
                     default { "1" }
                     help    "ON by default.\\n\\nEnable -cl-fast-relaxed-math compiler flag.\\nLet the compiler optimize aggressively."
                     disablewhen "{ gpu == 0 }"
-                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -6031,7 +6031,7 @@
                     default { "1" }
                     help    "ON by default.\\n\\nEnable fused multiply-add if desired."
                     disablewhen "{ gpu == 0 }"
-                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -6041,7 +6041,7 @@
                     default { "1" }
                     help    "ON by default.\\n\\nEnable faster native OpenCL math functions (native_*).\\nThese may reduce precision and produce device-dependent results."
                     disablewhen "{ gpu == 0 }"
-                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -6052,7 +6052,7 @@
                     help    "ON by default.\\n\\nEnable RNG (Random Number Generator) Xoroshiro128+.\\nProduces different random sequences with better randomness and longer period.\\n\\nWhen OFF it will use the older MWC64X."
                     disablewhen "{ gpu == 0 }"
                     parmtag { "export_disable" "1" }
-                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
             }

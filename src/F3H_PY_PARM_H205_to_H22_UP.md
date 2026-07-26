@@ -2560,8 +2560,57 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).reset_parm((1024,)
 </br>
 </br>
 
+| Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|---:|
+| **PREFS** | `use_cl_fast` |  `toggle` | `from H20.5` | `v2.x` |
 
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
 
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|---:|
+| **PREFS** | `use_fma` |  `toggle` | `from H20.5` | `v2.x` |
+
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|---:|
+| **PREFS** | `use_native` |  `toggle` | `from H20.5` | `v2.x` |
+
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|---:|
+| **PREFS** | `use_rng_x128` |  `toggle` | `from H20.5` | `v2.x` |
+
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+</br>
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
