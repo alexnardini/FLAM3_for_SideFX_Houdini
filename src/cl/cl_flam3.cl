@@ -1185,7 +1185,7 @@ static float2 CL_V_BLUR(__private const float w,
 static float2 CL_V_CURL(
     __private const float2 in, 
     __private const float w, 
-    __private const float2 c
+    __private const float2 c    // c1 c2
     )
 {
     float re, im, r;
@@ -1223,7 +1223,7 @@ static float2 CL_V_CURL(
 static float2 CL_V_NGON(
     __private const float2 in, 
     __private const float w, 
-    __private const float4 ngon, 
+    __private const float4 ngon,        // pow, sides, corners, circle
     __private const float4 ngon_precalc // cpower csides csidesinv unusued(1.0)
     )
 {
