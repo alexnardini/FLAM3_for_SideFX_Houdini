@@ -26,7 +26,7 @@
  /
  /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised December 2025
+ /  date:       October 2020, Last revised July 2026
  /  License:    GPL
  /  Copyright:  2021, © F stands for liFe ( made in Italy )
  /
@@ -58,21 +58,42 @@
     hardcoded inside "flame.h", "flamepp.h", "flameff.h" header files.
 */
 
+// ----------------------------
 // 01
-void V_SINUSOIDAL(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_SINUSOIDAL(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float _px, _py;
     assign(_px, _py, _p);
 
     p = w * set(sin(_px), sin(_py));
 }
+// ----------------------------
 // 02
-void V_SPHERICAL(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_SPHERICAL(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float r2 = w / Zeps(SUMSQ(_p));
 
     p = r2 * _p;
 }
+// ----------------------------
 // 03
-void V_SWIRL(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_SWIRL(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float rr, c1, c2, nx, ny, _px, _py;
     assign(_px, _py, _p);
 
@@ -84,31 +105,59 @@ void V_SWIRL(vector2 p; const vector2 _p; const float w){
 
     p = w * set(nx, ny);
 }
+// ----------------------------
 // 04
-void V_HORSESHOE(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_HORSESHOE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float rr, _px, _py;
     assign(_px, _py, _p);
     rr = w / Zeps(SQRT(_p));
 
     p = set((_px - _py) * (_px + _py) * rr, 2.0 * _px * _py * rr);
 }
+// ----------------------------
 // 05
-void V_POLAR(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_POLAR(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float nx, ny;
     nx = ATAN(_p) * M_1_PI;
     ny = SQRT(_p) - 1.0;
 
     p = w * set(nx, ny);
 }
+// ----------------------------
 // 06
-void V_HANDKERCHIEF(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_HANDKERCHIEF(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float a = ATAN(_p);
     float _SQRT = SQRT(_p);
 
     p = w * _SQRT * set(sin(a+_SQRT), cos(a-_SQRT));
 }
+// ----------------------------
 // 07
-void V_HEART(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_HEART(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float _SQRT, a, r;
     _SQRT = SQRT(_p);
     a = _SQRT * ATAN(_p);
@@ -116,8 +165,15 @@ void V_HEART(vector2 p; const vector2 _p; const float w){
 
     p = set(r * sin(a), (-r) * cos(a));
 }
+// ----------------------------
 // 08
-void V_DISC(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_DISC(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float a, r, sr, cr;
     a = ATAN(_p) * M_1_PI;
     r = M_PI * SQRT(_p);
@@ -125,8 +181,15 @@ void V_DISC(vector2 p; const vector2 _p; const float w){
 
     p = w * set(sr, cr) * a;
 }
+// ----------------------------
 // 09 (precalc _p)
-void V_SPIRAL(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_SPIRAL(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float _SQRT, r, r1, sr, cr;
     _SQRT = SQRT(_p);
     vector2 precalc = _p / _SQRT;
@@ -136,16 +199,30 @@ void V_SPIRAL(vector2 p; const vector2 _p; const float w){
 
     p = r1 * set((precalc[1] + sr), (precalc[0] - cr));
 }
+// ----------------------------
 // 10 (precalc _p)
-void V_HIPERBOLIC(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_HIPERBOLIC(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float _SQRT = SQRT(_p);
     float rr = Zeps(_SQRT);
     vector2 precalc = _p / _SQRT;
 
     p = w * set(precalc[0] / rr, precalc[1] * rr);
 }
+// ----------------------------
 // 11 (precalc _p)
-void V_DIAMOND(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_DIAMOND(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float a, r, _px, _py;
     assign(_px, _py, _p);
     a = atan2(_px, _py);
@@ -153,8 +230,15 @@ void V_DIAMOND(vector2 p; const vector2 _p; const float w){
 
     p = w * set(sin(a) * cos(r), cos(a) * sin(r));
 }
+// ----------------------------
 // 12
-void V_EX(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_EX(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float a, r, n0, n1, m0, m1;
     a = ATAN(_p);
     r = SQRT(_p);
@@ -165,8 +249,15 @@ void V_EX(vector2 p; const vector2 _p; const float w){
 
     p = w * set(m0 + m1, m0 - m1);
 }
+// ----------------------------
 // 13
-void V_JULIA(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_JULIA(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float r, a, sa, ca;
     a = 0.5 * ATAN(_p);
     if(nrandom('twister')<0.5)
@@ -176,8 +267,15 @@ void V_JULIA(vector2 p; const vector2 _p; const float w){
 
     p = r * set(ca, sa);
 }
+// ----------------------------
 // 14
-void V_BENT(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_BENT(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float nx, ny, _px, _py;
     assign(_px, _py, _p);
     nx = _px;
@@ -187,8 +285,15 @@ void V_BENT(vector2 p; const vector2 _p; const float w){
 
     p = w * set(nx, ny);
 }
+// ----------------------------
 // 15
-void V_WAVES(vector2 p; const vector2 _p; const float w, b, c, e, f){
+// ----------------------------
+void V_WAVES(
+    vector2 p; 
+    const vector2 _p; 
+    const float w, b, c, e, f
+)
+{
     // precalc
     float m_Dx2, m_Dy2, nx, ny, _px, _py;
     assign(_px, _py, _p);
@@ -200,15 +305,29 @@ void V_WAVES(vector2 p; const vector2 _p; const float w, b, c, e, f){
 
     p = w * set(nx, ny);
 }
+// ----------------------------
 // 16
-void V_FISHEYE(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_FISHEYE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float r = SQRT(_p);
     r = 2 * w / (r+1);
 
     p = r * _p;
 }
+// ----------------------------
 // 17
-void V_POPCORN(vector2 p; const vector2 _p; const float w, c, f){
+// ----------------------------
+void V_POPCORN(
+    vector2 p; 
+    const vector2 _p; 
+    const float w, c, f
+)
+{
     float dx, dy, nx, ny, _px, _py;
     assign(_px, _py, _p);
 
@@ -219,8 +338,15 @@ void V_POPCORN(vector2 p; const vector2 _p; const float w, c, f){
 
     p = w * set(nx, ny);
 }
+// ----------------------------
 // 18
-void V_EXPONENTIAL(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_EXPONENTIAL(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float dx, dy, sdy, cdy, _px, _py;
     assign(_px, _py, _p);
 
@@ -230,16 +356,30 @@ void V_EXPONENTIAL(vector2 p; const vector2 _p; const float w){
 
     p = dx * set(cdy, sdy);
 }
+// ----------------------------
 // 19 (precalc _p)
-void V_POWER(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_POWER(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float _SQRT = SQRT(_p);
     vector2 precalc = _p / _SQRT;
     float r = w * pow(_SQRT, precalc[0]);
 
     p = r * precalc.yx;
 }
+// ----------------------------
 // 20
-void V_COSINE(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_COSINE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float a, sa, ca, nx, ny, _px, _py;
     assign(_px, _py, _p);
 
@@ -250,8 +390,15 @@ void V_COSINE(vector2 p; const vector2 _p; const float w){
 
     p = w * set(nx, ny);
 }
+// ----------------------------
 // 21 (precalc _p)
-void V_RINGS(vector2 p; const vector2 _p; const float w, c){
+// ----------------------------
+void V_RINGS(
+    vector2 p; 
+    const vector2 _p; 
+    const float w, c
+)
+{
     float _SQRT, dx, rr;
     _SQRT = SQRT(_p);
     vector2 precalc = _p / _SQRT;
@@ -262,8 +409,15 @@ void V_RINGS(vector2 p; const vector2 _p; const float w, c){
 
     p = rr * precalc.yx;
 }
+// ----------------------------
 // 22
-void V_FAN(vector2 p; const vector2 _p; const float w, c, f){
+// ----------------------------
+void V_FAN(
+    vector2 p; 
+    const vector2 _p; 
+    const float w, c, f
+)
+{
     float dx, dx2, dy, a, r, sa, ca;
     dx = M_PI * Zeps(c*c);
     dy = f;
@@ -275,8 +429,15 @@ void V_FAN(vector2 p; const vector2 _p; const float w, c, f){
 
     p = r * set(ca, sa);
 }
+// ----------------------------
 // 23
-void V_BUBBLE(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_BUBBLE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float r, _px, _py;
     assign(_px, _py, _p);
 
@@ -284,21 +445,41 @@ void V_BUBBLE(vector2 p; const vector2 _p; const float w){
 
     p = r * _p;
 }
+// ----------------------------
 // 24
-void V_CYLINDER(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_CYLINDER(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float _px, _py;
     assign(_px, _py, _p);
 
     p = w * set(sin(_px), _py);
 }
+// ----------------------------
 // 25
-void V_EYEFISH(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_EYEFISH(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float r =  (w * 2.0) / (1.0 + SQRT(_p));
 
     p = r * _p;
 }
+// ----------------------------
 // 26
-void V_BLUR(vector2 p; const float w){
+// ----------------------------
+void V_BLUR(
+    vector2 p; 
+    const float w
+)
+{
     float tmpr, sinr, cosr, r;
     tmpr = nrandom("twister") * M_TAU;
     sincos(tmpr, sinr, cosr);
@@ -306,8 +487,16 @@ void V_BLUR(vector2 p; const float w){
 
     p = r * set(cosr, sinr);
 }
+// ----------------------------
 // 27 ( parametric )
-void V_CURL(vector2 p; const vector2 _p; const float w; const vector2 c){
+// ----------------------------
+void V_CURL(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 c
+)
+{
     float c1, c2, re, im, r, _px, _py;
     assign(_px, _py, _p);
     assign(c1, c2, c);
@@ -350,8 +539,16 @@ void V_CURL(vector2 p; const vector2 _p; const float w; const vector2 c){
     //     }
     // }
 }
+// ----------------------------
 // 28 ( parametric )
-void V_NGON(vector2 p; const vector2 _p; const float w; const vector4 ngon){
+// ----------------------------
+void V_NGON(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector4 ngon
+)
+{
     float pow, sides, corners, circle, cpower, csides, csidesinv, r_factor, theta, phi, amp, _px, _py;
     assign(_px, _py, _p);
     assign(pow, sides, corners, circle, ngon);
@@ -365,8 +562,16 @@ void V_NGON(vector2 p; const vector2 _p; const float w; const vector4 ngon){
 
     p = amp * _p;
 }
+// ----------------------------
 // 29 ( parametric )
-void V_PDJ(vector2 p; const vector2 _p; const float w; const vector4 pp){
+// ----------------------------
+void V_PDJ(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector4 pp
+)
+{
     float  nx1, nx2, ny1, ny2, a, b, c, d, _px, _py;
     assign(_px, _py, _p);
     assign(a, b, c, d, pp);
@@ -378,8 +583,16 @@ void V_PDJ(vector2 p; const vector2 _p; const float w; const vector4 pp){
 
     p = w * set(ny1 - nx1, nx2 - ny2);
 }
+// ----------------------------
 // 30 ( parametric ) (precalc _p)
-void V_BLOB(vector2 p; const vector2 _p; const float w; const vector blob){
+// ----------------------------
+void V_BLOB(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector blob
+)
+{
     float _SQRT, low, high, wave, blob_coeff, rr, aa, bdiff;
     _SQRT = SQRT(_p);
     vector2 precalc = _p / _SQRT;
@@ -392,8 +605,16 @@ void V_BLOB(vector2 p; const vector2 _p; const float w; const vector blob){
 
     p = w * rr * precalc;
 }
+// ----------------------------
 // 31 ( parametric )
-void V_JULIAN(vector2 p; const vector2 _p; const float w; const vector2 julian){
+// ----------------------------
+void V_JULIAN(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 julian
+)
+{
     int t_rnd;
     float power, jdist, julian_rN, julian_cn, tmpr, rr, sina, cosa;
     assign(power, jdist, julian);
@@ -407,8 +628,16 @@ void V_JULIAN(vector2 p; const vector2 _p; const float w; const vector2 julian){
 
     p = rr * set(cosa, sina);
 }
+// ----------------------------
 // 32 ( parametric )
-void V_JULIASCOPE(vector2 p; const vector2 _p; const float w; const vector2 juliascope){
+// ----------------------------
+void V_JULIASCOPE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 juliascope
+)
+{
     int t_rnd;
     float _ATANYX, power, jdist, julian_rN, julian_cn, tmpr, rr, sina, cosa;
     assign(power, jdist, juliascope);
@@ -423,16 +652,31 @@ void V_JULIASCOPE(vector2 p; const vector2 _p; const float w; const vector2 juli
 
     p = rr * set(cosa, sina);
 }
+// ----------------------------
 // 33
-void V_GAUSSIAN_BLUR(vector2 p; const float w){
+// ----------------------------
+void V_GAUSSIAN_BLUR(
+    vector2 p; 
+    const float w
+)
+{
     float ang, rr, sina, cosa;
     ang = nrandom('twister') * M_TAU;
     rr = w * (nrandom('twister')+nrandom('twister')+nrandom('twister')+nrandom('twister') - 2.0);
 
     p = rr * set(cos(ang), sin(ang));
 }
+// ----------------------------
 // 34 ( parametric )
-void V_FAN2(const int f3c; vector2 p; const vector2 _p; const float w; const vector2 fan2){
+// ----------------------------
+void V_FAN2(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 fan2
+)
+{
     float dx, dx2, dy, aa, sa,ca,rr, tt, fx, fy;
     assign(fx, fy, fan2);
     dy = fy;
@@ -447,8 +691,15 @@ void V_FAN2(const int f3c; vector2 p; const vector2 _p; const float w; const vec
     vector2 v = set(ca, sa);
     p = rr * (f3c ? v.yx : v);
 }
+// ----------------------------
 // 35 ( parametric ) (precalc _p)
-void V_RINGS2(vector2 p; const vector2 _p; const float w, rings2val){
+// ----------------------------
+void V_RINGS2(
+    vector2 p; 
+    const vector2 _p; 
+    const float w, rings2val
+)
+{
     float _SQRT, rr, dx;
     int nrand;
     _SQRT = SQRT(_p);
@@ -459,8 +710,16 @@ void V_RINGS2(vector2 p; const vector2 _p; const float w, rings2val){
 
     p = w * rr * precalc;
 }
+// ----------------------------
 // 36 ( parametric )
-void V_RECTANGLES(vector2 p; const vector2 _p; const float w; const vector2 rect){
+// ----------------------------
+void V_RECTANGLES(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 rect
+)
+{
     float _px, _py, rx, ry, x, y;
     assign(rx, ry, rect);
     assign(_px, _py, _p);
@@ -472,8 +731,15 @@ void V_RECTANGLES(vector2 p; const vector2 _p; const float w; const vector2 rect
 
     p = set(x, y);
 }
+// ----------------------------
 // 37 ( parametric )
-void V_RADIALBLUR(vector2 p; const vector2 _p; const float w, angle){
+// ----------------------------
+void V_RADIALBLUR(
+    vector2 p; 
+    const vector2 _p; 
+    const float w, angle
+)
+{
     float rndG, tmpa, ra, rz, sa, ca, m_spin, m_zoom, _px, _py;
     assign(_px, _py, _p);
 
@@ -489,8 +755,15 @@ void V_RADIALBLUR(vector2 p; const vector2 _p; const float w, angle){
 
     p = ra * set(ca, sa) + rz * _p;
 }
+// ----------------------------
 // 38 ( parametric )
-void V_PIE(vector2 p; const float w; const vector pie){
+// ----------------------------
+void V_PIE(
+    vector2 p; 
+    const float w; 
+    const vector pie
+)
+{
     float slices, thickness, rotation, aa, rr, sa, ca, sl;
     assign(slices, thickness, rotation, pie);
 
@@ -501,27 +774,55 @@ void V_PIE(vector2 p; const float w; const vector pie){
 
     p = rr * set(ca, sa);
 }
+// ----------------------------
 // 39
-void V_ARCH(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_ARCH(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float ang, sinr, cosr;
     ang = nrandom("twister") * w * M_PI;
     sincos(ang, sinr, cosr);
 
     p = w * set(sinr, (sinr*sinr)/cosr);
 }
+// ----------------------------
 // 40
-void V_TANGENT(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_TANGENT(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float _px, _py;
     assign(_px, _py, _p);
 
     p = w * set((sin(_px)/cos(_py)), tan(_py));
 }
+// ----------------------------
 // 41
-void V_SQUARE(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_SQUARE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     p = w * set((nrandom("twister") - 0.5), (nrandom("twister") - 0.5));
 }
+// ----------------------------
 // 42
-void V_RAYS(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_RAYS(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float ang, rr, tanrr, _px, _py;
     assign(_px, _py, _p);
 
@@ -531,8 +832,15 @@ void V_RAYS(vector2 p; const vector2 _p; const float w){
 
     p = tanrr * set(cos(_px), sin(_py));
 }
+// ----------------------------
 // 43
-void V_BLADE(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_BLADE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float rr, sinr, cosr, _px, _py;
     assign(_px, _py, _p);
 
@@ -541,8 +849,15 @@ void V_BLADE(vector2 p; const vector2 _p; const float w){
 
     p = w * _px * set(cosr + sinr, cosr - sinr);
 }
+// ----------------------------
 // 44
-void V_SECANT2(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_SECANT2(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float rr, cr, sr, icr, isr, _px; _px=_p[0];
     rr = w * SQRT(_p);
     cr = cos(rr);
@@ -551,8 +866,15 @@ void V_SECANT2(vector2 p; const vector2 _p; const float w){
 
     p = set(w * _px, (cr<0) ? w*(icr+1) : w*(icr-1));
 }
+// ----------------------------
 // 45
-void V_TWINTRIAN(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_TWINTRIAN(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float rr, sinr, cosr, diff, _px, _py;
     assign(_px, _py, _p);
 
@@ -564,8 +886,16 @@ void V_TWINTRIAN(vector2 p; const vector2 _p; const float w){
 
     p = w * _px * set(diff, diff - sinr * M_PI);
 }
+// ----------------------------
 // 46
-void V_CROSS(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_CROSS(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float r, _px, _py;
     assign(_px, _py, _p);
 
@@ -579,8 +909,17 @@ void V_CROSS(const int f3c; vector2 p; const vector2 _p; const float w){
 
     p = _p * r;
 }
+// ----------------------------
 // 47 ( parametric )
-void V_DISC2(vector2 p; const vector2 _p; const float w; const vector2 disc2; const vector disc2_pc){
+// ----------------------------
+void V_DISC2(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 disc2; 
+    const vector disc2_pc
+)
+{
     float rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd, rr, tt, sinr, cosr;
     assign(rot, twist, disc2);
     assign(disc2_timespi, disc2_sinadd, disc2_cosadd, disc2_pc);
@@ -592,8 +931,16 @@ void V_DISC2(vector2 p; const vector2 _p; const float w; const vector2 disc2; co
 
     p = rr * set(sinr + disc2_cosadd, cosr + disc2_sinadd);
 }
+// ----------------------------
 // // 47 L ( parametric )
-// void V_DISC2_L(vector2 p; const vector2 _p; const float w, rot, twist; const vector precalc){
+// ----------------------------
+// void V_DISC2_L(
+//     vector2 p; 
+//     const vector2 _p; 
+//     const float w, rot, twist; 
+//     const vector precalc
+// )
+// {
 //     float disc2_sinadd, disc2_cosadd, disc2_timespi;
 //     // precalc
 //     disc2_timespi = precalc[0];
@@ -602,8 +949,16 @@ void V_DISC2(vector2 p; const vector2 _p; const float w; const vector2 disc2; co
 
 //     V_DISC2(p, _p, w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd);
 // }
+// ----------------------------
 // 47 FF ( parametric )
-void V_DISC2_FF(vector2 p; const vector2 _p; const float w; const vector2 disc2){
+// ----------------------------
+void V_DISC2_FF(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 disc2
+)
+{
     float rot, twist, a, b, c;
     vector precalc;
     assign(rot, twist, disc2);
@@ -615,7 +970,13 @@ void V_DISC2_FF(vector2 p; const vector2 _p; const float w; const vector2 disc2)
     V_DISC2(p, _p, w, disc2, precalc);
 }
 // 48 ( parametric )
-void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w; const vector ss, ss_n){
+void V_SUPERSHAPE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector ss, ss_n
+)
+{
     float _SQRT, ss_m, ss_rnd, ss_holes, theta, st, ct, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1, ss_nx, ss_ny, ss_nz;
     assign(ss_m, ss_rnd, ss_holes, ss);
     assign(ss_nx, ss_ny, ss_nz, ss_n);
@@ -633,8 +994,16 @@ void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w; const vector ss, s
 
     p = rr * _p;
 }
+// ----------------------------
 // 49 ( parametric )
-void V_FLOWER(vector2 p; const vector2 _p; const float w; const vector2 flower){
+// ----------------------------
+void V_FLOWER(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 flower
+)
+{
     float petals, holes, theta, rr;
     assign(petals, holes, flower);
 
@@ -643,8 +1012,16 @@ void V_FLOWER(vector2 p; const vector2 _p; const float w; const vector2 flower){
 
     p = rr * _p;
 }
+// ----------------------------
 // 50 ( parametric )
-void V_CONIC(vector2 p; const vector2 _p; const float w; const vector2 conic){
+// ----------------------------
+void V_CONIC(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 conic
+)
+{
     float _SQRT, eccentricity, holes, ct, rr, _px, _py;
     assign(_px, _py, _p);
     assign(eccentricity, holes, conic);
@@ -655,8 +1032,16 @@ void V_CONIC(vector2 p; const vector2 _p; const float w; const vector2 conic){
 
     p = rr * _p;
 }
+// ----------------------------
 // 51 ( parametric )
-void V_PARABOLA(vector2 p; const vector2 _p; const float w; const vector2 parabola){
+// ----------------------------
+void V_PARABOLA(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 parabola
+)
+{
     float height, width, rr, sr, cr;
     assign(height, width, parabola);
 
@@ -665,8 +1050,16 @@ void V_PARABOLA(vector2 p; const vector2 _p; const float w; const vector2 parabo
 
     p = w * set(height * sr*sr * nrandom("twister"), width  * cr * nrandom("twister"));
 }
+// ----------------------------
 // 52 ( parametric )
-void V_BENT2(vector2 p; const vector2 _p; const float w; const vector2 bent2){
+// ----------------------------
+void V_BENT2(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 bent2
+)
+{
     float nx, ny, b2x, b2y;
     assign(nx, ny, _p);
     assign(b2x, b2y, bent2);
@@ -678,8 +1071,15 @@ void V_BENT2(vector2 p; const vector2 _p; const float w; const vector2 bent2){
 
     p = w * set(nx, ny);
 }
+// ----------------------------
 // 53 ( parametric )
-void V_BIPOLAR(vector2 p; const vector2 _p; const float w, shift){
+// ----------------------------
+void V_BIPOLAR(
+    vector2 p; 
+    const vector2 _p; 
+    const float w, shift
+)
+{
     float x2y2, tt, x2, ps, y, _px, _py;
     assign(_px, _py, _p);
 
@@ -693,8 +1093,15 @@ void V_BIPOLAR(vector2 p; const vector2 _p; const float w, shift){
 
     p = w * set(0.25 * M_2_PI * log((tt+x2) / (tt-x2)), M_2_PI * y);
 }
+// ----------------------------
 // 54
-void V_BOARDERS(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_BOARDERS(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float roundX, roundY, offsetX, offsetY, _px, _py;
     assign(_px, _py, _p);
 
@@ -724,8 +1131,15 @@ void V_BOARDERS(vector2 p; const vector2 _p; const float w){
             }
     }
 }
+// ----------------------------
 // 55
-void V_BUTTERFLY(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_BUTTERFLY(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float wx, y2, rr, _px, _py;
     assign(_px, _py, _p);
 
@@ -735,8 +1149,15 @@ void V_BUTTERFLY(vector2 p; const vector2 _p; const float w){
 
     p = rr * set(_px, y2);
 }
+// ----------------------------
 // 56 ( parametric )
-void V_CELL(vector2 p; const vector2 _p; const float w, size){
+// ----------------------------
+void V_CELL(
+    vector2 p; 
+    const vector2 _p; 
+    const float w, size
+)
+{
     float inv_cell_size, x, y, dx, dy, _px, _py;
     assign(_px, _py, _p);
 
@@ -768,8 +1189,16 @@ void V_CELL(vector2 p; const vector2 _p; const float w, size){
 
     p = set(w * (dx + x * size), -(w * (dy + y * size)));
 }
+// ----------------------------
 // 57 ( parametric )
-void V_CPOW(vector2 p; const vector2 _p; const float w; const vector cpow){
+// ----------------------------
+void V_CPOW(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector cpow
+)
+{
     float power, pow_r, pow_i, aa, lnr, va, vc, vd, ang, sa, ca, mm;
     assign(power, pow_r, pow_i, cpow);
 
@@ -784,8 +1213,16 @@ void V_CPOW(vector2 p; const vector2 _p; const float w; const vector cpow){
 
     p = mm * set(ca, sa);
 }
+// ----------------------------
 // 58
-void V_EDISC(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_EDISC(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float tmp, tmp2, rr1, rr2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu, _px, _py;
     assign(_px, _py, _p);
 
@@ -804,8 +1241,15 @@ void V_EDISC(const int f3c; vector2 p; const vector2 _p; const float w){
 
     p = ww * set(cshu * csv, snhu * snv);
 }
+// ----------------------------
 // 59
-void V_ELLIPTIC(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_ELLIPTIC(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
 
     // FLAM3 version
     //
@@ -846,8 +1290,15 @@ void V_ELLIPTIC(vector2 p; const vector2 _p; const float w){
   
     p = set(weightDivPiDiv2 * asin(clamp(a, -1, 1)), (_py > 0) ? weightDivPiDiv2 * log1p(xmaxm1 + ssx) : -(weightDivPiDiv2 * log1p(xmaxm1 + ssx)));
 }
+// ----------------------------
 // 60
-void V_NOISE(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_NOISE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float tmpr, sinr, cosr, rr;
 
     tmpr = nrandom("twister") * M_TAU;
@@ -856,8 +1307,16 @@ void V_NOISE(vector2 p; const vector2 _p; const float w){
 
     p = _p * rr * set(cosr, sinr);
 }
+// ----------------------------
 // 61 ( parametric )
-void V_ESCHER(const int f3c;vector2 p; const vector2 _p; const float w, beta){
+// ----------------------------
+void V_ESCHER(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w, beta
+)
+{
     float aa, lnr, seb, ceb, vc, vd, mm, nn, sn, cn;
 
     vector2 _in = f3c ? _p.yx : _p;
@@ -872,8 +1331,15 @@ void V_ESCHER(const int f3c;vector2 p; const vector2 _p; const float w, beta){
 
     p = mm * set(cn, sn);
 }
+// ----------------------------
 // 62
-void V_FOCI(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_FOCI(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float expx, expnx, sn, cn, tmp, _px, _py;
     assign(_px, _py, _p);
 
@@ -884,8 +1350,17 @@ void V_FOCI(vector2 p; const vector2 _p; const float w){
 
     p = tmp * set(expx - expnx, sn);
 }
+// ----------------------------
 // 63 ( parametric )
-void V_LAZYSUSAN(vector2 p; const vector2 _p; const float w; const vector lazysusan; const vector2 lazy){
+// ----------------------------
+void V_LAZYSUSAN(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector lazysusan; 
+    const vector2 lazy
+)
+{
     float spin, twist, space, xx, yy, rr, sina, cosa, aa, _px, _py, lx, ly;
     assign(_px, _py, _p);
     assign(spin, twist, space, lazysusan);
@@ -907,8 +1382,15 @@ void V_LAZYSUSAN(vector2 p; const vector2 _p; const float w; const vector lazysu
         p = rr * set(xx + lx, yy - ly);
     }
 }
+// ----------------------------
 // 64
-void V_LOONIE(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_LOONIE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float rr, rr2, w2, _px, _py;
     assign(_px, _py, _p);
 
@@ -922,8 +1404,14 @@ void V_LOONIE(vector2 p; const vector2 _p; const float w){
         p = w * _p;
     }
 }
+// ----------------------------
 // 65
-void V_PREBLUR(vector2 p; const float w){
+// ----------------------------
+void V_PREBLUR(
+    vector2 p; 
+    const float w
+)
+{
     float rndG, rndA, sinA, cosA;
     rndG = w * (nrandom("twister") + nrandom("twister") + nrandom("twister") + nrandom("twister") - 2.0);
     rndA = nrandom("twister") * M_TAU;
@@ -931,8 +1419,16 @@ void V_PREBLUR(vector2 p; const float w){
 
     p += rndG * set(cosA, sinA);
 }
+// ----------------------------
 // 66 ( parametric )
-void V_MODULUS(vector2 p; const vector2 _p; const float w; const vector2 m){
+// ----------------------------
+void V_MODULUS(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 m
+)
+{
     float mx, my, xr, yr, _px, _py, x, y;
     assign(_px, _py, _p);
     assign(mx, my, m);
@@ -954,8 +1450,16 @@ void V_MODULUS(vector2 p; const vector2 _p; const float w; const vector2 m){
 
     p = set(x, y);
 }
+// ----------------------------
 // 67 ( parametric )
-void V_OSCOPE(vector2 p; const vector2 _p; const float w; const vector4 oscope){
+// ----------------------------
+void V_OSCOPE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector4 oscope
+)
+{
     float freq, amp, damp, sep, tpf, tt, _px, _py;
     assign(_px, _py, _p);
     assign(freq, amp, damp, sep, oscope);
@@ -971,21 +1475,41 @@ void V_OSCOPE(vector2 p; const vector2 _p; const float w; const vector4 oscope){
         p = w * _p;
     }
 }
+// ----------------------------
 // 68
-void V_POLAR2(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_POLAR2(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float p2v = w / M_PI;
     p = set(p2v * ATAN(_p), p2v/2.0 * log(SUMSQ(_p)));
     }
 // 69 ( parametric )
-void V_POPCORN2(vector2 p; const vector2 _p; const float w, pop2c; const vector2 pop2){
+void V_POPCORN2(
+    vector2 p; 
+    const vector2 _p; 
+    const float w, pop2c; 
+    const vector2 pop2
+)
+{
     float _px, _py, pop2x, pop2y;
     assign(_px, _py, _p);
     assign(pop2x, pop2y, pop2);
 
     p = w * (_p + set(pop2x, pop2y) * set(sin(SafeTan(_py*pop2c)), sin(SafeTan(_px*pop2c))));
 }
+// ----------------------------
 // 70 ( parametric )
-void V_SCRY(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_SCRY(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float tt, rr;
 
     tt = SUMSQ(_p);
@@ -993,8 +1517,16 @@ void V_SCRY(vector2 p; const vector2 _p; const float w){
 
     p = rr * _p;
 }
+// ----------------------------
 // 71 ( parametric )
-void V_SEPARATION(vector2 p; const vector2 _p; const float w; const vector2 sep, ins){
+// ----------------------------
+void V_SEPARATION(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 sep, ins
+)
+{
     float sx, sy, sx2, sy2, _px, _py, ix, iy, x, y;
     assign(sx, sy, sep);
     assign(_px, _py, _p);
@@ -1009,8 +1541,16 @@ void V_SEPARATION(vector2 p; const vector2 _p; const float w; const vector2 sep,
 
     p = set(x, y);
 }
+// ----------------------------
 // 72 ( parametric )
-void V_SPLIT(vector2 p; const vector2 _p; const float w; const vector2 split){
+// ----------------------------
+void V_SPLIT(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 split
+)
+{
     float _px, _py, sx, sy, x, y;
     assign(_px, _py, _p);
     assign(sx, sy, split);
@@ -1022,8 +1562,16 @@ void V_SPLIT(vector2 p; const vector2 _p; const float w; const vector2 split){
 
     p = set(x, y);
 }
+// ----------------------------
 // 73 ( parametric )
-void V_SPLITS(vector2 p; const vector2 _p; const float w; const vector2 splits){
+// ----------------------------
+void V_SPLITS(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 splits
+)
+{
     float _px, _py, sx, sy, x, y;
     assign(_px, _py, _p);
     assign(sx, sy, splits);
@@ -1035,8 +1583,16 @@ void V_SPLITS(vector2 p; const vector2 _p; const float w; const vector2 splits){
 
     p = set(x, y);
 }
+// ----------------------------
 // 74 ( parametric )
-void V_STRIPES(vector2 p; const vector2 _p; const float w; const vector2 stripes){
+// ----------------------------
+void V_STRIPES(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 stripes
+)
+{
     float space, warp, roundx, offsetx, _px, _py;
     assign(_px, _py, _p);
     assign(space, warp, stripes);
@@ -1046,8 +1602,16 @@ void V_STRIPES(vector2 p; const vector2 _p; const float w; const vector2 stripes
 
     p = w * set((offsetx * (1.0 - space) + roundx), (_py + offsetx*offsetx*warp));
 }
+// ----------------------------
 // 75 ( parametric )
-void V_WEDGE(vector2 p; const vector2 _p; const float w; const vector4 wedge){
+// ----------------------------
+void V_WEDGE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector4 wedge
+)
+{
     float swirl, angle, hole, count, r, a, c, m_CompFac;
     assign(swirl, angle, hole, count, wedge);
 
@@ -1060,8 +1624,16 @@ void V_WEDGE(vector2 p; const vector2 _p; const float w; const vector4 wedge){
 
     p = r * set(cos(a), sin(a));
 }
+// ----------------------------
 // 76 ( parametric ) // const vector precalc)
-void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w; const vector4 wedgejulia){ 
+// ----------------------------
+void V_WEDGEJULIA(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector4 wedgejulia
+)
+{ 
     float power, angle, dist, count, wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
     assign(power, angle, dist, count, wedgejulia);
 
@@ -1079,8 +1651,16 @@ void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w; const vector4 wedg
 
     p = rr * set(ca, sa);
 }
+// ----------------------------
 // 77 ( parametric )
-void V_WEDGESPH(vector2 p; const vector2 _p; const float w; const vector4 wedgesph){
+// ----------------------------
+void V_WEDGESPH(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector4 wedgesph
+)
+{
     float swirl, angle, hole, count, rr, aa, cc, comp_fac, sa, ca;
     assign(swirl, angle, hole, count, wedgesph);
 
@@ -1094,8 +1674,16 @@ void V_WEDGESPH(vector2 p; const vector2 _p; const float w; const vector4 wedges
 
     p = rr * set(ca, sa);
 }
+// ----------------------------
 // 78 ( parametric )
-void V_WHORL(vector2 p; const vector2 _p; const float w; const vector2 whorl){
+// ----------------------------
+void V_WHORL(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 whorl
+)
+{
     float inside, outside, rr, aa, sa, ca;
     assign(inside, outside, whorl);
 
@@ -1106,25 +1694,55 @@ void V_WHORL(vector2 p; const vector2 _p; const float w; const vector2 whorl){
 
     p = w * rr * set(ca, sa);
 }
+// ----------------------------
 // 79 ( parametric )
-void V_WAVES2(vector2 p; const vector2 _p; const float w; const vector2 scl, freq){
+// ----------------------------
+void V_WAVES2(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 scl, freq
+)
+{
     p = w * (_p + scl * sin(_p.yx * freq));
 }
+// ----------------------------
 // 80
-void V_EXP(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_EXP(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float expe, expz, expsin, expcos, _px, _py;
     assign(_px, _py, _p);
     expe = w * exp(_px);
 
     p = expe * set(cos(_py), sin(_py));
 }
+// ----------------------------
 // 81
-void V_LOG(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_LOG(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
 
     p = w * set(0.5 * log(SUMSQ(_p)), ATANYX(_p));
 }
+// ----------------------------
 // 82
-void V_SIN(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_SIN(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float _px, _py;
     assign(_px, _py, _p);
 
@@ -1139,8 +1757,16 @@ void V_SIN(const int f3c; vector2 p; const vector2 _p; const float w){
         p = w * set(sin(x) * cosh(y), cos(x) * sinh(y));
     }
 }
+// ----------------------------
 // 83
-void V_COS(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_COS(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float _px, _py;
     assign(_px, _py, _p);
 
@@ -1153,8 +1779,16 @@ void V_COS(const int f3c; vector2 p; const vector2 _p; const float w){
 
         p = w * set(cos(x) * cosh(y), -sin(x) * sinh(y)); }
 }
+// ----------------------------
 // 84
-void V_TAN(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_TAN(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float tansin, tancos, tansinh, tancosh, tanden, _px, _py;
     assign(_px, _py, _p);
 
@@ -1174,8 +1808,16 @@ void V_TAN(const int f3c; vector2 p; const vector2 _p; const float w){
         p = set(sin(x) * den, sinh(y) * den);
     }
 }
+// ----------------------------
 // 85
-void V_SEC(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_SEC(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float secsin, seccos, secsinh, seccosh, secden, _px, _py;
     assign(_px, _py, _p);
 
@@ -1198,8 +1840,16 @@ void V_SEC(const int f3c; vector2 p; const vector2 _p; const float w){
         p = secden * set(seccos * seccosh, secsin * secsinh); 
     }
 }
+// ----------------------------
 // 86 This somehow do not work as expected...
-void V_CSC(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_CSC(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float cscsin, csccos, cscsinh, csccosh, cscden, _px, _py;
     assign(_px, _py, _p);
 
@@ -1223,8 +1873,16 @@ void V_CSC(const int f3c; vector2 p; const vector2 _p; const float w){
 
         p = cscden * set(cscsin * csccosh, csccos * cscsinh);}
 }
+// ----------------------------
 // 87
-void V_COT(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_COT(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float cotsin, cotcos, cotsinh, cotcosh, cotden, _px, _py;
     assign(_px, _py, _p);
 
@@ -1247,8 +1905,16 @@ void V_COT(const int f3c; vector2 p; const vector2 _p; const float w){
         p = cotden * set(cotsin, cotsinh);
     }
 }
+// ----------------------------
 // 88
-void V_SINH(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_SINH(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float sinhsin, sinhcos, sinhsinh, sinhcosh, _px, _py;
     assign(_px, _py, _p);
 
@@ -1269,8 +1935,16 @@ void V_SINH(const int f3c; vector2 p; const vector2 _p; const float w){
         p = w * set(sinhsinh * sinhcos, sinhcosh * sinhsin);
     }
 }
+// ----------------------------
 // 89
-void V_COSH(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_COSH(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float coshsin, coshcos, coshsinh, coshcosh, _px, _py;
     assign(_px, _py, _p);
 
@@ -1291,8 +1965,16 @@ void V_COSH(const int f3c; vector2 p; const vector2 _p; const float w){
         p = w * set(coshcosh * coshcos, coshsinh * coshsin);
     }
 }
+// ----------------------------
 // 90
-void V_TANH(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_TANH(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float tanhsin, tanhcos, tanhsinh, tanhcosh, tanhden, _px, _py;
     assign(_px, _py, _p);
 
@@ -1315,8 +1997,16 @@ void V_TANH(const int f3c; vector2 p; const vector2 _p; const float w){
         p = tanhden * set(tanhsinh, tanhsin);
     }
 }
+// ----------------------------
 // 91
-void V_SECH(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_SECH(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float sechsin, sechcos, sechsinh, sechcosh, sechden, _px, _py;
     assign(_px, _py, _p);
 
@@ -1339,8 +2029,16 @@ void V_SECH(const int f3c; vector2 p; const vector2 _p; const float w){
         p = sechden * set(sechcos * sechcosh, sechsin * sechsinh);
     }
 }
+// ----------------------------
 // 92
-void V_CSCH(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_CSCH(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float cschsin, cschcos, cschsinh, cschcosh, cschden, _px, _py;
     assign(_px, _py, _p);
 
@@ -1363,8 +2061,16 @@ void V_CSCH(const int f3c; vector2 p; const vector2 _p; const float w){
 
         p = cschden * set(cschsinh * cschcos, cschcosh * cschsin);}
 }
+// ----------------------------
 // 93
-void V_COTH(const int f3c; vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_COTH(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float cothsin, cothcos, cothsinh, cothcosh, cothden, _px, _py;
     assign(_px, _py, _p);
 
@@ -1387,8 +2093,16 @@ void V_COTH(const int f3c; vector2 p; const vector2 _p; const float w){
         p = cothden * set(cothsinh, cothsin);
     }
 }
+// ----------------------------
 // 94 ( parametric )
-void V_AUGER(vector2 p; const vector2 _p; const float w; const vector4 auger){
+// ----------------------------
+void V_AUGER(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector4 auger
+)
+{
     float  freq, scale, sym, ww, s, t, uu, dy, dx, _px, _py;
     assign(_px, _py, _p);
     assign(freq, scale, sym, ww, auger);
@@ -1401,8 +2115,15 @@ void V_AUGER(vector2 p; const vector2 _p; const float w; const vector4 auger){
 
     p = w * set((_px + sym * (dx - _px)), dy);
 }
+// ----------------------------
 // 95 ( parametric )
-void V_FLUX(vector2 p; const vector2 _p; const float w, spread){
+// ----------------------------
+void V_FLUX(
+    vector2 p; 
+    const vector2 _p; 
+    const float w, spread
+)
+{
     float xpw, xmw, avgr, avga, _px, _py;
     assign(_px, _py, _p);
 
@@ -1413,8 +2134,15 @@ void V_FLUX(vector2 p; const vector2 _p; const float w, spread){
 
     p = avgr * set(cos(avga), sin(avga));
 }
+// ----------------------------
 // 96 ( parametric )
-void V_MOBIUS(vector2 p; const vector2 _p; const float w; const vector4 re, im){
+// ----------------------------
+void V_MOBIUS(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; const vector4 re, im
+)
+{
     float reu, imu, rev, imv, radv, _px, _py, reA, reB, reC, reD, imA, imB, imC, imD;
     assign(_px, _py, _p);
     assign(reA, reB, reC, reD, re);
@@ -1428,8 +2156,17 @@ void V_MOBIUS(vector2 p; const vector2 _p; const float w; const vector4 re, im){
 
     p = radv * set((reu*rev + imu*imv), (imu*rev - reu*imv));
 }
+// ----------------------------
 // 97 ( parametric )
-void V_CURVE(const int f3c; vector2 p; const vector2 _p; const float w; const vector2 l, a){
+// ----------------------------
+void V_CURVE(
+    const int f3c; 
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 l, a
+)
+{
     float _px, _py, lx, ly, ax, ay;
     assign(_px, _py, _p);
     assign(lx, ly, l);
@@ -1447,8 +2184,16 @@ void V_CURVE(const int f3c; vector2 p; const vector2 _p; const float w; const ve
         p = w * set(_px + ax * exp(-_py * _py / Zeps(lx)), _py + ay * exp(-_px * _px / Zeps(ly)));
     }
 }
+// ----------------------------
 // 98 ( parametric )
-void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w; const vector2 persp){
+// ----------------------------
+void V_PERSPECTIVE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 persp
+)
+{
     float angle, dist, tt, vsin, vfcos, _px, _py;
     assign(_px, _py, _p);
     assign(angle, dist, persp);
@@ -1461,8 +2206,17 @@ void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w; const vector2 per
 
     p = w * set(dist * _px * tt, vfcos * _py * tt);
 }
+// ----------------------------
 // 99 ( parametric )
-void V_BWRAPS(vector2 p; const vector2 _p; const float w; const vector bwraps; const vector2 twist){
+// ----------------------------
+void V_BWRAPS(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector bwraps; 
+    const vector2 twist
+)
+{
     float cellsize, space, gain, innertwist, outertwist, g2, r2, rfactor, max_bubble, Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
     assign(Vx, Vy, _p);
     assign(cellsize, space, gain, bwraps);
@@ -1505,14 +2259,27 @@ void V_BWRAPS(vector2 p; const vector2 _p; const float w; const vector bwraps; c
         }
     }
 }
+// ----------------------------
 // 100
-void V_HEMISPHERE(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_HEMISPHERE(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float tt = w / sqrt(SUMSQ(_p) + 1);
 
     p = tt * _p;
 }
 // 101 ( parametric )
-void V_POLYNOMIAL(vector2 p; const vector2 _p; const float w; const vector2 pow, lc, sc){
+void V_POLYNOMIAL(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector2 pow, lc, sc
+)
+{
     float xp, yp, pwx, pwy, lx, ly, sx, sy, _px, _py;
     assign(_px, _py, _p);
     assign(pwx, pwy, pow);
@@ -1524,10 +2291,19 @@ void V_POLYNOMIAL(vector2 p; const vector2 _p; const float w; const vector2 pow,
 
     p = set(xp * sgn(_px) + lx * _px + sx, yp * sgn(_py) + ly * _py + sy);
 }
+// ----------------------------
 // 102 ( parametric )
 // ltrb -> const float left, top, right, bottom
 // az -> area, zero(int) - prm "zero" need to only be different from Zero to do its job ;)
-void V_CROP(vector2 p; const vector2 _p; const float w; const vector4 ltrb; const vector2 az;){
+// ----------------------------
+void V_CROP(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector4 ltrb; 
+    const vector2 az
+)
+{
     float x, y, m_X0, m_Y0, m_X1, m_Y1, m_S, m_Z;
     assign(x, y, _p);
     assign(m_X0, m_Y0, m_X1, m_Y1, ltrb);
@@ -1568,8 +2344,15 @@ void V_CROP(vector2 p; const vector2 _p; const float w; const vector4 ltrb; cons
     }
     p = w * set(x, y);
 }
+// ----------------------------
 // 103
-void V_UNPOLAR(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_UNPOLAR(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float m_Vvar2, r, s, c, _px, _py;
     assign(_px, _py, _p);
 
@@ -1581,8 +2364,15 @@ void V_UNPOLAR(vector2 p; const vector2 _p; const float w){
 
     p = m_Vvar2 * r * set(s, c);
 }
+// ----------------------------
 // 104
-void V_GLYNNIA(vector2 p; const vector2 _p; const float w){
+// ----------------------------
+void V_GLYNNIA(
+    vector2 p; 
+    const vector2 _p; 
+    const float w
+)
+{
     float d, r, m_V2, _px, _py;
     assign(_px, _py, _p);
 
@@ -1613,8 +2403,16 @@ void V_GLYNNIA(vector2 p; const vector2 _p; const float w){
             p = set(-(r * d), r * _py);}
         }
 }
+// ----------------------------
 // 105 ( parametric )
-void V_POINT_SYMMETRY(vector2 p; const vector2 _p; const float w; const vector ptsym){
+// ----------------------------
+void V_POINT_SYMMETRY(
+    vector2 p; 
+    const vector2 _p; 
+    const float w; 
+    const vector ptsym
+)
+{
     float m_Order, m_X, m_Y, angle, dx, dy, cosa, sina, m_TwoPiDivOrder, _px, _py;
     assign(_px, _py, _p);
     assign(m_Order, m_X, m_Y, ptsym);
