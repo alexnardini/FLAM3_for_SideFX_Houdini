@@ -41,7 +41,20 @@
  /
  /  Name:       VARIATIONS "CVEX"
  /
- /  Comment:    FLAM3 variations.
+ /  Comment:    FLAM3 variations. 
+ /              The original Flame3 code base define  
+ /              all the variation functions to return: void
+ /              
+ /              However,
+ /              in the OpenCL code base I made them to directly return: float2
+ /              along with many other GPU-specific optimizations.
+ /              
+ /              The CVEX codebase could now benefit from the knowledge gained during the development of the GPU implementation. 
+ /              However, it has intentionally been left unchanged to mirror the original Flam3 codebase as closely as possible 
+ /              and serve as the sole reference for correctness. 
+ /              
+ /              This ensures that the GPU implementation always has a reliable ground truth against which it can be validated.
+ /
 */
 
 
