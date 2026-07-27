@@ -1793,7 +1793,7 @@ static float2 CL_V_DISC2(
     );
 }
 // ----------------------------
-// 048 VAR DISC2
+// 048 VAR SUPERSHAPE
 // ----------------------------
 static float2 CL_V_SUPERSHAPE(
     __private const float2 in, 
@@ -2227,7 +2227,7 @@ static float2 CL_V_EDISC(
     );
 }
 // ----------------------------
-// 059 VAR EDISC
+// 059 VAR ELLIPTIC
 // ----------------------------
 static float2 CL_V_ELLIPTIC(
     __private const float2 in, 

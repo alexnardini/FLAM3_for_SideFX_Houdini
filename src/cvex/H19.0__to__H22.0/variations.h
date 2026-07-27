@@ -72,7 +72,7 @@
 */
 
 // ----------------------------
-// 01
+// 001 VAR SINUSOIDAL
 // ----------------------------
 void V_SINUSOIDAL(
     vector2 p; 
@@ -86,7 +86,7 @@ void V_SINUSOIDAL(
     p = w * set(sin(_px), sin(_py));
 }
 // ----------------------------
-// 02
+// 002 VAR SPHERICAL
 // ----------------------------
 void V_SPHERICAL(
     vector2 p; 
@@ -99,7 +99,7 @@ void V_SPHERICAL(
     p = r2 * _p;
 }
 // ----------------------------
-// 03
+// 003 VAR SWIRL
 // ----------------------------
 void V_SWIRL(
     vector2 p; 
@@ -119,7 +119,7 @@ void V_SWIRL(
     p = w * set(nx, ny);
 }
 // ----------------------------
-// 04
+// 004 VAR HORSESHOWE
 // ----------------------------
 void V_HORSESHOE(
     vector2 p; 
@@ -134,7 +134,7 @@ void V_HORSESHOE(
     p = set((_px - _py) * (_px + _py) * rr, 2.0 * _px * _py * rr);
 }
 // ----------------------------
-// 05
+// 005 VAR POLAR
 // ----------------------------
 void V_POLAR(
     vector2 p; 
@@ -149,7 +149,7 @@ void V_POLAR(
     p = w * set(nx, ny);
 }
 // ----------------------------
-// 06
+// 006 VAR HANDKERCHIEF
 // ----------------------------
 void V_HANDKERCHIEF(
     vector2 p; 
@@ -163,7 +163,7 @@ void V_HANDKERCHIEF(
     p = w * _SQRT * set(sin(a+_SQRT), cos(a-_SQRT));
 }
 // ----------------------------
-// 07
+// 007 VAR HEART
 // ----------------------------
 void V_HEART(
     vector2 p; 
@@ -179,7 +179,7 @@ void V_HEART(
     p = set(r * sin(a), (-r) * cos(a));
 }
 // ----------------------------
-// 08
+// 008 VAR DISC
 // ----------------------------
 void V_DISC(
     vector2 p; 
@@ -195,7 +195,7 @@ void V_DISC(
     p = w * set(sr, cr) * a;
 }
 // ----------------------------
-// 09 (precalc _p)
+// 009 VAR SPIRAL (precalc _p)
 // ----------------------------
 void V_SPIRAL(
     vector2 p; 
@@ -213,7 +213,7 @@ void V_SPIRAL(
     p = r1 * set((precalc[1] + sr), (precalc[0] - cr));
 }
 // ----------------------------
-// 10 (precalc _p)
+// 010 VAR HIPERBOLIC (precalc _p)
 // ----------------------------
 void V_HIPERBOLIC(
     vector2 p; 
@@ -228,7 +228,7 @@ void V_HIPERBOLIC(
     p = w * set(precalc[0] / rr, precalc[1] * rr);
 }
 // ----------------------------
-// 11 (precalc _p)
+// 011 VAR DIAMOND (precalc _p)
 // ----------------------------
 void V_DIAMOND(
     vector2 p; 
@@ -244,7 +244,7 @@ void V_DIAMOND(
     p = w * set(sin(a) * cos(r), cos(a) * sin(r));
 }
 // ----------------------------
-// 12
+// 012 VAR EX
 // ----------------------------
 void V_EX(
     vector2 p; 
@@ -263,7 +263,7 @@ void V_EX(
     p = w * set(m0 + m1, m0 - m1);
 }
 // ----------------------------
-// 13
+// 013 VAR JULIA
 // ----------------------------
 void V_JULIA(
     vector2 p; 
@@ -281,7 +281,7 @@ void V_JULIA(
     p = r * set(ca, sa);
 }
 // ----------------------------
-// 14
+// 014 VAR BENT
 // ----------------------------
 void V_BENT(
     vector2 p; 
@@ -299,7 +299,7 @@ void V_BENT(
     p = w * set(nx, ny);
 }
 // ----------------------------
-// 15
+// 015 VAR WAVES
 // ----------------------------
 void V_WAVES(
     vector2 p; 
@@ -319,7 +319,7 @@ void V_WAVES(
     p = w * set(nx, ny);
 }
 // ----------------------------
-// 16
+// 016 VAR FISHEYE
 // ----------------------------
 void V_FISHEYE(
     vector2 p; 
@@ -333,7 +333,7 @@ void V_FISHEYE(
     p = r * _p;
 }
 // ----------------------------
-// 17
+// 017 VAR POPCORN
 // ----------------------------
 void V_POPCORN(
     vector2 p; 
@@ -352,7 +352,7 @@ void V_POPCORN(
     p = w * set(nx, ny);
 }
 // ----------------------------
-// 18
+// 018 VAR EXPONENTIAL
 // ----------------------------
 void V_EXPONENTIAL(
     vector2 p; 
@@ -370,7 +370,7 @@ void V_EXPONENTIAL(
     p = dx * set(cdy, sdy);
 }
 // ----------------------------
-// 19 (precalc _p)
+// 019 VAR POWER (precalc _p)
 // ----------------------------
 void V_POWER(
     vector2 p; 
@@ -385,7 +385,7 @@ void V_POWER(
     p = r * precalc.yx;
 }
 // ----------------------------
-// 20
+// 020 VAR COSINE
 // ----------------------------
 void V_COSINE(
     vector2 p; 
@@ -404,7 +404,7 @@ void V_COSINE(
     p = w * set(nx, ny);
 }
 // ----------------------------
-// 21 (precalc _p)
+// 021 VAR RINGS (precalc _p)
 // ----------------------------
 void V_RINGS(
     vector2 p; 
@@ -423,7 +423,7 @@ void V_RINGS(
     p = rr * precalc.yx;
 }
 // ----------------------------
-// 22
+// 022 VAR FAN
 // ----------------------------
 void V_FAN(
     vector2 p; 
@@ -443,7 +443,7 @@ void V_FAN(
     p = r * set(ca, sa);
 }
 // ----------------------------
-// 23
+// 023 VAR BUBBLE
 // ----------------------------
 void V_BUBBLE(
     vector2 p; 
@@ -459,7 +459,7 @@ void V_BUBBLE(
     p = r * _p;
 }
 // ----------------------------
-// 24
+// 024 VAR CYLINDER
 // ----------------------------
 void V_CYLINDER(
     vector2 p; 
@@ -473,7 +473,7 @@ void V_CYLINDER(
     p = w * set(sin(_px), _py);
 }
 // ----------------------------
-// 25
+// 025 VAR EYEFISH
 // ----------------------------
 void V_EYEFISH(
     vector2 p; 
@@ -486,7 +486,7 @@ void V_EYEFISH(
     p = r * _p;
 }
 // ----------------------------
-// 26
+// 026 VAR BLUR
 // ----------------------------
 void V_BLUR(
     vector2 p; 
@@ -501,7 +501,7 @@ void V_BLUR(
     p = r * set(cosr, sinr);
 }
 // ----------------------------
-// 27 ( parametric )
+// 027 VAR CURL ( parametric )
 // ----------------------------
 void V_CURL(
     vector2 p; 
@@ -553,7 +553,7 @@ void V_CURL(
     // }
 }
 // ----------------------------
-// 28 ( parametric )
+// 028 VAR NGON ( parametric )
 // ----------------------------
 void V_NGON(
     vector2 p; 
@@ -576,7 +576,7 @@ void V_NGON(
     p = amp * _p;
 }
 // ----------------------------
-// 29 ( parametric )
+// 029 VAR PDG ( parametric )
 // ----------------------------
 void V_PDJ(
     vector2 p; 
@@ -597,7 +597,7 @@ void V_PDJ(
     p = w * set(ny1 - nx1, nx2 - ny2);
 }
 // ----------------------------
-// 30 ( parametric ) (precalc _p)
+// 030 VAR BLOB ( parametric ) (precalc _p)
 // ----------------------------
 void V_BLOB(
     vector2 p; 
@@ -619,7 +619,7 @@ void V_BLOB(
     p = w * rr * precalc;
 }
 // ----------------------------
-// 31 ( parametric )
+// 031 VAR JULIAN ( parametric )
 // ----------------------------
 void V_JULIAN(
     vector2 p; 
@@ -642,7 +642,7 @@ void V_JULIAN(
     p = rr * set(cosa, sina);
 }
 // ----------------------------
-// 32 ( parametric )
+// 032 VAR JULIASCOPE ( parametric )
 // ----------------------------
 void V_JULIASCOPE(
     vector2 p; 
@@ -666,7 +666,7 @@ void V_JULIASCOPE(
     p = rr * set(cosa, sina);
 }
 // ----------------------------
-// 33
+// 033 VAR GAUSSIAN BLUR
 // ----------------------------
 void V_GAUSSIAN_BLUR(
     vector2 p; 
@@ -680,7 +680,7 @@ void V_GAUSSIAN_BLUR(
     p = rr * set(cos(ang), sin(ang));
 }
 // ----------------------------
-// 34 ( parametric )
+// 034 VAR FAN2 ( parametric )
 // ----------------------------
 void V_FAN2(
     const int f3c; 
@@ -705,7 +705,7 @@ void V_FAN2(
     p = rr * (f3c ? v.yx : v);
 }
 // ----------------------------
-// 35 ( parametric ) (precalc _p)
+// 035 VAR RINGS2 ( parametric ) (precalc _p)
 // ----------------------------
 void V_RINGS2(
     vector2 p; 
@@ -724,7 +724,7 @@ void V_RINGS2(
     p = w * rr * precalc;
 }
 // ----------------------------
-// 36 ( parametric )
+// 036 VAR RECTANGLES ( parametric )
 // ----------------------------
 void V_RECTANGLES(
     vector2 p; 
@@ -745,7 +745,7 @@ void V_RECTANGLES(
     p = set(x, y);
 }
 // ----------------------------
-// 37 ( parametric )
+// 037 VAR RADIAL BLUR ( parametric )
 // ----------------------------
 void V_RADIALBLUR(
     vector2 p; 
@@ -769,7 +769,7 @@ void V_RADIALBLUR(
     p = ra * set(ca, sa) + rz * _p;
 }
 // ----------------------------
-// 38 ( parametric )
+// 038 VAR PIE ( parametric )
 // ----------------------------
 void V_PIE(
     vector2 p; 
@@ -788,7 +788,7 @@ void V_PIE(
     p = rr * set(ca, sa);
 }
 // ----------------------------
-// 39
+// 039 VAR ARCH
 // ----------------------------
 void V_ARCH(
     vector2 p; 
@@ -803,7 +803,7 @@ void V_ARCH(
     p = w * set(sinr, (sinr*sinr)/cosr);
 }
 // ----------------------------
-// 40
+// 040 VAR TANGENT
 // ----------------------------
 void V_TANGENT(
     vector2 p; 
@@ -817,7 +817,7 @@ void V_TANGENT(
     p = w * set((sin(_px)/cos(_py)), tan(_py));
 }
 // ----------------------------
-// 41
+// 041 VAR SQUARE
 // ----------------------------
 void V_SQUARE(
     vector2 p; 
@@ -828,7 +828,7 @@ void V_SQUARE(
     p = w * set((nrandom("twister") - 0.5), (nrandom("twister") - 0.5));
 }
 // ----------------------------
-// 42
+// 042 VAR RAYS
 // ----------------------------
 void V_RAYS(
     vector2 p; 
@@ -846,7 +846,7 @@ void V_RAYS(
     p = tanrr * set(cos(_px), sin(_py));
 }
 // ----------------------------
-// 43
+// 043 VAR BLADE
 // ----------------------------
 void V_BLADE(
     vector2 p; 
@@ -863,7 +863,7 @@ void V_BLADE(
     p = w * _px * set(cosr + sinr, cosr - sinr);
 }
 // ----------------------------
-// 44
+// 044 VAR SECANT2
 // ----------------------------
 void V_SECANT2(
     vector2 p; 
@@ -880,7 +880,7 @@ void V_SECANT2(
     p = set(w * _px, (cr<0) ? w*(icr+1) : w*(icr-1));
 }
 // ----------------------------
-// 45
+// 045 VAR TWINTRIAN
 // ----------------------------
 void V_TWINTRIAN(
     vector2 p; 
@@ -900,7 +900,7 @@ void V_TWINTRIAN(
     p = w * _px * set(diff, diff - sinr * M_PI);
 }
 // ----------------------------
-// 46
+// 046 VAR TWINTRIAN
 // ----------------------------
 void V_CROSS(
     const int f3c; 
@@ -923,7 +923,7 @@ void V_CROSS(
     p = _p * r;
 }
 // ----------------------------
-// 47 ( parametric )
+// 047 VAR DISC2 ( parametric )
 // ----------------------------
 void V_DISC2(
     vector2 p; 
@@ -945,7 +945,7 @@ void V_DISC2(
     p = rr * set(sinr + disc2_cosadd, cosr + disc2_sinadd);
 }
 // ----------------------------
-// // 47 L ( parametric )
+// // 047 VAR DISC2 L ( parametric )
 // ----------------------------
 // void V_DISC2_L(
 //     vector2 p; 
@@ -963,7 +963,7 @@ void V_DISC2(
 //     V_DISC2(p, _p, w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd);
 // }
 // ----------------------------
-// 47 FF ( parametric )
+// 047 VAR DISC2 FF ( parametric )
 // ----------------------------
 void V_DISC2_FF(
     vector2 p; 
@@ -982,7 +982,9 @@ void V_DISC2_FF(
     // Execute var
     V_DISC2(p, _p, w, disc2, precalc);
 }
-// 48 ( parametric )
+// ----------------------------
+// 048 VAR SUPERSHAPE ( parametric )
+// ----------------------------
 void V_SUPERSHAPE(
     vector2 p; 
     const vector2 _p; 
@@ -1008,7 +1010,7 @@ void V_SUPERSHAPE(
     p = rr * _p;
 }
 // ----------------------------
-// 49 ( parametric )
+// 049 VAR FLOWER ( parametric )
 // ----------------------------
 void V_FLOWER(
     vector2 p; 
@@ -1026,7 +1028,7 @@ void V_FLOWER(
     p = rr * _p;
 }
 // ----------------------------
-// 50 ( parametric )
+// 050 VAR CONIC ( parametric )
 // ----------------------------
 void V_CONIC(
     vector2 p; 
@@ -1046,7 +1048,7 @@ void V_CONIC(
     p = rr * _p;
 }
 // ----------------------------
-// 51 ( parametric )
+// 051 VAR PARABOLA ( parametric )
 // ----------------------------
 void V_PARABOLA(
     vector2 p; 
@@ -1064,7 +1066,7 @@ void V_PARABOLA(
     p = w * set(height * sr*sr * nrandom("twister"), width  * cr * nrandom("twister"));
 }
 // ----------------------------
-// 52 ( parametric )
+// 052 VAR BENT2 ( parametric )
 // ----------------------------
 void V_BENT2(
     vector2 p; 
@@ -1085,7 +1087,7 @@ void V_BENT2(
     p = w * set(nx, ny);
 }
 // ----------------------------
-// 53 ( parametric )
+// 053 VAR BIPOLAR ( parametric )
 // ----------------------------
 void V_BIPOLAR(
     vector2 p; 
@@ -1107,7 +1109,7 @@ void V_BIPOLAR(
     p = w * set(0.25 * M_2_PI * log((tt+x2) / (tt-x2)), M_2_PI * y);
 }
 // ----------------------------
-// 54
+// 054 VAR BOARDERS
 // ----------------------------
 void V_BOARDERS(
     vector2 p; 
@@ -1145,7 +1147,7 @@ void V_BOARDERS(
     }
 }
 // ----------------------------
-// 55
+// 055 VAR BUTTERFLY
 // ----------------------------
 void V_BUTTERFLY(
     vector2 p; 
@@ -1163,7 +1165,7 @@ void V_BUTTERFLY(
     p = rr * set(_px, y2);
 }
 // ----------------------------
-// 56 ( parametric )
+// 056 VAR CELL ( parametric )
 // ----------------------------
 void V_CELL(
     vector2 p; 
@@ -1203,7 +1205,7 @@ void V_CELL(
     p = set(w * (dx + x * size), -(w * (dy + y * size)));
 }
 // ----------------------------
-// 57 ( parametric )
+// 057 VAR CPOW ( parametric )
 // ----------------------------
 void V_CPOW(
     vector2 p; 
@@ -1227,7 +1229,7 @@ void V_CPOW(
     p = mm * set(ca, sa);
 }
 // ----------------------------
-// 58
+// 058 VAR EDISC
 // ----------------------------
 void V_EDISC(
     const int f3c; 
@@ -1255,7 +1257,7 @@ void V_EDISC(
     p = ww * set(cshu * csv, snhu * snv);
 }
 // ----------------------------
-// 59
+// 059 VAR ELLIPTIC
 // ----------------------------
 void V_ELLIPTIC(
     vector2 p; 
@@ -1304,7 +1306,7 @@ void V_ELLIPTIC(
     p = set(weightDivPiDiv2 * asin(clamp(a, -1, 1)), (_py > 0) ? weightDivPiDiv2 * log1p(xmaxm1 + ssx) : -(weightDivPiDiv2 * log1p(xmaxm1 + ssx)));
 }
 // ----------------------------
-// 60
+// 060 VAR NOISE
 // ----------------------------
 void V_NOISE(
     vector2 p; 
@@ -1321,7 +1323,7 @@ void V_NOISE(
     p = _p * rr * set(cosr, sinr);
 }
 // ----------------------------
-// 61 ( parametric )
+// 061 VAR ESCHER ( parametric )
 // ----------------------------
 void V_ESCHER(
     const int f3c; 
@@ -1345,7 +1347,7 @@ void V_ESCHER(
     p = mm * set(cn, sn);
 }
 // ----------------------------
-// 62
+// 062 VAR FOCI
 // ----------------------------
 void V_FOCI(
     vector2 p; 
@@ -1364,7 +1366,7 @@ void V_FOCI(
     p = tmp * set(expx - expnx, sn);
 }
 // ----------------------------
-// 63 ( parametric )
+// 063 VAR LAZYSUSAN ( parametric )
 // ----------------------------
 void V_LAZYSUSAN(
     vector2 p; 
@@ -1396,7 +1398,7 @@ void V_LAZYSUSAN(
     }
 }
 // ----------------------------
-// 64
+// 064 VAR LOONIE
 // ----------------------------
 void V_LOONIE(
     vector2 p; 
@@ -1418,7 +1420,7 @@ void V_LOONIE(
     }
 }
 // ----------------------------
-// 65
+// 065 VAR PREBLUR
 // ----------------------------
 void V_PREBLUR(
     vector2 p; 
@@ -1433,7 +1435,7 @@ void V_PREBLUR(
     p += rndG * set(cosA, sinA);
 }
 // ----------------------------
-// 66 ( parametric )
+// 066 VAR MODULUS ( parametric )
 // ----------------------------
 void V_MODULUS(
     vector2 p; 
@@ -1464,7 +1466,7 @@ void V_MODULUS(
     p = set(x, y);
 }
 // ----------------------------
-// 67 ( parametric )
+// 067 VAR OSCOPE ( parametric )
 // ----------------------------
 void V_OSCOPE(
     vector2 p; 
@@ -1489,7 +1491,7 @@ void V_OSCOPE(
     }
 }
 // ----------------------------
-// 68
+// 068 VAR POLAR2
 // ----------------------------
 void V_POLAR2(
     vector2 p; 
@@ -1500,7 +1502,9 @@ void V_POLAR2(
     float p2v = w / M_PI;
     p = set(p2v * ATAN(_p), p2v/2.0 * log(SUMSQ(_p)));
     }
-// 69 ( parametric )
+// ----------------------------
+// 069 VAR POPCORN2
+// ----------------------------
 void V_POPCORN2(
     vector2 p; 
     const vector2 _p; 
@@ -1515,7 +1519,7 @@ void V_POPCORN2(
     p = w * (_p + set(pop2x, pop2y) * set(sin(SafeTan(_py*pop2c)), sin(SafeTan(_px*pop2c))));
 }
 // ----------------------------
-// 70 ( parametric )
+// 070 VAR SCRY
 // ----------------------------
 void V_SCRY(
     vector2 p; 
@@ -1531,7 +1535,7 @@ void V_SCRY(
     p = rr * _p;
 }
 // ----------------------------
-// 71 ( parametric )
+// 071 VAR SEPARATION ( parametric )
 // ----------------------------
 void V_SEPARATION(
     vector2 p; 
@@ -1555,7 +1559,7 @@ void V_SEPARATION(
     p = set(x, y);
 }
 // ----------------------------
-// 72 ( parametric )
+// 072 VAR SPLIT ( parametric )
 // ----------------------------
 void V_SPLIT(
     vector2 p; 
@@ -1576,7 +1580,7 @@ void V_SPLIT(
     p = set(x, y);
 }
 // ----------------------------
-// 73 ( parametric )
+// 073 VAR SPLITS ( parametric )
 // ----------------------------
 void V_SPLITS(
     vector2 p; 
@@ -1597,7 +1601,7 @@ void V_SPLITS(
     p = set(x, y);
 }
 // ----------------------------
-// 74 ( parametric )
+// 074 VAR STRIPES ( parametric )
 // ----------------------------
 void V_STRIPES(
     vector2 p; 
@@ -1616,7 +1620,7 @@ void V_STRIPES(
     p = w * set((offsetx * (1.0 - space) + roundx), (_py + offsetx*offsetx*warp));
 }
 // ----------------------------
-// 75 ( parametric )
+// 075 VAR WEDGE ( parametric )
 // ----------------------------
 void V_WEDGE(
     vector2 p; 
@@ -1638,7 +1642,7 @@ void V_WEDGE(
     p = r * set(cos(a), sin(a));
 }
 // ----------------------------
-// 76 ( parametric ) // const vector precalc)
+// 076 VAR WEDGEJULIA ( parametric ) // const vector precalc)
 // ----------------------------
 void V_WEDGEJULIA(
     vector2 p; 
@@ -1665,7 +1669,7 @@ void V_WEDGEJULIA(
     p = rr * set(ca, sa);
 }
 // ----------------------------
-// 77 ( parametric )
+// 077 VAR WEDGESPH ( parametric )
 // ----------------------------
 void V_WEDGESPH(
     vector2 p; 
@@ -1688,7 +1692,7 @@ void V_WEDGESPH(
     p = rr * set(ca, sa);
 }
 // ----------------------------
-// 78 ( parametric )
+// 078 VAR WHORL ( parametric )
 // ----------------------------
 void V_WHORL(
     vector2 p; 
@@ -1708,7 +1712,7 @@ void V_WHORL(
     p = w * rr * set(ca, sa);
 }
 // ----------------------------
-// 79 ( parametric )
+// 079 VAR WAVES2 ( parametric )
 // ----------------------------
 void V_WAVES2(
     vector2 p; 
@@ -1720,7 +1724,7 @@ void V_WAVES2(
     p = w * (_p + scl * sin(_p.yx * freq));
 }
 // ----------------------------
-// 80
+// 080 VAR EXP
 // ----------------------------
 void V_EXP(
     vector2 p; 
@@ -1735,7 +1739,7 @@ void V_EXP(
     p = expe * set(cos(_py), sin(_py));
 }
 // ----------------------------
-// 81
+// 081 VAR LOG
 // ----------------------------
 void V_LOG(
     vector2 p; 
@@ -1747,7 +1751,7 @@ void V_LOG(
     p = w * set(0.5 * log(SUMSQ(_p)), ATANYX(_p));
 }
 // ----------------------------
-// 82
+// 082 VAR SIN
 // ----------------------------
 void V_SIN(
     const int f3c; 
@@ -1771,7 +1775,7 @@ void V_SIN(
     }
 }
 // ----------------------------
-// 83
+// 083 VAR COS
 // ----------------------------
 void V_COS(
     const int f3c; 
@@ -1793,7 +1797,7 @@ void V_COS(
         p = w * set(cos(x) * cosh(y), -sin(x) * sinh(y)); }
 }
 // ----------------------------
-// 84
+// 084 VAR TAN
 // ----------------------------
 void V_TAN(
     const int f3c; 
@@ -1822,7 +1826,7 @@ void V_TAN(
     }
 }
 // ----------------------------
-// 85
+// 085 VAR SEC
 // ----------------------------
 void V_SEC(
     const int f3c; 
@@ -1854,7 +1858,7 @@ void V_SEC(
     }
 }
 // ----------------------------
-// 86 This somehow do not work as expected...
+// 086 VAR CSC This somehow do not work as expected...
 // ----------------------------
 void V_CSC(
     const int f3c; 
@@ -1887,7 +1891,7 @@ void V_CSC(
         p = cscden * set(cscsin * csccosh, csccos * cscsinh);}
 }
 // ----------------------------
-// 87
+// 087 VAR COT
 // ----------------------------
 void V_COT(
     const int f3c; 
@@ -1919,7 +1923,7 @@ void V_COT(
     }
 }
 // ----------------------------
-// 88
+// 088 VAR SINH
 // ----------------------------
 void V_SINH(
     const int f3c; 
@@ -1949,7 +1953,7 @@ void V_SINH(
     }
 }
 // ----------------------------
-// 89
+// 089 VAR COSH
 // ----------------------------
 void V_COSH(
     const int f3c; 
@@ -1979,7 +1983,7 @@ void V_COSH(
     }
 }
 // ----------------------------
-// 90
+// 090 VAR TANH
 // ----------------------------
 void V_TANH(
     const int f3c; 
@@ -2011,7 +2015,7 @@ void V_TANH(
     }
 }
 // ----------------------------
-// 91
+// 091 VAR TANH
 // ----------------------------
 void V_SECH(
     const int f3c; 
@@ -2043,7 +2047,7 @@ void V_SECH(
     }
 }
 // ----------------------------
-// 92
+// 092 VAR CSCH
 // ----------------------------
 void V_CSCH(
     const int f3c; 
@@ -2075,7 +2079,7 @@ void V_CSCH(
         p = cschden * set(cschsinh * cschcos, cschcosh * cschsin);}
 }
 // ----------------------------
-// 93
+// 093 VAR COTH
 // ----------------------------
 void V_COTH(
     const int f3c; 
@@ -2107,7 +2111,7 @@ void V_COTH(
     }
 }
 // ----------------------------
-// 94 ( parametric )
+// 094 VAR AUGER ( parametric )
 // ----------------------------
 void V_AUGER(
     vector2 p; 
@@ -2129,7 +2133,7 @@ void V_AUGER(
     p = w * set((_px + sym * (dx - _px)), dy);
 }
 // ----------------------------
-// 95 ( parametric )
+// 095 VAR FLUX ( parametric )
 // ----------------------------
 void V_FLUX(
     vector2 p; 
@@ -2148,7 +2152,7 @@ void V_FLUX(
     p = avgr * set(cos(avga), sin(avga));
 }
 // ----------------------------
-// 96 ( parametric )
+// 096 VAR MOBIUS ( parametric )
 // ----------------------------
 void V_MOBIUS(
     vector2 p; 
@@ -2170,7 +2174,7 @@ void V_MOBIUS(
     p = radv * set((reu*rev + imu*imv), (imu*rev - reu*imv));
 }
 // ----------------------------
-// 97 ( parametric )
+// 097 VAR CURVE ( parametric )
 // ----------------------------
 void V_CURVE(
     const int f3c; 
@@ -2198,7 +2202,7 @@ void V_CURVE(
     }
 }
 // ----------------------------
-// 98 ( parametric )
+// 098 VAR PERSPECTIVE ( parametric )
 // ----------------------------
 void V_PERSPECTIVE(
     vector2 p; 
@@ -2220,7 +2224,7 @@ void V_PERSPECTIVE(
     p = w * set(dist * _px * tt, vfcos * _py * tt);
 }
 // ----------------------------
-// 99 ( parametric )
+// 099 VAR BWRAPS ( parametric )
 // ----------------------------
 void V_BWRAPS(
     vector2 p; 
@@ -2273,7 +2277,7 @@ void V_BWRAPS(
     }
 }
 // ----------------------------
-// 100
+// 100 VAR HEMISPHERE
 // ----------------------------
 void V_HEMISPHERE(
     vector2 p; 
@@ -2285,7 +2289,9 @@ void V_HEMISPHERE(
 
     p = tt * _p;
 }
-// 101 ( parametric )
+// ----------------------------
+// 101 VAR POLYNOMIAL
+// ----------------------------
 void V_POLYNOMIAL(
     vector2 p; 
     const vector2 _p; 
@@ -2305,7 +2311,7 @@ void V_POLYNOMIAL(
     p = set(xp * sgn(_px) + lx * _px + sx, yp * sgn(_py) + ly * _py + sy);
 }
 // ----------------------------
-// 102 ( parametric )
+// 102 VAR CROP ( parametric )
 // ltrb -> const float left, top, right, bottom
 // az -> area, zero(int) - prm "zero" need to only be different from Zero to do its job ;)
 // ----------------------------
@@ -2358,7 +2364,7 @@ void V_CROP(
     p = w * set(x, y);
 }
 // ----------------------------
-// 103
+// 103 VAR UNPOLAR
 // ----------------------------
 void V_UNPOLAR(
     vector2 p; 
@@ -2378,7 +2384,7 @@ void V_UNPOLAR(
     p = m_Vvar2 * r * set(s, c);
 }
 // ----------------------------
-// 104
+// 104 VAR GLYNNIA
 // ----------------------------
 void V_GLYNNIA(
     vector2 p; 
@@ -2417,7 +2423,7 @@ void V_GLYNNIA(
         }
 }
 // ----------------------------
-// 105 ( parametric )
+// 105 VAR POINT SYMMETRY ( parametric )
 // ----------------------------
 void V_POINT_SYMMETRY(
     vector2 p; 
