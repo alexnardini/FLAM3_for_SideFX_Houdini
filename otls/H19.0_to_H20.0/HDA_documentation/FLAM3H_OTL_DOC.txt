@@ -3778,13 +3778,34 @@ _Dependent variation's affine coefficients_
     _A dependent variation behaves similarly to a parametric variation, but uses some of the affine coefficients to determine its behavior rather than additional parameters._
     _The dependent variations and the affine coefficients they employ are listed below_:<br /><br />
     
-    # [Icon:TOP/xmlinput] *_Waves_*: `Y[0] O[0]   Y[1] O[1]` (*`B`*, *`C`*, *`E`*, *`F`*)
+    # [Icon:TOP/xmlinput] *_Waves_*: `Y.x O.x   Y.y O.y` (*`B`*, *`C`*, *`E`*, *`F`*)
+        
+        :disclosure:doc
+            
+            - *B* —> *Horizontal Wave Strength*<br />Controls the amount of horizontal displacement created by the vertical wave pattern. Higher values create stronger side-to-side bending. Lower values reduce the horizontal ripple effect.
+            - *C* —> *Horizontal Wave Frequency*<br />Controls the spacing of the horizontal waves. Higher values create tighter, more frequent waves. Lower values create broader, smoother waves.
+            - *E* —> *Vertical Wave Strength*<br />Controls the amount of vertical displacement created by the horizontal wave pattern. Higher values create stronger up-and-down bending. Lower values reduce the vertical ripple effect.
+            - *F* —> *Vertical Wave Frequency*<br />Controls the spacing of the vertical waves. Higher values create tighter, more frequent waves. Lower values create broader, smoother waves.
     
-    # [Icon:TOP/xmlinput] *_Popcorn_*: `O[0]  O[1]` (*`C`*, *`F`*)
+    # [Icon:TOP/xmlinput] *_Popcorn_*: `O.x  O.y` (*`C`*, *`F`*)
+
+        :disclosure:doc
+            
+            - *C* —> *Horizontal Popcorn Strength*<br />Controls the amount of horizontal displacement created by the popcorn distortion pattern. Higher values increase the side-to-side popping motion and create stronger irregular warping. Lower values create a subtler texture movement.
+            - *F* —> *Vertical Popcorn Frequency*<br />Controls the amount of vertical displacement created by the popcorn distortion pattern. Higher values increase the up-and-down popping motion and create stronger irregular warping. Lower values create a softer, less noticeable effect.
     
-    # [Icon:TOP/xmlinput] *_Rings_*: `O[0]` (*`C`*)
+    # [Icon:TOP/xmlinput] *_Rings_*: `O.x` (*`C`*)
+
+        :disclosure:doc
+            
+            - *C* —> *Ring Size*<br />Controls the spacing and scale of the concentric rings created by the distortion. Higher values create larger, more widely spaced rings with smoother transitions. Lower values create tighter, more frequent rings with finer detail.
     
-    # [Icon:TOP/xmlinput] *_Fan_*: `O[0] O[1]` (*`C`*, *`F`*)
+    # [Icon:TOP/xmlinput] *_Fan_*: `O.x O.y` (*`C`*, *`F`*)
+
+        :disclosure:doc
+            
+            - *C* —> *Fan Count*<br />Controls the number of fan sections created around the center. Higher values divide the image into more, narrower fan segments. Lower values create fewer, wider sections.
+            - *F* —> *Fan Offset*<br />Controls the rotational offset of the fan pattern. Higher or lower values rotate the position of the fan divisions around the center, changing where the segments begin.
 
 
 
@@ -3793,7 +3814,8 @@ _Dependent variation's affine coefficients_
     
     == Variations: Parametrics == (VARPRM)
 
-_A list of all parametric variations and their parametric parameter's names_
+_A list of all parametric variations and their parametric parameter's names._<br />
+_Documentation for each of them is also provided_.
 
 :box:
     #display: rounded gray
@@ -3803,90 +3825,385 @@ _A list of all parametric variations and their parametric parameter's names_
     _For example *`Mobius`* variation has two: *`Re ABCD`* and *`Im ABCD`*. They are two distinct *`vector4`* parameters._<br /><br />
     
     # [Icon:TOP/xmlinput] *Auger*           ->      _`Frequency`*,* `Scale`*,* `Symmetry`*,* `Weight`_
+
+        :disclosure:doc
+            
+            - *X* —> *Frequency*<br />Controls the size of the waves. Higher values create smaller, more frequent ripples.
+            - *Y* —> *Scale*<br />Adjusts the size of the wave deformation. Higher values produce broader, more noticeable bends.
+            - *Z* —> *Symmetry*<br />Balances how evenly the effect is applied across the pattern.
+            - *W* —> *Weight*<br />Controls the overall strength of the deformation. Higher values produce a stronger effect.
     
     # [Icon:TOP/xmlinput] *Bent2*           ->      _`X`*,* `Y`_
+
+        :disclosure:doc
+            
+            - *X*<br />Controls how much the negative X (left) side of the pattern is stretched or compressed.
+            - *Y*<br />Controls how much the negative Y (bottom) side of the pattern is stretched or compressed.
     
     # [Icon:TOP/xmlinput] *Bipolar*         ->      _`Shift`_
+
+        :disclosure:doc
+            
+            - *Shift*<br />Moves the seam of the bipolar mapping around the pattern, changing where the transformation wraps.
     
     # [Icon:TOP/xmlinput] *Blob*            ->      _`Low`*,* `High`*,* `Waves`_
+
+        :disclosure:doc
+            
+            - *X* —> *Low*<br />Sets the minimum size of the blob.
+            - *Y* —> *High*<br />Sets the maximum size of the blob.
+            - *Z* —> *Waves*<br />Controls the number of bulges or lobes around the blob. Higher values create more repeating bumps.
     
     # [Icon:TOP/xmlinput] *Bwraps*          ->      _`Size`*,* `Space`*,* `Gain`_<br />[Icon:TOP/xmlinput] *Bwraps*          ->      _`In twist`*,* `Out twist`_
+
+        :disclosure:doc
+            
+            - *X* —> *Size*<br />Controls the size of each bubble wrap cell. Larger values create bigger wrapped areas.
+            - *Y* —> *Space*<br />Controls the spacing between bubble cells. Higher values spread the bubbles farther apart.
+            - *Z* —> *Gain*<br />Controls the intensity of the bubble distortion. Higher values create a stronger wrapping effect
+
+            <br />
+
+            - *X* —> *IN Twist*<br />Controls the amount of rotation applied toward the center of each bubble.
+            - *Y* —> *OUT Twist*<br />Controls the amount of rotation applied toward the outside of each bubble.            
     
     # [Icon:TOP/xmlinput] *Cell*            ->      _`Size`_
+
+        :disclosure:doc
+            
+            - *Size*<br />Controls the size of the repeating cells. Smaller values create more, smaller cells; larger values create fewer, larger cells.
     
     # [Icon:TOP/xmlinput] *Conic*           ->      _`Eccentricity`*,* `Holes`_
+
+        :disclosure:doc
+            
+            - *X* —> *Eccentricity*<br />Controls how stretched or pointed the conic shape becomes. Higher values create a stronger cone effect.
+            - *Y* —> *Holes*<br />Controls the amount of empty space or variation inside the conic pattern. Higher values increase the spacing around the center.
     
     # [Icon:TOP/xmlinput] *Cpow*            ->      _`Pow`*,* `r`*,* `i`_
+
+        :disclosure:doc
+            
+            - *X* —> *Power*<br />Controls the number of repeated spiral sections. Higher values create more repetitions and finer details.
+            - *Y* —> *R*<br />Controls the radial distortion, affecting how the pattern expands or contracts from the center.
+            - *Z* —> *I*<br />Controls the angular distortion, changing the twist and rotation of the pattern.
     
     # [Icon:TOP/xmlinput] *Crop*            ->      _`Left`*,* `Top`*,* `Right`*,* `Bottom`_<br />[Icon:TOP/xmlinput] *Crop*            ->      _`Area`*,* `Zero`_
+
+        :disclosure:doc
+            
+            - *X* —> *Left*<br />Sets the left boundary of the crop area.
+            - *Y* —> *Top*<br />Sets the top boundary of the crop area.
+            - *Z* —> *Right*<br />Sets the right boundary of the crop area.
+            - *W* —> *Bottom*<br />Sets the bottom boundary of the crop area.
+
+            <br />
+
+            - *X* —> *Area*<br />Controls the amount of random repositioning inside the crop area. Higher values create a larger randomized region.
+            - *Y* —> *Zero*<br />Controls what happens to points outside the crop area. When enabled, outside points are moved to the center instead.
     
     # [Icon:TOP/xmlinput] *Curl*            ->      _`C1`*,* `C2`_
+
+        :disclosure:doc
+            
+            - *X* —> *C1 (Curl Strength)*<br />Controls the overall curl direction and strength. Higher values create a stronger bending effect.
+            - *Y* —> *C2 (Curl Twist)*<br />Controls the secondary curl behavior, adding more twisting and variation to the distortion.
     
     # [Icon:TOP/xmlinput] *Curve*           ->      _`Lenght X`*,* `Lenght Y`_<br />[Icon:TOP/xmlinput] *Curve*           ->      _`Amplitude X`*,* `Amplitude Y`_
+
+        :disclosure:doc
+            
+            - *X* —> *Lenght X*<br />Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area.
+            - *Y* —> *Lenght Y*<br />Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area.
+
+            <br />
+
+            - *X* —> *Amplitude X*<br />Controls the strength of the horizontal bend. Higher values create a stronger curve along X.
+            - *Y* —> *Amplitude Y*<br />Controls the strength of the vertical bend. Higher values create a stronger curve along Y.            
     
     # [Icon:TOP/xmlinput] *Disc2*           ->      _`Rotation`*,* `Twist`_
+
+        :disclosure:doc
+            
+            - *X* —> *Rotation*<br />Rotates the disc pattern. Adjust this to change the overall orientation of the effect.
+            - *Y* —> *Twist*<br />Adds a twisting offset to the disc pattern, changing how tightly or loosely it spirals.
     
     # [Icon:TOP/xmlinput] *Escher*          ->      _`Beta`_
+
+        :disclosure:doc
+            
+            - *Beta*<br />Controls the intensity of the Escher distortion. Lower values create a subtle transformation, while higher values produce stronger twisting and scaling effects.
     
     # [Icon:TOP/xmlinput] *Fan2*            ->      _`X`*,* `Y`_
+
+        :disclosure:doc
+            
+            - *X* —> *Size*<br />Controls how wide each fan segment is. Lower values create many thin segments, while higher values create fewer, broader segments.
+            - *Y* —> *Rotation*<br />Rotates the entire fan pattern around the center without changing its shape.
     
     # [Icon:TOP/xmlinput] *Flower*          ->      _`Petals`*,* `Holes`_
+
+        :disclosure:doc
+            
+            - *X* —> *Petals*<br />Controls the number of petals in the flower pattern. Higher values create more petals and finer details.
+            - *Y* —> *Holes*<br />Controls the amount of empty space between petals. Higher values create a more open, hollow flower shape.
     
     # [Icon:TOP/xmlinput] *Flux*            ->      _`Spread`_
+
+        :disclosure:doc
+            
+            - *Spread*<br />Controls the intensity of the flux effect. Higher values create a wider, stronger flow distortion; lower values keep the effect tighter and more subtle.
     
     # [Icon:TOP/xmlinput] *JuliaN*          ->      _`Power`*,* `Distance`_
+
+        :disclosure:doc
+            
+            - *X* —> *Power*<br />Controls the number of repeated sections in the pattern. Higher values create more symmetrical repetitions and finer details.
+            - *Y* —> *Distance*<br />Controls how the pattern expands or contracts from the center. Higher values change the overall spread and shape of the distortion.
+
+            _The copies all rotate in the same direction, creating a more continuous spiral or radial repetition._
     
     # [Icon:TOP/xmlinput] *JuliaScope*      ->      _`Power`*,* `Distance`_
+
+        :disclosure:doc
+            
+            - *X* —> *Power*<br />Controls the number of repeated sections in the pattern. Higher values create more symmetrical details and tighter repetitions.
+            - *Y* —> *Distance*<br />Controls how the pattern expands or contracts from the center, affecting the overall size and spread of the distortion.
+
+            _Creates a mirrored repetition around the center, producing kaleidoscope-like fractal patterns._
     
     # [Icon:TOP/xmlinput] *Lazysusan*       ->      _`X`*,* `Y`_<br />[Icon:TOP/xmlinput] *Lazysusan*       ->      _`Spin`*,* `Twist`*,* `Space`_
+
+        :disclosure:doc
+            
+            - *X*<br />Moves the center of the effect horizontally.
+            - *Y*<br />Moves the center of the effect vertically.
+
+            <br />
+            
+            - *X* —> *Spin*<br />Rotates the area near the center. Higher values increase the amount of rotation.
+            - *Y* —> *Twist*<br />Adds extra twisting toward the center, creating a spiral-like effect.
+            - *Z* —> *Space*<br />Controls how strongly points outside the center are pushed away.
     
     # [Icon:TOP/xmlinput] *Mobius*          ->      _`ReA`*,* `ReB`*,* `ReC`*,* `ReD`_   ->  _Real_<br />[Icon:TOP/xmlinput] *Mobius*          ->      _`ImA`*,* `ImB`*,* `ImC`*,* `ImD`_   ->  _Imaginary_
+
+        :disclosure:doc
+            
+            - *X* —> *reA - Transform*<br />Controls the main transformation strength, including rotation, scaling, and distortion.
+            - *Y* —> *reB - Offset*<br />Controls the offset/translation of the transformation.
+            - *Z* —> *reC - Wrap*<br />Controls the amount of inversion and warping behavior.
+            - *W* —> *reD - Balance*<br />Controls the final shift and overall transformation balance.
+
+            <br />
+
+            - *X* —> *imA - Transform*<br />Controls the main transformation strength, including rotation, scaling, and distortion.
+            - *Y* —> *imB - Offset*<br />Controls the offset/translation of the transformation.
+            - *Z* —> *imC - Wrap*<br />Controls the amount of inversion and warping behavior.
+            - *W* —> *imD - Balance*<br />Controls the final shift and overall transformation balance.
     
     # [Icon:TOP/xmlinput] *Modulus*         ->      _`X`*,* `Y`_
+
+        :disclosure:doc
+            
+            - *X*<br />Controls the horizontal repetition size. Larger values create wider repeating sections along X.
+            - *Y*<br />Controls the vertical repetition size. Larger values create taller repeating sections along Y.
     
-    # [Icon:TOP/xmlinput] *Ngon*            ->      _`Power`*,* `Side`*,* `Corners`*,* `Circle`_
+    # [Icon:TOP/xmlinput] *Ngon*            ->      _`Power`*,* `Sides`*,* `Corners`*,* `Circle`_
+
+        :disclosure:doc
+            
+            - *X* —> *Power*<br />Controls the overall scaling and radial behavior of the shape. Higher values change the size and intensity of the transformation.
+            - *Y* —> *Sides*<br />Controls the number of sides of the polygon. Lower values create simpler shapes (triangle, square, etc.), while higher values create more circular forms.
+            - *Z* —> *Corner*<br />Controls the sharpness of the polygon corners. Higher values emphasize the corners; lower values make the shape smoother.
+            - *W* —> *Circle*<br />Controls the roundness of the polygon. Higher values make the shape more circular, while lower values keep sharper polygon edges.
     
     # [Icon:TOP/xmlinput] *Oscope*          ->      _`Frequency`*,* `Amplitude`*,* `Damping`*,* `Separation`_
+
+        :disclosure:doc
+            
+            - *X* —> *Frequency*<br />Controls how many waves appear across the pattern. Higher values create more frequent oscillations.
+            - *Y* —> *Amplitude*<br />Controls the height/strength of the wave distortion. Higher values create larger wave movements.
+            - *Z* —> *Damping*<br />Controls how quickly the wave fades away from the center. Higher values make the effect disappear faster.
+            - *W* —> *Separation*<br />Controls the base offset of the wave boundary, changing the position where the flip occurs.
     
     # [Icon:TOP/xmlinput] *Parabola*        ->      _`Height`*,* `Width`_
+
+        :disclosure:doc
+            
+            - *X* -> *Height*<br />Controls the vertical strength of the parabola. Higher values make the curve extend further.
+            - *Y* -> *Width*<br />Controls the horizontal spread of the parabola. Higher values make the curve wider and softer.
     
     # [Icon:TOP/xmlinput] *Pdj*             ->      _`wA`*,* `wB`*,* `wC`*,* `wD`_
+
+        :disclosure:doc
+            
+            - *X* —> *wA*<br />Controls the frequency of the wave affecting the X direction. Higher values create tighter, more frequent variations.
+            - *Y* —> *wB*<br />Controls the frequency of the wave affecting the X direction's secondary pattern.
+            - *Z* —> *wC*<br />Controls the frequency of the wave affecting the Y direction. Higher values create tighter, more frequent variations.
+            - *W* —> *wD*<br />Controls the frequency of the wave affecting the Y direction's secondary pattern.
     
     # [Icon:TOP/xmlinput] *Perspective*     ->      _`Angle`*,* `Distance`_
+
+        :disclosure:doc
+            
+            - *X* -> *Angle*<br />Controls the viewing angle of the perspective effect. Higher values create a stronger tilt or distortion.
+            - *Y* -> *Distance*<br />Controls the distance of the virtual camera. Higher values reduce the perspective distortion; lower values create a stronger depth effect.
     
     # [Icon:TOP/xmlinput] *Pie*             ->      _`Slice`*,* `Thickness`*,* `Rotation`_
+
+        :disclosure:doc
+            
+            - *X* —> *Slice*<br />Controls the number of pie sections. Higher values create more individual slices around the circle.
+            - *Y* —> *Thickness*<br />Controls how much of each slice is filled. Lower values create thinner slices; higher values fill more of each section.
+            - *Z* —> *Rotation*<br />Rotates the pie pattern around the center.
+
+    # [Icon:TOP/xmlinput] *Point Symmetry*  ->      _`Order`*,* `Center X`*,* `Center Y`_
+
+        :disclosure:doc
+            
+            - *X* —> *Order*<br />Controls the number of symmetry repetitions around the center. Higher values create more repeated copies and finer radial patterns.
+            - *Y* —> *Center X*<br />Moves the symmetry center horizontally.
+            - *Z* —> *Center Y*<br />Moves the symmetry center vertically.
     
     # [Icon:TOP/xmlinput] *Polynomial*      ->      _`Pow X`*,* `Pow Y`_<br />[Icon:TOP/xmlinput] *Polynomial*      ->      _`Lc X`*,* `Lc Y`_<br />[Icon:TOP/xmlinput] *Polynomial*      ->      _`Sc X`*,* `Sc Y`_
-    
-    # [Icon:TOP/xmlinput] *Point Symmetry*  ->      _`Order`*,* `Center X`*,* `Center Y`_
+
+        :disclosure:doc
+            
+            - *X* —> *Power X*<br />Controls the shape of the curve along the X axis. Higher values create stronger, sharper changes; lower values create softer curves.
+            - *Y* —> *Power Y*<br />Controls the shape of the curve along the Y axis. Higher values create stronger, sharper changes; lower values create softer curves.
+
+            <br />
+
+            - *X* —> *Linear X*<br />Controls the amount of regular scaling applied along the X axis.
+            - *Y* —> *Linear Y*<br />Controls the amount of regular scaling applied along the Y axis.
+
+            <br />
+
+            - *X* —> *Scale X*<br />Adds a horizontal offset to the result.
+            - *Y* —> *Scale Y*<br />Adds a vertical offset to the result.
 
     # [Icon:TOP/xmlinput] *Popcorn2*        ->      _`X`*,* `Y`_<br />[Icon:TOP/xmlinput] *Popcorn2*        ->      _`C`_
 
+        :disclosure:doc
+            
+            - *X* —> *Horizontal*<br />Controls the strength of the effect along the Y (vertical) direction.
+            - *Y* —> *Vertical*<br />Adds a vertical offset to the result.
+
+            <br />
+
+            - *C* —> *Detail*<br />Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns.
+
     # [Icon:TOP/xmlinput] *Radial Blur*     ->      _`Angle`_
+
+        :disclosure:doc
+            
+            - *Angle*<br />Controls the intensity of the radial blur. Higher values create stronger circular motion and zoom-like distortion.
     
     # [Icon:TOP/xmlinput] *Rectangles*      ->      _`X`*,* `Y`_
+
+        :disclosure:doc
+            
+            - *X* —> *Width*<br />Controls the width of the repeating rectangles. Larger values create wider horizontal sections.
+            - *Y* —> *Height*<br />Controls the height of the repeating rectangles. Larger values create taller vertical sections.
     
     # [Icon:TOP/xmlinput] *Rings2*          ->      _`Val`_
+
+        :disclosure:doc
+            
+            - *Value*<br />Controls the size of the rings. Smaller values create more frequent rings, while larger values create wider spacing between rings.
     
     # [Icon:TOP/xmlinput] *Separation*      ->      _`X`*,* `Y`_<br />[Icon:TOP/xmlinput] *Separation*      ->      _`Inside X`*,* `Inside Y`_
+
+        :disclosure:doc
+            
+            - *X* —> *Horizontal separation*<br />Controls the horizontal separation distance. Higher values push the left and right sides farther apart.
+            - *Y* —> *Vertical separation*<br />Controls the vertical separation distance. Higher values push the top and bottom areas farther apart.
+
+            <br />
+
+            - *X* —> *Horizontal influence*<br />Controls the horizontal influence of the separation effect. Higher values increase the internal spread along X.
+            - *Y* —> *Vertical influence*<br />Controls the vertical influence of the separation effect. Higher values increase the internal spread along Y.
     
     # [Icon:TOP/xmlinput] *Split*           ->      _`X`*,* `Y`_
+
+        :disclosure:doc
+            
+            - *X* —> *Horizontal split*<br />Controls the number of horizontal splits. Higher values create more repeated left/right flips (_mirror_) across the points.
+            - *Y* —> *Vertical split*<br />Controls the number of vertical splits. Higher values create more repeated top/bottom flips (_mirror_) across the points.
     
     # [Icon:TOP/xmlinput] *Splits*          ->      _`X`*,* `Y`_
 
+        :disclosure:doc
+            
+            - *X* —> *Horizontal split distance*<br />Controls the horizontal separation offset. Higher values push the left and right sides farther apart.
+            - *Y* —> *Vertical split distance*<br />Controls the vertical separation offset. Higher values push the top and bottom sides farther apart.
+
     # [Icon:TOP/xmlinput] *Stripes*         ->      _`Space`*,* `Warp`_
 
+        :disclosure:doc
+            
+            - *X* —> *Space*<br />Controls the spacing and compression of the stripes. Higher values change how tightly the stripes are packed.
+            - *Y* —> *Warp*<br />Controls the amount of bending or distortion applied to the stripes. Higher values create stronger curved stripe patterns.
+
     # [Icon:TOP/xmlinput] *Supershape*      ->      _`M`*,* `Rnd`*,* `Holes`_<br />[Icon:TOP/xmlinput] *Supershape*      ->      _`N1`*,* `N2`*,* `N3`_
+
+        :disclosure:doc
+            
+            - *X* —> *M*<br />Controls the number of repeating features around the shape. Higher values create more lobes, points, or symmetry.
+            - *Y* —> *Random*<br />Adds variation to the size of the generated points. Higher values create more irregular, scattered shapes.
+            - *Z* —> *Holes*<br />Controls the amount of empty space near the center. Higher values create more open or hollow shapes.
+
+            <br />
+
+            - *X* —> *N1*<br />Controls the overall shape transition. Changes whether the form appears more rounded or angular.
+            - *Y* —> *N2*<br />Controls the horizontal shape characteristics. Adjusts the width and side curvature of the form.
+            - *Z* —> *N3*<br />Controls the vertical shape characteristics. Adjusts the height and top/bottom curvature of the form.
     
     # [Icon:TOP/xmlinput] *Waves2*          ->      _`Scale X`*,* `Scale Y`_<br />[Icon:TOP/xmlinput] *Waves2*          ->      _`Frequency X`*,* `Frequency Y`_
+
+        :disclosure:doc
+            
+            - *X* —> *Scale X*<br />Controls the horizontal strength of the wave distortion. Higher values create larger movement along X.
+            - *Y* —> *Scale Y*<br />Controls the vertical strength of the wave distortion. Higher values create larger movement along Y.
+
+            <br />
+
+            - *X* —> *Frequency X*<br />Controls how quickly the waves repeat horizontally. Higher values create tighter, more frequent waves.
+            - *Y* —> *Frequency Y*<br />Controls how quickly the waves repeat vertically. Higher values create tighter, more frequent waves.
     
     # [Icon:TOP/xmlinput] *Wedge*           ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
+
+        :disclosure:doc
+            
+            - *X* —> *Swirl*<br />Controls the amount of twisting applied as points move away from the center. Higher values create a stronger spiral effect.
+            - *Y* —> *Angle*<br />Controls the rotation and width of the wedge sections. Higher values change the orientation and spacing of the wedges.
+            - *Z* —> *Hole*<br />Controls the empty space around the center. Higher values push the pattern outward, creating a larger central gap.
+            - *W* —> *Count*<br />Controls the number of wedge sections around the circle. Higher values create more slices and finer radial details.
     
     # [Icon:TOP/xmlinput] *WedgeJulia*      ->      _`Power`*,* `Angle`*,* `Distance`*,* `Count`_
+
+        :disclosure:doc
+            
+            - *X* —> *Power*<br />Controls the number of Julia-style repetitions. Higher values create more repeated sections and finer details.
+            - *Y* —> *Angle*<br />Controls the rotation and compression of the wedge sections. Higher values change the orientation and spacing of the slices.
+            - *Z* —> *Distance*<br />Controls the radial scaling of the Julia transformation. Higher values change how far the pattern expands or contracts from the center.
+            - *W* —> *Count*<br />Controls the number of wedge sections around the circle. Higher values create more radial divisions.
     
     # [Icon:TOP/xmlinput] *WedgeSph*        ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
+
+        :disclosure:doc
+            
+            - *X* —> *Swirl*<br />Controls the amount of twisting applied from the center outward. Higher values create a stronger spiral distortion.
+            - *Y* —> *Angle*<br />Controls the rotation and compression of the wedge sections. Higher values change the spacing and orientation of the wedges.
+            - *Z* —> *Hole*<br />Controls the distance from the center where the effect begins. Higher values create a larger empty area around the center.
+            - *W* —> *Count*<br />Controls the number of wedge sections around the circle. Higher values create more, thinner sections.
     
     # [Icon:TOP/xmlinput] *Whorl*           ->      _`In`*,* `Out`_
+
+        :disclosure:doc
+            
+            - *X* —> *Inside*<br />Controls the amount of rotation applied to points inside the radius. Higher values create a stronger inner spiral twist.
+            - *Y* —> *Outside*<br />Controls the amount of rotation applied to points outside the radius. Higher values create a stronger outer spiral twist.
 
 
 :box:
