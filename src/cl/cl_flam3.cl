@@ -105,7 +105,7 @@ enum {
     PRM_F2_IDX_CURL             = 0,    // c1, c2
     PRM_F2_IDX_JULIAN           = 1,    // power, distance
     PRM_F2_IDX_JULIASCOPE       = 2,    // power, distance
-    PRM_F2_IDX_FAN2             = 3,    // x, y
+    PRM_F2_IDX_FAN2             = 3,    // size, rotation
     PRM_F2_IDX_RECTANGLES       = 4,    // x, y
     PRM_F2_IDX_DISC2            = 5,    // rot, twist
     PRM_F2_IDX_FLOWER           = 6,    // petals, holes
@@ -1422,7 +1422,7 @@ static float2 CL_V_FAN2(
     __private const float2 in, 
     __private const float w, 
     __private const int F3C, 
-    __private const float2 fan2 // x y
+    __private const float2 fan2 // size rotation
     )
 {
     float dx, dx2, inv_dx, a, r, ady, t, sa, ca;
