@@ -798,7 +798,7 @@
                     label   "    W"
                     type    float
                     default { "0.5" }
-                    help    "The Weight of this iterator.<br/><br/>Calculate the likelihood that this iterator will be selected during the Chaos game.<br/><br/>You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator Weight is higher than the others."
+                    help    "The <b>W</b>eight of this iterator.<br/><br/>Calculate the likelihood that this iterator will be selected during the Chaos game.<br/><br/>You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator Weight is higher than the others."
                     disablewhen "{ vactive_# == 0 }"
                     range   { 0! 5 }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update()" }
@@ -2218,7 +2218,7 @@
                         type    vector4
                         size    4
                         default { "1" "0" "0" "1" }
-                        help    "<br/><i>Mobius real</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> A - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> B - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> C - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> D - Balance</h2> Controls the final shift and overall transformation balance."
+                        help    "<br/><i>Mobius real</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> reA - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> reB - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> reC - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> reD - Balance</h2> Controls the final shift and overall transformation balance."
                         hidewhen "{ p1type_# != 96 pre1type_# != 96 pre2type_# != 96 v1type_# != 96 v2type_# != 96 v3type_# != 96 v4type_# != 96 v5type_# != 96 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -2229,7 +2229,7 @@
                         type    vector4
                         size    4
                         default { "0" "0" "1" "0" }
-                        help    "<br/><i>Mobius imaginary</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> A - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> B - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> C - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> D - Balance</h2> Controls the final shift and overall transformation balance."
+                        help    "<br/><i>Mobius imaginary</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> imA - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> imB - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> imC - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> imD - Balance</h2> Controls the final shift and overall transformation balance."
                         hidewhen "{ p1type_# != 96 pre1type_# != 96 pre2type_# != 96 v1type_# != 96 v2type_# != 96 v3type_# != 96 v4type_# != 96 v5type_# != 96 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -3743,7 +3743,7 @@
                     type    vector4
                     size    4
                     default { "1" "0" "0" "1" }
-                    help    "<br/><i>Mobius real</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> A - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> B - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> C - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> D - Balance</h2> Controls the final shift and overall transformation balance."
+                    help    "<br/><i>Mobius real</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> reA - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> reB - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> reC - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> reD - Balance</h2> Controls the final shift and overall transformation balance."
                     hidewhen "{ ffv1type != 96 ffv2type != 96 }"
                     range   { 0 2 }
                     parmtag { "script_callback_language" "python" }
@@ -3754,7 +3754,7 @@
                     type    vector4
                     size    4
                     default { "0" "0" "1" "0" }
-                    help    "<br/><i>Mobius imaginary</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> A - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> B - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> C - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> D - Balance</h2> Controls the final shift and overall transformation balance."
+                    help    "<br/><i>Mobius imaginary</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> imA - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> imB - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> imC - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> imD - Balance</h2> Controls the final shift and overall transformation balance."
                     hidewhen "{ ffv1type != 96 ffv2type != 96 }"
                     range   { 0 2 }
                     parmtag { "script_callback_language" "python" }
@@ -4344,7 +4344,7 @@
                     type    vector4
                     size    4
                     default { "1" "0" "0" "1" }
-                    help    "<br/><i>Mobius real</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> A - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> B - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> C - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> D - Balance</h2> Controls the final shift and overall transformation balance."
+                    help    "<br/><i>Mobius real</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> reA - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> reB - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> reC - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> reD - Balance</h2> Controls the final shift and overall transformation balance."
                     hidewhen "{ ffpre1type != 96 ffp1type != 96 ffp2type != 96 }"
                     range   { 0 2 }
                     parmtag { "script_callback_language" "python" }
@@ -4355,7 +4355,7 @@
                     type    vector4
                     size    4
                     default { "0" "0" "1" "0" }
-                    help    "<br/><i>Mobius imaginary</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> A - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> B - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> C - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> D - Balance</h2> Controls the final shift and overall transformation balance."
+                    help    "<br/><i>Mobius imaginary</i> <u><b>A</b></u>, <u><b>B</b></u>, <u><b>C</b></u>, <u><b>D</b></u> <h2>X -> imA - Transform</h2> Controls the main transformation strength, including rotation, scaling, and distortion. <h2>Y -> imB - Offset</h2> Controls the offset/translation of the transformation. <h2>Z -> imC - Warp</h2> Controls the amount of inversion and warping behavior. <h2>W -> imD - Balance</h2> Controls the final shift and overall transformation balance."
                     hidewhen "{ ffpre1type != 96 ffp1type != 96 ffp2type != 96 }"
                     range   { 0 2 }
                     parmtag { "script_callback_language" "python" }
@@ -6125,7 +6125,7 @@
                     label   "handle"
                     type    toggle
                     default { "0" }
-                    help    "Display the viewport camera handle to help frame/center your fractal flame.<br/><br/>Turn this <b>OFF</b> when rendering.<br/><br/><b>Note</b>:<br/>The handles are properly scaled and visible only when looking through a perspective type of camera, not when looking through an orthogonal type of camera."
+                    help    "Display the viewport camera handle to help frame/center your fractal flame.<br/><br/>Turn this <b>OFF</b> when rendering.<br/><br/><b>NOTE</b>:<br/>The handles are properly scaled and visible only when looking through a perspective type of camera, not when looking through an orthogonal type of camera."
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
