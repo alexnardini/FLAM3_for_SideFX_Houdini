@@ -2361,7 +2361,7 @@
                         type    vector2
                         size    2
                         default { "0.1" "0.1" }
-                        help    "<br/><i>Popcorn2</i> <u><b>X</b></u>, <u><b>Y</b></u> <h2>X -> Horizontal</h2> Controls the strength of the effect along the Y (vertical) direction. <h2>Y -> Vertical</h2> Adds a vertical offset to the result."
+                        help    "<br/><i>Popcorn2</i> <u><b>X</b></u>, <u><b>Y</b></u> <h2>X -> Horizontal</h2> Controls the strength of the effect along the X (horizontal) direction. <h2>Y -> Vertical</h2> Controls the strength of the effect along the Y (vertical) direction."
                         hidewhen "{ p1type_# != 69 pre1type_# != 69 pre2type_# != 69 v1type_# != 69 v2type_# != 69 v3type_# != 69 v4type_# != 69 v5type_# != 69 }"
                         range   { 0 1 }
                         parmtag { "script_callback_language" "python" }
@@ -3886,7 +3886,7 @@
                     type    vector2
                     size    2
                     default { "0.1" "0.1" }
-                    help    "<br/><i>Popcorn2</i> <u><b>X</b></u>, <u><b>Y</b></u> <h2>X -> Horizontal</h2> Controls the strength of the effect along the Y (vertical) direction. <h2>Y -> Vertical</h2> Adds a vertical offset to the result."
+                    help    "<br/><i>Popcorn2</i> <u><b>X</b></u>, <u><b>Y</b></u> <h2>X -> Horizontal</h2> Controls the strength of the effect along the X (horizontal) direction. <h2>Y -> Vertical</h2> Controls the strength of the effect along the Y (vertical) direction."
                     hidewhen "{ ffv1type != 69 ffv2type != 69 }"
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
@@ -4487,7 +4487,7 @@
                     type    vector2
                     size    2
                     default { "0.1" "0.1" }
-                    help    "<br/><i>Popcorn2</i> <u><b>X</b></u>, <u><b>Y</b></u> <h2>X -> Horizontal</h2> Controls the strength of the effect along the Y (vertical) direction. <h2>Y -> Vertical</h2> Adds a vertical offset to the result."
+                    help    "<br/><i>Popcorn2</i> <u><b>X</b></u>, <u><b>Y</b></u> <h2>X -> Horizontal</h2> Controls the strength of the effect along the X (horizontal) direction. <h2>Y -> Vertical</h2> Controls the strength of the effect along the Y (vertical) direction."
                     hidewhen "{ ffpre1type != 69 ffp1type != 69 ffp2type != 69 }"
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }

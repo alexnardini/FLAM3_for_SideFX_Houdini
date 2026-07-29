@@ -1642,6 +1642,17 @@
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
+                        name    "ptsym_#"
+                        label   "o/x/y POINT SYMMETRY"
+                        type    vector
+                        size    3
+                        default { "3" "0" "0" }
+                        help    "\\nORDER, CENTER_X, CENTER_Y"
+                        hidewhen "{ p1type_# != 105 pre1type_# != 105 pre2type_# != 105 v1type_# != 105 v2type_# != 105 v3type_# != 105 v4type_# != 105 v5type_# != 105 }"
+                        range   { -1 1 }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
                         name    "polynomialpow_#"
                         label   "pow:xy POLYNOMIAL"
                         type    vector2
@@ -1672,17 +1683,6 @@
                         help    "\\nSCALE X, SCALE Y"
                         hidewhen "{ p1type_# != 101 pre1type_# != 101 pre2type_# != 101 v1type_# != 101 v2type_# != 101 v3type_# != 101 v4type_# != 101 v5type_# != 101 }"
                         range   { 0 2 }
-                        parmtag { "script_callback_language" "python" }
-                    }
-                    parm {
-                        name    "ptsym_#"
-                        label   "o/x/y POINT SYMMETRY"
-                        type    vector
-                        size    3
-                        default { "3" "0" "0" }
-                        help    "\\nORDER, CENTER_X, CENTER_Y"
-                        hidewhen "{ p1type_# != 105 pre1type_# != 105 pre2type_# != 105 v1type_# != 105 v2type_# != 105 v3type_# != 105 v4type_# != 105 v5type_# != 105 }"
-                        range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
@@ -2673,6 +2673,17 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
+                    name    "ff_ptsym"
+                    label   "o/x/y POINT SYMMETRY"
+                    type    vector
+                    size    3
+                    default { "3" "0" "0" }
+                    help    "\\nORDER, CENTER_X, CENTER_Y"
+                    hidewhen "{ ffv1type != 105 ffv2type != 105 }"
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
                     name    "ff_polynomialpow"
                     label   "pow:xy POLYNOMIAL"
                     type    vector2
@@ -2703,17 +2714,6 @@
                     help    "\\nSCALE X, SCALE Y"
                     hidewhen "{ ffv1type != 101 ffv2type != 101 }"
                     range   { 0 2 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
-                    name    "ff_ptsym"
-                    label   "o/x/y POINT SYMMETRY"
-                    type    vector
-                    size    3
-                    default { "3" "0" "0" }
-                    help    "\\nORDER, CENTER_X, CENTER_Y"
-                    hidewhen "{ ffv1type != 105 ffv2type != 105 }"
-                    range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -3274,6 +3274,17 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
+                    name    "fp1_ptsym"
+                    label   "o/x/y POINT SYMMETRY"
+                    type    vector
+                    size    3
+                    default { "3" "0" "0" }
+                    help    "\\nORDER, CENTER_X, CENTER_Y"
+                    hidewhen "{ ffpre1type != 105 ffp1type != 105 ffp2type != 105 }"
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
                     name    "fp1_polynomialpow"
                     label   "pow:xy POLYNOMIAL"
                     type    vector2
@@ -3304,17 +3315,6 @@
                     help    "\\nSCALE X, SCALE Y"
                     hidewhen "{ ffpre1type != 101 ffp1type != 101 ffp2type != 101 }"
                     range   { 0 2 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
-                    name    "fp1_ptsym"
-                    label   "o/x/y POINT SYMMETRY"
-                    type    vector
-                    size    3
-                    default { "3" "0" "0" }
-                    help    "\\nORDER, CENTER_X, CENTER_Y"
-                    hidewhen "{ ffpre1type != 105 ffp1type != 105 ffp2type != 105 }"
-                    range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {

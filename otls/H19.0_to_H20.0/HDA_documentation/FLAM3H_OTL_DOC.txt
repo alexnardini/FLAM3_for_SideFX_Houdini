@@ -4185,8 +4185,8 @@ _Documentation for each of them is also provided_.
             :box:
                 #display: rounded raised gray
             
-                - *X* —> *Horizontal*<br />Controls the strength of the effect along the Y (vertical) direction.
-                - *Y* —> *Vertical*<br />Adds a vertical offset to the result.
+                - *X* —> *Horizontal*<br />Controls the strength of the effect along the X (horizontal) direction.
+                - *Y* —> *Vertical*<br />Controls the strength of the effect along the Y (vertical) direction.
 
                 <br />
 
