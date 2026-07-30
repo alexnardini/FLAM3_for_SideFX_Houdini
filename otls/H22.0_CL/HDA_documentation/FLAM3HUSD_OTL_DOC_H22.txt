@@ -65,10 +65,6 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 _Third-party applications use an_ [orthogonal|Wp:Orthographic_projection] _type of viewer in their editors_.<br />
 _If you'd like to get close to a fractal Flame editor vibe, set the_ [viewport|Wp:Viewport] _to_: *Front* (_or press the key ((3)) while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3H(tm) USD preferences' tab and set the viewport color to: *Dark* (if not already)_.
 
-_At the moment of this writing (up to H21)_:<br />
-_It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`* and set the Renderer to_ [OpenGL|Wp:OpenGL] _as it provide a better points visualization in the viewport when millions of them are displayed and/or their viewport point size is smaller than *`1`*(one). Changing the viewer renderer will require a restart of Houdini_.
-
-
     
 == SYS: System == (IMPORT)
     
