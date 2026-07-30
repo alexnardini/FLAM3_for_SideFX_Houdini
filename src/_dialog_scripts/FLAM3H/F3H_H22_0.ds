@@ -1839,7 +1839,7 @@
                         type    vector2
                         size    2
                         default { "1" "0" }
-                        help    "<u><b>pre affine</b></u>: <b>X</b>.<i>x</i>, <b>X</b>.<i>y</i> ( [<b>A</b>], [<b>D</b>] )<br/><br/>Some of the variations uses some of the pre affine coefficients to determine its behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> B, C, E, F</h2></li><li><h2>Popcorn* -> C, F</h2></li><li><h2>Rings* -> C</h2></li><li><h2>Fan* -> C, F</h2></li></ul><br/>"
+                        help    "<u><b>pre affine</b></u>: <b>X</b>.<i>x</i>, <b>X</b>.<i>y</i> ( [<b>A</b>], [<b>D</b>] )<br/><br/>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> B, C, E, F</h2></li><li><h2>Popcorn* -> C, F</h2></li><li><h2>Rings* -> C</h2></li><li><h2>Fan* -> C, F</h2></li></ul><br/><b>NOTE</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i>"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -1850,7 +1850,7 @@
                         type    vector2
                         size    2
                         default { "0" "1" }
-                        help    "<u><b>pre affine</b></u>: <b>Y</b>.<i>x</i>, <b>Y</b>.<i>y</i> ( [<b>B</b>], [<b>E</b>] )<br/><br/>Some of the variations uses some of the pre affine coefficients to determine its behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> B, C, E, F</h2></li><li><h2>Popcorn* -> C, F</h2></li><li><h2>Rings* -> C</h2></li><li><h2>Fan* -> C, F</h2></li></ul><br/>"
+                        help    "<u><b>pre affine</b></u>: <b>Y</b>.<i>x</i>, <b>Y</b>.<i>y</i> ( [<b>B</b>], [<b>E</b>] )<br/><br/>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> B, C, E, F</h2></li><li><h2>Popcorn* -> C, F</h2></li><li><h2>Rings* -> C</h2></li><li><h2>Fan* -> C, F</h2></li></ul><br/><b>NOTE</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i>"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -1861,7 +1861,7 @@
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "<u><b>pre affine</b></u> (<b>O</b><i>ffset</i>): <b>O</b>.<i>x</i>, <b>O</b>.<i>y</i> ( [<b>C</b>], [<b>F</b>] )<br/><br/>Some of the variations uses some of the pre affine coefficients to determine its behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> B, C, E, F</h2></li><li><h2>Popcorn* -> C, F</h2></li><li><h2>Rings* -> C</h2></li><li><h2>Fan* -> C, F</h2></li></ul><br/>"
+                        help    "<u><b>pre affine</b></u> (<b>O</b><i>ffset</i>): <b>O</b>.<i>x</i>, <b>O</b>.<i>y</i> ( [<b>C</b>], [<b>F</b>] )<br/><br/>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> B, C, E, F</h2></li><li><h2>Popcorn* -> C, F</h2></li><li><h2>Rings* -> C</h2></li><li><h2>Fan* -> C, F</h2></li></ul><br/><b>NOTE</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i>"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
                     }
@@ -3366,7 +3366,7 @@
                     type    vector2
                     size    2
                     default { "1" "0" }
-                    help    "<u><b>FF pre affine</b></u>: <b>X</b>.<i>x</i>, <b>X</b>.<i>y</i> ( [<b>A</b>], [<b>D</b>] )<br/><br/>Some of the variations uses some of the pre affine coefficients to determine its behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> B, C, E, F</h2></li><li><h2>Popcorn* -> C, F</h2></li><li><h2>Rings* -> C</h2></li><li><h2>Fan* -> C, F</h2></li></ul><br/>"
+                    help    "<u><b>FF pre affine</b></u>: <b>X</b>.<i>x</i>, <b>X</b>.<i>y</i> ( [<b>A</b>], [<b>D</b>] )<br/><br/>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> B, C, E, F</h2></li><li><h2>Popcorn* -> C, F</h2></li><li><h2>Rings* -> C</h2></li><li><h2>Fan* -> C, F</h2></li></ul><br/><b>NOTE</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i>"
                     range   { -1 1 }
                     parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
@@ -3377,7 +3377,7 @@
                     type    vector2
                     size    2
                     default { "0" "1" }
-                    help    "<u><b>FF pre affine</b></u>: <b>Y</b>.<i>x</i>, <b>Y</b>.<i>y</i> ( [<b>B</b>], [<b>E</b>] )<br/><br/>Some of the variations uses some of the pre affine coefficients to determine its behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> B, C, E, F</h2></li><li><h2>Popcorn* -> C, F</h2></li><li><h2>Rings* -> C</h2></li><li><h2>Fan* -> C, F</h2></li></ul><br/>"
+                    help    "<u><b>FF pre affine</b></u>: <b>Y</b>.<i>x</i>, <b>Y</b>.<i>y</i> ( [<b>B</b>], [<b>E</b>] )<br/><br/>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> B, C, E, F</h2></li><li><h2>Popcorn* -> C, F</h2></li><li><h2>Rings* -> C</h2></li><li><h2>Fan* -> C, F</h2></li></ul><br/><b>NOTE</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i>"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -3387,7 +3387,7 @@
                     type    vector2
                     size    2
                     default { "0" "0" }
-                    help    "<u><b>FF pre affine</b></u> (<b>O</b><i>ffset</i>): <b>O</b>.<i>x</i>, <b>O</b>.<i>y</i> ( [<b>C</b>], [<b>F</b>] )<br/><br/>Some of the variations uses some of the pre affine coefficients to determine its behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> B, C, E, F</h2></li><li><h2>Popcorn* -> C, F</h2></li><li><h2>Rings* -> C</h2></li><li><h2>Fan* -> C, F</h2></li></ul><br/>"
+                    help    "<u><b>FF pre affine</b></u> (<b>O</b><i>ffset</i>): <b>O</b>.<i>x</i>, <b>O</b>.<i>y</i> ( [<b>C</b>], [<b>F</b>] )<br/><br/>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> B, C, E, F</h2></li><li><h2>Popcorn* -> C, F</h2></li><li><h2>Rings* -> C</h2></li><li><h2>Fan* -> C, F</h2></li></ul><br/><b>NOTE</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i>"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
