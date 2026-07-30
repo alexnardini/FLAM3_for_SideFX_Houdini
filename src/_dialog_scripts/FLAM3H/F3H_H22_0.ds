@@ -1870,7 +1870,7 @@
                         label   "Rot"
                         type    float
                         default { "0" }
-                        help    "Rotate pre affine in angle degrees.<br/><br/>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/><b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm."
+                        help    "Rotate <u><b>pre affine</b></u> in angle degrees.<br/><br/>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/><b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm."
                         range   { -90 90 }
                         parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine()" }
                         parmtag { "script_action_help" "[LMB] to reset all affine values. [SHIFT+LMB] to reset only the affine X and Y values. [CTRL+LMB] to reset only the affine O value. [ALT+LMB] to reset only the affine Rotation angle value." }
@@ -1941,7 +1941,7 @@
                         label   "Rot"
                         type    float
                         default { "0" }
-                        help    "Rotate post affine in angle degrees.<br/><br/>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/><b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm."
+                        help    "Rotate <u><b>post affine</b></u> in angle degrees.<br/><br/>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/><b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm."
                         range   { -90 90 }
                         parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine()" }
                         parmtag { "script_action_help" "[LMB] to reset all affine values. [SHIFT+LMB] to reset only the affine X and Y values. [CTRL+LMB] to reset only the affine O value. [ALT+LMB] to reset only the affine Rotation angle value." }
@@ -3396,7 +3396,7 @@
                     label   "Rot"
                     type    float
                     default { "0" }
-                    help    "Rotate FF pre affine in angle degrees.<br/><br/>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/><b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm."
+                    help    "Rotate <u><b>FF pre affine</b></u> in angle degrees.<br/><br/>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/><b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm."
                     range   { -90 90 }
                     parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine_FF()" }
                     parmtag { "script_action_help" "[LMB] to reset all affine values. [SHIFT+LMB] to reset only the affine X and Y values. [CTRL+LMB] to reset only the affine O value. [ALT+LMB] to reset only the affine Rotation angle value." }
@@ -3466,7 +3466,7 @@
                     label   "Rot"
                     type    float
                     default { "0" }
-                    help    "Rotate FF post affine in angle degrees.<br/><br/>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/><b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm."
+                    help    "Rotate <u><b>FF post affine</b></u> in angle degrees.<br/><br/>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/><b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm."
                     range   { -90 90 }
                     parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine_FF()" }
                     parmtag { "script_action_help" "[LMB] to reset all affine values. [SHIFT+LMB] to reset only the affine X and Y values. [CTRL+LMB] to reset only the affine O value. [ALT+LMB] to reset only the affine Rotation angle value." }
