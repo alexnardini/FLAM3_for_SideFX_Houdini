@@ -735,7 +735,7 @@
                 type    string
                 joinnext
                 default { "iterator_#" }
-                help    "Give this iterator a name or a short descriptive note.\\n\\nThe text you write here will be shown inside the SYS tab select iterator mini menu entries.\\n\\nNOTE:\\nIt will also be stored with the Flame preset file on Save\\nand shown inside third-party applications like Apophysis and Fractorium as the iterator's name."
+                help    "<h2>This iterator name</h2>Give this iterator a name or a short descriptive note.<br/><br/>The text you write here will be shown inside the SYS tab select iterator mini menu entries.<br/><br/><b>NOTE</b>:<br/>It will also be stored with the Flame preset file on Save and shown inside third-party applications like Apophysis and Fractorium as the iterator's name."
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).destroy_data_note(), kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
             }
@@ -1836,33 +1836,33 @@
                     }
                     parm {
                         name    "x_#"
-                        label   "X"
+                        label   "X (A, D)"
                         type    vector2
                         size    2
                         default { "1" "0" }
-                        help    "pre: X.x, X.y ( [<b>A</b>], [<b>D</b>] )"
+                        help    "pre: <b>X</b>.<i>x</i>, <b>X</b>.<i>y</i> ( [<b>A</b>], [<b>D</b>] )"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
                         name    "y_#"
-                        label   "Y"
+                        label   "Y (B, E)"
                         type    vector2
                         size    2
                         default { "0" "1" }
-                        help    "pre: Y.x, Y.y ( [<b>B</b>], [<b>E</b>] )"
+                        help    "pre: <b>Y</b>.<i>x</i>, <b>Y</b>.<i>y</i> ( [<b>B</b>], [<b>E</b>] )"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
                         name    "o_#"
-                        label   "O"
+                        label   "O (C, F)"
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "pre (offset): O.x, O.y ( [<b>C</b>], [<b>F</b>] )"
+                        help    "pre (<b>O</b><i>ffset</i>): <b>O</b>.<i>x</i>, <b>O</b>.<i>y</i> ( [<b>C</b>], [<b>F</b>] )"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
                     }
@@ -1907,33 +1907,33 @@
                     }
                     parm {
                         name    "px_#"
-                        label   "X"
+                        label   "X (A, D)"
                         type    vector2
                         size    2
                         default { "1" "0" }
-                        help    "post: X.x, X.y ( [<b>A</b>], [<b>D</b>] )"
+                        help    "post: <b>X</b>.<i>x</i>, <b>X</b>.<i>y</i> ( [<b>A</b>], [<b>D</b>] )"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
                         name    "py_#"
-                        label   "Y"
+                        label   "Y (B, E)"
                         type    vector2
                         size    2
                         default { "0" "1" }
-                        help    "post: Y.x, Y.y ( [<b>B</b>], [<b>E</b>] )"
+                        help    "post: <b>Y</b>.<i>x</i>, <b>Y</b>.<i>y</i> ( [<b>B</b>], [<b>E</b>] )"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
                         name    "po_#"
-                        label   "O"
+                        label   "O (C, F)"
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "post (offset): O.x, O.y ( [<b>C</b>], [<b>F</b>] )"
+                        help    "post (<b>O</b><i>ffset</i>): <b>O</b>.<i>x</i>, <b>O</b>.<i>y</i> ( [<b>C</b>], [<b>F</b>] )"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
                     }
@@ -3363,32 +3363,32 @@
                 }
                 parm {
                     name    "ffx"
-                    label   "X"
+                    label   "X (A, D)"
                     type    vector2
                     size    2
                     default { "1" "0" }
-                    help    "FF pre: X.x, X.y ( [<b>A</b>], [<b>D</b>] )"
+                    help    "FF pre: <b>X</b>.<i>x</i>, <b>X</b>.<i>y</i> ( [<b>A</b>], [<b>D</b>] )"
                     range   { -1 1 }
                     parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
                     name    "ffy"
-                    label   "Y"
+                    label   "Y (B, E)"
                     type    vector2
                     size    2
                     default { "0" "1" }
-                    help    "FF pre: Y.x, Y.y ( [<b>B</b>], [<b>E</b>] )"
+                    help    "FF pre: <b>Y</b>.<i>x</i>, <b>Y</b>.<i>y</i> ( [<b>B</b>], [<b>E</b>] )"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
                     name    "ffo"
-                    label   "O"
+                    label   "O (C, F)"
                     type    vector2
                     size    2
                     default { "0" "0" }
-                    help    "FF pre (offset): O.x, O.y ( [<b>C</b>], [<b>F</b>] )"
+                    help    "FF pre (<b>O</b><i>ffset</i>): <b>O</b>.<i>x</i>, <b>O</b>.<i>y</i> ( [<b>C</b>], [<b>F</b>] )"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -3433,32 +3433,32 @@
                 }
                 parm {
                     name    "ffpx"
-                    label   "X"
+                    label   "X (A, D)"
                     type    vector2
                     size    2
                     default { "1" "0" }
-                    help    "FF post: X.x, X.y ( [<b>A</b>], [<b>D</b>] )"
+                    help    "FF post: <b>X</b>.<i>x</i>, <b>X</b>.<i>y</i> ( [<b>A</b>], [<b>D</b>] )"
                     range   { -1 1 }
                     parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
                     name    "ffpy"
-                    label   "Y"
+                    label   "Y (B, E)"
                     type    vector2
                     size    2
                     default { "0" "1" }
-                    help    "FF post: Y.x, Y.y ( [<b>B</b>], [<b>E</b>] )"
+                    help    "FF post: <b>Y</b>.<i>x</i>, <b>Y</b>.<i>y</i> ( [<b>B</b>], [<b>E</b>] )"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
                     name    "ffpo"
-                    label   "O"
+                    label   "O (C, F)"
                     type    vector2
                     size    2
                     default { "0" "0" }
-                    help    "FF post (offset): O.x, O.y ( [<b>C</b>], [<b>F</b>] )"
+                    help    "FF post (<b>O</b><i>ffset</i>): <b>O</b>.<i>x</i>, <b>O</b>.<i>y</i> ( [<b>C</b>], [<b>F</b>] )"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
