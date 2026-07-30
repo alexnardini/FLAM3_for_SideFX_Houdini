@@ -6034,7 +6034,7 @@
                     label   "enumerate presets menus"
                     type    toggle
                     default { "1" }
-                    help    "Causes the presets menus inside the <b>CP</b>, <b>IN</b> and <b>OUT</b> tab to be enumerated.<br/><br/>This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.<br/><br/>Turn this OFF to only display the raw preset names.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
+                    help    "Causes the presets menus inside the <b>CP</b>, <b>IN</b> and <b>OUT</b> tab to be enumerated.<br/><br/>This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.<br/><br/>Turn this <b>OFF</b> to only display the raw preset names.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
