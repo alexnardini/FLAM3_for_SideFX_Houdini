@@ -48,7 +48,7 @@ They are all available in this Github repository.
 #### FLAM3H™ v2.0.47 indie -> H22.0 UP</br>FLAM3H™ v2.0.37 indie -> H21.0</br>FLAM3H™ v2.0.31 indie -> H20.5</br>FLAM3H™ v1.9.85 indie -> H19.0 to H20 ####
 
 - **New H22 UP ONLY**: Parametric variations parameters now have proper UI tooltips with descriptions of what each parameter's component does. Using the new `html` syntax feature makes all the tooltips a pleasure to write and add!
-- **New H22 UP ONLY**: Revisited affine coefficents parameters labels and tooltips.
+- **New H22 UP ONLY**: Revisited affine coefficients parameters labels and tooltips.
 - **New**: Parametric variations parameters now have proper descriptions of what each parameter's component does inside the HDAs documentations.
 
 
