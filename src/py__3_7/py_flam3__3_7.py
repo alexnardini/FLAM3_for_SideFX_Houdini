@@ -11286,7 +11286,7 @@ class flam3h_palette_utils
                     flam3h_prm_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 1)
                     _MSG: str = f"{node.name()}: LOAD Palette preset: \"{preset}\" -> Completed"
                     flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                    flam3h_general_utils.flash_message(node, f"CP LOADED")
+                    flam3h_general_utils.flash_message(node, f"CP LOADED: {_COUNT}")
                 else:
                     flam3h_prm_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
                     _MSG: str = f"{node.name()}: CP: ERROR on preset: \"{preset}\". Invalid HEX values."
@@ -11698,9 +11698,10 @@ class flam3h_palette_utils
         """
         # CP->tmp ramp RESET
         ramp_tmp_parm = self.node.parm(CP_RAMP_TMP_NAME)
-        self.delete_ramp_all_keyframes(ramp_tmp_parm)
         # Build TMP ramp
         self.build_ramp_palette_temp(ramp_tmp_parm)
+        # Clear all keyframes
+        self.delete_ramp_all_keyframes(ramp_tmp_parm)
         
         
     def reset_CP_options(self) -> None:
