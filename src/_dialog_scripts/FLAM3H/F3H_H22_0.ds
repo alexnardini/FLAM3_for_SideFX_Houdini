@@ -836,7 +836,7 @@
                     label   "location"
                     type    float
                     default { "0" }
-                    help    "The color location in the ramp <b>{0:1}</b>."
+                    help    "<h3>The color location in the ramp <b>{0:1}</b></h3>"
                     range   { 0! 1! }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -845,7 +845,7 @@
                     label   "speed"
                     type    float
                     default { "0" }
-                    help    "Speed of color blending between iterations.<br/><br/>Values above <b>0</b>(<i>Zero</i>) attract the selected color while values below <b>0</b>(<i>Zero</i>) will repel it.<br/><br/><b>NOTE</b>:<br/>The correct ranges for this value should always be between <b>-1</b> and <b>1</b>."
+                    help    "<h3>Speed of color blending between iterations</h3><i>Values above <b>0</b>(<i>Zero</i>) attract the selected color while values below <b>0</b>(<i>Zero</i>) will repel it</i>.<br/><br/><b>NOTE</b>:<br/>The correct ranges for this value should always be between <b>-1</b> and <b>1</b>."
                     range   { 0 1! }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -854,7 +854,7 @@
                     label   "opacity"
                     type    float
                     default { "1" }
-                    help    "It will be fully opaque at opacity <b>1</b>(<i>one</i>) and completely transparent at opacity <b>0</b>(<i>Zero</i>).<br/><br/>It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator’s Weight.<br/><br/><b>NOTE</b>:<br/>When an iterator's opacity is <b>0</b>(<i>Zero</i>), you can activate the SYS Tab RIP option to get rid of those points.<br/>( <i>Since <b>Opacity</b> == <b>@pscale</b> or <b>@widths</b> in Solaris, you don't need them anymore</i> )"
+                    help    "<h3>It will be fully opaque at opacity <b>1</b>(<i>one</i>) and completely transparent at opacity <b>0</b>(<i>Zero</i>)</h3><i>It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator’s <b>W</b>eight</i>.<br/><br/><b>NOTE</b>:<br/>When an iterator's opacity is <b>0</b>(<i>Zero</i>), you can activate the SYS Tab RIP option to get rid of those points.<br/>( <i>Since <b>Opacity</b> == <b>@pscale</b> or <b>@widths</b> in Solaris, you don't need them anymore</i> )"
                     range   { 0! 1! }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils.destroy_cachedUserData(kwargs['node'], 'iter_sel')" }
                     parmtag { "script_callback_language" "python" }
