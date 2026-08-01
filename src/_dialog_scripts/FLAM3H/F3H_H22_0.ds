@@ -1805,7 +1805,7 @@
                     label   "post"
                     type    toggle
                     default { "0" }
-                    help    "<h2>Turn post affine <b>ON</b>/<b>OFF</b></h2><b>OFF</b> by default."
+                    help    "<h2>Turn post affine <b>ON</b>/<b>OFF</b></h2>The term \"<b>post-affine</b>\" would be used to emphasize the sequential application of an affine transformation within a larger pipeline of operations.<br/><br/>For example, if you first apply a perspective transformation to an image and then apply an affine transformation to correct for a slight remaining distortion or to further refine the image, you might refer to the latter as a \"<b>post-affine transformation</b>\" to distinguish its place in the sequence.<br/><br/><i>In the context of fractal Flames, the \"<b>post-affine transformation</b>\" will be the very last to be applied to the incoming point/sample</i>.<br/><br/><b>OFF</b> by default."
                     parmtag { "script_callback_language" "python" }
                 }
             }
@@ -3332,7 +3332,7 @@
                 label   "FF post"
                 type    toggle
                 default { "0" }
-                help    "<h2>Turn FF post affine <b>ON</b>/<b>OFF</b></h2>"
+                help    "<h2>Turn FF post affine <b>ON</b>/<b>OFF</b></h2>The term \"<b>post-affine</b>\" would be used to emphasize the sequential application of an affine transformation within a larger pipeline of operations.<br/><br/>For example, if you first apply a perspective transformation to an image and then apply an affine transformation to correct for a slight remaining distortion or to further refine the image, you might refer to the latter as a \"<b>post-affine transformation</b>\" to distinguish its place in the sequence.<br/><br/><i>In the context of fractal Flames, the \"<b>post-affine transformation</b>\" will be the very last to be applied to the incoming point/sample</i>."
                 parmtag { "script_callback_language" "python" }
             }
         }
