@@ -1805,7 +1805,7 @@
                     label   "post"
                     type    toggle
                     default { "0" }
-                    help    "<h2>Enable post affine</h2><b>OFF</b> by default."
+                    help    "<h2>Turn post affine <b>ON</b>/<b>OFF</b></h2><b>OFF</b> by default."
                     parmtag { "script_callback_language" "python" }
                 }
             }
@@ -3332,7 +3332,7 @@
                 label   "FF post"
                 type    toggle
                 default { "0" }
-                help    "<h2>Enable FF post affine</h2>"
+                help    "<h2>Turn FF post affine <b>ON</b>/<b>OFF</b></h2>"
                 parmtag { "script_callback_language" "python" }
             }
         }
