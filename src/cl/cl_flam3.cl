@@ -4011,9 +4011,9 @@ static float2 CL_V_DISPATCH(
 // ----------------------------
 
 __kernel void cl_flam3( 
-    int F3C,
-    int OPID,
-    int ITER,
+    const int F3C,
+    const int OPID,
+    const int ITER,
     int P_length,
     __global float * restrict P,
     int COLOR_length,
@@ -4022,12 +4022,12 @@ __kernel void cl_flam3(
     __global float * restrict ALPHA,
     int PSCALE_length,
     __global float * restrict PSCALE,
-    int    RES,
+    const int    RES,
     int IW_length,
     int IW_tuplesize,
     __global int * restrict IW_index,
     __global float * restrict IW,
-    int    XS,
+    const int    XS,
     int XST_length,
     int XST_tuplesize,
     __global int * restrict XST_index,
@@ -4152,39 +4152,25 @@ __kernel void cl_flam3(
     }
 
     // Copy arrays of floats in chunks of float4s
-    
-    // Float arrays
-    int total_SHD       = RES * SHD_NUM_SIZE + 3;
-    int total_XAOS      = RES * RES + 3;
-    int total_PRM_F     = RES * PRM_NUM_F;
-    // Float2 array
-    int total_PRM_F2    = RES * PRM_NUM_F2;
-    // Float4 arrays
-    int total_PRM_F3    = RES * PRM_NUM_F3; // Marked as F3 becasue it was meant to be a vector array from vex
-    int total_PRM_F4    = RES * PRM_NUM_F4;
 
     // SHD
-    int num_f4_SHD = total_SHD >> 2;
-    for(int i = lid; i < num_f4_SHD; i += lsize)
+    for(int i = lid; i < ((RES * SHD_NUM_SIZE + 3) >> 2); i += lsize)
         ((__local float4*)local_SHD)[i] = ((__global float4*)SHD)[i];
     // PRM_F
-    int num_f4_PRM_F = total_PRM_F >> 2;
-    for(int i = lid; i < num_f4_PRM_F; i += lsize)
+    for(int i = lid; i < ((RES * PRM_NUM_F) >> 2); i += lsize)
         ((__local float4*)local_PRM_F)[i] = ((__global float4*)PRM_F)[i];
     // PRM_F2
-    int num_f4_PRM_F2 = total_PRM_F2 >> 1;
-    for(int i = lid; i < num_f4_PRM_F2; i += lsize)
+    for(int i = lid; i < ((RES * PRM_NUM_F2) >> 1); i += lsize)
         ((__local float4*)local_PRM_F2)[i] = ((__global float4*)PRM_F2)[i];
     // PRM_F3
-    for(int i = lid; i < total_PRM_F3; i += lsize)
+    for(int i = lid; i < (RES * PRM_NUM_F3); i += lsize) // Marked as F3 becasue it was meant to be a vector array from vex
         local_PRM_F3[i] = PRM_F3[i];
     // PRM_F4
-    for(int i = lid; i < total_PRM_F4; i += lsize)
+    for(int i = lid; i < (RES * PRM_NUM_F4); i += lsize)
         local_PRM_F4[i] = PRM_F4[i];
     if(XS){
         // XST
-        int num_f4 = total_XAOS >> 2;
-        for(int i = lid; i < num_f4; i += lsize)
+        for(int i = lid; i < ((RES * RES + 3) >> 2); i += lsize)
             ((__local float4*)local_XST)[i] = ((__global float4*)XST)[i];
     }
 
@@ -4197,12 +4183,14 @@ __kernel void cl_flam3(
     // init
     int idx;
     int4 _vt, _ppvt;
+    float a;
     float clr = 0.0f;
     float _prev_clr = 0.0f;
     float2 mem, _tmp;
     float4 _vw, _ppvw;
+    affine_t pa;
     
-    // RNG init
+    // init RNG
     float r;
     x128_state_t rng;
     rng_init(&rng, gid + OPID);  // unique per thread, per node
@@ -4226,7 +4214,7 @@ __kernel void cl_flam3(
         __local float4* xf_prm_f4 = &local_PRM_F4[idx * PRM_NUM_F4];
         
         // pre affine 
-        affine_t pa = local_PRE_AFFINE[idx];
+        pa = local_PRE_AFFINE[idx];
         mem = affine(mem, pa);
 
         // PRE/POST data
@@ -4261,7 +4249,7 @@ __kernel void cl_flam3(
     }
     
     // Alpha value
-    float a = local_SHD[(RES << 1) + idx];
+    a = local_SHD[(RES << 1) + idx];
     
     // OUT
     vstore3((float3)(mem, 0.0f), gid, P);
@@ -4282,8 +4270,8 @@ __kernel void cl_flam3(
 // ----------------------------
 
 __kernel void cl_flam3_ff( 
-    int F3C,
-    int OPID,
+    const int F3C,
+    const int OPID,
     int P_length,
     __global float * restrict P,
     int FF_X_length,
@@ -4298,11 +4286,11 @@ __kernel void cl_flam3_ff(
     int FF_O_tuplesize,
     global int * restrict FF_O_index,
     global float2 * restrict FF_O,
-    int    FF_POST,     // ON(1) or OFF(0)
-    float4 FF_PRE_VT,   // PREV1T, unused(0), unused(0), unused(0) -> Just in case I need more in the future
-    float4 FF_PRE_VW,   // PREV1W, unused(0), unused(0), unused(0) -> Just in case I need more in the future
-    float4 FF_VPP_VT,   // V1T, V2T, POSTV1T, POSTV2T
-    float4 FF_VPP_VW,   // V1W, V2W, POSTV1W, POSTV2W
+    const int    FF_POST,     // ON(1) or OFF(0)
+    const float4 FF_PRE_VT,   // PREV1T, unused(0), unused(0), unused(0) -> Just in case I need more in the future
+    const float4 FF_PRE_VW,   // PREV1W, unused(0), unused(0), unused(0) -> Just in case I need more in the future
+    const float4 FF_VPP_VT,   // V1T, V2T, POSTV1T, POSTV2T
+    const float4 FF_VPP_VW,   // V1W, V2W, POSTV1W, POSTV2W
     int FF_PRM_F_length,
     int FF_PRM_F_tuplesize,
     __global int * restrict FF_PRM_F_index,
@@ -4344,31 +4332,18 @@ __kernel void cl_flam3_ff(
     }
 
     // Copy arrays of floats in chunks of float4s
-    // and handle the remainders if any.
-    
-    // Float arrays
-    int ff_total_PRM_F     = FF_RES_PRM * PRM_NUM_F;
-    // Float2 array
-    int ff_total_PRM_F2    = FF_RES_PRM * PRM_NUM_F2;
-    // Float4 arrays
-    int ff_total_PRM_F3    = FF_RES_PRM * PRM_NUM_F3; // Marked as F3 becasue it was meant to be a vector array from vex
-    int ff_total_PRM_F4    = FF_RES_PRM * PRM_NUM_F4;
 
-    // PRM_F
-    int num_f4_PRM_F = ff_total_PRM_F >> 2;
-    for(int i = lid; i < num_f4_PRM_F; i += lsize)
+    // FF PRM_F
+    for(int i = lid; i < ((FF_RES_PRM * PRM_NUM_F) >> 2); i += lsize)
         ((__local float4*)local_FF_PRM_F)[i] = ((__global float4*)FF_PRM_F)[i];
-    // for(int i = (num_f4_PRM_F << 2) + lid; i < ff_total_PRM_F; i += lsize)
-    //     local_FF_PRM_F[i] = FF_PRM_F[i];
-    // PRM_F2
-    int num_f4_PRM_F2 = ff_total_PRM_F2 >> 1;
-    for(int i = lid; i < num_f4_PRM_F2; i += lsize)
+    // FF PRM_F2
+    for(int i = lid; i < ((FF_RES_PRM * PRM_NUM_F2) >> 1); i += lsize)
         ((__local float4*)local_FF_PRM_F2)[i] = ((__global float4*)FF_PRM_F2)[i];
-    // PRM_F3
-    for(int i = lid; i < ff_total_PRM_F3; i += lsize)
+    // FF PRM_F3
+    for(int i = lid; i < (FF_RES_PRM * PRM_NUM_F3); i += lsize) // Marked as F3 becasue it was meant to be a vector array from vex
         local_FF_PRM_F3[i] = FF_PRM_F3[i];
-    // PRM_F4
-    for(int i = lid; i < ff_total_PRM_F4; i += lsize)
+    // FF PRM_F4
+    for(int i = lid; i < (FF_RES_PRM * PRM_NUM_F4); i += lsize)
         local_FF_PRM_F4[i] = FF_PRM_F4[i];
 
     barrier(CLK_LOCAL_MEM_FENCE);   // Wait for the copy to complete
@@ -4378,9 +4353,7 @@ __kernel void cl_flam3_ff(
         return;
     
     // init
-    int4 _vt, _ppvt;
     float2 mem, _tmp;
-    float4 _vw, _ppvw;
     
     // RNG init
     float r;
@@ -4391,17 +4364,17 @@ __kernel void cl_flam3_ff(
     mem = vload3(gid, P).xy;
     
     // pp parameterics data
-    __local float*  pp_prm_f  = &local_FF_PRM_F[PRM_NUM_F];
-    __local float2* pp_prm_f2 = &local_FF_PRM_F2[PRM_NUM_F2];
-    __local float4* pp_prm_f3 = &local_FF_PRM_F3[PRM_NUM_F3];
-    __local float4* pp_prm_f4 = &local_FF_PRM_F4[PRM_NUM_F4];
+    __local float*  ff_pp_prm_f  = &local_FF_PRM_F[PRM_NUM_F];
+    __local float2* ff_pp_prm_f2 = &local_FF_PRM_F2[PRM_NUM_F2];
+    __local float4* ff_pp_prm_f3 = &local_FF_PRM_F3[PRM_NUM_F3];
+    __local float4* ff_pp_prm_f4 = &local_FF_PRM_F4[PRM_NUM_F4];
     
     // pre affine 
     affine_t pa = local_FF_AFFINE[0];
     mem = affine(mem, pa);
 
     // PRE
-    if (FF_PRE_VW.x > 0.0f) mem  = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, pp_prm_f, pp_prm_f2, pp_prm_f3, pp_prm_f4);
+    if (FF_PRE_VW.x > 0.0f) mem  = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
     
     // VAR
     _tmp = (float2)(0.0f);
@@ -4409,8 +4382,8 @@ __kernel void cl_flam3_ff(
     if (FF_VPP_VW.y != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.y, mem, FF_VPP_VW.y, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
 
     // POST
-    if (FF_VPP_VW.z > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, pp_prm_f, pp_prm_f2, pp_prm_f3, pp_prm_f4);
-    if (FF_VPP_VW.w > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, pp_prm_f, pp_prm_f2, pp_prm_f3, pp_prm_f4);
+    if (FF_VPP_VW.z > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
+    if (FF_VPP_VW.w > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
 
     // post affine    
     if(FF_POST) _tmp = affine(_tmp, local_FF_AFFINE[1]);
