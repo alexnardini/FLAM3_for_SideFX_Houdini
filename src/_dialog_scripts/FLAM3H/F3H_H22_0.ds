@@ -5688,7 +5688,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "<h2>CC Curves at their defaults</h2>[<b>LMB</b>] to copy all the color correction curves data from the currently loaded IN Flame preset.<br/>If the loaded IN Flame preset have its color correction curves data at default values, the copy will be skipped.<br/><br/>These color correction curves data can not be edited.<br/>The data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H™ so to keep and preserve the original color correction data intact."
+                    help    "<h2>CC Curves at their defaults</h2>[<b>LMB</b>] to copy all the color correction curves data from the currently loaded IN Flame preset.<br/><br/><i>If the loaded IN Flame preset have its color correction curves data at default values, the copy will be skipped</i>.<br/><br/><u><b>These color correction curves data can not be edited</b></u>.<br/><br/><b>TIP</b>:<br/><i>The data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H™ so to keep and preserve the original color correction data intact</i>."
                     hidewhen "{ outccdefault == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg" }
                     parmtag { "script_callback" "hou.phm().flam3.in_flame_utils.in_copy_cc_curves_stats_msg(kwargs), kwargs['parm'].deleteAllKeyframes()" }
@@ -5701,7 +5701,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "<h2>CC Curves modified</h2>[<b>LMB</b>] to reset all the color correction curves to their defaults (<i>no color correction</i>).<br/><br/>These color correction curves data can not be edited.<br/>The data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H™ so to keep and preserve the original color correction data intact."
+                    help    "<h2>CC Curves modified</h2>[<b>LMB</b>] to reset all the color correction curves to their defaults (<i>no color correction</i>).<br/><br/><u><b>These color correction curves data can not be edited</b></u><br/><br/><b>TIP</b>:<br/><i>The data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H™ so to keep and preserve the original color correction data intact</i>."
                     hidewhen "{ outccdefault == 0 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg" }
                     parmtag { "script_callback" "hou.phm().flam3.out_flame_utils.out_render_curves_set_and_retrieve_defaults(kwargs['node']), kwargs['parm'].deleteAllKeyframes()" }
