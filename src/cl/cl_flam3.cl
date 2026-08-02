@@ -4352,16 +4352,12 @@ __kernel void cl_flam3_ff(
     if (gid >= P_length)
         return;
     
-    // init
-    float2 mem, _tmp;
-    
     // RNG init
-    float r;
     x128_state_t rng;
     rng_init(&rng, gid + OPID);  // unique per thread, per node
     
     // get sample
-    mem = vload3(gid, P).xy;
+    float2 mem = vload3(gid, P).xy;
     
     // pp parameterics data
     __local float*  ff_pp_prm_f  = &local_FF_PRM_F[PRM_NUM_F];
@@ -4377,7 +4373,7 @@ __kernel void cl_flam3_ff(
     if (FF_PRE_VW.x > 0.0f) mem  = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
     
     // VAR
-    _tmp = (float2)(0.0f);
+    float2 _tmp = (float2)(0.0f);
     if (FF_VPP_VW.x != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.x, mem, FF_VPP_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
     if (FF_VPP_VW.y != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.y, mem, FF_VPP_VW.y, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
 
