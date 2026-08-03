@@ -5186,7 +5186,7 @@
                 label   "copy render properties on Load"
                 type    toggle
                 default { "1" }
-                help    "It will automatically copy all the render properties (<b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b>) into the OUT render properties every time you load a Flame preset in.<br/><br/>You need to reload the current Flame preset for this change to take effect.<br/><br/><b>NOTE</b>:<br/>All the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load."
+                help    "It will automatically copy all the render properties (<i><b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b></i>) into the OUT render properties every time you load a Flame preset in.<br/><br/><i>You need to reload the current Flame preset for this change to take effect</i>.<br/><br/><b>NOTE</b>:<br/>All the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load."
                 parmtag { "script_action" "kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle(\"propertiescp\")" }
                 parmtag { "script_action_help" "[LMB] to switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings." }
                 parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg" }
