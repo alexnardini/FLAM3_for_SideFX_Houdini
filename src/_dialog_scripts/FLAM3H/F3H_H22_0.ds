@@ -4761,7 +4761,7 @@
                 label   "palette HSV"
                 type    ramp_rgb
                 default { "5" }
-                help    "The palette color corrected by the HSV values for viz."
+                help    "<h3>The palette color corrected by the HSV values for viz</h3>"
                 range   { 1! 10 }
                 parmtag { "rampcolordefault" "1pos ( 0 ) 1c ( 0.20000000298023224 0.05000000074505806 1 ) 1interp ( linear ) 2pos ( 0.25 ) 2c ( 0.10000000149011612 0.85000002384185791 1 ) 2interp ( linear ) 3pos ( 0.5 ) 3c ( 0.05000000074505806 1 0.10000000149011612 ) 3interp ( linear ) 4pos ( 0.75 ) 4c ( 0.94999998807907104 1 0.10000000149011612 ) 4interp ( linear ) 5pos ( 1 ) 5c ( 1 0.05000000074505806 0.05000000074505806 ) 5interp ( linear )" }
                 parmtag { "rampshowcontrolsdefault" "0" }
@@ -4818,7 +4818,7 @@
                 label   "samples"
                 type    data
                 default { "0" }
-                help    "<h3>256 by default<br/>The amount of lookup samples to use to sample this palette</h3>Next to this menu on its left side you can find a mini-menu to allow you to choose between different interpolation methods for the lookup samples color keys values. Keep in mind that these are interpolation methods between the lookup samples that are used to sample the palette, not between the color keys of the palette itself.<br/><br/>Lookup samples have no connection on the palette you design. Only a few color keys can be made; nevertheless, the palette will be internally sampled (<i>linearly spaced</i>) from <b>ZERO</b> (<i>start</i>) to <b>ONE</b> (<i>end</i>) using this amount of samples.<br/><br/><i>The amount of linearly spaced color keys in a typical fractal Flame is equivalent to <b>256</b>, which is the default</i>.<br/><br/>However,<br/>if you create a palette with more than <b>256</b> color keys you might eventually want to use an higher amount of samples to be sure to catch all the subtle color variations of the palette.<br/>In general, <b>256</b> lookup samples will always be good.<br/><br/>Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H™.<br/><br/><i>If the file do not posses a lookup samples XML key, the default value of <b>256</b> will be used instead</i>.<br/><br/>Saving a Flame out will always save the palette with <b>256</b> color's keys.<br/>If you created a palette with more than <b>256</b> colors, for example with <b>1024</b> color keys and sample it with <b>1024</b> samples to take into account all the subtle color changes,<br/>turn <b>ON</b> the Preferences general option -> \"palette 256+\" toggle<br/>(<i>it is <b>ON</b> by default</i>)."
+                help    "<h3>The amount of lookup samples to use to sample this palette</h3>Next to this menu on its left side you can find a mini-menu to allow you to choose between different interpolation methods for the lookup samples color keys values. Keep in mind that these are interpolation methods between the lookup samples that are used to sample the palette, not between the color keys of the palette itself.<br/><br/>Lookup samples have no connection on the palette you design. Only a few color keys can be made; nevertheless, the palette will be internally sampled (<i>linearly spaced</i>) from <b>ZERO</b> (<i>start</i>) to <b>ONE</b> (<i>end</i>) using this amount of samples.<br/><br/><i>The amount of linearly spaced color keys in a typical fractal Flame is equivalent to <b>256</b>, which is the default</i>.<br/><br/>However,<br/>if you create a palette with more than <b>256</b> color keys you might eventually want to use an higher amount of samples to be sure to catch all the subtle color variations of the palette.<br/>In general, <b>256</b> lookup samples will always be good.<br/><br/>Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H™.<br/><br/><i>If the file do not posses a lookup samples XML key, the default value of <b>256</b> will be used instead</i>.<br/><br/>Saving a Flame out will always save the palette with <b>256</b> color's keys.<br/>If you created a palette with more than <b>256</b> colors, for example with <b>1024</b> color keys and sample it with <b>1024</b> samples to take into account all the subtle color changes,<br/>turn <b>ON</b> the Preferences general option -> \"palette 256+\" toggle<br/>(<i>it is <b>ON</b> by default</i>).<br/><br/><b>256</b> by default"
                 parmtag { "script_callback" "" }
                 parmtag { "script_callback_language" "python" }
             }
@@ -4827,7 +4827,7 @@
                 label   "palette"
                 type    ramp_rgb
                 default { "5" }
-                help    "The source palette."
+                help    "<h3>The source palette</h3>"
                 range   { 1! 10 }
                 parmtag { "rampcolordefault" "1pos ( 0 ) 1c ( 0.20000000298023224 0.05000000074505806 1 ) 1interp ( linear ) 2pos ( 0.25 ) 2c ( 0.10000000149011612 0.85000002384185791 1 ) 2interp ( linear ) 3pos ( 0.5 ) 3c ( 0.05000000074505806 1 0.10000000149011612 ) 3interp ( linear ) 4pos ( 0.75 ) 4c ( 0.94999998807907104 1 0.10000000149011612 ) 4interp ( linear ) 5pos ( 1 ) 5c ( 1 0.05000000074505806 0.05000000074505806 ) 5interp ( linear )" }
                 parmtag { "rampshowcontrolsdefault" "0" }
@@ -4869,7 +4869,7 @@
                 label   "JSON file"
                 type    file
                 default { "" }
-                help    "Load an already created FLAM3H™ <b>json</b> palette library file<br/>or choose the path and name of a new one to create."
+                help    "<h3>Load an already created FLAM3H™ <b>json</b> palette library file<br/>or choose the path and name of a new one to create</h3>"
                 parmtag { "filechooser_pattern" "*.json" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS(), kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
@@ -4879,7 +4879,7 @@
                 label   "palette name"
                 type    string
                 default { "" }
-                help    "Save this palette with this name.<br/><br/>If no name is provided, a default name composed of today's date and current time will be used instead."
+                help    "<h3>Save this palette with this name</h3>If no name is provided, a default name composed of today's date and current time will be used instead."
                 parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).flam3h_ramp_save()" }
                 parmtag { "script_action_help" "[LMB] to save this Palette inside the selected file. If the file doesn't exit yet it will create it. If the file contain already some palette, it will append it. [CTRL+LMB] to erase the content of the file and save only the current Palette in it. [SHIFT+LMB] if not a valid filepath is present already it will open a file chooser, otherwise it will open the file explorer to the file location. If the selected file is not a valid Palette JSON file type, nothing will happen. [ALT+LMB] to save the current palette into the Clipboard as a JSON data." }
                 parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg" }
