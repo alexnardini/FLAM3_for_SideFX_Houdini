@@ -130,8 +130,72 @@ From there to the final image, it is left to the users (_aka points rendering_).
 With Houdini integrated Karma renderer, you will be able to render the generated fractal Flames in nearly real time.
 
 <br/>
+<br/>
+<br/>
+<br/>
 
-### Karma render note
+# <img width="48" height="48" src="./icons/icon_tag_oclSVG.svg" /> OpenCL Hardware Performance Profile  
+
+**FLAM3H™ OpenCL Kernel:** cl_flam3  
+**Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
+**Tested On:** NVIDIA GeForce RTX 4090  
+**NVIDIA Driver Version:** 610.88  
+**Compilation Context:** Houdini OpenCL Runtime Code Cache  
+
+---
+
+<br>
+
+## Summary of PTXAS Compiler Report
+
+| Hardware Resource | Metric Value | Description |
+| :--- | :--- | :--- |
+| **Global Memory (`gmem`)** | **0** bytes | Statically allocated global memory usage. |
+| **Stack Frame** | **0** bytes | Per-thread stack memory allocation. |
+| **Spill Stores / Loads** | **0** bytes / **0** bytes | Register spills caused by register pressure. |
+| **Registers Used** | **50** registers | Number of 32-bit registers allocated per thread. |
+| **Execution Barriers** | **1** barrier | Number of synchronization barrier instructions. |
+| **Shared Memory (`smem`)** | **16,432** bytes (~16.4 KB) | Shared memory allocated per thread block. |
+| **Constant Memory 0 (`cmem[0]`)** | **872** bytes | Constant memory for kernel parameters and compiler-managed data. |
+| **Constant Memory 2 (`cmem[2]`)** | **4,120** bytes (~4.1 KB) | Constant memory for read-only data. |
+
+---
+
+<br>
+
+## Summary of SASS Hardware Metrics
+
+| Instruction Class | Hardware Functions | Assembly Count | Description |
+| :--- | :--- | :--- | :--- |
+| **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **15,931** | Floating-point arithmetic operations. |
+| **Special Functions** | `MUFU` | **3,117** | Transcendental math functions (e.g., `sin`, `cos`, `log`). |
+| **Control Flow** | `BRA`, `BRX` | **2,482** | Branching and loop control instructions. |
+| **Integer & Indexing** | `IADD3`, `IMAD` | **849** | Integer arithmetic and address calculations. |
+| **Shared Memory Cache** | `LDS`, `STS` | **465** | Shared memory load and store operations. |
+| **Global Memory Bus** | `LDG`, `STG` | **72** | Global memory load and store operations. |
+| **Dependency Management** | `DEPBAR`, `LGWR` | **0** | Instruction dependency management operations. |
+| **Thread Synchronization** | `BAR.SYNC` | **1** | Thread block synchronization barrier. |
+
+```rust
+  F3H_sass_output.txt:1327:        /*2940*/                   IADD3 R0, R0, c[0x0][0x94], RZ ;
+        /* 0x0000250000007a10 */
+  F3H_sass_output.txt:1328:
+        /* 0x000fc60007ffe0ff */
+> F3H_sass_output.txt:1329:        /*2950*/                   BAR.SYNC.DEFER_BLOCKING 0x0 ;
+        /* 0x0000000000007b1d */
+  F3H_sass_output.txt:1330:
+        /* 0x000fe40000010000 */
+  F3H_sass_output.txt:1331:        /*2960*/                   IMAD R0, R3, c[0x0][0x0], R0 ;
+        /* 0x0000000003007a24 */
+```
+---
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+## Karma render note
 
 From FLAM3H™ [<ins>v1.8.98</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98),<br/>
 a new custom materialX Shader has been introduced to the FLAM3H™USD HDA to allow proper points color values accumulation. It will perfectly match what third-party implementations refer to as:<br/>
