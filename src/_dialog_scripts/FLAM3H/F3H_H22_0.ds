@@ -5208,7 +5208,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "Display informations about the loaded Flame preset.<br/><br/>Those infos include all the Missing variations if any are found in the currently loaded Flame preset.<br/><br/>All of the variations that Fractorium has but FLAM3H™ does not are known as: <b>MISSING</b> variations.<br/><br/>FLAM3H™ was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he possess.<br/><br/>All of the variations that Fractorium lacks will be classified as: <b>UNKNOWN</b> variations."
+                help    "<h3>Display informations about the loaded Flame preset</h3>Those infos include all the Missing variations if any are found in the currently loaded Flame preset.<br/><br/>All of the variations that Fractorium has but FLAM3H™ does not are known as: <b>MISSING</b> variations.<br/><br/>FLAM3H™ was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he possess.<br/><br/>All of the variations that Fractorium lacks will be classified as: <b>UNKNOWN</b> variations."
                 disablewhen "{ indisable == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
                 parmtag { "script_callback" "" }
@@ -5351,7 +5351,7 @@
                 label   "OUT flame"
                 type    file
                 default { "" }
-                help    "Select a file name to save your Flame into.<br/>If the selected file does not exist, it will be created."
+                help    "<h3>Select a file name to save your Flame into</h3>If the selected file does not exist, it will be created."
                 parmtag { "filechooser_pattern" "*.flame" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(), kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
@@ -5361,7 +5361,7 @@
                 label   "Flame name"
                 type    string
                 default { "" }
-                help    "Save this Flame with this name.<br/>This is the name the Flame will have inside the XML file.<br/><br/>If no name is provided, a default name composed of today's date and current time will be used instead."
+                help    "<h3>Save this Flame with this name</h3>This is the name the Flame will have inside the XML file.<br/><br/>If no name is provided, a default name composed of today's date and current time will be used instead."
                 parmtag { "script_action" "kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()" }
                 parmtag { "script_action_help" "[LMB] to save this Flame inside the selected OUT file, if any. If the file doesn't exit yet it will create it. If the file contain already some Flames, it will append it. [CTRL+LMB] to erase the content of the file and save only the current Flame in it. [SHIFT+LMB] if not a valid filepath is present already it will open a file chooser, otherwise it will open the file explorer to the file location. [ALT+LMB] to save this Flame into the Clipboard. " }
                 parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg" }
@@ -5373,7 +5373,7 @@
                 label   "OUT file contents"
                 type    string
                 default { "-1" }
-                help    "This menu is only for informational purposes.<br/><br/>It will show the Flame presets contained in the selected output file, if any are present. Once you add a new Flame to it, this menu will update too. It will always be set to the last Flame name you saved.<br/><br/>It will also print quick informations (<i>in the status bar and as a flash message in the network editor</i>)<br/>about the Flame preset when one is selected.<br/><br/>Quick infos are:<ul><li><b>Flame preset name</b> (<i>only in the status bar</i>)</li><li><b>FF</b>: when finalXform(<b>FF</b>) is being used</li><li><b>RIP</b>: when <b>R</b>emove <b>I</b>nvalid <b>P</b>oints(<i><b>RIP</b></i>) is being used (<i>only in the status bar</i>)</li><li><b>F3C</b>: when Flam3 Compatibility is being used (<i>only in the status bar</i>)</li><li><b>XF</b>: Number of iterators/xforms being used</li><li><b>Palette</b>: number of colors in the palette</li><li><b>HSV</b>: when <b>HSV</b> color correction is being used</li><li><b>HSV values</b> (<i>only in the status bar</i>)</li><li><b>Basis</b>: palette lookup sample interpolation method being used</li></ul>"
+                help    "<h3>This menu is only for informational purposes</h3>It will show the Flame presets contained in the selected output file, if any are present. Once you add a new Flame to it, this menu will update too. It will always be set to the last Flame name you saved.<br/><br/>It will also print quick informations (<i>in the status bar and as a flash message in the network editor</i>)<br/>about the Flame preset when one is selected.<br/><br/>Quick infos are:<ul><li><b>Flame preset name</b> (<i>only in the status bar</i>)</li><li><b>FF</b>: when finalXform(<b>FF</b>) is being used</li><li><b>RIP</b>: when <b>R</b>emove <b>I</b>nvalid <b>P</b>oints(<i><b>RIP</b></i>) is being used (<i>only in the status bar</i>)</li><li><b>F3C</b>: when Flam3 Compatibility is being used (<i>only in the status bar</i>)</li><li><b>XF</b>: Number of iterators/xforms being used</li><li><b>Palette</b>: number of colors in the palette</li><li><b>HSV</b>: when <b>HSV</b> color correction is being used</li><li><b>HSV values</b> (<i>only in the status bar</i>)</li><li><b>Basis</b>: palette lookup sample interpolation method being used</li></ul>"
                 menu {
                     [ "menu = hou.phm().flam3.out_flame_utils(kwargs).menu_out_contents_presets()" ]
                     [ "return menu" ]
@@ -6747,7 +6747,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "Informations about FLAM3H™.<br/><br/>[<b>LMB</b>] to display an about box panel."
+                    help    "<h3>Informations about FLAM3H™</h3>[<b>LMB</b>] to display an about box panel."
                     hidewhen "{ h_valid == 0 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueToolSVG.svg" }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_about_utils.flam3h_about_show_info_panel(kwargs['node'])" }
@@ -6783,7 +6783,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "Informations about variations."
+                    help    "<h3>Informations about variations</h3>"
                     disablewhen "{ aboutdisable == 1 }"
                     hidewhen "{ h_valid == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg" }
@@ -6806,7 +6806,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "Informations about variations."
+                    help    "<h3>Informations about variations</h3>"
                     disablewhen "{ aboutdisable == 1 }"
                     hidewhen "{ h_valid == 0 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
@@ -6851,7 +6851,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "List of web links about FLAM3H™"
+                    help    "<h3>List of web links about FLAM3H™</h3>"
                     disablewhen "{ aboutdisable == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -6964,7 +6964,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "List of web links about the original: The Fractal Flame Algorithm (flam3) and the Fractorium app."
+                    help    "<h3>List of web links about the original: The Fractal Flame Algorithm (flam3) and the Fractorium app</h3>"
                     disablewhen "{ aboutdisable == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
                     parmtag { "script_callback" "" }
