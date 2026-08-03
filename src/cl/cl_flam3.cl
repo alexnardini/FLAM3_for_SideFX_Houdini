@@ -3660,8 +3660,7 @@ static float2 CL_V_CROP(
     __private const float2 az       // area, zero
     )
 {
-    float x0, x1, y0, y1, rx, ry, w2, h2;
-    bool left, right, top, bottom, outside;
+    float x0, x1, y0, y1, w2, h2, rx, ry;
 
     float2 p = in;
 
@@ -3676,12 +3675,6 @@ static float2 CL_V_CROP(
     rx = rng_next_float(state);
     ry = rng_next_float(state);
 
-    // conditions
-    left   = p.x < x0;
-    right  = p.x > x1;
-    top    = p.y > y1;
-    bottom = p.y < y0;
-
     // replacements
 #if USE_FMA
     float xL = fma(rx, w2, x0);
@@ -3694,13 +3687,19 @@ static float2 CL_V_CROP(
     float yB = y0 + ry * h2;
     float yT = y1 - ry * h2;
 #endif
-    
+
+    // conditions
+    bool left   = p.x < x0;
+    bool top    = p.y > y1;
+    bool right  = p.x > x1;
+    bool bottom = p.y < y0;
+
     p.x = left   ? xL : p.x;
+    p.y = top    ? yT : p.y;
     p.x = right  ? xR : p.x;
     p.y = bottom ? yB : p.y;
-    p.y = top    ? yT : p.y;
 
-    outside = left | right | bottom | top;
+    bool outside = left | right | bottom | top;
 
     if (outside && az.y != 0.0f)
         p = (float2)(0.0f);
@@ -4351,13 +4350,13 @@ __kernel void cl_flam3_ff(
     int gid = get_global_id(0);
     if (gid >= P_length)
         return;
+
+    // get sample
+    float2 mem = vload3(gid, P).xy;
     
     // RNG init
     x128_state_t rng;
     rng_init(&rng, gid + OPID);  // unique per thread, per node
-    
-    // get sample
-    float2 mem = vload3(gid, P).xy;
     
     // pp parameterics data
     __local float*  ff_pp_prm_f  = &local_FF_PRM_F[PRM_NUM_F];
