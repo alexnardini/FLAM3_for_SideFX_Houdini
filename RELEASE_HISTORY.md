@@ -43,6 +43,30 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.0.49 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.49)  ##
+
+#### FLAM3H™ v2.0.49 indie -> H22.0 UP</br>FLAM3H™ v2.0.38 indie -> H21.0</br>FLAM3H™ v2.0.32 indie -> H20.5</br>FLAM3H™ v1.9.85 indie -> H19.0 to H20 ####
+
+**NOTE**: <i>`A bug in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, breaking the UI/UX. This issue has been reported to SideFX. I am still actively updating the H22.0 version despite this bug, and I will update this repository once it is resolved. In the meantime, you can use FLAM3H™ for H21.0.`</i>
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **New H22 UP ONLY**: Improved tooltips across the whole UI.
+- **New**: Added an [_**OpenCL Hardware Performance Profile**_](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini#opencl-hardware-performance-profile) section for reference.
+- **OpenCL code updates** 
+- **Updated HDA documentations**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.0.47 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.47)  ##
 
 #### FLAM3H™ v2.0.47 indie -> H22.0 UP</br>FLAM3H™ v2.0.37 indie -> H21.0</br>FLAM3H™ v2.0.31 indie -> H20.5</br>FLAM3H™ v1.9.85 indie -> H19.0 to H20 ####

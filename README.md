@@ -30,7 +30,7 @@ _(*)_ _Indicate the version allowed to run on future Houdini releases._
 
 `The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer. Originally rendered at 7k resolution.`
 
-## FLAM3 for SideFX Houdini - aka: FLAM3H™
+## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> FLAM3 for SideFX Houdini - aka: FLAM3H™
 **_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
 
 <br/>
@@ -130,8 +130,65 @@ From there to the final image, it is left to the users (_aka points rendering_).
 With Houdini integrated Karma renderer, you will be able to render the generated fractal Flames in nearly real time.
 
 <br/>
+<br/>
+<br/>
+<br/>
 
-### Karma render note
+<a id="opencl-hardware-performance-profile"></a>
+# <img width="48" height="48" src="./icons/icon_tag_oclSVG.svg" /> OpenCL Hardware Performance Profile
+
+**FLAM3H™ OpenCL Kernel:** cl_flam3  
+**Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
+**Tested On:** NVIDIA GeForce RTX 4090  
+**NVIDIA Driver Version:** 610.88  
+**Compilation Context:** Houdini OpenCL Runtime Code Cache  
+
+---
+
+**Work-Group size:** 256  
+
+---
+
+<br>
+
+## <img width="24" height="24" src="./icons/icon_tag_oclSVG.svg" /> Summary of PTXAS Compiler Report
+
+| Hardware Resource | Metric Value | Description |
+| :--- | :--- | :--- |
+| **Global Memory (`gmem`)** | **0** bytes | Statically allocated global memory usage. |
+| **Stack Frame** | **0** bytes | Per-thread stack memory allocation. |
+| **Spill Stores / Loads** | **0** bytes / **0** bytes | Register spills caused by register pressure. |
+| **Registers Used** | **50** registers | Number of 32-bit registers allocated per thread. |
+| **Execution Barriers** | **1** barrier | Number of synchronization barrier instructions. |
+| **Shared Memory (`smem`)** | **16,432** bytes (~16.4 KB) | Shared memory allocated per thread block. |
+| **Constant Memory 0 (`cmem[0]`)** | **872** bytes | Constant memory for kernel parameters and compiler-managed data. |
+| **Constant Memory 2 (`cmem[2]`)** | **4,120** bytes (~4.1 KB) | Constant memory for read-only data. |
+
+---
+
+<br>
+
+## <img width="24" height="24" src="./icons/icon_tag_oclSVG.svg" /> Summary of SASS Hardware Metrics
+
+| Instruction Class | Hardware Functions | Assembly Count | Description |
+| :--- | :--- | :--- | :--- |
+| **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **15,931** | Floating-point arithmetic operations. |
+| **Special Functions** | `MUFU` | **3,117** | Transcendental math functions (e.g., `sin`, `cos`, `log`). |
+| **Control Flow** | `BRA`, `BRX` | **2,482** | Branching and loop control instructions. |
+| **Integer & Indexing** | `IADD3`, `IMAD` | **849** | Integer arithmetic and address calculations. |
+| **Shared Memory Cache** | `LDS`, `STS` | **465** | Shared memory load and store operations. |
+| **Global Memory Bus** | `LDG`, `STG` | **72** | Global memory load and store operations. |
+| **Thread Synchronization** | `BAR.SYNC` | **1** | Thread block synchronization barrier. |
+| **Dependency Management** | `DEPBAR`, `LGWR` | **0** | Instruction dependency management operations. |
+
+---
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Karma render note
 
 From FLAM3H™ [<ins>v1.8.98</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98),<br/>
 a new custom materialX Shader has been introduced to the FLAM3H™USD HDA to allow proper points color values accumulation. It will perfectly match what third-party implementations refer to as:<br/>
@@ -156,7 +213,7 @@ Fully available only with FLAM3H™USD HDA versions for Houdini H20.5 and up.
 
 <br/>
 
-##  Highly inspired by Apophysis and its workflow design
+##  <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Highly inspired by Apophysis and its workflow design
 
 My first curiosity with fractal Flames led me to download and experiment with Apophysis.
 Since I knew absolutely nothing about the topic, I gradually began to truly like the way its user interface and workflow process were crafted.
@@ -174,7 +231,7 @@ Or you can use Apophysis or Fractorium to author your Flames first and load them
 
 <br/>
 
-## Viewport live point cloud
+## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Viewport live point cloud
 
 FLAM3H™ generate a live point cloud of the fractal Flame you are working on.
 
@@ -191,7 +248,7 @@ Following are some screenshots showing it for a few different Flame presets.
 
 <br/>
 
-## Camera sensor
+## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Camera sensor
 
 All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal Flames when they are saved from FLAM3H™.
 
@@ -207,7 +264,7 @@ Once framed, you can save the Flame and be sure it will be framed the same in al
 
 <br/>
 
-## Load Flames files authored with Apophysis, Fractorium, etc.
+## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Load Flames files authored with Apophysis, Fractorium, etc.
 
 Following are some images showing FLAM3H™ rendering some of the Fractorium's example Flame files.
 Some have been modified to fit within the available variations. The screenshots show
@@ -226,7 +283,7 @@ FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the sa
 
 <br/>
 
-## List of all available variations/plugins
+## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> List of all available variations/plugins
 
 _Note that all the followings, are also available as PRE__ _and/or POST__ _variations._
 
@@ -236,7 +293,7 @@ _They are 106, if you were wondering..._
 
 <br/>
 
-## User experience
+## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> User experience
 
 This implementation initially concentrated only on the core algorithm. However, it gradually became apparent that a significant portion of the work needed to be focused on the user experience and how all the algorithm pieces are stitched together in a meaningful way for the user, making this part of the project very time consuming.
 
@@ -259,7 +316,7 @@ To finish, FLAM3H™ features a detailed documentation that is designed to provi
 
 <br/>
 
-## Considerations
+## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Considerations
 
 Given how expensive it is to compute fractal Flames, it is not surprising that GPUs have performed wonders in this area as well.
 
@@ -358,7 +415,7 @@ It is time to park this project for a little bit, but I really, really loved the
 
 <br/>
 
-## Example Flame files
+## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Example Flame files
 
 Some of the example Flame files I'm using as a proof of correctness and shipped with this implementation were created or authored by some incredible fractal artists using a variety of open source and free apps like Apophysis and Fractorium among the most popular.
 
@@ -373,7 +430,7 @@ Please be sure to check out their gallery:
 
 <br/>
 
-## References
+## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> References
 
 Reference A: [**Github :: FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
 
@@ -392,6 +449,6 @@ Reference G: [**WEB :: xoshiro128+ 1.0, 32-bit generator for 32-bit floating-poi
 </br>
 </br>
 
-## Copyrights
+## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Copyrights
 
 _All images and logos copyright (c) 2021 F stands for liFe (and their other respective owners)._
