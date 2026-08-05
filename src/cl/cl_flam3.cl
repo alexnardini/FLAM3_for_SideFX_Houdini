@@ -630,9 +630,10 @@ static float2 CL_V_SWIRL(
     __private float w
     )
 {
-    float r, sr, cr;
     
-    r = SUMSQ(in);
+    float r = SUMSQ(in);
+
+    float sr, cr;
     sincos_fast(r, &sr, &cr);
 
     return w * (float2)(
@@ -653,16 +654,15 @@ static float2 CL_V_HORSESHOE(
     __private const float w
     )
 {
-    float xx, yy, xy, r;
 
-    xx = in.x * in.x;
-    yy = in.y * in.y;
-    xy = in.x * in.y;
+    float xx = in.x * in.x;
+    float yy = in.y * in.y;
+    float xy = in.x * in.y;
 
 #if USE_NATIVE
-    r = native_divide(w, Zeps(SQRT(in)));
+    float r = native_divide(w, Zeps(SQRT(in)));
 #else
-    r = w / Zeps(SQRT(in));
+    float r = w / Zeps(SQRT(in));
 #endif
 
     return r * (float2)(
@@ -678,10 +678,9 @@ static float2 CL_V_POLAR(
     __private const float w
     )
 {
-    float nx, ny;
 
-    nx = ATAN(in) * M_1_PI;
-    ny = SQRT(in) - 1.0f;
+    float nx = ATAN(in) * M_1_PI;
+    float ny = SQRT(in) - 1.0f;
 
     return w * (float2)(nx, ny);
 }
@@ -693,11 +692,10 @@ static float2 CL_V_HANDKERCHIEF(
     __private const float w
     )
 {
-    float _SQRT, w_SQRT, a;
 
-    a = ATAN(in);
-    _SQRT = SQRT(in);
-    w_SQRT = w * _SQRT;
+    float a = ATAN(in);
+    float _SQRT = SQRT(in);
+    float w_SQRT = w * _SQRT;
 
 #if USE_NATIVE
     return w_SQRT * (float2)(
@@ -719,11 +717,10 @@ static float2 CL_V_HEART(
     __private const float w
     )
 {
-    float _SQRT, a, r;
 
-    _SQRT = SQRT(in);
-    a = _SQRT * ATAN(in);
-    r = w * _SQRT;
+    float _SQRT = SQRT(in);
+    float a = _SQRT * ATAN(in);
+    float r = w * _SQRT;
 
 #if USE_NATIVE
     return (float2)(
@@ -745,10 +742,11 @@ static float2 CL_V_DISC(
     __private const float w
     )
 {
-    float a, r, sr, cr;
 
-    a  = ATAN(in) * M_1_PI;
-    r  = SQRT(in) * M_PI;
+    float a  = ATAN(in) * M_1_PI;
+    float r = SQRT(in) * M_PI;
+
+    float sr, cr;
     sincos_fast(r, &sr, &cr);
 
     float wa = w * a;
@@ -763,19 +761,20 @@ static float2 CL_V_SPIRAL(
     __private const float w
     )
 {
-    float r, r1, sr, cr;
-
+    
 #if USE_NATIVE
     float inv_sqrt = native_rsqrt(dot(in, in));
     float2 precalc = in * inv_sqrt;
-    r = Zeps(native_recip(inv_sqrt));
-    r1 = native_divide(w, r);
+    float r = Zeps(native_recip(inv_sqrt));
+    float r1 = native_divide(w, r);
 #else
     float inv_sqrt = rsqrt(dot(in, in));
     float2 precalc = in * inv_sqrt;
-    r = Zeps(1.0f / inv_sqrt);
-    r1 = w / r;
+    float r = Zeps(1.0f / inv_sqrt);
+    float r1 = w / r;
 #endif
+
+    float sr, cr;
     sincos_fast(r, &sr, &cr);
 
     return r1 * (float2)(
@@ -791,10 +790,9 @@ static float2 CL_V_HIPERBOLIC(
     __private const float w
     )
 {
-    float _SQRT, r;
 
-    _SQRT = SQRT(in);
-    r = Zeps(_SQRT);
+    float _SQRT = SQRT(in);
+    float r = Zeps(_SQRT);
 #if USE_NATIVE
     float2 precalc = native_divide(in, _SQRT);
 #else
@@ -818,10 +816,9 @@ static float2 CL_V_DIAMOND(
     __private const float w
     )
 {
-    float a, r;
 
-    a = atan2(in.x, in.y);
-    r = SQRT(in);
+    float a = atan2(in.x, in.y);
+    float r = SQRT(in);
 
 #if USE_NATIVE
     return w * (float2)(
@@ -843,19 +840,18 @@ static float2 CL_V_EX(
     __private const float w
     )
 {
-    float a, r, n0, n1, m0, m1;
 
-    a = ATAN(in);
-    r = SQRT(in);
+    float a = ATAN(in);
+    float r = SQRT(in);
 #if USE_NATIVE
-    n0 = native_sin(a + r);
-    n1 = native_cos(a - r);
+    float n0 = native_sin(a + r);
+    float n1 = native_cos(a - r);
 #else
-    n0 = sin(a + r);
-    n1 = cos(a - r);
+    float n0 = sin(a + r);
+    float n1 = cos(a - r);
 #endif
-    m0 = n0 * n0 * n0 * r;
-    m1 = n1 * n1 * n1 * r;
+    float m0 = n0 * n0 * n0 * r;
+    float m1 = n1 * n1 * n1 * r;
 
     return w * (float2)(
         m0 + m1, 
@@ -871,15 +867,16 @@ static float2 CL_V_JULIA(
     __private x128_state_t* restrict state
     )
 {
-    float r, a, sa, ca;
 
-    a = 0.5 * ATAN(in);
+    float a = 0.5 * ATAN(in);
     a += select(0.0f, (float)M_PI, rng_next_float(state) < 0.5f);
 #if USE_NATIVE
-    r = w * native_sqrt(SQRT(in));
+    float r = w * native_sqrt(SQRT(in));
 #else
-    r = w * sqrt(SQRT(in));
+    float r = w * sqrt(SQRT(in));
 #endif
+
+    float sa, ca;
     sincos_fast(a, &sa, &ca);
 
     return r * (float2)(ca, sa);
@@ -909,10 +906,10 @@ static float2 CL_V_WAVES(
     __private const float f
     )
 {
-    float m_Dx2, m_Dy2;
+
 #if USE_NATIVE
-    m_Dx2 = native_recip(Zeps(c * c));
-    m_Dy2 = native_recip(Zeps(f * f));
+    float m_Dx2 = native_recip(Zeps(c * c));
+    float m_Dy2 = native_recip(Zeps(f * f));
 
     return w * (float2)(
     #if USE_FMA
@@ -924,8 +921,8 @@ static float2 CL_V_WAVES(
     #endif
     );
 #else
-    m_Dx2 = 1.0f / Zeps(c * c);
-    m_Dy2 = 1.0f / Zeps(f * f);
+    float m_Dx2 = 1.0f / Zeps(c * c);
+    float m_Dy2 = 1.0f / Zeps(f * f);
 
     return w * (float2)(
     #if USE_FMA
@@ -980,14 +977,15 @@ static float2 CL_V_EXPONENTIAL(
     __private const float w
     )
 {
-    float dx, dy, sdy, cdy;
 
 #if USE_NATIVE
-    dx = w * native_exp(in.x - 1.0f);
+    float dx = w * native_exp(in.x - 1.0f);
 #else
-    dx = w * exp(in.x - 1.0f);
+    float dx = w * exp(in.x - 1.0f);
 #endif
-    dy = M_PI * in.y;
+    float dy = M_PI * in.y;
+
+    float sdy, cdy;
     sincos_fast(dy, &sdy, &cdy);
 
     return dx * (float2)(cdy, sdy);
@@ -1000,22 +998,21 @@ static float2 CL_V_POWER(
     __private const float w
     )
 {
-    float r, r2, inv_r, amp;
 
-    r2 = SUMSQ(in);
+    float r2 = SUMSQ(in);
     if (r2 == 0.0f)
         return (float2)(0.0f);
 #if USE_NATIVE
-    inv_r = native_rsqrt(r2);
+    float inv_r = native_rsqrt(r2);
 #else
-    inv_r = rsqrt(r2);
+    float inv_r = rsqrt(r2);
 #endif
-    r = r2 * inv_r;
+    float r = r2 * inv_r;
     float2 n = in * inv_r;
 #if USE_NATIVE
-    amp = w * native_exp(n.x * native_log(r));
+    float amp = w * native_exp(n.x * native_log(r));
 #else
-    amp = w * exp(n.x * log(r));
+    float amp = w * exp(n.x * log(r));
 #endif
 
     return amp * (float2)(n.y, n.x);
@@ -1028,9 +1025,10 @@ static float2 CL_V_COSINE(
     __private const float w
     )
 {
-    float a, sa, ca;
+    
+    float a = in.x * M_PI;
 
-    a = in.x * M_PI;
+    float sa, ca;
     sincos_fast(a, &sa, &ca);
 
     return w * (float2)(
@@ -1047,31 +1045,30 @@ static float2 CL_V_RINGS(
     __private const float c
     )
 {
-    float _SQRT, inv_sqrt, dx, two_dx, t, wrapped, r;
 
-    _SQRT = SQRT(in);
-    inv_sqrt = native_recip(_SQRT);
+    float _SQRT = SQRT(in);
+    float inv_sqrt = native_recip(_SQRT);
     float2 precalc = in * inv_sqrt;
 
-    dx = Zeps(c * c);
+    float dx = Zeps(c * c);
 
 #if USE_NATIVE
-    two_dx = 2.0f * dx;
-    t = (_SQRT + dx) * native_recip(two_dx);
+    float two_dx = 2.0f * dx;
+    float t = (_SQRT + dx) * native_recip(two_dx);
     t = t - floor(t);
-    wrapped = t * two_dx;
+    float wrapped = t * two_dx;
     #if USE_FMA
-        r = fma(w, wrapped, fma(-_SQRT, dx, _SQRT - dx));
+        float r = fma(w, wrapped, fma(-_SQRT, dx, _SQRT - dx));
     #else
-        r = w * wrapped - dx + _SQRT * (1.0f - dx);
+        float r = w * wrapped - dx + _SQRT * (1.0f - dx);
     #endif
 #else
-    wrapped = fmod(_SQRT + dx, 2.0f * dx);
+    float wrapped = fmod(_SQRT + dx, 2.0f * dx);
     #if USE_FMA
         float term = fma(-_SQRT, dx, _SQRT);
-        r = w * (wrapped - dx + term);
+        float r = w * (wrapped - dx + term);
     #else
-        r = w * (wrapped - dx + _SQRT * (1.0f - dx));
+        float r = w * (wrapped - dx + _SQRT * (1.0f - dx));
     #endif
 #endif
 
@@ -1087,11 +1084,10 @@ static float2 CL_V_FAN(
     __private const float f
     )
 {
-    float dx, dx2, a, sa, ca;
 
-    dx = M_PI * Zeps(c * c);
-    dx2 = 0.5f * dx;
-    a = ATAN(in);
+    float dx = M_PI * Zeps(c * c);
+    float dx2 = 0.5f * dx;
+    float a = ATAN(in);
     
 #if USE_NATIVE
     float t = (a + f) * native_recip(dx);
@@ -1100,6 +1096,8 @@ static float2 CL_V_FAN(
 #else
     a += (fmod(a + f, dx) > dx2) ? -dx2 : dx2;
 #endif
+
+    float sa, ca;
     sincos_fast(a, &sa, &ca);
 
     return w * SQRT(in) * (float2)(ca, sa);
@@ -1171,11 +1169,13 @@ static float2 CL_V_BLUR(__private const float w,
                         __private x128_state_t* restrict state
                         )
 {
-    float tmpr, sr, cr, r;
 
-    tmpr = rng_next_float(state) * M_TAU;
+    float tmpr = rng_next_float(state) * M_TAU;
+
+    float sr, cr;
     sincos_fast(tmpr, &sr, &cr);
-    r = w * rng_next_float(state);
+
+    float r = w * rng_next_float(state);
 
     return r * (float2)(cr, sr);
 }
@@ -1188,23 +1188,22 @@ static float2 CL_V_CURL(
     __private const float2 c    // c1 c2
     )
 {
-    float re, im, r;
 
 #if USE_FMA
     float x2 = in.x * in.x;
     float y2 = in.y * in.y;
-    re = fma(c.y, (x2 - y2), fma(c.x, in.x, 1.0f));
-    im = fma(2.0f * c.y, in.x * in.y, c.x * in.y);
+    float re = fma(c.y, (x2 - y2), fma(c.x, in.x, 1.0f));
+    float im = fma(2.0f * c.y, in.x * in.y, c.x * in.y);
     float value = fma(re, re, im * im);
 #else
-    re = 1.0f + c.x * in.x + c.y * ((in.x * in.x) - (in.y * in.y));
-    im = c.x * in.y + (2.0f * c.y) *  in.x * in.y;
+    float re = 1.0f + c.x * in.x + c.y * ((in.x * in.x) - (in.y * in.y));
+    float im = c.x * in.y + (2.0f * c.y) *  in.x * in.y;
     float value = (re * re) + (im * im);
 #endif
 #if USE_NATIVE
-    r = w * native_recip(Zeps(value));
+    float r = w * native_recip(Zeps(value));
 #else
-    r = w * 1.0f / Zeps(value);
+    float r = w * 1.0f / Zeps(value);
 #endif
 
     return r * (float2)(
@@ -1227,18 +1226,17 @@ static float2 CL_V_NGON(
     __private const float4 ngon_precalc // cpower csides csidesinv unusued(1.0)
     )
 {
-    float r2, r_factor, theta, phi, amp;
 
-    r2 = SUMSQ(in);
+    float r2 = SUMSQ(in);
 #if USE_NATIVE
-    r_factor = (r2 == 0.0f) ? 0.0f : native_exp(ngon_precalc.x * native_log(r2));
+    float r_factor = (r2 == 0.0f) ? 0.0f : native_exp(ngon_precalc.x * native_log(r2));
 #else
-    r_factor = (r2 == 0.0f) ? 0.0f : exp(ngon_precalc.x * log(r2));
+    float r_factor = (r2 == 0.0f) ? 0.0f : exp(ngon_precalc.x * log(r2));
 #endif
 
-    theta = atan2(in.y, in.x);
+    float theta = atan2(in.y, in.x);
 
-    phi = theta - ngon_precalc.y * floor(theta * ngon_precalc.z);
+    float phi = theta - ngon_precalc.y * floor(theta * ngon_precalc.z);
     phi -= ngon_precalc.y * (phi > 0.5f * ngon_precalc.y);
 
 #if USE_NATIVE
@@ -1249,9 +1247,9 @@ static float2 CL_V_NGON(
     float s = w * r_factor;
     
 #if USE_FMA
-    amp = fma(ngon.z, r, ngon.w - ngon.z) * s;
+    float amp = fma(ngon.z, r, ngon.w - ngon.z) * s;
 #else
-    amp = (ngon.z * r + (ngon.w - ngon.z)) * s;
+    float amp = (ngon.z * r + (ngon.w - ngon.z)) * s;
 #endif
 
     return amp * in;
@@ -1265,14 +1263,13 @@ static float2 CL_V_PDJ(
     __private const float4 pdj  // wA wB wC wD
     )
 {
-    float ox, oy;
 
 #if USE_NATIVE
-    ox = native_sin(pdj.x * in.y) - native_cos(pdj.y * in.x);
-    oy = native_sin(pdj.z * in.x) - native_cos(pdj.w * in.y);
+    float ox = native_sin(pdj.x * in.y) - native_cos(pdj.y * in.x);
+    float oy = native_sin(pdj.z * in.x) - native_cos(pdj.w * in.y);
 #else
-    ox = sin(pdj.x * in.y) - cos(pdj.y * in.x);
-    oy = sin(pdj.z * in.x) - cos(pdj.w * in.y);
+    float ox = sin(pdj.x * in.y) - cos(pdj.y * in.x);
+    float oy = sin(pdj.z * in.x) - cos(pdj.w * in.y);
 #endif
 
     return w * (float2)(ox, oy);
@@ -1286,7 +1283,6 @@ static float2 CL_V_BLOB(
     __private const float4 blob // low high wave unused
     )
 {
-    float d, r, aa, bdiff;
 
     float _SQRT = SQRT(in);
 #if USE_NATIVE
@@ -1295,19 +1291,19 @@ static float2 CL_V_BLOB(
     float2 precalc = in / _SQRT;
 #endif
 
-    aa = ATAN(in);
-    bdiff = blob.y - blob.x;
+    float aa = ATAN(in);
+    float bdiff = blob.y - blob.x;
 #if USE_NATIVE
     #if USE_FMA
-        r = _SQRT * fma(bdiff, fma(0.5f, native_sin(blob.z * aa), 0.5f), blob.x);
+        float r = _SQRT * fma(bdiff, fma(0.5f, native_sin(blob.z * aa), 0.5f), blob.x);
     #else
-        r = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * native_sin(blob.z * aa)));
+        float r = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * native_sin(blob.z * aa)));
     #endif
 #else
     #if USE_FMA
-        r = _SQRT * fma(bdiff, fma(0.5f, sin(blob.z * aa), 0.5f), blob.x);
+        float r = _SQRT * fma(bdiff, fma(0.5f, sin(blob.z * aa), 0.5f), blob.x);
     #else
-        r = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * sin(blob.z * aa)));
+        float r = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * sin(blob.z * aa)));
     #endif
 #endif
 
@@ -1325,31 +1321,32 @@ static float2 CL_V_JULIAN(
     __private const float2 julian   // power distance
     )
 {
-    int t_rnd;
-    float inv_jx, julian_cn, r, tmpr, sa, ca;
 
 #if USE_NATIVE
-    inv_jx = native_recip(julian.x);
+    float inv_jx = native_recip(julian.x);
 #else
-    inv_jx = 1.0f / julian.x;
+    float inv_jx = 1.0f / julian.x;
 #endif
-    julian_cn = julian.y * inv_jx * 0.5f;
+    float julian_cn = julian.y * inv_jx * 0.5f;
 
     float r2 = SUMSQ(in);
     float a  = ATANYX(in);
 
-    t_rnd = (int)(julian.x * rng_next_float(state));
+    int t_rnd = (int)(julian.x * rng_next_float(state));
+
 #if USE_FMA
-    tmpr = fma(M_TAU, t_rnd, a) * inv_jx;
+    float tmpr = fma(M_TAU, t_rnd, a) * inv_jx;
 #else
-    tmpr = (a + M_TAU * t_rnd) * inv_jx;
-#endif
-#if USE_NATIVE
-    r = w * native_powr(r2, julian_cn);
-#else
-    r = w * powr(r2, julian_cn);
+    float tmpr = (a + M_TAU * t_rnd) * inv_jx;
 #endif
 
+#if USE_NATIVE
+    float r = w * native_powr(r2, julian_cn);
+#else
+    float r = w * powr(r2, julian_cn);
+#endif
+
+    float sa, ca;
     sincos_fast(tmpr, &sa, &ca);
 
     return r * (float2)(ca, sa);
@@ -1364,8 +1361,6 @@ static float2 CL_V_JULIASCOPE(
     __private const float2 juliascope   // power(julian_rN) distance
     )
 {
-    int t_rnd;
-    float _ATANYX, julian_rN, sign, julian_cn, tmpr, r, sa, ca;
     
 #if USE_NATIVE
     float inv_jx = native_recip(juliascope.x);
@@ -1373,23 +1368,25 @@ static float2 CL_V_JULIASCOPE(
     float inv_jx = 1.0f / juliascope.x;
 #endif
 
-    _ATANYX = ATANYX(in);
-    julian_cn = juliascope.y * inv_jx * 0.5f;
+    float _ATANYX = ATANYX(in);
+    float julian_cn = juliascope.y * inv_jx * 0.5f;
 
-    t_rnd = (int)(juliascope.x * rng_next_float(state));
+    int t_rnd = (int)(juliascope.x * rng_next_float(state));
 
-    sign = (t_rnd & 1) ? -1.0f : 1.0f;
+    float sign = (t_rnd & 1) ? -1.0f : 1.0f;
 #if USE_FMA
-    tmpr = fma(M_TAU, t_rnd, sign * _ATANYX) * inv_jx;
+    float tmpr = fma(M_TAU, t_rnd, sign * _ATANYX) * inv_jx;
 #else
-    tmpr = (M_TAU * t_rnd + sign * _ATANYX) * inv_jx;
+    float tmpr = (M_TAU * t_rnd + sign * _ATANYX) * inv_jx;
 #endif
 
+    float sa, ca;
     sincos_fast(tmpr, &sa, &ca);
+
 #if USE_NATIVE
-    r = w * native_powr(SUMSQ(in), julian_cn);
+    float r = w * native_powr(SUMSQ(in), julian_cn);
 #else
-    r = w * powr(SUMSQ(in), julian_cn);
+    float r = w * powr(SUMSQ(in), julian_cn);
 #endif
 
     return r * (float2)(ca, sa);
@@ -1402,15 +1399,16 @@ static float2 CL_V_GAUSSIAN_BLUR(
     __private x128_state_t* restrict state
     )
 {
-    float rnd1, rndA, rndG, sa, ca;
 
-    rndA = rng_next_float(state) * M_TAU;
-    rndG = w * (rng_next_float(state) + 
+    float rndA = rng_next_float(state) * M_TAU;
+    float rndG = w * (rng_next_float(state) + 
                 rng_next_float(state) + 
                 rng_next_float(state) + 
                 rng_next_float(state) - 
                 2.0f
                 );
+    
+    float sa, ca;
     sincos_fast(rndA, &sa, &ca);
 
     return rndG * (float2)(ca, sa);
@@ -1425,30 +1423,31 @@ static float2 CL_V_FAN2(
     __private const float2 fan2 // size rotation
     )
 {
-    float dx, dx2, inv_dx, a, r, ady, t, sa, ca;
-
-    dx  = M_PI * Zeps(fan2.x * fan2.x);
-    dx2 = 0.5f * dx;
+    
+    float dx  = M_PI * Zeps(fan2.x * fan2.x);
+    float dx2 = 0.5f * dx;
 #if USE_NATIVE
-    inv_dx = native_recip(dx);
+    float inv_dx = native_recip(dx);
 #else
-    inv_dx = 1.0f / dx;
+    float inv_dx = 1.0f / dx;
 #endif
 
-    a = ATAN(in);
+    float a = ATAN(in);
 #if USE_NATIVE
-    r = w * native_sqrt(SUMSQ(in));
+    float r = w * native_sqrt(SUMSQ(in));
 #else
-    r = w * sqrt(SUMSQ(in));
+    float r = w * sqrt(SUMSQ(in));
 #endif
 
-    ady = a + fan2.y;
-    t = ady - dx * (int)(ady * inv_dx);
+    float ady = a + fan2.y;
+    float t = ady - dx * (int)(ady * inv_dx);
 #if USE_FMA
     a += dx2 * fma(-2.0f, step(dx2, t), 1.0f);
 #else
     a += dx2 * (1.0f - 2.0f * step(dx2, t));
 #endif
+
+    float sa, ca;
     sincos_fast(a, &sa, &ca);
 
     float2 v = (float2)(ca, sa);
@@ -1463,16 +1462,15 @@ static float2 CL_V_RINGS2(
     __private const float rings2val // value
     )
 {
-    float _SQRT, r, dx;
 
-    _SQRT = SQRT(in);
+    float _SQRT = SQRT(in);
 #if USE_NATIVE
     float2 precalc = native_divide(in, _SQRT);
 #else
     float2 precalc = in / _SQRT;
 #endif
-    r = _SQRT;
-    dx = rings2val * rings2val;
+    float r = _SQRT;
+    float dx = rings2val * rings2val;
 #if USE_NATIVE
     #if USE_FMA
         r += fma(-2.0f * dx, (int)(native_divide(r + dx, 2.0f * dx)), r * (1.0f - dx));
@@ -1499,17 +1497,18 @@ static float2 CL_V_RECTANGLES(
     __private const float2 rectangles // x y
     )
 {
-    float2 invr, t, m;
+
 #if USE_NATIVE
-    invr = native_recip(rectangles);
+    float2 invr = native_recip(rectangles);
 #else
-    invr = 1.0f / rectangles;
+    float2 invr = 1.0f / rectangles;
 #endif
+
 #if USE_FMA
-    t = floor(in * invr);
-    m = fma(t, 2.0f * rectangles, rectangles) - in;
+    float2 t = floor(in * invr);
+    float2 m = fma(t, 2.0f * rectangles, rectangles) - in;
 #else
-    m = (2.0f * floor(in * invr) + 1.0f) * rectangles - in;
+    float2 m = (2.0f * floor(in * invr) + 1.0f) * rectangles - in;
 #endif
 
     return w * select(
@@ -1528,28 +1527,33 @@ static float2 CL_V_RADIALBLUR(
     __private const float angle // angle
     )
 {
-    float rndG, tmpa, ra, rz, sa, ca, m_spin, m_zoom;
-
+    float m_spin, m_zoom;
     sincos_fast(angle * M_PI_2, &m_spin, &m_zoom);  // TO DO: compute in vex land
     
-    rndG = w * (rng_next_float(state) +
-                rng_next_float(state) +
-                rng_next_float(state) +
-                rng_next_float(state) - 
-                2.0f
-                );
+    float rndG = w * (rng_next_float(state) +
+                    rng_next_float(state) +
+                    rng_next_float(state) +
+                    rng_next_float(state) - 
+                    2.0f
+                    );
 
-    ra = SQRT(in);
+    float ra = SQRT(in);
 #if USE_FMA
-    tmpa = fma(m_spin, rndG, ATANYX(in));
+    float tmpa = fma(m_spin, rndG, ATANYX(in));
+
+    float sa, ca;
     sincos_fast(tmpa, &sa, &ca);
-    rz = fma(m_zoom, rndG, -1.0f);
+
+    float rz = fma(m_zoom, rndG, -1.0f);
 
     return fma(rz, in, ra * (float2)(ca, sa));
 #else
-    tmpa = ATANYX(in) + m_spin * rndG;
+    float tmpa = ATANYX(in) + m_spin * rndG;
+
+    float sa, ca;
     sincos_fast(tmpa, &sa, &ca);
-    rz = m_zoom * rndG - 1.0f;
+
+    float rz = m_zoom * rndG - 1.0f;
 
     return ra * (float2)(ca, sa) + rz * in;
 #endif
@@ -1563,15 +1567,17 @@ static float2 CL_V_PIE(
     __private const float4 pie  // slices thickness rotation
     )
 {
-    float a, r, sa, ca, sl;
 
-    sl = (int)(rng_next_float(state) * pie.x);
+    float sl = (int)(rng_next_float(state) * pie.x);
 #if USE_NATIVE
-    a = pie.z + native_divide(M_TAU * (sl + rng_next_float(state) * pie.y), pie.x);
+    float a = pie.z + native_divide(M_TAU * (sl + rng_next_float(state) * pie.y), pie.x);
 #else
-    a = pie.z + M_TAU * (sl + rng_next_float(state) * pie.y) / pie.x;
+    float a = pie.z + M_TAU * (sl + rng_next_float(state) * pie.y) / pie.x;
 #endif
-    r = w * rng_next_float(state);
+
+    float r = w * rng_next_float(state);
+
+    float sa, ca;
     sincos_fast(a, &sa, &ca);
 
     return r * (float2)(ca, sa);
@@ -1585,10 +1591,12 @@ static float2 CL_V_ARCH(
     __private x128_state_t* restrict state
     )
 {
-    float a, sa, ca;
+    
+    float a = rng_next_float(state) * w * M_PI;
 
-    a = rng_next_float(state) * w * M_PI;
+    float sa, ca;
     sincos_fast(a, &sa, &ca);
+
     float sa2 = sa * sa;
 
 #if USE_NATIVE
@@ -1645,20 +1653,19 @@ static float2 CL_V_RAYS(
     __private x128_state_t* restrict state
     )
 {
-    float ang, r, tanr;
 
-    ang = w * rng_next_float(state) * M_PI;
+    float ang = w * rng_next_float(state) * M_PI;
 #if USE_NATIVE
-    r = w * native_recip(Zeps(SUMSQ(in)));
-    tanr = w * native_tan(ang) * r;
+    float r = w * native_recip(Zeps(SUMSQ(in)));
+    float tanr = w * native_tan(ang) * r;
 
     return tanr * (float2)(
         native_cos(in.x), 
         native_sin(in.y)
     );
 #else
-    r = w * (1.0f / Zeps(SUMSQ(in)));
-    tanr = w * tan(ang) * r;
+    float r = w * (1.0f / Zeps(SUMSQ(in)));
+    float tanr = w * tan(ang) * r;
 
     return tanr * (float2)(
         cos(in.x), 
@@ -1675,9 +1682,10 @@ static float2 CL_V_BLADE(
     __private x128_state_t* restrict state
     )
 {
-    float r, sr, cr;
 
-    r = w * rng_next_float(state) * SQRT(in);
+    float r = w * rng_next_float(state) * SQRT(in);
+
+    float sr, cr;
     sincos_fast(r, &sr, &cr);
 
     float wx = w * in.x;
@@ -1695,14 +1703,16 @@ static float2 CL_V_SECANT2(
     __private const float w
     )
 {
-    float r, sr, cr, icr;
 
-    r = w * SQRT(in);
+    float r = w * SQRT(in);
+
+    float sr, cr;
     sincos_fast(r, &sr, &cr);
+
 #if USE_NATIVE
-    icr = native_recip(cr);
+    float icr = native_recip(cr);
 #else
-    icr = 1.0f / cr;
+    float icr = 1.0f / cr;
 #endif
 
     return w * (float2)(
@@ -1719,20 +1729,22 @@ static float2 CL_V_TWINTRIAN(
     __private x128_state_t* restrict state
     )
 {
-    float r, sr, ss, cr, diff;
 
-    r = rng_next_float(state) * w * SQRT(in);
+    float r = rng_next_float(state) * w * SQRT(in);
+
+    float sr, cr;
     sincos_fast(r, &sr, &cr);
-    ss = sr * sr;
+
+    float ss = sr * sr;
 #if USE_NATIVE
     // diff = native_log10(ss) + cr;
     #if USE_FMA
-        diff = fma(native_log(ss), 0.434294481903251827651f, cr);
+        float diff = fma(native_log(ss), 0.434294481903251827651f, cr);
     #else
-        diff = native_log(ss) * 0.434294481903251827651f + cr;
+        float diff = native_log(ss) * 0.434294481903251827651f + cr;
     #endif
 #else
-    diff = log10(ss) + cr;
+    float diff = log10(ss) + cr;
 #endif
     diff = select(diff, -30.0f, !isfinite(diff) | isnan(diff));
 
@@ -1756,13 +1768,12 @@ static float2 CL_V_CROSS(
     __private const int F3C
     )
 {
-    float r, inxy;
 
-    inxy = (in.x - in.y) * (in.x + in.y);
+    float inxy = (in.x - in.y) * (in.x + in.y);
 #if USE_NATIVE
-    r = native_divide(w, select(Zeps(inxy), Zeps(fabs(inxy)), F3C));
+    float r = native_divide(w, select(Zeps(inxy), Zeps(fabs(inxy)), F3C));
 #else
-    r = w / select(Zeps(inxy), Zeps(fabs(inxy)), F3C);
+    float r = w / select(Zeps(inxy), Zeps(fabs(inxy)), F3C);
 #endif
 
     return r * in;
@@ -1777,14 +1788,16 @@ static float2 CL_V_DISC2(
     __private const float4 disc2_pc // (F3) disc2_timespi disc2_sinadd disc2_cosadd
     )
 {
-    float r, t, sr, cr;
 
-    t = disc2_pc.x * (in.x + in.y);
+    float t = disc2_pc.x * (in.x + in.y);
+
+    float sr, cr;
     sincos_fast(t, &sr, &cr);
+
 #if USE_NATIVE
-    r = native_divide(w * ATAN(in), (float)M_PI);
+    float r = native_divide(w * ATAN(in), (float)M_PI);
 #else
-    r = w * ATAN(in) / M_PI;
+    float r = w * ATAN(in) / M_PI;
 #endif
 
     return r * (float2)(
@@ -1803,40 +1816,45 @@ static float2 CL_V_SUPERSHAPE(
     __private const float4 supershape_n // (F3) n1 n2 n3
     )
 {
-    float _SQRT, theta, st, ct, t, r, ss_pm_4, ss_pneg1_n1;
 
     // TO DO: compute in vex land
     // I did but made no difference and I prefer to keep it here
     // so the wrangle core node in Houdini's land remain more performant.
-    ss_pm_4 = supershape.x * 0.25f;
+    float ss_pm_4 = supershape.x * 0.25f;
 #if USE_NATIVE
-    ss_pneg1_n1 = -native_recip(supershape_n.x);
+    float ss_pneg1_n1 = -native_recip(supershape_n.x);
 #else
-    ss_pneg1_n1 = -1.0f / supershape_n.x;
+    float ss_pneg1_n1 = -1.0f / supershape_n.x;
 #endif
     float inv_sy = 1.0f - supershape.y;
 
-    _SQRT = SQRT(in);
+    float _SQRT = SQRT(in);
 #if USE_NATIVE
     float inv_sqrt = native_recip(_SQRT);
 #else
     float inv_sqrt = 1.0f / _SQRT;
 #endif
 #if USE_FMA
-    theta = fma(ss_pm_4, ATANYX(in), (float)M_PI_4);
+    float theta = fma(ss_pm_4, ATANYX(in), (float)M_PI_4);
+
+    float st, ct;
     sincos_fast(theta, &st, &ct);
+
     float rnd = fma(supershape.y, rng_next_float(state), fma(inv_sy, _SQRT, -supershape.z));
 #else
-    theta = ss_pm_4 * ATANYX(in) + M_PI_4;
+    float theta = ss_pm_4 * ATANYX(in) + M_PI_4;
+
+    float st, ct;
     sincos_fast(theta, &st, &ct);
+
     float rnd = supershape.y * rng_next_float(state) + inv_sy * _SQRT - supershape.z;
 #endif
 #if USE_NATIVE
-    t = native_powr(fabs(ct), supershape_n.y) + native_powr(fabs(st), supershape_n.z);
-    r = w * rnd * native_powr(t, ss_pneg1_n1) * inv_sqrt;
+    float t = native_powr(fabs(ct), supershape_n.y) + native_powr(fabs(st), supershape_n.z);
+    float r = w * rnd * native_powr(t, ss_pneg1_n1) * inv_sqrt;
 #else
-    t = powr(fabs(ct), supershape_n.y) + powr(fabs(st), supershape_n.z);
-    r = w * rnd * powr(t, ss_pneg1_n1) * inv_sqrt;
+    float t = powr(fabs(ct), supershape_n.y) + powr(fabs(st), supershape_n.z);
+    float r = w * rnd * powr(t, ss_pneg1_n1) * inv_sqrt;
 #endif
 
     return r * in;
@@ -1851,15 +1869,14 @@ static float2 CL_V_FLOWER(
     __private const float2 flower   // petals holes
     )
 {
-    float theta, r;
 
-    theta = ATANYX(in);
+    float theta = ATANYX(in);
 #if USE_NATIVE
     float n_theta = native_cos(flower.x * theta);
-    r = w * (rng_next_float(state) - flower.y) * n_theta * native_rsqrt(dot(in, in));
+    float r = w * (rng_next_float(state) - flower.y) * n_theta * native_rsqrt(dot(in, in));
 #else
     float n_theta = cos(flower.x * theta);
-    r = w * (rng_next_float(state) - flower.y) * n_theta / SQRT(in);
+    float r = w * (rng_next_float(state) - flower.y) * n_theta / SQRT(in);
 #endif
 
     return r * in;
@@ -1874,25 +1891,24 @@ static float2 CL_V_CONIC(
     __private const float2 conic    // eccentricity holes
     )
 {
-    float ct, r;
 
     float rnd = rng_next_float(state) - conic.y;
     
 #if USE_NATIVE
     float inv_len = native_rsqrt(dot(in, in));
-    ct = in.x * inv_len;
+    float ct = in.x * inv_len;
     #if USE_FMA
-        r = native_divide(w * rnd * conic.x * inv_len, fma(conic.x, ct, 1.0f));
+        float r = native_divide(w * rnd * conic.x * inv_len, fma(conic.x, ct, 1.0f));
     #else
-        r = native_divide(w * rnd * conic.x * inv_len, (1.0f + conic.x * ct));
+        float r = native_divide(w * rnd * conic.x * inv_len, (1.0f + conic.x * ct));
     #endif
 #else
     float inv_len = rsqrt(dot(in, in));
-    ct = in.x * inv_len;
+    float ct = in.x * inv_len;
     #if USE_FMA
-        r = w * rnd * conic.x * inv_len / fma(conic.x, ct, 1.0f);
+        float r = w * rnd * conic.x * inv_len / fma(conic.x, ct, 1.0f);
     #else
-        r = w * rnd * conic.x * inv_len / (1.0f + conic.x * ct);
+        float r = w * rnd * conic.x * inv_len / (1.0f + conic.x * ct);
     #endif
 #endif
 
@@ -1908,9 +1924,10 @@ static float2 CL_V_PARABOLA(
     __private const float2 parabola // height width
     )
 {
-    float r, sr, cr;
 
-    r = SQRT(in);
+    float r = SQRT(in);
+
+    float sr, cr;
     sincos_fast(r, &sr, &cr);
 
     float sr2 = sr * sr;
@@ -1942,30 +1959,30 @@ static float2 CL_V_BIPOLAR(
     __private const float shift // shift
     )
 {
-    float x2y2, tt, x2, ps, y, lx;
 
-    x2y2 = dot(in, in);
-    tt = x2y2 + 1.0f;
-    ps = -M_PI_2 * shift;
+    float x2y2 = dot(in, in);
+    float tt = x2y2 + 1.0f;
+    float ps = -M_PI_2 * shift;
 
 #if USE_FMA
-    y = fma(0.5f, atan2(2.0f * in.y, x2y2 - 1.0f), ps);
+    float y = fma(0.5f, atan2(2.0f * in.y, x2y2 - 1.0f), ps);
 #else
-    y = 0.5f * atan2(2.0f * in.y, x2y2 - 1.0f) + ps;
+    float y = 0.5f * atan2(2.0f * in.y, x2y2 - 1.0f) + ps;
 #endif
 
     y = y - M_PI * floor((y + M_PI_2) * M_1_PI);
+
 #if USE_NATIVE
     #if USE_FMA
-        lx = native_log(native_divide(fma(2.0f, in.x, tt), fma(-2.0f, in.x, tt)));
+        float lx = native_log(native_divide(fma(2.0f, in.x, tt), fma(-2.0f, in.x, tt)));
     #else
-        lx = native_log(native_divide(tt + 2.0f * in.x, tt - 2.0f * in.x));
+        float lx = native_log(native_divide(tt + 2.0f * in.x, tt - 2.0f * in.x));
     #endif
 #else
     #if USE_FMA
-        lx = log((fma(2.0f, in.x, tt)) / (fma(-2.0f, in.x, tt)));   
+        float lx = log((fma(2.0f, in.x, tt)) / (fma(-2.0f, in.x, tt)));   
     #else
-        lx = log((tt + 2.0f * in.x) / (tt - 2.0f * in.x));
+        float lx = log((tt + 2.0f * in.x) / (tt - 2.0f * in.x));
     #endif
 #endif
 
@@ -1983,16 +2000,15 @@ static float2 CL_V_BOARDERS(
     __private x128_state_t* restrict state
     )
 {
-    float roundX, roundY, offsetX, offsetY, signX, signY;
 
-    roundX  = rint(in.x);
-    roundY  = rint(in.y);
+    float roundX  = rint(in.x);
+    float roundY  = rint(in.y);
 
-    offsetX = in.x - roundX;
-    offsetY = in.y - roundY;
+    float offsetX = in.x - roundX;
+    float offsetY = in.y - roundY;
 
-    signX   = copysign(0.25f, offsetX);
-    signY   = copysign(0.25f, offsetY);
+    float signX = copysign(0.25f, offsetX);
+    float signY = copysign(0.25f, offsetY);
 
 #if USE_FMA
     float baseX   = fma(offsetX, 0.5f, roundX);
@@ -2054,21 +2070,20 @@ static float2 CL_V_BUTTERFLY(
     __private const float w
     )
 {
-    float wx, y2, r;
 
-    wx = w * 1.3029400317411197908970256609023f;
-    y2 = 2.0f * in.y;
+    float wx = w * 1.3029400317411197908970256609023f;
+    float y2 = 2.0f * in.y;
 #if USE_NATIVE
     #if USE_FMA
-        r = wx * native_sqrt(native_divide(fabs(in.y * in.x), (Zeps(fma(in.x, in.x, y2 * y2)))));
+        float r = wx * native_sqrt(native_divide(fabs(in.y * in.x), (Zeps(fma(in.x, in.x, y2 * y2)))));
     #else
-        r = wx * native_sqrt(native_divide(fabs(in.y * in.x), (Zeps(in.x * in.x + y2 * y2))));
+        float r = wx * native_sqrt(native_divide(fabs(in.y * in.x), (Zeps(in.x * in.x + y2 * y2))));
     #endif
 #else
     #if USE_FMA
-        r = wx * sqrt(fabs(in.y * in.x) / (Zeps(fma(in.x, in.x, y2 * y2))));
+        float r = wx * sqrt(fabs(in.y * in.x) / (Zeps(fma(in.x, in.x, y2 * y2))));
     #else
-        r = wx * sqrt(fabs(in.y * in.x) / (Zeps(in.x * in.x + y2 * y2)));
+        float r = wx * sqrt(fabs(in.y * in.x) / (Zeps(in.x * in.x + y2 * y2)));
     #endif
 #endif
 
@@ -2083,23 +2098,22 @@ static float2 CL_V_CELL(
     __private const float size  // size
     )
 {
-    float inv_cell_size, x, y, dx, dy;
 
 #if USE_NATIVE
-    inv_cell_size = native_recip(size);
+    float inv_cell_size = native_recip(size);
 #else
-    inv_cell_size = 1.0f / size;
+    float inv_cell_size = 1.0f / size;
 #endif
 
-    x  = floor(in.x * inv_cell_size);
-    y  = floor(in.y * inv_cell_size);
+    float x = floor(in.x * inv_cell_size);
+    float y = floor(in.y * inv_cell_size);
 
 #if USE_FMA
-    dx = fma(-x, size, in.x);
-    dy = fma(-y, size, in.y);
+    float dx = fma(-x, size, in.x);
+    float dy = fma(-y, size, in.y);
 #else
-    dx = in.x - x * size;
-    dy = in.y - y * size;
+    float dx = in.x - x * size;
+    float dy = in.y - y * size;
 #endif
 
     int ix = (int)x;
@@ -2130,39 +2144,40 @@ static float2 CL_V_CPOW(
     __private const float4 cpow // power, r, i
     )
 {
-    float aa, lnr, va, vc, vd, ang, sa, ca, mm;
 
-    aa = ATANYX(in);
+    float aa = ATANYX(in);
 #if USE_NATIVE
-    lnr = 0.5f * native_log(SUMSQ(in));
-    va = native_divide((float)M_TAU, cpow.x);
-    vc = native_divide(cpow.y, cpow.x);
-    vd = native_divide(cpow.z, cpow.x);
+    float lnr = 0.5f * native_log(SUMSQ(in));
+    float va = native_divide((float)M_TAU, cpow.x);
+    float vc = native_divide(cpow.y, cpow.x);
+    float vd = native_divide(cpow.z, cpow.x);
 #else
-    lnr = 0.5f * log(SUMSQ(in));
-    va = M_TAU  / cpow.x;
-    vc = cpow.y / cpow.x;
-    vd = cpow.z / cpow.x;
+    float lnr = 0.5f * log(SUMSQ(in));
+    float va = M_TAU  / cpow.x;
+    float vc = cpow.y / cpow.x;
+    float vd = cpow.z / cpow.x;
 #endif
 #if USE_FMA
     float term = va * floor(cpow.x * rng_next_float(state));
-    ang = fma(vc, aa, fma(vd, lnr, term));
+    float ang = fma(vc, aa, fma(vd, lnr, term));
 #else
-    ang = vc * aa + vd * lnr + va * floor(cpow.x * rng_next_float(state));
+    float ang = vc * aa + vd * lnr + va * floor(cpow.x * rng_next_float(state));
 #endif
 #if USE_NATIVE
     #if USE_FMA
-        mm = w * native_exp(fma(vc, lnr, -vd * aa));
+        float mm = w * native_exp(fma(vc, lnr, -vd * aa));
     #else
-        mm = w * native_exp(vc * lnr - vd * aa);
+        float mm = w * native_exp(vc * lnr - vd * aa);
     #endif
 #else
     #if USE_FMA
-        mm = w * exp(fma(vc, lnr, -vd * aa));
+        float mm = w * exp(fma(vc, lnr, -vd * aa));
     #else
-        mm = w * exp(vc * lnr - vd * aa);
+        float mm = w * exp(vc * lnr - vd * aa);
     #endif
 #endif
+
+    float sa, ca;
     sincos_fast(ang, &sa, &ca);
 
     return mm * (float2)(ca, sa);
@@ -2176,37 +2191,41 @@ static float2 CL_V_EDISC(
     __private const int F3C
     )
 {
-    float tmp, tmp2, r1, r2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu;
 
-    tmp  = SUMSQ(in) + 1.0f;
-    tmp2 = 2.0f * in.x;
+    float tmp  = SUMSQ(in) + 1.0f;
+    float tmp2 = 2.0f * in.x;
 #if USE_NATIVE
-    r1 = native_sqrt(tmp + tmp2);
-    r2 = native_sqrt(tmp - tmp2);
+    float r1 = native_sqrt(tmp + tmp2);
+    float r2 = native_sqrt(tmp - tmp2);
 #else
-    r1 = sqrt(tmp + tmp2);
-    r2 = sqrt(tmp - tmp2);
+    float r1 = sqrt(tmp + tmp2);
+    float r2 = sqrt(tmp - tmp2);
 #endif
-    xmax = Zeps((r1 + r2) * 0.5f);
+
+    float xmax = Zeps((r1 + r2) * 0.5f);
 #if USE_NATIVE
     float t = native_sqrt(xmax - 1.0f);
-    aa1 = native_log(xmax + t);
+    float aa1 = native_log(xmax + t);
     #if USE_FMA
-        aa2 = fma(-2.0f, (float)F3C, 1.0f) * acos(native_divide(in.x, xmax));
+        float aa2 = fma(-2.0f, (float)F3C, 1.0f) * acos(native_divide(in.x, xmax));
     #else
-        aa2 = (1.0f - 2.0f * (float)F3C) * acos(native_divide(in.x, xmax));
+        float aa2 = (1.0f - 2.0f * (float)F3C) * acos(native_divide(in.x, xmax));
     #endif
+
 #else
     float t = sqrt(xmax - 1.0f);
-    aa1 = log(xmax + t);
+    float aa1 = log(xmax + t);
     #if USE_FMA
-        aa2 = fma(-2.0f, (float)F3C, 1.0f) * acos(in.x / xmax);
+        float aa2 = fma(-2.0f, (float)F3C, 1.0f) * acos(in.x / xmax);
     #else
-        aa2 = (1.0f - 2.0f * (float)F3C) * acos(in.x / xmax);
+        float aa2 = (1.0f - 2.0f * (float)F3C) * acos(in.x / xmax);
     #endif
-#endif
-    ww = w * 0.086424247393025485907f;  // precomputed 1/11.57034632
 
+#endif
+
+    float ww = w * 0.086424247393025485907f;  // precomputed 1/11.57034632
+
+    float snv, csv;
     sincos_fast(aa1, &snv, &csv);
 
 #if USE_NATIVE
@@ -2216,8 +2235,8 @@ static float2 CL_V_EDISC(
     float e = exp(aa2);
     float ei = 1.0f / e;
 #endif
-    snhu = 0.5f * (e - ei);
-    cshu = 0.5f * (e + ei);
+    float snhu = 0.5f * (e - ei);
+    float cshu = 0.5f * (e + ei);
 
     snv = (in.y > 0.0f) ? -snv : snv;
 
@@ -2234,20 +2253,19 @@ static float2 CL_V_ELLIPTIC(
     __private const float w
     )
 {
-    float x2, sq, u, v, xmaxm1, a, ssx, weightDivPiDiv2;
 
-    x2 = 2.0f * in.x;
-    sq = SUMSQ(in);
-    u = sq + x2;
-    v = sq - x2;
+    float x2 = 2.0f * in.x;
+    float sq = SUMSQ(in);
+    float u = sq + x2;
+    float v = sq - x2;
 
-    xmaxm1 = 0.5f * (Sqrt1pm1(u) + Sqrt1pm1(v));
+    float xmaxm1 = 0.5f * (Sqrt1pm1(u) + Sqrt1pm1(v));
 #if USE_NATIVE
-    a = native_divide(in.x, (1.0f + xmaxm1));
-    ssx = native_sqrt(fmax(xmaxm1, 0.0f));
+    float a = native_divide(in.x, (1.0f + xmaxm1));
+    float ssx = native_sqrt(fmax(xmaxm1, 0.0f));
 #else
-    a = in.x / (1.0f + xmaxm1);
-    ssx = sqrt(fmax(xmaxm1, 0.0f));
+    float a = in.x / (1.0f + xmaxm1);
+    float ssx = sqrt(fmax(xmaxm1, 0.0f));
 #endif
 
     float wscale = w * 0.636619772367581343076f; // (2.0f / M_PI);
@@ -2268,11 +2286,13 @@ static float2 CL_V_NOISE(
     __private x128_state_t* restrict state
     )
 {
-    float tmpr, sr, cr, r;
 
-    tmpr = rng_next_float(state) * M_TAU;
+    float tmpr = rng_next_float(state) * M_TAU;
+
+    float sr, cr;
     sincos_fast(tmpr, &sr, &cr);
-    r = w * rng_next_float(state);
+
+    float r = w * rng_next_float(state);
 
     return r * in * (float2)(cr, sr);
 }
@@ -2286,33 +2306,39 @@ static float2 CL_V_ESCHER(
     __private const float beta  // beta
     )
 {
-    float aa, lnr, seb, ceb, vc, vd, mm, nn, sn, cn;
     
-    float2 _in = F3C ? in.yx : in;
-    aa = ATAN(_in);
 #if USE_NATIVE
-    lnr = 0.5f * native_log(SUMSQ(in));
+    float lnr = 0.5f * native_log(SUMSQ(in));
 #else
-    lnr = 0.5f * log(SUMSQ(in));
+    float lnr = 0.5f * log(SUMSQ(in));
 #endif
+
+    float seb, ceb;
     sincos_fast(beta, &seb, &ceb);
-    vc = 0.5f * (1.0f + ceb);
-    vd = 0.5f * seb;
+
+    float vc = 0.5f * (1.0f + ceb);
+    float vd = 0.5f * seb;
+
+    float2 _in = F3C ? in.yx : in;
+    float aa = ATAN(_in);
+
 #if USE_FMA
     float exp_arg = fma(vc, lnr, -vd * aa);
 #else
     float exp_arg = vc * lnr - vd * aa;
 #endif
 #if USE_NATIVE
-    mm = w * native_exp(exp_arg);
+    float mm = w * native_exp(exp_arg);
 #else
-    mm = w * exp(exp_arg);
+    float mm = w * exp(exp_arg);
 #endif
 #if USE_FMA
-    nn = fma(vc, aa, vd * lnr);
+    float nn = fma(vc, aa, vd * lnr);
 #else
-    nn = vc * aa + vd * lnr;
+    float nn = vc * aa + vd * lnr;
 #endif
+
+    float sn, cn;
     sincos_fast(nn, &sn, &cn);
 
     return mm * (float2)(cn, sn);
@@ -2325,20 +2351,22 @@ static float2 CL_V_FOCI(
     __private const float w
     )
 {
-    float expx, expnx, sn, cn, tmp;
 
 #if USE_NATIVE
-    expx = 0.5f * native_exp(in.x);
-    expnx = 0.25f * native_recip(Zeps(expx));
+    float expx = 0.5f * native_exp(in.x);
+    float expnx = 0.25f * native_recip(Zeps(expx));
 #else
-    expx = 0.5f * exp(in.x);
-    expnx = 0.25f * (1.0f / Zeps(expx));
+    float expx = 0.5f * exp(in.x);
+    float expnx = 0.25f * (1.0f / Zeps(expx));
 #endif
+
+    float sn, cn;
     sincos_fast(in.y, &sn, &cn);
+
 #if USE_NATIVE
-    tmp = w * native_recip(Zeps(expx + expnx - cn));
+    float tmp = w * native_recip(Zeps(expx + expnx - cn));
 #else
-    tmp = w * (1.0f / Zeps(expx + expnx - cn));
+    float tmp = w * (1.0f / Zeps(expx + expnx - cn));
 #endif
 
     return tmp * (float2)(
@@ -2357,14 +2385,17 @@ static float2 CL_V_LAZYSUSAN(
     __private const float2 lazy         // x, y
     )
 {
-    float xx, yy, r, sa, ca, a;
 
-    xx = in.x - lazy.x;
-    yy = in.y + lazy.y;
-    r = SQRT((float2)(xx, yy));
+    float xx = in.x - lazy.x;
+    float yy = in.y + lazy.y;
+    float r = SQRT((float2)(xx, yy));
+
     if(r < w){
-        a = ATANYX((float2)(xx, yy)) + lazysusan.x + lazysusan.y * (w - r);
+        float a = ATANYX((float2)(xx, yy)) + lazysusan.x + lazysusan.y * (w - r);
+
+        float sa, ca;
         sincos_fast(a, &sa, &ca);
+
         r = w * r;
 
         return r * (float2)(
@@ -2373,6 +2404,7 @@ static float2 CL_V_LAZYSUSAN(
         );
     }
     else{
+
     #if USE_NATIVE
         r = w * (1.0f + native_divide(lazysusan.z, r));
     #else
@@ -2393,15 +2425,14 @@ static float2 CL_V_LOONIE(
     __private const float w
     )
 {
-    float r, r2, w2;
 
-    r2 = SUMSQ(in);
-    w2 = w * w;
+    float r2 = SUMSQ(in);
+    float w2 = w * w;
     if(r2 < w2){
 #if USE_NATIVE
-        r = w * native_sqrt(native_divide(w2, r2) - 1.0f);
+        float r = w * native_sqrt(native_divide(w2, r2) - 1.0f);
 #else
-        r = w * sqrt(w2 / r2 - 1.0f);
+        float r = w * sqrt(w2 / r2 - 1.0f);
 #endif
         return r * in;
     }
@@ -2418,15 +2449,16 @@ static float2 CL_V_PREBLUR(
     __private x128_state_t* restrict state
     )
 {
-    float rnd1, rndA, rndG, sa, ca;
     
-    rndA = rng_next_float(state) * M_TAU;
-    rndG = w * (rng_next_float(state) + 
+    float rndA = rng_next_float(state) * M_TAU;
+    float rndG = w * (rng_next_float(state) + 
                 rng_next_float(state) + 
                 rng_next_float(state) + 
                 rng_next_float(state) - 
                 2.0f
                 );
+
+    float sa, ca;
     sincos_fast(rndA, &sa, &ca);
 
     return rndG * (float2)(ca, sa);
@@ -2440,12 +2472,11 @@ static float2 CL_V_MODULUS(
     __private const float2 modulus  // x, y
     )
 {
-    float2 period, r;
 
-    period = 2.0f * modulus;
-    r = in + modulus;
+    float2 period = 2.0f * modulus;
+    float2 r = in + modulus;
     
-float2 invPeriod =
+    float2 invPeriod =
 #if USE_NATIVE
     native_recip(period);
 #else
@@ -2465,28 +2496,27 @@ static float2 CL_V_OSCOPE(
     __private const float4 oscope   // frequency, amplitude, damping, separation
     )
 {
-    float tpf, absx, cosval, decay, t, cond;
 
-    tpf = M_TAU * oscope.x;
-    absx = fabs(in.x);
+    float tpf = M_TAU * oscope.x;
+    float absx = fabs(in.x);
 #if USE_NATIVE
-    cosval = native_cos(tpf * in.x);
-    decay = (oscope.z == 0.0f) ? 1.0f : native_exp(-absx * oscope.z);
+    float cosval = native_cos(tpf * in.x);
+    float decay = (oscope.z == 0.0f) ? 1.0f : native_exp(-absx * oscope.z);
 #else
-    cosval = cos(tpf * in.x);
-    decay = (oscope.z == 0.0f) ? 1.0f : exp(-absx * oscope.z);
+    float cosval = cos(tpf * in.x);
+    float decay = (oscope.z == 0.0f) ? 1.0f : exp(-absx * oscope.z);
 #endif
 
 #if USE_FMA
-    t = fma(oscope.y * decay, cosval, oscope.w);
+    float t = fma(oscope.y * decay, cosval, oscope.w);
 #else
-    t = oscope.y * decay * cosval + oscope.w;
+    float t = oscope.y * decay * cosval + oscope.w;
 #endif
 
     float2 flipped = w * (float2)(in.x, -in.y);
     float2 normal  = w * in;
 
-    cond = (fabs(in.y) <= t) ? 1.0f : 0.0f;
+    float cond = (fabs(in.y) <= t) ? 1.0f : 0.0f;
 #if USE_FMA
     return fma(normal, 1.0f - cond, flipped * cond);
 #else
@@ -2548,15 +2578,14 @@ static float2 CL_V_SCRY(
     __private const float w
     )
 {
-    float t, r;
 
-    t = SUMSQ(in);
+    float t = SUMSQ(in);
 #if USE_NATIVE
     float val = (SQRT(in) * (t + native_recip(Zeps(w))));
-    r = native_recip(val);
+    float r = native_recip(val);
 #else
     float val = (SQRT(in) * (t + 1.0f / Zeps(w)));
-    r = 1.0f / val;
+    float r = 1.0f / val;
 #endif
 
     return r * in;
@@ -2571,10 +2600,9 @@ static float2 CL_V_SEPARATION(
     __private const float2 ins  // inside_x, inside_y
     )
 {
-    float sx2, sy2, x, y;
 
-    sx2 = sep.x * sep.x;
-    sy2 = sep.y * sep.y;
+    float sx2 = sep.x * sep.x;
+    float sy2 = sep.y * sep.y;
 #if USE_NATIVE
     #if USE_FMA
         float sqrt_sx2 = native_sqrt(fma(in.x, in.x, sx2));
@@ -2599,11 +2627,11 @@ static float2 CL_V_SEPARATION(
     float sy = (in.y > 0.0f) ? 1.0f : -1.0f;
 
     #if USE_FMA
-        x = w * fma(sx, sqrt_sx2, -insx);
-        y = w * fma(sy, sqrt_sy2, -insy);
+        float x = w * fma(sx, sqrt_sx2, -insx);
+        float y = w * fma(sy, sqrt_sy2, -insy);
     #else
-        x = w * (sx * sqrt_sx2 - insx);
-        y = w * (sy * sqrt_sy2 - insy);
+        float x = w * (sx * sqrt_sx2 - insx);
+        float y = w * (sy * sqrt_sy2 - insy);
     #endif
 
     return (float2)(x, y);
@@ -2671,10 +2699,9 @@ static float2 CL_V_STRIPES(
     __private const float2 stripes  // space, warp
     )
 {
-    float roundx, offsetx;
 
-    roundx = floor(in.x + 0.5f);
-    offsetx = in.x - roundx;
+    float roundx = floor(in.x + 0.5f);
+    float offsetx = in.x - roundx;
 #if USE_FMA
     return w * (float2)(
         fma(offsetx, (1.0f - stripes.x), roundx), 
@@ -2696,16 +2723,16 @@ static float2 CL_V_WEDGE(
     __private const float4 wedge    // swirl, angle, hole, count
     )
 {
-    float r, a, cc, m_CompFac;
 
-    m_CompFac = 1 - wedge.y * wedge.w * M_1_2PI;
-    r = SQRT(in);
-    a = ATANYX(in) + wedge.x * r;
+    float m_CompFac = 1 - wedge.y * wedge.w * M_1_2PI;
+    float r = SQRT(in);
+    float a = ATANYX(in) + wedge.x * r;
+
 #if USE_FMA
-    cc = floor(fma(wedge.w, a, (float)M_PI) * M_1_2PI);
+    float cc = floor(fma(wedge.w, a, (float)M_PI) * M_1_2PI);
     a = fma(a, m_CompFac, cc * wedge.y);
 #else
-    cc = floor( (wedge.w * a + M_PI) * M_1_2PI );
+    float cc = floor( (wedge.w * a + M_PI) * M_1_2PI );
     a = a * m_CompFac + cc * wedge.y;
 #endif
     r = w * (r + wedge.z);
@@ -2731,43 +2758,45 @@ static float2 CL_V_WEDGEJULIA(
     __private const float4 wedgejulia   // power, angle, dist, count
     )
 {
-    float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, a, cc, sa, ca;
 
     // TO DO: compute in vex land
     // I did but made no difference and I prefer to keep it here
     // so the wrangle core node in Houdini's land remain more performant.
-    wedgeJulia_cf = 1.0f - wedgejulia.y * wedgejulia.w * M_1_2PI;
-    wedgeJulia_rN = fabs(wedgejulia.x);
+    float wedgeJulia_cf = 1.0f - wedgejulia.y * wedgejulia.w * M_1_2PI;
+    float wedgeJulia_rN = fabs(wedgejulia.x);
 #if USE_NATIVE
-    wedgeJulia_cn = native_divide(wedgejulia.z, wedgejulia.x * 2.0f);
+    float wedgeJulia_cn = native_divide(wedgejulia.z, wedgejulia.x * 2.0f);
 #else
-    wedgeJulia_cn = wedgejulia.z / (wedgejulia.x * 2.0f);
+    float wedgeJulia_cn = wedgejulia.z / (wedgejulia.x * 2.0f);
 #endif
     
 #if USE_NATIVE
-    rr = w * native_powr(SUMSQ(in), wedgeJulia_cn);
-    t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
+    float rr = w * native_powr(SUMSQ(in), wedgeJulia_cn);
+    float t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
     #if USE_FMA
-        a = native_divide(fma(M_TAU, t_rnd, ATANYX(in)), wedgejulia.x);
+        float a = native_divide(fma(M_TAU, t_rnd, ATANYX(in)), wedgejulia.x);
     #else
-        a = native_divide(ATANYX(in) + M_TAU * t_rnd, wedgejulia.x);
+        float a = native_divide(ATANYX(in) + M_TAU * t_rnd, wedgejulia.x);
     #endif
 #else
-    rr = w * powr(SUMSQ(in), wedgeJulia_cn);
-    t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
+    float rr = w * powr(SUMSQ(in), wedgeJulia_cn);
+    float t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
     #if USE_FMA
-        a = fma(M_TAU, t_rnd, ATANYX(in)) / wedgejulia.x;
+        float a = fma(M_TAU, t_rnd, ATANYX(in)) / wedgejulia.x;
     #else
-        a = (ATANYX(in) + M_TAU * t_rnd) / wedgejulia.x;
+        float a = (ATANYX(in) + M_TAU * t_rnd) / wedgejulia.x;
     #endif
 #endif
 
 #if USE_FMA
-    cc = floor(fma(wedgejulia.w, a, (float)M_PI) * M_1_2PI);
+    float cc = floor(fma(wedgejulia.w, a, (float)M_PI) * M_1_2PI);
 #else
-    cc = floor( (wedgejulia.w * a + M_PI) * M_1_2PI );
+    float cc = floor( (wedgejulia.w * a + M_PI) * M_1_2PI );
 #endif
+
     a = a * wedgeJulia_cf + cc * wedgejulia.y;
+
+    float sa, ca;
     sincos_fast(a, &sa, &ca);
 
     return rr * (float2)(ca, sa);
@@ -2781,25 +2810,28 @@ static float2 CL_V_WEDGESPH(
     __private const float4 wedgesph // swirl, angle, hole, count
     )
 {
-    float r, a, cc, comp_fac, sa, ca;
 
 #if USE_NATIVE
-    r = native_recip(Zeps(SQRT(in)));
+    float r = native_recip(Zeps(SQRT(in)));
 #else
-    r = 1.0f / Zeps(SQRT(in));
+    float r = 1.0f / Zeps(SQRT(in));
 #endif
-    a = ATANYX(in) + wedgesph.x * r;
+
+    float a = ATANYX(in) + wedgesph.x * r;
 #if USE_FMA
-    cc = floor(fma(wedgesph.w, a, (float)M_PI) * M_1_2PI);
+    float cc = floor(fma(wedgesph.w, a, (float)M_PI) * M_1_2PI);
 #else
-    cc = floor( (wedgesph.w * a + M_PI) * M_1_2PI );
+    float cc = floor( (wedgesph.w * a + M_PI) * M_1_2PI );
 #endif
-    comp_fac = 1.0f - wedgesph.y * wedgesph.w * M_1_2PI;
+
+    float comp_fac = 1.0f - wedgesph.y * wedgesph.w * M_1_2PI;
 #if USE_FMA
     a = fma(a, comp_fac, cc * wedgesph.y);
 #else
     a = a * comp_fac + cc * wedgesph.y;
 #endif
+
+    float sa, ca;
     sincos_fast(a, &sa, &ca);
     r = w * (r + wedgesph.z);
 
@@ -2814,16 +2846,17 @@ static float2 CL_V_WHORL(
     __private const float2 whorl    // inside, outside
     )
 {
-    float r, a, sa, ca;
 
-    r = SQRT(in);
+    float r = SQRT(in);
 #if USE_NATIVE
     float2 Owmr = native_divide(whorl, (w - r));
 #else
     float2 Owmr = whorl / (w - r);
 #endif
     float base = ATANYX(in);
-    a = base + select(Owmr.y, Owmr.x, r < w);
+    float a = base + select(Owmr.y, Owmr.x, r < w);
+
+    float sa, ca;
     sincos_fast(a, &sa, &ca);
     
     return w * r * (float2)(ca, sa);
@@ -2860,13 +2893,14 @@ static float2 CL_V_EXP(
     __private const float w
     )
 {
-    float expe, sy, cy;
 
 #if USE_NATIVE
-    expe = w * native_exp(in.x);
+    float expe = w * native_exp(in.x);
 #else
-    expe = w * exp(in.x);
+    float expe = w * exp(in.x);
 #endif
+
+    float sy, cy;
     sincos_fast(in.y, &sy, &cy);
 
     return expe * (float2)(cy, sy);
@@ -2946,17 +2980,18 @@ static float2 CL_V_TAN(
     __private const int F3C
     )
 {
-    float tansin, tancos, tansinh, tancosh, den;
 
     if(F3C){
+        float tansin, tancos;
         sincos_fast(2.0f * in.x, &tansin, &tancos);
+
         float iny2 = 2.0f * in.y;
-        tansinh = sinh(iny2);
-        tancosh = cosh(iny2);
+        float tansinh = sinh(iny2);
+        float tancosh = cosh(iny2);
     #if USE_NATIVE
-        den = w * native_recip(Zeps(tancos + tancosh));
+        float den = w * native_recip(Zeps(tancos + tancosh));
     #else
-        den = w / Zeps(tancos + tancosh);
+        float den = w / Zeps(tancos + tancosh);
     #endif
         return den * (float2)(tansin, tansinh);
     }
@@ -2964,13 +2999,13 @@ static float2 CL_V_TAN(
         float2 xy = in * (float)M_PI_2;
 
     #if USE_NATIVE
-        den = native_divide(w, Zeps(native_cos(xy.x) + cosh(xy.y)));
+        float den = native_divide(w, Zeps(native_cos(xy.x) + cosh(xy.y)));
         return den * (float2)(
             native_sin(xy.x), 
             sinh(xy.y)
         );
     #else
-        den = w / Zeps(cos(xy.x) + cosh(xy.y));
+        float den = w / Zeps(cos(xy.x) + cosh(xy.y));
         return den * (float2)(
             sin(xy.x), 
             sinh(xy.y)
@@ -2987,18 +3022,20 @@ static float2 CL_V_SEC(
     __private const int F3C
     )
 {
-    float secsin, seccos, secsinh, seccosh, den;
 
     float2 xy = in * (F3C ? 1.0f : (float)M_PI);
 
+    float secsin, seccos;
     sincos_fast(xy.x, &secsin, &seccos);
-    secsinh = sinh(xy.y);
-    seccosh = cosh(xy.y);
+
+    float secsinh = sinh(xy.y);
+    float seccosh = cosh(xy.y);
     float2 xy2 = xy * 2.0f;
+
 #if USE_NATIVE
-    den = w * (native_divide(2.0f, Zeps(native_cos(xy2.x) + cosh(xy2.y))));
+    float den = w * (native_divide(2.0f, Zeps(native_cos(xy2.x) + cosh(xy2.y))));
 #else
-    den = w * (2.0f / Zeps(cos(xy2.x) + cosh(xy2.y)));
+    float den = w * (2.0f / Zeps(cos(xy2.x) + cosh(xy2.y)));
 #endif
 
     return den * (float2)(
@@ -3015,18 +3052,20 @@ static float2 CL_V_CSC(
     __private const int F3C
     )
 {
-    float cscsin, csccos, cscsinh, csccosh, den;
 
     float2 xy = in * (F3C ? 1.0f : (float)M_PI_2);
 
+    float cscsin, csccos;
     sincos_fast(xy.x, &cscsin, &csccos);
-    cscsinh = sinh(xy.y);
-    csccosh = cosh(xy.y);
+
+    float cscsinh = sinh(xy.y);
+    float csccosh = cosh(xy.y);
     float2 xy2 = xy * 2.0f;
+
 #if USE_NATIVE
-    den = native_divide(w * 2.0f, Zeps(cosh(xy2.y) - native_cos(xy2.x)));
+    float den = native_divide(w * 2.0f, Zeps(cosh(xy2.y) - native_cos(xy2.x)));
 #else
-    den = w * 2.0f / Zeps(cosh(xy2.y) - cos(xy2.x));
+    float den = w * 2.0f / Zeps(cosh(xy2.y) - cos(xy2.x));
 #endif
 
     float y_sign = F3C ? -1.0f : 1.0f;
@@ -3045,17 +3084,19 @@ static float2 CL_V_COT(
     __private const int F3C
     )
 {
-    float cotsin, cotcos, cotsinh, cotcosh, den;
 
     float2 xy = in * (F3C ? 2.0f : (float)M_PI_2);
 
+    float cotsin, cotcos;
     sincos_fast(xy.x, &cotsin, &cotcos);
-    cotsinh = sinh(xy.y);
-    cotcosh = cosh(xy.y);
+
+    float cotsinh = sinh(xy.y);
+    float cotcosh = cosh(xy.y);
+
 #if USE_NATIVE
-    den = native_divide(w, (cotcosh - cotcos));
+    float den = native_divide(w, (cotcosh - cotcos));
 #else
-    den = w / (cotcosh - cotcos);
+    float den = w / (cotcosh - cotcos);
 #endif
 
     float y_sign = F3C ? -1.0f : 1.0f;
@@ -3073,13 +3114,14 @@ static float2 CL_V_SINH(
     __private const int F3C
     )
 {
-    float sinhsin, sinhcos, sinhsinh, sinhcosh;
 
     float2 xy = in * (F3C ? 1.0f : (float)M_PI_4);
 
+    float sinhsin, sinhcos;
     sincos_fast(xy.y, &sinhsin, &sinhcos);
-    sinhsinh = sinh(xy.x);
-    sinhcosh = cosh(xy.x);
+
+    float sinhsinh = sinh(xy.x);
+    float sinhcosh = cosh(xy.x);
 
     return w * (float2)(
         sinhsinh * sinhcos, 
@@ -3095,13 +3137,14 @@ static float2 CL_V_COSH(
     __private const int F3C
     )
 {
-    float coshsin, coshcos, coshsinh, coshcosh;
 
     float2 xy = in * (F3C ? 1.0f : (float)M_PI_2);
 
+    float coshsin, coshcos;
     sincos_fast(xy.y, &coshsin, &coshcos);
-    coshsinh = sinh(xy.x);
-    coshcosh = cosh(xy.x);
+
+    float coshsinh = sinh(xy.x);
+    float coshcosh = cosh(xy.x);
 
     return w * (float2)(
         coshcosh * coshcos, 
@@ -3117,17 +3160,19 @@ static float2 CL_V_TANH(
     __private const int F3C
     )
 {
-    float tanhsin, tanhcos, tanhsinh, tanhcosh, den;
 
     float2 xy = in * (F3C ? 2.0f : (float)M_PI_2);
 
+    float tanhsin, tanhcos;
     sincos_fast(xy.y, &tanhsin, &tanhcos);
-    tanhsinh = sinh(xy.x);
-    tanhcosh = cosh(xy.x);
+
+    float tanhsinh = sinh(xy.x);
+    float tanhcosh = cosh(xy.x);
+
 #if USE_NATIVE
-    den = native_recip(Zeps(tanhcos + tanhcosh));
+    float den = native_recip(Zeps(tanhcos + tanhcosh));
 #else
-    den = 1.0f / Zeps(tanhcos + tanhcosh);
+    float den = 1.0f / Zeps(tanhcos + tanhcosh);
 #endif
 
     return w * den * (float2)(tanhsinh, tanhsin);
@@ -3141,17 +3186,19 @@ static float2 CL_V_SECH(
     __private const int F3C
     )
 {
-    float sechsin, sechcos, sechsinh, sechcosh, den;
-
+    
     float2 xy = in * (F3C ? 1.0f : (float)M_PI_4);
 
+    float sechsin, sechcos;
     sincos_fast(xy.y, &sechsin, &sechcos);
-    sechsinh = sinh(xy.x);
-    sechcosh = cosh(xy.x);
+
+    float sechsinh = sinh(xy.x);
+    float sechcosh = cosh(xy.x);
+
 #if USE_NATIVE
-    den = native_divide(w * 2.0f, Zeps(native_cos(2.0f * xy.y) + cosh(2.0f * xy.x)));
+    float den = native_divide(w * 2.0f, Zeps(native_cos(2.0f * xy.y) + cosh(2.0f * xy.x)));
 #else
-    den = w * 2.0f / Zeps(cos(2.0f * xy.y) + cosh(2.0f * xy.x));
+    float den = w * 2.0f / Zeps(cos(2.0f * xy.y) + cosh(2.0f * xy.x));
 #endif
 
     float y_sign = F3C ? -1.0f : 1.0f;
@@ -3170,18 +3217,21 @@ static float2 CL_V_CSCH(
     __private const int F3C
     )
 {
-    float cschsin, cschcos, cschsinh, cschcosh, den;
-
+    
     float2 xy = in * (F3C ? 1.0f : (float)M_PI_4);
 
     float2 in2 = 2.0f * xy;
+
+    float cschsin, cschcos;
     sincos_fast(xy.y, &cschsin, &cschcos);
-    cschsinh = sinh(xy.x);
-    cschcosh = cosh(xy.x);
+
+    float cschsinh = sinh(xy.x);
+    float cschcosh = cosh(xy.x);
+
 #if USE_NATIVE
-    den = native_divide(w * 2.0f, Zeps(cosh(in2.x) - native_cos(in2.y)));
+    float den = native_divide(w * 2.0f, Zeps(cosh(in2.x) - native_cos(in2.y)));
 #else
-    den = w * 2.0f / Zeps(cosh(in2.x) - cos(in2.y));
+    float den = w * 2.0f / Zeps(cosh(in2.x) - cos(in2.y));
 #endif
 
     float y_sign = F3C ? -1.0f : 1.0f;
@@ -3200,17 +3250,18 @@ static float2 CL_V_COTH(
     __private const int F3C
     )
 {
-    float cothsin, cothcos, cothsinh, cothcosh, den;
 
     float2 xy = in * (F3C ? 2.0f : (float)M_PI_2);
 
+    float cothsin, cothcos;
     sincos_fast(xy.y, &cothsin, &cothcos);
-    cothsinh = sinh(xy.x);
-    cothcosh = cosh(xy.x);
+
+    float cothsinh = sinh(xy.x);
+    float cothcosh = cosh(xy.x);
 #if USE_NATIVE
-    den = native_divide(w, Zeps(cothcosh - cothcos));
+    float den = native_divide(w, Zeps(cothcosh - cothcos));
 #else
-    den = w / Zeps(cothcosh - cothcos);
+    float den = w / Zeps(cothcosh - cothcos);
 #endif
 
     return den * (float2)(cothsinh, cothsin);
@@ -3224,7 +3275,6 @@ static float2 CL_V_AUGER(
     __private const float4 auger    // frequency, scale, symmetry, weight
     )
 {
-    float s, t, dy, dx;
 
 #if USE_NATIVE
     float m_HalfScale = native_divide(auger.y, 2.0f);
@@ -3234,18 +3284,18 @@ static float2 CL_V_AUGER(
     float2 sta = auger.x * in;
 
 #if USE_NATIVE
-    s = native_sin(sta.x);
-    t = native_sin(sta.y);
+    float s = native_sin(sta.x);
+    float t = native_sin(sta.y);
 #else
-    s = sin(sta.x);
-    t = sin(sta.y);
+    float s = sin(sta.x);
+    float t = sin(sta.y);
 #endif
 #if USE_FMA
-    dx = fma(auger.x, fma(m_HalfScale, t, fabs(in.x) * t), in.x);
-    dy = fma(auger.w, fma(m_HalfScale, s, fabs(in.y) * s), in.y);
+    float dx = fma(auger.x, fma(m_HalfScale, t, fabs(in.x) * t), in.x);
+    float dy = fma(auger.w, fma(m_HalfScale, s, fabs(in.y) * s), in.y);
 #else
-    dx = in.x + auger.w * (m_HalfScale * t + fabs(in.x) * t);
-    dy = in.y + auger.w * (m_HalfScale * s + fabs(in.y) * s);
+    float dx = in.x + auger.w * (m_HalfScale * t + fabs(in.x) * t);
+    float dy = in.y + auger.w * (m_HalfScale * s + fabs(in.y) * s);
 #endif
 #if USE_FMA
     return w * (float2)(
@@ -3268,28 +3318,28 @@ static float2 CL_V_FLUX(
     __private const float spread    // spread
     )
 {
-    float r1, r2, xpw, xmw, avgr, avga, sa, ca;
-    
-    xpw = in.x + w;
-    xmw = in.x - w;
+
+    float xpw = in.x + w;
+    float xmw = in.x - w;
 
     float iny2 = in.y * in.y;
 
 #if USE_FMA
-    r1 = fma(xpw, xpw, iny2);
-    r2 = fma(xmw, xmw, iny2);
+    float r1 = fma(xpw, xpw, iny2);
+    float r2 = fma(xmw, xmw, iny2);
 #else
-    r1 = iny2 + xpw * xpw;
-    r2 = iny2 + xmw * xmw;
+    float r1 = iny2 + xpw * xpw;
+    float r2 = iny2 + xmw * xmw;
 #endif
 
 #if USE_NATIVE
-    avgr = w * (2.0f + spread) * native_sqrt(native_sqrt(native_divide(r1, r2)));
+    float avgr = w * (2.0f + spread) * native_sqrt(native_sqrt(native_divide(r1, r2)));
 #else
-    avgr = w * (2.0f + spread) * sqrt(sqrt(r1 / r2));
+    float avgr = w * (2.0f + spread) * sqrt(sqrt(r1 / r2));
 #endif
-    avga = 0.5f * (atan2(in.y, xmw) - atan2(in.y, xpw));
+    float avga = 0.5f * (atan2(in.y, xmw) - atan2(in.y, xpw));
 
+    float sa, ca;
     sincos_fast(avga, &sa, &ca);
 
     return avgr * (float2)(ca, sa);
@@ -3347,12 +3397,11 @@ static float2 CL_V_CURVE(
     __private const float2 amplitude    // amplitude_x, amplitude_y
     )
 {
-    float lx, ly;
 
     if(F3C){
     #if USE_NATIVE
-        lx = native_recip(fmax((lenght.x * lenght.x), 1e-20f));
-        ly = native_recip(fmax((lenght.y * lenght.y), 1e-20f));
+        float lx = native_recip(fmax((lenght.x * lenght.x), 1e-20f));
+        float ly = native_recip(fmax((lenght.y * lenght.y), 1e-20f));
 
         #if USE_FMA
             return w * (float2)(
@@ -3366,8 +3415,8 @@ static float2 CL_V_CURVE(
             );
         #endif
     #else
-        lx = 1.0f / fmax((lenght.x * lenght.x), 1e-20f);
-        ly = 1.0f / fmax((lenght.y * lenght.y), 1e-20f);
+        float lx = 1.0f / fmax((lenght.x * lenght.x), 1e-20f);
+        float ly = 1.0f / fmax((lenght.y * lenght.y), 1e-20f);
 
         #if USE_FMA
             return w * (float2)(
@@ -3422,24 +3471,23 @@ static float2 CL_V_PERSPECTIVE(
     __private const float2 presp    // angle, distance
     )
 {
-    float t, ang, vsin, vfcos;
 
-    ang = presp.x * M_PI_2;
+    float ang = presp.x * M_PI_2;
 #if USE_NATIVE
-    vsin = native_sin(ang);
-    vfcos = presp.y * native_cos(ang);
+    float vsin = native_sin(ang);
+    float vfcos = presp.y * native_cos(ang);
     #if USE_FMA
-        t = native_divide(w, fma(-in.y, vsin, presp.y));
+        float t = native_divide(w, fma(-in.y, vsin, presp.y));
     #else
-        t = native_divide(w, (presp.y - in.y * vsin));
+        float t = native_divide(w, (presp.y - in.y * vsin));
     #endif
 #else
-    vsin = sin(ang);
-    vfcos = presp.y * cos(ang);
+    float vsin = sin(ang);
+    float vfcos = presp.y * cos(ang);
     #if USE_FMA
-        t = w / fma(-in.y, vsin, presp.y);
+        float t = w / fma(-in.y, vsin, presp.y);
     #else
-        t = w / (presp.y - in.y * vsin);
+        float t = w / (presp.y - in.y * vsin);
     #endif
 #endif
 
@@ -3458,7 +3506,6 @@ static float2 CL_V_BWRAPS(
     __private const float2 twist    // in_twist, out_twist
     )
 {
-    float g2, r2, rfactor, max_bubble, vx, vy, cx, cy, lx, ly, r, theta, sa, ca;
 
 #if USE_NATIVE
     // precalc
@@ -3468,7 +3515,7 @@ static float2 CL_V_BWRAPS(
         float radius = 0.5f * (native_divide(bwraps.x, (1.0f + bwraps.y * bwraps.y)));
     #endif
 
-    g2 = native_divide(native_sqrt(fabs(bwraps.z)), bwraps.x) + 1e-6f;
+    float g2 = native_divide(native_sqrt(fabs(bwraps.z)), bwraps.x) + 1e-6f;
     
 #else
     // precalc
@@ -3478,11 +3525,11 @@ static float2 CL_V_BWRAPS(
         float radius = 0.5f * (bwraps.x / (1.0f + bwraps.y * bwraps.y));
     #endif
 
-    g2 = sqrt(fabs(bwraps.z)) / bwraps.x + 1e-6f;
+    float g2 = sqrt(fabs(bwraps.z)) / bwraps.x + 1e-6f;
 
 #endif
 
-    max_bubble = g2 * radius;
+    float max_bubble = g2 * radius;
     float mb2 = max_bubble * max_bubble;
 
 #if USE_NATIVE
@@ -3493,8 +3540,7 @@ static float2 CL_V_BWRAPS(
     #endif
 
     max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble * native_recip(den);
-    r2 = radius * radius;
-    rfactor = radius * native_recip(max_bubble);
+    float rfactor = radius * native_recip(max_bubble);
 
 #else
     #if USE_FMA
@@ -3503,8 +3549,7 @@ static float2 CL_V_BWRAPS(
         max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble / (0.25f * mb2 + 1.0f);
     #endif
 
-    r2 = radius * radius;
-    rfactor = radius / max_bubble;
+    float rfactor = radius / max_bubble;
 
 #endif
 
@@ -3514,8 +3559,8 @@ static float2 CL_V_BWRAPS(
     }
     else
     {
-        vx = in.x;
-        vy = in.y;
+        float vx = in.x;
+        float vy = in.y;
 
     #if USE_NATIVE
         float inv_bw = native_recip(bwraps.x);
@@ -3523,11 +3568,11 @@ static float2 CL_V_BWRAPS(
         float inv_bw = 1.0f / bwraps.x;
     #endif
 
-        cx = (floor(vx * inv_bw) + 0.5f) * bwraps.x;
-        cy = (floor(vy * inv_bw) + 0.5f) * bwraps.x;
+        float cx = (floor(vx * inv_bw) + 0.5f) * bwraps.x;
+        float cy = (floor(vy * inv_bw) + 0.5f) * bwraps.x;
 
-        lx = vx - cx;
-        ly = vy - cy;
+        float lx = vx - cx;
+        float ly = vy - cy;
 
     #if USE_FMA
         float l2 = fma(lx, lx, ly * ly);
@@ -3535,6 +3580,7 @@ static float2 CL_V_BWRAPS(
         float l2 = lx * lx + ly * ly;
     #endif
 
+        float r2 = radius * radius;
         if (l2 > r2)
         {
             return w * in;
@@ -3551,15 +3597,15 @@ static float2 CL_V_BWRAPS(
             
         #if USE_NATIVE
             #if USE_FMA
-                r = rfactor * native_recip(Zeps(fma(l2, 0.25f, 1.0f)));
+                float r = rfactor * native_recip(Zeps(fma(l2, 0.25f, 1.0f)));
             #else
-                r = rfactor * native_recip(Zeps(l2 * 0.25f + 1.0f));
+                float r = rfactor * native_recip(Zeps(l2 * 0.25f + 1.0f));
             #endif
         #else
             #if USE_FMA
-                r = rfactor / Zeps(fma(l2, 0.25f, 1.0f));
+                float r = rfactor / Zeps(fma(l2, 0.25f, 1.0f));
             #else
-                r = rfactor / Zeps(l2 * 0.25f + 1.0f);
+                float r = rfactor / Zeps(l2 * 0.25f + 1.0f);
             #endif
         #endif
 
@@ -3579,11 +3625,12 @@ static float2 CL_V_BWRAPS(
         #endif
 
         #if USE_FMA
-            theta = fma(twist.x, (1.0f - r), twist.y * r);
+            float theta = fma(twist.x, (1.0f - r), twist.y * r);
         #else
-            theta = twist.x * (1.0f - r) + twist.y * r;
+            float theta = twist.x * (1.0f - r) + twist.y * r;
         #endif
 
+            float sa, ca;
             sincos_fast(theta, &sa, &ca);
 
         #if USE_FMA
@@ -3625,17 +3672,16 @@ static float2 CL_V_POLYNOMIAL(
     __private const float2 sc       // sc_x, sc_y
     )
 {
-    float xp, yp;
 
     float abs_w = fabs(w);
     float2 in_abs_w = abs_w * fabs(in);
 
 #if USE_NATIVE
-    xp = native_powr(abs_w * in_abs_w.x, powr.x);
-    yp = native_powr(abs_w * in_abs_w.y, powr.y);
+    float xp = native_powr(abs_w * in_abs_w.x, powr.x);
+    float yp = native_powr(abs_w * in_abs_w.y, powr.y);
 #else
-    xp = pow(abs_w * in_abs_w.x, powr.x);
-    yp = pow(abs_w * in_abs_w.y, powr.y);
+    float xp = pow(abs_w * in_abs_w.x, powr.x);
+    float yp = pow(abs_w * in_abs_w.y, powr.y);
 #endif
 #if USE_FMA
     return (float2)(
@@ -3660,20 +3706,16 @@ static float2 CL_V_CROP(
     __private const float2 az       // area, zero
     )
 {
-    float x0, x1, y0, y1, w2, h2, rx, ry;
+    float x0 = fmin(ltrb.x, ltrb.z);
+    float x1 = fmax(ltrb.x, ltrb.z);
+    float y0 = fmin(ltrb.y, ltrb.w);
+    float y1 = fmax(ltrb.y, ltrb.w);
 
-    float2 p = in;
+    float w2 = (x1 - x0) * (0.5f * az.x);
+    float h2 = (y1 - y0) * (0.5f * az.x);
 
-    x0 = fmin(ltrb.x, ltrb.z);
-    x1 = fmax(ltrb.x, ltrb.z);
-    y0 = fmin(ltrb.y, ltrb.w);
-    y1 = fmax(ltrb.y, ltrb.w);
-
-    w2 = (x1 - x0) * (0.5f * az.x);
-    h2 = (y1 - y0) * (0.5f * az.x);
-
-    rx = rng_next_float(state);
-    ry = rng_next_float(state);
+    float rx = rng_next_float(state);
+    float ry = rng_next_float(state);
 
     // replacements
 #if USE_FMA
@@ -3687,6 +3729,8 @@ static float2 CL_V_CROP(
     float yB = y0 + ry * h2;
     float yT = y1 - ry * h2;
 #endif
+
+    float2 p = in;
 
     // conditions
     bool left   = p.x < x0;
@@ -3714,7 +3758,7 @@ static float2 CL_V_UNPOLAR(
     __private const float w 
     )
 {
-    float m_Vvar2, r, sa, ca;
+    float m_Vvar2, r;
 
 #if USE_NATIVE
     m_Vvar2 = native_divide(w, (float)M_PI) * 0.5f;
@@ -3723,6 +3767,8 @@ static float2 CL_V_UNPOLAR(
     m_Vvar2 = (w / M_PI) * 0.5f;
     r = exp(in.y);
 #endif
+
+    float sa, ca;
     sincos_fast(in.x, &sa, &ca);
 
     return m_Vvar2 * r * (float2)(sa, ca);
@@ -3833,27 +3879,29 @@ static float2 CL_V_POINT_SYMMETRY(
     __private const float4 ptsym    // order, center_x, center_y
     )
 {
-    float order, twoPiDivOrder, dx, dy, sa, ca, x, y;
 
-    order = Zeps(ptsym.x);
+    float order = Zeps(ptsym.x);
 #if USE_NATIVE
-    twoPiDivOrder = native_divide((float)M_TAU, order);
+    float twoPiDivOrder = native_divide((float)M_TAU, order);
 #else
-    twoPiDivOrder = M_TAU / order;
+    float twoPiDivOrder = M_TAU / order;
 #endif
     int k = (int)(rng_next_float(state) * order);
 
     float cx = ptsym.y;
     float cy = ptsym.z;
-    dx = (in.x - cx) * w;
-    dy = (in.y - cy) * w;
+    float dx = (in.x - cx) * w;
+    float dy = (in.y - cy) * w;
+
+    float sa, ca;
     sincos_fast(k * twoPiDivOrder, &sa, &ca);
+
 #if USE_FMA
-    x = fma(dx, ca, dy * sa);
-    y = fma(dy, ca, -dx * sa);
+    float x = fma(dx, ca, dy * sa);
+    float y = fma(dy, ca, -dx * sa);
 #else
-    x = dx * ca + dy * sa;
-    y = dy * ca - dx * sa;
+    float x = dx * ca + dy * sa;
+    float y = dy * ca - dx * sa;
 #endif
 
     return (float2)(
