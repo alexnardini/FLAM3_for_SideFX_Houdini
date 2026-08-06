@@ -5586,7 +5586,7 @@
                     label   "update sensor"
                     type    toggle
                     default { "1" }
-                    help    "Every change to the camera sensor parameters will update the sensor viewport viz.<br/><br/>Turn this <b>OFF</b> to disable any sensor viewport's updates."
+                    help    "<h3>Every change to the camera sensor parameters will update the sensor viewport viz</h3><i>Turn this <b>OFF</b> to disable any sensor viewport's updates</i>."
                     disablewhen "{ outsensor == 0 }"
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
