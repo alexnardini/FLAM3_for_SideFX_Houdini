@@ -1706,12 +1706,11 @@ static float2 CL_V_SECANT2(
 
     float r = w * SQRT(in);
 
-    float sr, cr;
-    sincos_fast(r, &sr, &cr);
-
 #if USE_NATIVE
+    float cr = native_cos(r);
     float icr = native_recip(cr);
 #else
+    float cr = cos(r);
     float icr = 1.0f / cr;
 #endif
 
@@ -2223,11 +2222,6 @@ static float2 CL_V_EDISC(
 
 #endif
 
-    float ww = w * 0.086424247393025485907f;  // precomputed 1/11.57034632
-
-    float snv, csv;
-    sincos_fast(aa1, &snv, &csv);
-
 #if USE_NATIVE
     float e = native_exp(aa2);
     float ei = native_recip(e);
@@ -2238,6 +2232,10 @@ static float2 CL_V_EDISC(
     float snhu = 0.5f * (e - ei);
     float cshu = 0.5f * (e + ei);
 
+    float ww = w * 0.086424247393025485907f;  // precomputed 1/11.57034632
+
+    float snv, csv;
+    sincos_fast(aa1, &snv, &csv);
     snv = (in.y > 0.0f) ? -snv : snv;
 
     return ww * (float2)(
@@ -2327,11 +2325,7 @@ static float2 CL_V_ESCHER(
 #else
     float exp_arg = vc * lnr - vd * aa;
 #endif
-#if USE_NATIVE
-    float mm = w * native_exp(exp_arg);
-#else
-    float mm = w * exp(exp_arg);
-#endif
+
 #if USE_FMA
     float nn = fma(vc, aa, vd * lnr);
 #else
@@ -2340,6 +2334,12 @@ static float2 CL_V_ESCHER(
 
     float sn, cn;
     sincos_fast(nn, &sn, &cn);
+
+#if USE_NATIVE
+    float mm = w * native_exp(exp_arg);
+#else
+    float mm = w * exp(exp_arg);
+#endif
 
     return mm * (float2)(cn, sn);
 }
@@ -2373,7 +2373,6 @@ static float2 CL_V_FOCI(
         expx - expnx, 
         sn
     );
-
 }
 // ----------------------------
 // 063 VAR LAZYSUSAN
@@ -2428,6 +2427,7 @@ static float2 CL_V_LOONIE(
 
     float r2 = SUMSQ(in);
     float w2 = w * w;
+
     if(r2 < w2){
 #if USE_NATIVE
         float r = w * native_sqrt(native_divide(w2, r2) - 1.0f);
@@ -2476,11 +2476,10 @@ static float2 CL_V_MODULUS(
     float2 period = 2.0f * modulus;
     float2 r = in + modulus;
     
-    float2 invPeriod =
 #if USE_NATIVE
-    native_recip(period);
+    float2 invPeriod = native_recip(period);
 #else
-    1.0f / period;
+    float2 invPeriod = 1.0f / period;
 #endif
 
     r -= period * floor(r * invPeriod);
@@ -2759,19 +2758,9 @@ static float2 CL_V_WEDGEJULIA(
     )
 {
 
-    // TO DO: compute in vex land
-    // I did but made no difference and I prefer to keep it here
-    // so the wrangle core node in Houdini's land remain more performant.
-    float wedgeJulia_cf = 1.0f - wedgejulia.y * wedgejulia.w * M_1_2PI;
     float wedgeJulia_rN = fabs(wedgejulia.x);
-#if USE_NATIVE
-    float wedgeJulia_cn = native_divide(wedgejulia.z, wedgejulia.x * 2.0f);
-#else
-    float wedgeJulia_cn = wedgejulia.z / (wedgejulia.x * 2.0f);
-#endif
     
 #if USE_NATIVE
-    float rr = w * native_powr(SUMSQ(in), wedgeJulia_cn);
     float t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
     #if USE_FMA
         float a = native_divide(fma(M_TAU, t_rnd, ATANYX(in)), wedgejulia.x);
@@ -2779,7 +2768,6 @@ static float2 CL_V_WEDGEJULIA(
         float a = native_divide(ATANYX(in) + M_TAU * t_rnd, wedgejulia.x);
     #endif
 #else
-    float rr = w * powr(SUMSQ(in), wedgeJulia_cn);
     float t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
     #if USE_FMA
         float a = fma(M_TAU, t_rnd, ATANYX(in)) / wedgejulia.x;
@@ -2794,10 +2782,20 @@ static float2 CL_V_WEDGEJULIA(
     float cc = floor( (wedgejulia.w * a + M_PI) * M_1_2PI );
 #endif
 
+    float wedgeJulia_cf = 1.0f - wedgejulia.y * wedgejulia.w * M_1_2PI;
+
     a = a * wedgeJulia_cf + cc * wedgejulia.y;
 
     float sa, ca;
     sincos_fast(a, &sa, &ca);
+
+#if USE_NATIVE
+    float wedgeJulia_cn = native_divide(wedgejulia.z, wedgejulia.x * 2.0f);
+    float rr = w * native_powr(SUMSQ(in), wedgeJulia_cn);
+#else
+    float wedgeJulia_cn = wedgejulia.z / (wedgejulia.x * 2.0f);
+    float rr = w * powr(SUMSQ(in), wedgeJulia_cn);
+#endif
 
     return rr * (float2)(ca, sa);
 }
@@ -3354,24 +3352,23 @@ static float2 CL_V_MOBIUS(
     __private const float4 im   // imA, imB, imC, imD -> imaginary
     )
 {
-    float reu, imu, rev, imv, inv;
 
 #if USE_FMA
-    reu = fma(re.x, in.x, fma(-im.x, in.y, re.y));
-    imu = fma(re.x, in.y, fma(im.x, in.x, im.y));
-    rev = fma(re.z, in.x, fma(-im.z, in.y, re.w));
-    imv = fma(re.z, in.y, fma(im.z, in.x, im.w));
+    float reu = fma(re.x, in.x, fma(-im.x, in.y, re.y));
+    float imu = fma(re.x, in.y, fma(im.x, in.x, im.y));
+    float rev = fma(re.z, in.x, fma(-im.z, in.y, re.w));
+    float imv = fma(re.z, in.y, fma(im.z, in.x, im.w));
 #else
-    reu = re.x * in.x - im.x * in.y + re.y;
-    imu = re.x * in.y + im.x * in.x + im.y;
-    rev = re.z * in.x - im.z * in.y + re.w;
-    imv = re.z * in.y + im.z * in.x + im.w;
+    float reu = re.x * in.x - im.x * in.y + re.y;
+    float imu = re.x * in.y + im.x * in.x + im.y;
+    float rev = re.z * in.x - im.z * in.y + re.w;
+    float imv = re.z * in.y + im.z * in.x + im.w;
 #endif
 
 #if USE_NATIVE
-    inv = native_rsqrt(rev * rev + imv * imv);
+    float inv = native_rsqrt(rev * rev + imv * imv);
 #else
-    inv = rsqrt(rev * rev + imv * imv);
+    float inv = rsqrt(rev * rev + imv * imv);
 #endif
     inv *= inv;
     inv *= w;
@@ -3758,14 +3755,13 @@ static float2 CL_V_UNPOLAR(
     __private const float w 
     )
 {
-    float m_Vvar2, r;
 
 #if USE_NATIVE
-    m_Vvar2 = native_divide(w, (float)M_PI) * 0.5f;
-    r = native_exp(in.y);
+    float m_Vvar2 = native_divide(w, (float)M_PI) * 0.5f;
+    float r = native_exp(in.y);
 #else
-    m_Vvar2 = (w / M_PI) * 0.5f;
-    r = exp(in.y);
+    float m_Vvar2 = (w / M_PI) * 0.5f;
+    float r = exp(in.y);
 #endif
 
     float sa, ca;
@@ -3782,12 +3778,9 @@ static float2 CL_V_GLYNNIA(
     __private x128_state_t* restrict state
     )
 {
-    float r, m_V2, d, y2;
 
-    r = SQRT(in);
-    d = r + in.x;
-    y2 = in.y * in.y;
-    m_V2 = w * 0.707106781186547524401f;
+    float r = SQRT(in);
+    float d = r + in.x;
     bool cond = rng_next_float(state) > 0.5f;
 
     if (r > 1.0f)
@@ -3800,6 +3793,7 @@ static float2 CL_V_GLYNNIA(
             float rs = rsqrt(d);
         #endif
             float s  = d * rs;
+            float m_V2 = w * 0.707106781186547524401f;
             float mv2_rs = m_V2 * rs;
 
             return (float2)(
@@ -3809,6 +3803,7 @@ static float2 CL_V_GLYNNIA(
         }
         else
         {
+            float y2 = in.y * in.y;
         #if USE_FMA
             float dd_y2 = fma(d, d, y2);
         #else
@@ -3837,6 +3832,7 @@ static float2 CL_V_GLYNNIA(
         #endif
 
             float s = d * rs;
+            float m_V2 = w * 0.707106781186547524401f;
             float k = m_V2 * rs;
 
             return (float2)(
@@ -3846,6 +3842,7 @@ static float2 CL_V_GLYNNIA(
         }
         else
         {
+            float y2 = in.y * in.y;
         #if USE_FMA
             float dd_y2 = fma(d, d, y2);
         #else
