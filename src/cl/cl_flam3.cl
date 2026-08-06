@@ -4143,8 +4143,6 @@ __kernel void cl_flam3(
 )
 {        
     // copy data to local memory
-    int lid = get_local_id(0);
-    int lsize = get_local_size(0);
     
     // CDF
     __local float local_IW[MAX_XFORMS];
@@ -4171,6 +4169,9 @@ __kernel void cl_flam3(
     __local float2 local_PRM_F2[PRM_NUM_F2_SIZE];
     __local float4 local_PRM_F3[PRM_NUM_F3_SIZE];   // Marked as F3 becasue it was meant to be a vector array from vex
     __local float4 local_PRM_F4[PRM_NUM_F4_SIZE];
+
+    int lid = get_local_id(0);
+    int lsize = get_local_size(0);
 
     // copy cooperatively
     for(int i = lid; i < RES; i += lsize){
@@ -4226,21 +4227,15 @@ __kernel void cl_flam3(
     
     // init
     int idx;
-    int4 _vt, _ppvt;
-    float a;
     float clr = 0.0f;
     float _prev_clr = 0.0f;
-    float2 mem, _tmp;
-    float4 _vw, _ppvw;
-    affine_t pa;
     
     // init RNG
-    float r;
     x128_state_t rng;
     rng_init(&rng, gid + OPID);  // unique per thread, per node
     
     // build starting sample (Biunit)
-    mem = (float2)(rng_next_neg1pos1(&rng), rng_next_neg1pos1(&rng));
+    float2 mem = (float2)(rng_next_neg1pos1(&rng), rng_next_neg1pos1(&rng));
     
     // if XAOS, pick a starting iterator/xform from distribution
     if(XS) idx = sample_cdf_binary(local_IW, RES, rng_next_float(&rng));
@@ -4248,7 +4243,7 @@ __kernel void cl_flam3(
     for (int i = 0; i < ITER; ++i){
         
         // xform selection
-        r = rng_next_float(&rng);
+        float r = rng_next_float(&rng);
         idx = sample_cdf_binary(XS ? &local_XST[idx * RES] : local_IW, RES, r);
         
         // parameterics data
@@ -4258,22 +4253,22 @@ __kernel void cl_flam3(
         __local float4* xf_prm_f4 = &local_PRM_F4[idx * PRM_NUM_F4];
         
         // pre affine 
-        pa = local_PRE_AFFINE[idx];
+        affine_t pa = local_PRE_AFFINE[idx];
         mem = affine(mem, pa);
 
         // PRE/POST data
-        _ppvt = local_PPVT[idx];
-        _ppvw = local_PPVW[idx];
+        int4 _ppvt = local_PPVT[idx];
+        float4 _ppvw = local_PPVW[idx];
         // PRE
         if (_ppvw.x > 0.0f) mem += CL_V_PREBLUR(_ppvw.x, &rng);
         if (_ppvw.y > 0.0f) mem  = CL_V_DISPATCH(_ppvt.y, mem, _ppvw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         if (_ppvw.z > 0.0f) mem  = CL_V_DISPATCH(_ppvt.z, mem, _ppvw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         
         // VAR data
-        _vt = local_VT[idx];
-        _vw = local_VW[idx];
+        int4 _vt = local_VT[idx];
+        float4 _vw = local_VW[idx];
         // VAR
-        _tmp = (float2)(0.0f);
+        float2 _tmp = (float2)(0.0f);
         if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(_vt.x, mem, _vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
@@ -4293,7 +4288,7 @@ __kernel void cl_flam3(
     }
     
     // Alpha value
-    a = local_SHD[(RES << 1) + idx];
+    float a = local_SHD[(RES << 1) + idx];
     
     // OUT
     vstore3((float3)(mem, 0.0f), gid, P);
