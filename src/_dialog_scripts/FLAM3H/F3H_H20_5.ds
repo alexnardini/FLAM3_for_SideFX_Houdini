@@ -6046,10 +6046,10 @@
                 }
                 parm {
                     name    "use_rng_x128"
-                    label   "rng xoroshiro128+"
+                    label   "rng xoshiro128+"
                     type    toggle
                     default { "1" }
-                    help    "ON by default.\\n\\nEnable RNG (Random Number Generator) Xoroshiro128+.\\nProduces different random sequences with better randomness and longer period.\\n\\nWhen OFF it will use the older MWC64X."
+                    help    "ON by default.\\n\\nEnable RNG (Random Number Generator) Xoshiro128+.\\nProduces different random sequences with better randomness and longer period.\\n\\nWhen OFF it will use the older MWC64X."
                     disablewhen "{ gpu == 0 }"
                     parmtag { "export_disable" "1" }
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
