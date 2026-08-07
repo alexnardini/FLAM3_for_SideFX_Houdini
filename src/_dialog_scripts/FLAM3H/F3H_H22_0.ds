@@ -5916,7 +5916,6 @@
             groupcollapsible {
                 name    "f_prefsgpu_compiler"
                 label   "prefs GPU compiler"
-                invisibletab
                 grouptag { "group_type" "collapsible" }
 
                 parm {
@@ -5924,7 +5923,27 @@
                     label   "cl fast relaxed math"
                     type    toggle
                     default { "1" }
-                    help    "Enable <b>-cl-fast-relaxed-math</b> compiler flag.<br/><br/>Let the compiler optimize aggressively."
+                    help    "<h2>Enable fast relaxed floating-point math</h2>Allows more aggressive compiler optimizations, including relaxed precision rules and faster math transformations. May improve performance but can change numerical results."
+                    disablewhen "{ gpu == 0 }"
+                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "use_fma"
+                    label   "fma"
+                    type    toggle
+                    default { "1" }
+                    help    "<h2>Allow FMA optimizations</h2>Permits use of fused multiply-add instructions for faster and potentially more accurate floating-point calculations. Results may differ slightly due to different rounding behavior."
+                    disablewhen "{ gpu == 0 }"
+                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "use_native"
+                    label   "native math"
+                    type    toggle
+                    default { "1" }
+                    help    "<h2>Enable native math functions</h2>Uses device-specific approximations for math operations to maximize speed. Accuracy and behavior may vary between GPUs."
                     disablewhen "{ gpu == 0 }"
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
@@ -5938,31 +5957,11 @@
                     parmtag { "sidefx::look" "blank" }
                 }
                 parm {
-                    name    "use_fma"
-                    label   "fma"
-                    type    toggle
-                    default { "1" }
-                    help    "Enable fused multiply-add if desired."
-                    disablewhen "{ gpu == 0 }"
-                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
-                    name    "use_native"
-                    label   "native math"
-                    type    toggle
-                    default { "1" }
-                    help    "Enable faster native OpenCL math functions (<i><b>native_*</b></i>).<br/><br/>These may reduce precision and produce device-dependent results."
-                    disablewhen "{ gpu == 0 }"
-                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "use_rng_x128"
-                    label   "rng xoroshiro128+"
+                    label   "rng xoshiro128+"
                     type    toggle
                     default { "1" }
-                    help    "Enable <b>RNG</b> (<i><b>R</b>andom <b>N</b>umber <b>G</b>enerator</i>) <b>Xoroshiro128+</b>.<br/><br/>Produces different random sequences with better randomness and longer period.<br/><br/>When <b>OFF</b> it will use the older <b>MWC64X</b>."
+                    help    "Enable <b>xoshiro128+ RNG</b> (<i><b>R</b>andom <b>N</b>umber <b>G</b>enerator</i>).<br/><br/>High quality RNG with excellent statistical properties, a very large period, and good parallel performance. Recommended default for reliable GPU random number generation.<br/><br/>When <b>OFF</b> it will use the older <b>MWC64X</b> -> <i>Lightweight, fast RNG optimized for GPU throughput. Uses less state and can be faster in some workloads, but has weaker statistical properties compared with xoshiro128+</i>.<br/><br/><b>NOTE</b>:<br/>Differences in statistical quality may become more noticeable in very large workloads involving millions to hundreds of millions of generated samples (<i>points</i>)."
                     disablewhen "{ gpu == 0 }"
                     parmtag { "export_disable" "1" }
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
