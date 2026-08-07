@@ -5137,7 +5137,7 @@
                 label   "iterations on Load"
                 type    integer
                 default { "24" }
-                help    "When loading <i><b>*.flame</b></i> files,<br/>FLAM3H™ will load them in and automatically set the iteration number to <b>64</b>, which seems like a fair amount to resolve most of them fairly well.<br/><br/>However,<br/>sometimes you just want to be quick, and you can override the iteration set on load using this value.<br/><br/><b>NOTE</b>:<br/>The iterations number baked into the Flame preset name will override this setting.<br/><br/>Turn ON \"override iterations from Flame name\" to override the iterations number baked into the Flame preset name."
+                help    "<h2>CPU(<i>Cvex</i>) mode only</h2>When loading <i><b>*.flame</b></i> files,<br/>FLAM3H™ will load them in and automatically set the iteration number to <b>64</b>, which seems like a fair amount to resolve most of them fairly well.<br/><br/>However,<br/>sometimes you just want to be quick, and you can override the iteration set on load using this value.<br/><br/><b>NOTE</b>:<br/>The iterations number baked into the Flame preset name will override this setting.<br/><br/>Turn ON \"override iterations from Flame name\" to override the iterations number baked into the Flame preset name."
                 disablewhen "{ useiteronload == 0 }"
                 range   { 1! 128 }
                 parmtag { "script_callback" "hou.phm().flam3.in_flame_utils(kwargs).set_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()" }
@@ -5148,7 +5148,7 @@
                 label   "force iterations on Load"
                 type    toggle
                 default { "0" }
-                help    "It will use a selected number of iterations every time it loads a Flame from a flame file, instead of the default 64.<br/><br/><b>NOTE</b>:<br/>The iterations number baked into the Flame preset name will override this setting.<br/><br/>Turn ON \"override iterations from Flame name\" to override the iterations number baked into the Flame preset name."
+                help    "<h2>CPU(<i>Cvex</i>) mode only</h2>It will use a selected number of iterations every time it loads a Flame from a flame file, instead of the default 64.<br/><br/><b>NOTE</b>:<br/>The iterations number baked into the Flame preset name will override this setting.<br/><br/>Turn ON \"override iterations from Flame name\" to override the iterations number baked into the Flame preset name."
                 parmtag { "script_callback" "hou.phm().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
             }
@@ -5157,7 +5157,7 @@
                 label   "override iterations from Flame name"
                 type    toggle
                 default { "0" }
-                help    "Override the iterations number baked into the Flame preset name if any."
+                help    "<h2>CPU(<i>Cvex</i>) mode only</h2>Override the iterations number baked into the Flame preset name if any."
                 disablewhen "{ useiteronload == 0 }"
                 parmtag { "script_callback" "hou.phm().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
