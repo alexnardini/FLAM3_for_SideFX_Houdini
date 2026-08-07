@@ -181,10 +181,10 @@ enum {
 
 
 // ----------------------------
-// GPU RNG: Xoroshiro128+
+// GPU RNG: Xoshiro128+
 //
 // This RNG was originally MWC64X in Fractorium.
-// Updated to use Xoroshiro128+ instead for better randomness and longer period.
+// Updated to use Xoshiro128+ instead for better randomness and longer period.
 // It is basically upgrading MWC64X functionality while keeping the same type of helper functions.
 // Source: https://prng.di.unimi.it/xoshiro128plus.c
 // ----------------------------
