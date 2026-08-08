@@ -16711,8 +16711,8 @@ class in_flame_utils
             else: mb: str = f"{XML_updated}MB{nnl}"
         else: mb: str = nnl
         
-        if ff_bool: ff_msg: str = f"{XML_updated}FF: YES\n{XML_updated}FF Post affine: {ff_post_bool_msg}"
-        else: ff_msg: str = f"{XML_updated}FF: NO\n"
+        if ff_bool: ff_msg: str = f"FF: YES\n{XML_updated}FF Post affine: {ff_post_bool_msg}"
+        else: ff_msg: str = f"FF: NO\n"
         
         if palette_bool and apo_data.palette is not None:
             if apo_data.cp_flam3h_hsv is not False: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {IN_HSV_LABEL_MSG}, {CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]}" # custom to FLAM3H™ only
