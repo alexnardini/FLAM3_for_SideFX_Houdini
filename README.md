@@ -172,10 +172,10 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 
 | Instruction Class | Hardware Functions | Assembly Count | Description |
 | :--- | :--- | :--- | :--- |
-| **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **15,931** | Floating-point arithmetic operations. |
+| **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **15,935** | Floating-point arithmetic operations. |
 | **Special Functions** | `MUFU` | **3,117** | Transcendental math functions (e.g., `sin`, `cos`, `log`). |
 | **Control Flow** | `BRA`, `BRX` | **2,482** | Branching and loop control instructions. |
-| **Integer & Indexing** | `IADD3`, `IMAD` | **849** | Integer arithmetic and address calculations. |
+| **Integer & Indexing** | `IADD3`, `IMAD` | **845** | Integer arithmetic and address calculations. |
 | **Shared Memory Cache** | `LDS`, `STS` | **465** | Shared memory load and store operations. |
 | **Global Memory Bus** | `LDG`, `STG` | **72** | Global memory load and store operations. |
 | **Thread Synchronization** | `BAR.SYNC` | **1** | Thread block synchronization barrier. |
