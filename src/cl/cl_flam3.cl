@@ -380,7 +380,7 @@ static inline int sample_cdf_binary(__local const float* CDF, const int length, 
         // branchless
         int cond = (CDF[mid] > target);
         high = select(high, mid, cond);
-        low += 1 - cond; // low  = select(low + 1, low, cond);
+        low  = select(mid + 1, low, cond);
         
         // branch
         // if (CDF[mid] > target) {
