@@ -43,6 +43,29 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.0.52 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.52)  ##
+
+#### FLAM3H™ v2.0.52 indie -> H22.0 UP</br>FLAM3H™ v2.0.41 indie -> H21.0</br>FLAM3H™ v2.0.32 indie -> H20.5</br>FLAM3H™ v1.9.85 indie -> H19.0 to H20 ####
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX. Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **New H21.0 UP Only**: Added the ability to enter the Camera SENSOR VIZ mode from the SYS tab TAG icons.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.0.49 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.49)  ##
 
 #### FLAM3H™ v2.0.49 indie -> H22.0 UP</br>FLAM3H™ v2.0.38 indie -> H21.0</br>FLAM3H™ v2.0.32 indie -> H20.5</br>FLAM3H™ v1.9.85 indie -> H19.0 to H20 ####
