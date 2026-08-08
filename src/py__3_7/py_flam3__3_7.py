@@ -198,7 +198,7 @@ else:
 
     Title:      FLAM3H™ H190 to H200. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       January 2022, Last revised July 2026
+    date:       January 2022, Last revised August 2026
                 This is the source file.
 
     Name:       PY_FLAM3__3_7 "PYTHON"
@@ -2981,6 +2981,7 @@ class flam3h_general_utils
 * flam3h_toggle_xf_ff_viz(self) -> None:
 * flam3h_toggle(self, prm_name: str) -> None:
 * flam3h_toggle_private(self, prm_name: str) -> None:
+* flam3h_toggle_private_tag(self) -> None:
 * flam3h_toggle_private_FF(self, prm_name: str = PREFS_PVT_DOFF) -> None:
 * flam3h_toggle_off(self, prm_name: str) -> None:
 * flam3h_init_presets_CP_PRESETS(self, mode: int = 1, destroy_menus: bool = True, json_file: Union[bool, None] = None, f3h_json_file: Union[bool, None] = None, json_path_checked: Union[str, bool, None] = None) -> None:
@@ -4577,6 +4578,12 @@ class flam3h_general_utils
                 flam3h_prm_utils.private_prm_set(node, prm, 1)
                 _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
                 self.set_status_msg(_MSG, 'IMP')
+                
+                
+    def flam3h_toggle_private_tag(self) -> None:
+        """This is a place older to match whats in python 3.11(H21) and 3.13 and/or higher
+        """
+        print("I am a dummy function in python 3.7")
             
             
     def flam3h_toggle_private_FF(self, prm_name: str = PREFS_PVT_DOFF) -> None:

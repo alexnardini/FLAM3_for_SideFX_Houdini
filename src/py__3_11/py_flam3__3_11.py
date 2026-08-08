@@ -205,7 +205,7 @@ else:
 
     Title:      FLAM3H™ H205. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       April 2025, Last revised July 2026 (cloned from: py_flam3__3_7.py)
+    date:       April 2025, Last revised August 2026 (cloned from: py_flam3__3_7.py)
                 Source file start date: January 2022
 
     Name:       PY_FLAM3__3_11 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -3480,8 +3480,8 @@ class flam3h_general_utils
 * flam3h_toggle_mp_xf_viz(self) -> None:
 * flam3h_toggle_mp_xf_viz_solo_follow(self, mp_idx: str) -> None:
 * flam3h_toggle_xf_ff_viz(self) -> None:
-* flam3h_toggle(self, prm_name: str) -> None:
 * flam3h_toggle_private(self, prm_name: str) -> None:
+* flam3h_toggle_private_tag(self) -> None:
 * flam3h_toggle_private_FF(self, prm_name: str = PREFS_PVT_DOFF) -> None:
 * flam3h_toggle_off(self, prm_name: str) -> None:
 * flam3h_init_presets_CP_PRESETS(self, mode: int = 1, destroy_menus: bool = True, json_file: bool | None = None, f3h_json_file: bool | None = None, json_path_checked: str | bool | None = None) -> None:
@@ -5239,6 +5239,12 @@ class flam3h_general_utils
                 flam3h_prm_utils.private_prm_set(node, prm, 1)
                 _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
                 self.set_status_msg(_MSG, 'IMP')
+                
+                
+    def flam3h_toggle_private_tag(self) -> None:
+        """This is a place older to match whats in python 3.11(H21) and 3.13 and/or higher
+        """
+        print("I am a dummy function in python 3.11")
 
 
     def flam3h_toggle_private_FF(self, prm_name: str = f3h_tabs.PREFS.PVT_PRM_DOFF) -> None:
@@ -17449,7 +17455,7 @@ class in_flame_utils
                 # sensor data
                 in_flame_utils.in_copy_sensor(node, f3r, 0)
                 
-                node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT).set(1)
+                flam3h_prm_utils.set(node, f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT, 1)
                 
                 if node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
                     flam3h_general_utils(kwargs).util_set_clipping_viewers()
@@ -17520,7 +17526,7 @@ class in_flame_utils
                 # but since this one is run also from a callback script, i'm doing the checks twice anyway
                 out_flame_utils.out_render_curves_compare_and_set_toggle(node)
                 
-                node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT).set(1)
+                flam3h_prm_utils.set(node, f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT, 1)
                 
                 # This is not needed for just the RENDER properties, but it casue no harm, so...
                 if node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
