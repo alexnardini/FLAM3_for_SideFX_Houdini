@@ -140,7 +140,7 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 **FLAM3H™ OpenCL Kernel:** cl_flam3  
 **Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
 **Tested On:** NVIDIA GeForce RTX 4090  
-**NVIDIA Driver Version:** 610.88  
+**NVIDIA Driver Version:** 580.97  
 **Compilation Context:** Houdini OpenCL Runtime Code Cache  
 
 ---
