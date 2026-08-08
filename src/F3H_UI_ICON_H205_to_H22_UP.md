@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3H™. SideFX Houdini FLAM3: UI ICON MAP
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       September 2025, Last revised June 2026
+#   date:       September 2025, Last revised August 2026
 #   License:    GPL, CC BY-SA 4.0
 #   Copyright:  (c) 2021 F stands for liFe
 #
@@ -634,11 +634,18 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 |:---|:---|---:|---:|
 | **SYS** | `sys_tag_off` | `from H20.5` | `v1.x` `v2.x` |
 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H20.5 Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueSVG_disabled.svg" /></p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg
+```
+
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21.0 UP Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueToolSVG_disabled.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueToolSVG_disabled.svg
 ```
 
 </br>
@@ -649,11 +656,18 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg
 |:---|:---|---:|---:|
 | **SYS** | `sys_tag` | `from H20.5` | `v1.x` `v2.x` |
 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H20.5 Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueSVG.svg" /></p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg
+```
+
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21.0 UP Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueToolSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueToolSVG.svg
 ```
 
 </br>

@@ -208,7 +208,7 @@ else:
 
     Title:      FLAM3H™ H22.0 UP. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       August 2025, Last revised July 2026 (cloned from: py_flam3__3_11_H21_UP.py)
+    date:       August 2025, Last revised August 2026 (cloned from: py_flam3__3_11_H21_UP.py)
                 Source file start date: August 2025
 
     Name:       PY_FLAM3__3_13 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -492,6 +492,7 @@ class f3h_cachedUserData:
     iter_sel_w: Final = 'iter_sel_w'
     iter_sel_o: Final = 'iter_sel_o'
     iter_sel_id: Final = 'iter_sel_id'
+    sys_sensor: Final = 'sys_sensor'
     iter_xfviz_solo_idx: Final = 'iter_xfviz_solo_idx'
     iter_xfviz_out_sensor: Final = 'iter_xfviz_out_sensor'
     mem_id: Final = 'mem_id'
@@ -658,6 +659,10 @@ class f3h_tabs:
         
         '''
         PRM_SELECT_ITERATOR: Final = 'iterlist'
+        PRM_SENSOR_UPDATE_OFF: Final = 'sys_out_sensorviz_off'
+        PRM_SENSOR_UPDATE_ON: Final = 'sys_out_sensorviz'
+        PRM_TAG_OFF: Final = 'sys_tag_off'
+        PRM_TAG_ON: Final = 'sys_tag'
         PRM_XF_VIZ_OFF: Final = 'xfviz_off'
         PRM_XF_VIZ_ON: Final = 'xfviz_on'
         PRM_TAG_SIZE: Final = 'tagsize'
@@ -3427,7 +3432,7 @@ class flam3h_scripts
                 if node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
                     # lets turn it OFF.
                     flam3h_prm_utils.private_prm_set(node, f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 0)
-                    # Restore anc clear stashed cams data
+                    # Restore and clear stashed cams data
                     flam3h_general_utils.util_set_stashed_cam()
                     flam3h_general_utils(self.kwargs).flam3h_other_sensor_viz_off(node)
                     
@@ -3589,6 +3594,7 @@ class flam3h_general_utils
 * flam3h_toggle_xf_ff_viz(self) -> None:
 * flam3h_toggle(self, prm_name: str) -> None:
 * flam3h_toggle_private(self, prm_name: str) -> None:
+* flam3h_toggle_private_tag(self) -> None:
 * flam3h_toggle_private_FF(self, prm_name: str = PREFS_PVT_DOFF) -> None:
 * flam3h_toggle_off(self, prm_name: str) -> None:
 * flam3h_init_presets_CP_PRESETS(self, mode: int = 1, destroy_menus: bool = True, json_file: bool | None = None, f3h_json_file: bool | None = None, json_path_checked: str | bool | None = None) -> None:
@@ -4543,7 +4549,8 @@ class flam3h_general_utils
         parm = self.kwargs.get('parm')
         _ENTER_PRM = None
         if parm is not None: _ENTER_PRM = parm.name()
-        if _ENTER_PRM is not None and _ENTER_PRM == f3h_tabs.OUT.PRM_RENDER_PROPERTIES_SENSOR_ENTER:
+        if _ENTER_PRM is not None and _ENTER_PRM in (f3h_tabs.OUT.PRM_RENDER_PROPERTIES_SENSOR_ENTER, f3h_tabs.SYS.PRM_TAG_OFF, f3h_tabs.SYS.PRM_TAG_ON):
+            
             views_cam: list[hou.GeometryViewportCamera]  = []
             views_keys: list[str] = []
             views_type: list[hou.geometryViewportType] = []
@@ -4637,7 +4644,8 @@ class flam3h_general_utils
                     parm: hou.Parm | None = self.kwargs.get('parm')
                     _ENTER_PRM = None
                     if parm is not None: _ENTER_PRM = parm.name()
-                    if _ENTER_PRM is not None and _ENTER_PRM == f3h_tabs.OUT.PRM_RENDER_PROPERTIES_SENSOR_ENTER:
+                    if _ENTER_PRM is not None and _ENTER_PRM in (f3h_tabs.OUT.PRM_RENDER_PROPERTIES_SENSOR_ENTER, f3h_tabs.SYS.PRM_TAG_OFF, f3h_tabs.SYS.PRM_TAG_ON):
+                            
                         try: _CAM_STASHED: hou.GeometryViewportCamera | None = hou.session.F3H_SENSOR_CAM_STASH # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
                         except AttributeError: _CAM_STASHED: hou.GeometryViewportCamera | None = None
                             
@@ -4976,11 +4984,20 @@ class flam3h_general_utils
             for f3h in all_f3h:
                 if f3h != node:
                     if f3h.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
+                        
                         flam3h_prm_utils.private_prm_set(f3h, f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 0)
+                        
                         # If another FLAM3H™ node is in Camera Sensor mode, clear up its data.
                         # after restoring the viewport prior to entering the Camera sensor mode
                         self.util_set_stashed_cam()
                         self.util_clear_stashed_cam_data()
+                        
+                        # Lets also check if the sys_sensor userCachedData exist and delete it if so
+                        sys_sensor_cachedData: bool | None = f3h.cachedUserData(f3h_cachedUserData.sys_sensor)
+                        if sys_sensor_cachedData is not None:
+                            flam3h_prm_utils.set(f3h, f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT, 0)
+                            flam3h_iterator_utils.destroy_cachedUserData(f3h, f3h_cachedUserData.sys_sensor)
+                        
                         break
 
 
@@ -4998,6 +5015,12 @@ class flam3h_general_utils
         node: hou.SopNode = self.node
         prm = node.parm(prm_name)
         
+        # Lets check if the Camera SENSOR VIZ mode has been activated from the SYS tab TAG icons
+        prm_sensor_from: hou.Parm | None = self.kwargs['parm']
+        sys_sensor_bool: bool = True if prm_sensor_from is not None and prm_sensor_from.name() in (f3h_tabs.SYS.PRM_SENSOR_UPDATE_OFF, f3h_tabs.SYS.PRM_SENSOR_UPDATE_ON) else False
+        # Try to get the sys_sensor cacheUserData if it does exist
+        sys_sensor_cachedData: bool | None = node.cachedUserData(f3h_cachedUserData.sys_sensor)
+        
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
         
@@ -5008,6 +5031,17 @@ class flam3h_general_utils
             # Restore the viewport prior to entering the Camera sensor mode
             self.util_set_stashed_cam()
             self.util_clear_stashed_cam_data()
+            
+            # Lets check if the Camera SENSOR VIZ mode has been activated from the SYS tab TAG icons and if so, clear the cachedUserData
+            # and eventually turn OFF the "f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT", as it is not needed anymore.
+            if sys_sensor_bool and sys_sensor_cachedData is not None:
+                    flam3h_prm_utils.set(node, f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT, 0)
+                
+            if sys_sensor_cachedData is not None:
+                # If we are inside here, the sys_sensor cacheUserData does exist, so we need to clear it up.
+                # This can happen when we enter the SENSOR VIZ from the SYS tab TAG icons
+                # and we then exit it from the OUT tab SENSOR folder icons.
+                flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.sys_sensor)
 
             _MSG: str = f"Sensor viz: OFF"
             self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
@@ -5036,6 +5070,11 @@ class flam3h_general_utils
                         self.flash_message(node, _MSG)
                         
                 else:
+                    
+                    if sys_sensor_bool and sys_sensor_cachedData is not None:
+                        # If we are inside here, the sys_sensor cfacheUserData does exist, but the displayFlag is OFF, so we need to clear it up.
+                        flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.sys_sensor)
+                    
                     # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
                     flam3h_prm_utils.private_prm_set(node, prm, 0)
                     _MSG: str = f"This node display flag is OFF. Please use a FLAM3H™ node that is currently displayed to enter the Camera sensor viz."
@@ -5043,6 +5082,10 @@ class flam3h_general_utils
                     self.flash_message(node, f"{_MSG[:30]}")
             
             else:
+                
+                if sys_sensor_bool and sys_sensor_cachedData is not None:
+                    # If we are inside here, the sys_sensor cfacheUserData does exist, but there are no Sop viewers available, so we need to clear it up.
+                    flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.sys_sensor)
                 
                 # Fire messages
                 _MSG: str = f"No Sop viewers available."
@@ -5428,6 +5471,50 @@ class flam3h_general_utils
                 flam3h_prm_utils.private_prm_set(node, prm, 1)
                 _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
                 self.set_status_msg(_MSG, 'IMP')
+                
+                
+    def flam3h_toggle_private_tag(self) -> None:
+        """This is specifically done for the TAG icons in the SYS tab.</br>
+        It is adding the ability to enter the camera sensor viz witha [SHIFT+CLICK] on the TAG icons</br>
+        
+        otherwise it will just toggle the TAG parameter as usual.</br>
+        
+        If a toggle is OFF it will switch ON, and viceversa,</br>
+        and make sure to unlock and lock the parameter.</br>
+
+        Args:
+            (self):
+            prm_name(str): Toggle parameter name to use.
+
+        Returns:
+            (None):  
+        """
+        shiftclick: bool = self.kwargs.get('shiftclick', False)
+        
+        if shiftclick:
+            
+            node: hou.SopNode = self.node
+            
+            prm_out_edit: hou.Parm | None = node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT)
+            if prm_out_edit is not None and not prm_out_edit.eval():
+                
+                if node.isGenericFlagSet(hou.nodeFlag.Display): # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API # only if this FLAM3H™ node is displayed, we can enter the camera sensor viz mode
+                    
+                    # If there are available viewers that allow the SESNSOR VIZ mode
+                    viewers: list[hou.SceneViewer] = self.util_getSceneViewers()
+                    if self.util_is_context_available_viewer_SOP(viewers):
+                        
+                        # This is needed otherwise the camera sensor viz will not work if the edit mode is OFF
+                        flam3h_prm_utils.set(node, prm_out_edit, 1)
+                        
+                        # We dnt know yet if we are entering the SENSOR VIZ mode
+                        # but we are setting it here just in case we are.
+                        node.setCachedUserData(f3h_cachedUserData.sys_sensor, True)
+                    
+            self.flam3h_outsensor_toggle()
+        else:
+            prm_name: str = f3h_tabs.PREFS.PVT_PRM_TAG
+            self.flam3h_toggle_private(prm_name)
 
 
     def flam3h_toggle_private_FF(self, prm_name: str = f3h_tabs.PREFS.PVT_PRM_DOFF) -> None:
@@ -5487,6 +5574,14 @@ class flam3h_general_utils
                 flam3h_prm_utils.private_prm_set(self.node, f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 0)
                 self.util_set_stashed_cam()
                 self.util_clear_stashed_cam_data()
+                
+                node = self.node
+                # Try to get the sys_sensor cacheUserData if it does exist
+                sys_sensor_cachedData: bool | None = node.cachedUserData(f3h_cachedUserData.sys_sensor)
+                if sys_sensor_cachedData is not None:
+                    # If we are inside here, the sys_sensor cacheUserData does exist, so we need to clear it up.
+                    flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.sys_sensor)
+                    
             else:
                 flam3h_prm_utils.set(self.node, prm, 0)
                 
@@ -6544,7 +6639,7 @@ class flam3h_iterator_utils
 * swap_iter_pre_vars(self) -> None:
 * swap_FF_post_vars(self) -> None:
 * flam3h_default(self) -> None:
-* flam3h_reset_iterator(self) -> None:
+* flam3h_reset_iterator(self, set_defaults: bool = True, mp_index: int | None = None) -> None:
 * flam3h_reset_FF(self) -> None:
 * auto_set_xaos(self) -> None:
 * add_iterator(self) -> None:
@@ -10635,18 +10730,20 @@ class flam3h_iterator_utils
             flam3h_general_utils.flash_message(node, f"Sierpiński triangle" if self.gpu else f"Sierpiński triangle::10")
             
     
-    def flam3h_reset_iterator(self) -> None:
+    def flam3h_reset_iterator(self, set_defaults: bool = True, mp_index: int | None = None) -> None:
         """Reset selected iterator to its default parameter's values.</br>
         Include parametrics too.</br>
         
         Args:
             (self):
+            set_defaults(bool): Default to: <b>True</b>.<br />If <b>False</b> it will not set the parameters default values.<br />Used to only clear keyframes and reset correct slider ranges in H22.
+            mp_index(int | None): Default to: <b>None</b><br />If set, it must be an integer for the multiparameter index number to perform the operations.
             
         Returns:
             (None):
         """
         node: hou.SopNode = self.node
-        s_mp_index: int = self.kwargs['script_multiparm_index']
+        s_mp_index = mp_index if isinstance(mp_index, int) else self.kwargs['script_multiparm_index']
         
         # prm names
         n: flam3h_iterator_prm_names_collections = flam3h_iterator_prm_names_collections()
@@ -10656,58 +10753,69 @@ class flam3h_iterator_utils
             prm = node.parm(f"{prm_name}_{s_mp_index}")
             prm.lock(False)
             prm.deleteAllKeyframes()
+            # since H22
+            prm.setRangeToDefault()
         for prm_name in n.prm_iterator_tuple:
             prm = node.parmTuple(f"{prm_name}_{s_mp_index}")
             prm.lock(False)
             prm.deleteAllKeyframes()
+            # since H22
+            prm.setRangeToDefault()
         # Delete all keyframes parametrics and revert to defaults
         for prm_name in n.prm_parametrics:
             prm = node.parm(f"{prm_name}_{s_mp_index}")
             prm.lock(False)
             prm.deleteAllKeyframes()
             prm.revertToDefaults()
+            # since H22
+            prm.setRangeToDefault()
         for prm_name in n.prm_parametrics_tuple:
             prm = node.parmTuple(f"{prm_name}_{s_mp_index}")
             prm.lock(False)
             prm.deleteAllKeyframes()
             prm.revertToDefaults()
+            # since H22
+            prm.setRangeToDefault()
 
-        # iter idx
-        #
-        # iter main
-        node.setParms(  # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
-                        {f"{n.main_note}_{s_mp_index}": f"iterator_{s_mp_index}", 
-                        f"{n.main_weight}_{s_mp_index}": 0.5}
-                        )
-        
-        # We leave xaos untouched becasue its handy to keep it and just reset it in a second step if desired
-        #
-        # iter shader
-        node.setParms(  # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
-                        {f"{n.shader_color}_{s_mp_index}": 0, 
-                        f"{n.shader_speed}_{s_mp_index}": 0, 
-                        f"{n.shader_alpha}_{s_mp_index}": 1.0}
-                        )
+        # since H22
+        if set_defaults:
+            
+            # iter idx
+            #
+            # iter main
+            node.setParms(  # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+                            {f"{n.main_note}_{s_mp_index}": f"iterator_{s_mp_index}", 
+                            f"{n.main_weight}_{s_mp_index}": 0.5}
+                            )
+            
+            # We leave xaos untouched becasue its handy to keep it and just reset it in a second step if desired
+            #
+            # iter shader
+            node.setParms(  # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+                            {f"{n.shader_color}_{s_mp_index}": 0, 
+                            f"{n.shader_speed}_{s_mp_index}": 0, 
+                            f"{n.shader_alpha}_{s_mp_index}": 1.0}
+                            )
 
-        # iter vars
-        for prm in n.prm_iterator_vars_all:
-            prm_name: str = f"{prm}_{s_mp_index}"
-            node.parm(prm_name).set(1) if prm == n.var_weight_1 else node.parm(prm_name).set(0)
-        
-        # Iterator Affines
-        parms_affines_dict: dict[str, hou.Vector2 | float | None] = {   
-                                                                    f"{n.preaffine_x}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("affine_x"),
-                                                                    f"{n.preaffine_y}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("affine_y"),
-                                                                    f"{n.preaffine_o}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("affine_o"),
-                                                                    f"{n.preaffine_ang}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("angle"),
-                                                                    f"{n.postaffine_do}_{s_mp_index}": 0,
-                                                                    f"{n.postaffine_x}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("affine_x"),
-                                                                    f"{n.postaffine_y}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("affine_y"),
-                                                                    f"{n.postaffine_o}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("affine_o"),
-                                                                    f"{n.postaffine_ang}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("angle")
-                                                                    }
-        
-        flam3h_prm_utils.setParms(node, parms_affines_dict)
+            # iter vars
+            for prm in n.prm_iterator_vars_all:
+                prm_name: str = f"{prm}_{s_mp_index}"
+                node.parm(prm_name).set(1) if prm == n.var_weight_1 else node.parm(prm_name).set(0)
+            
+            # Iterator Affines
+            parms_affines_dict: dict[str, hou.Vector2 | float | None] = {   
+                                                                        f"{n.preaffine_x}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("affine_x"),
+                                                                        f"{n.preaffine_y}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("affine_y"),
+                                                                        f"{n.preaffine_o}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("affine_o"),
+                                                                        f"{n.preaffine_ang}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("angle"),
+                                                                        f"{n.postaffine_do}_{s_mp_index}": 0,
+                                                                        f"{n.postaffine_x}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("affine_x"),
+                                                                        f"{n.postaffine_y}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("affine_y"),
+                                                                        f"{n.postaffine_o}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("affine_o"),
+                                                                        f"{n.postaffine_ang}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("angle")
+                                                                        }
+            
+            flam3h_prm_utils.setParms(node, parms_affines_dict)
     
     
     def flam3h_reset_FF(self) -> None:
@@ -10733,12 +10841,16 @@ class flam3h_iterator_utils
             prm.lock(False)
             prm.deleteAllKeyframes()
             prm.revertToDefaults()
+            # since H22
+            prm.setRangeToDefault()
             
         for prm_name in n.prm_FF_tuple:
             prm = node.parmTuple(f"{f3h_ffPrmPrx.PRM}{prm_name}")
             prm.lock(False)
             prm.deleteAllKeyframes()
             prm.revertToDefaults()
+            # since H22
+            prm.setRangeToDefault()
 
         # For parametrics (PRE and POST)
         for prm_name in n.prm_parametrics:
@@ -10747,6 +10859,8 @@ class flam3h_iterator_utils
                 prm.lock(False)
                 prm.deleteAllKeyframes()
                 prm.revertToDefaults()
+                # since H22
+                prm.setRangeToDefault()
                 
         for prm_name in n.prm_parametrics_tuple:
             for prefix in (f3h_ffPrmPrx.PRM, f3h_ffPrmPrx.PRM_PP):
@@ -10754,6 +10868,8 @@ class flam3h_iterator_utils
                 prm.lock(False)
                 prm.deleteAllKeyframes()
                 prm.revertToDefaults()
+                # since H22
+                prm.setRangeToDefault()
 
         # FF note
         node.parm(f"{f3h_ffPrmPrx.PRM}{n.main_note}").set("iterator_FF")
@@ -11216,6 +11332,8 @@ class flam3h_iterator_utils
         if shiftclick:
 
             mp_prm.insertMultiParmInstance(s_mp_index)
+            # since H22
+            self.flam3h_reset_iterator(set_defaults=False, mp_index=s_mp_index + 1) # +1 becasue we added an iterator After so it is the index we added the iterator into +1 to account for itself
             
             # Change multiparameter focus to the newly created iterator
             # From Houdini 21.0.489 SideFX added multiParmTab and setMultiParmTab to hou.NetworkEditor.
@@ -11240,6 +11358,8 @@ class flam3h_iterator_utils
         else:
 
             mp_prm.insertMultiParmInstance(s_mp_index - 1)
+            # since H22
+            self.flam3h_reset_iterator(set_defaults=False, mp_index=s_mp_index)  # +1 becasue we added an iterator Before so it is the index we added the iterator into +1 to account for itself
         
         # If there are any iterators left
         if mp_prm.eval():
@@ -11303,14 +11423,14 @@ class flam3h_iterator_utils
         _PREFS_PVT_PRM: tuple[hou.Parm, ...] = (node.parm(f3h_tabs.PREFS.PVT_PRM_DOFF), node.parm(f3h_tabs.PREFS.PVT_PRM_RIP), node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO), node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX), node.parm(f3h_tabs.PREFS.PVT_PRM_XF_FF_VIZ_SOLO))
         for prm in _PREFS_PVT_PRM: flam3h_prm_utils.private_prm_set(node, prm, 0)
 
-        flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}")
         # descriptive message parameter
         flam3h_prm_utils.set(node, f3h_tabs.PRM_DESCRIPTIVE, '')
         
         # init/clear copy/paste iterator's data and prm
         self.flam3h_paste_reset_hou_session_data()
         
-        # Destroy data
+        # Destroy UserData - They may or may not exist but just in case
+        self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}")
         self.destroy_userData(node, f3h_userData.XML_LAST)
         
         # Updated the OUT flame name if any
@@ -11531,7 +11651,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        cp_def_bases: list[hou.EnumValue] = [hou.rampBasis.Linear] * 4 # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        cp_def_bases: list[hou.EnumValue] = [hou.rampBasis.Linear] * 5 # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
         cp_def_keys: list[float] = [0.0, 0.25, 0.5, 0.75, 1.0]
         cp_def_values: list[tuple[float, ...]] = [(0.2, 0.05, 1), (0.1, 0.85 , 1), (0.05, 1, 0.1), (0.95, 1, 0.1), (1, 0.05, 0.05)]
         ramp_parm.lock(False)
@@ -18002,7 +18122,7 @@ class in_flame_utils
                 # sensor data
                 in_flame_utils.in_copy_sensor(node, f3r, 0)
                 
-                node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT).set(1)
+                flam3h_prm_utils.set(node, f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT, 1)
                 
                 if node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
                     flam3h_general_utils(kwargs).util_set_clipping_viewers()
@@ -18073,7 +18193,7 @@ class in_flame_utils
                 # but since this one is run also from a callback script, i'm doing the checks twice anyway
                 out_flame_utils.out_render_curves_compare_and_set_toggle(node)
                 
-                node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT).set(1)
+                flam3h_prm_utils.set(node, f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT, 1)
                 
                 # This is not needed for just the RENDER properties, but it casue no harm, so...
                 if node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
@@ -19339,9 +19459,13 @@ class in_flame_utils
             else:
                 p.lock(False)
                 p.deleteAllKeyframes()
+                # since H22
+                p.setRangeToDefault()
                     
             if p.isMultiParmInstance():
                 p.revertToDefaults()
+                # since H22
+                p.setRangeToDefault()
             
         if in_flame_iter_count > flam3h_iter_count:
             flam3h_iter_count_prm.set(in_flame_iter_count)

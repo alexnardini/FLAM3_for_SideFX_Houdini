@@ -662,10 +662,15 @@ TAG [Icon:DATATYPES/boolean]:
 
     <br />
     
-    - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when TAG is *`Off`*/Disabled (_Default_).
-    - [Largeicon:opdef:.?icon_TagOBlueSVG.svg] when TAG is *`On`*/Active.
-    
-    Enable/disable viewport TAG infos.
+    - [Largeicon:opdef:.?icon_TagOBlueToolSVG_disabled.svg] when TAG is *`Off`*/Disabled (_Default_).
+    - [Largeicon:opdef:.?icon_TagOBlueToolSVG.svg] when TAG is *`On`*/Active.
+
+    _Usage_:
+
+    - ((LMB)) Enable/disable viewport TAG infos
+    - ((SHIFT)) + ((LMB)) to enter the Camera SENSOR VIZ mode ([Smallicon:opdef:.?icon_TagORedSVG.svg] / [Smallicon:opdef:.?icon_TagORedOffSVG.svg]).<br />_(Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire)_.
+
+    <br />
     
     TAG allow you to review your fractal Flame construction infos in one compact viewport string. 
     Below you find a list of data names and their meaning starting from the left to the right of the above TAG reference image.
@@ -758,7 +763,7 @@ loaddef:
     
 frame viewport:
     #id: SYS
-    [Largeicon:opdef:.?icon_FrameBlueSVG.svg]
+    [Largeicon:opdef:.?icon_FrameBlueToolSVG.svg]
     
     Re-frame current viewport based on a centered bounding box.
 

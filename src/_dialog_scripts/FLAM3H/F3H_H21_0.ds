@@ -415,11 +415,11 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Enable viewport TAG.\\n\\nTAG allow you to review your fractal Flame construction infos in one compact viewport string.\\nHowever, it has a cost and the default behavior is for it to be OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "\\n[LMB]\\nEnable viewport TAG.\\n\\n[SHIFT+LMB]\\nto enter the Camera SENSOR VIZ mode.\\nOnce in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire.\\n\\nTAG allow you to review your fractal Flame construction infos in one compact viewport string.\\nHowever, it has a cost and the default behavior is for it to be OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { tag == 1 } { outsensor == 1 }"
-            parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg" }
-            parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private(\"tag\"), kwargs['parm'].deleteAllKeyframes()" }
+            parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueToolSVG_disabled.svg" }
+            parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_tag(), kwargs['parm'].deleteAllKeyframes()" }
             parmtag { "script_callback_language" "python" }
         }
         parm {
@@ -429,11 +429,11 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Disable viewport TAG.\\n\\nNext to this icon on the right there is a menu to choose different tag sizes.\\n\\nTAG allow you to review your fractal Flame construction infos in one compact viewport string.\\nHowever, it has a cost and the default behavior is for it to be OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "\\n[LMB]\\nDisable viewport TAG.\\n\\n[SHIFT+LMB]\\nto enter the Camera SENSOR VIZ mode.\\nOnce in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire.\\n\\nNext to this icon on the right there is a menu to choose different tag sizes.\\n\\nTAG allow you to review your fractal Flame construction infos in one compact viewport string.\\nHowever, it has a cost and the default behavior is for it to be OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { tag == 0 } { outsensor == 1 }"
-            parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg" }
-            parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private(\"tag\"), kwargs['parm'].deleteAllKeyframes()" }
+            parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueToolSVG.svg" }
+            parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_tag(), kwargs['parm'].deleteAllKeyframes()" }
             parmtag { "script_callback_language" "python" }
         }
         parm {

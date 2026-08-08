@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3H™. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       April 2023, Last revised July 2026
+#   date:       April 2023, Last revised August 2026
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
 #
@@ -1058,9 +1058,14 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['
 |:---|:---|---:|---:|---:|
 | **SYS** | `sys_tag_off` | `button` | `from H20.5` | `v1.x` `v2.x` |
 
-- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H20.5 Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
+```
+
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H21.0 UP Callback Script
+```python
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_tag(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1071,9 +1076,14 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwarg
 |:---|:---|---:|---:|---:|
 | **SYS** | `sys_tag` | `button` | `from H20.5` | `v1.x` `v2.x` |
 
-- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H20.5 Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
+```
+
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H21 UP Callback Script
+```python
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_tag(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>

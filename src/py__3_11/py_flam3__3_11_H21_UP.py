@@ -208,7 +208,7 @@ else:
 
     Title:      FLAM3H™ H210 UP. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       August 2025, Last revised July 2026 (cloned from: py_flam3__3_11.py)
+    date:       August 2025, Last revised August 2026 (cloned from: py_flam3__3_11.py)
                 Source file start date: April 2025
 
     Name:       PY_FLAM3__3_11_H21_UP "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -432,6 +432,7 @@ class f3h_cachedUserData:
     iter_sel_w: Final = 'iter_sel_w'
     iter_sel_o: Final = 'iter_sel_o'
     iter_sel_id: Final = 'iter_sel_id'
+    sys_sensor: Final = 'sys_sensor'
     iter_xfviz_solo_idx: Final = 'iter_xfviz_solo_idx'
     iter_xfviz_out_sensor: Final = 'iter_xfviz_out_sensor'
     mem_id: Final = 'mem_id'
@@ -598,6 +599,10 @@ class f3h_tabs:
         
         '''
         PRM_SELECT_ITERATOR: Final = 'iterlist'
+        PRM_SENSOR_UPDATE_OFF: Final = 'sys_out_sensorviz_off'
+        PRM_SENSOR_UPDATE_ON: Final = 'sys_out_sensorviz'
+        PRM_TAG_OFF: Final = 'sys_tag_off'
+        PRM_TAG_ON: Final = 'sys_tag'
         PRM_XF_VIZ_OFF: Final = 'xfviz_off'
         PRM_XF_VIZ_ON: Final = 'xfviz_on'
         PRM_TAG_SIZE: Final = 'tagsize'
@@ -3491,6 +3496,7 @@ class flam3h_general_utils
 * flam3h_toggle_xf_ff_viz(self) -> None:
 * flam3h_toggle(self, prm_name: str) -> None:
 * flam3h_toggle_private(self, prm_name: str) -> None:
+* flam3h_toggle_private_tag(self) -> None:
 * flam3h_toggle_private_FF(self, prm_name: str = PREFS_PVT_DOFF) -> None:
 * flam3h_toggle_off(self, prm_name: str) -> None:
 * flam3h_init_presets_CP_PRESETS(self, mode: int = 1, destroy_menus: bool = True, json_file: bool | None = None, f3h_json_file: bool | None = None, json_path_checked: str | bool | None = None) -> None:
@@ -4415,7 +4421,7 @@ class flam3h_general_utils
         parm = self.kwargs.get('parm')
         _ENTER_PRM = None
         if parm is not None: _ENTER_PRM = parm.name()
-        if _ENTER_PRM is not None and _ENTER_PRM == f3h_tabs.OUT.PRM_RENDER_PROPERTIES_SENSOR_ENTER:
+        if _ENTER_PRM is not None and _ENTER_PRM in (f3h_tabs.OUT.PRM_RENDER_PROPERTIES_SENSOR_ENTER, f3h_tabs.SYS.PRM_TAG_OFF, f3h_tabs.SYS.PRM_TAG_ON):
             views_cam: list[hou.GeometryViewportCamera]  = []
             views_keys: list[str] = []
             views_type: list[hou.geometryViewportType] = []
@@ -4493,7 +4499,7 @@ class flam3h_general_utils
 
             prm: hou.Parm | None = self.kwargs.get('parm')
             if prm is not None and prm.name() == f3h_tabs.SYS.PRM_FRAME_VIEW_SENSOR:
-                _SYS_FRAME_VIEW_SENSOR_prm =True
+                _SYS_FRAME_VIEW_SENSOR_prm = True
                 # Refresh menu caches
                 self.menus_refresh_enum_prefs()
 
@@ -4509,7 +4515,7 @@ class flam3h_general_utils
                     parm: hou.Parm | None = self.kwargs.get('parm')
                     _ENTER_PRM = None
                     if parm is not None: _ENTER_PRM = parm.name()
-                    if _ENTER_PRM is not None and _ENTER_PRM == f3h_tabs.OUT.PRM_RENDER_PROPERTIES_SENSOR_ENTER:
+                    if _ENTER_PRM is not None and _ENTER_PRM in (f3h_tabs.OUT.PRM_RENDER_PROPERTIES_SENSOR_ENTER, f3h_tabs.SYS.PRM_TAG_OFF, f3h_tabs.SYS.PRM_TAG_ON):
                         try: _CAM_STASHED: hou.GeometryViewportCamera | None = hou.session.F3H_SENSOR_CAM_STASH # type: ignore
                         except AttributeError: _CAM_STASHED: hou.GeometryViewportCamera | None = None
                             
@@ -4848,11 +4854,20 @@ class flam3h_general_utils
             for f3h in all_f3h:
                 if f3h != node:
                     if f3h.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
+                        
                         flam3h_prm_utils.private_prm_set(f3h, f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 0)
+                        
                         # If another FLAM3H™ node is in Camera Sensor mode, clear up its data.
                         # after restoring the viewport prior to entering the Camera sensor mode
                         self.util_set_stashed_cam()
                         self.util_clear_stashed_cam_data()
+                        
+                        # Lets also check if the sys_sensor userCachedData exist and delete it if so
+                        sys_sensor_cachedData: bool | None = f3h.cachedUserData(f3h_cachedUserData.sys_sensor)
+                        if sys_sensor_cachedData is not None:
+                            flam3h_prm_utils.set(f3h, f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT, 0)
+                            flam3h_iterator_utils.destroy_cachedUserData(f3h, f3h_cachedUserData.sys_sensor)
+                            
                         break
 
 
@@ -4870,6 +4885,12 @@ class flam3h_general_utils
         node: hou.SopNode = self.node
         prm = node.parm(prm_name)
         
+        # Lets check if the Camera SENSOR VIZ mode has been activated from the SYS tab TAG icons
+        prm_sensor_from: hou.Parm | None = self.kwargs['parm']
+        sys_sensor_bool: bool = True if prm_sensor_from is not None and prm_sensor_from.name() in (f3h_tabs.SYS.PRM_SENSOR_UPDATE_OFF, f3h_tabs.SYS.PRM_SENSOR_UPDATE_ON) else False
+        # Try to get the sys_sensor cacheUserData if it does exist
+        sys_sensor_cachedData: bool | None = node.cachedUserData(f3h_cachedUserData.sys_sensor)
+        
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
         
@@ -4880,6 +4901,17 @@ class flam3h_general_utils
             # Restore the viewport prior to entering the Camera sensor mode
             self.util_set_stashed_cam()
             self.util_clear_stashed_cam_data()
+            
+            # Lets check if the Camera SENSOR VIZ mode has been activated from the SYS tab TAG icons and if so, clear the cachedUserData
+            # and eventually turn OFF the "f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT", as it is not needed anymore.
+            if sys_sensor_bool and sys_sensor_cachedData is not None:
+                flam3h_prm_utils.set(node, f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT, 0)
+                    
+            if sys_sensor_cachedData is not None:
+                # If we are inside here, the sys_sensor cacheUserData does exist, so we need to clear it up.
+                # This can happen when we enter the SENSOR VIZ from the SYS tab TAG icons
+                # and we then exit it from the OUT tab SENSOR folder icons.
+                flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.sys_sensor)
 
             _MSG: str = f"Sensor viz: OFF"
             self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
@@ -4908,6 +4940,11 @@ class flam3h_general_utils
                         self.flash_message(node, _MSG)
                         
                 else:
+                    
+                    if sys_sensor_bool and sys_sensor_cachedData is not None:
+                        # If we are inside here, the sys_sensor cfacheUserData does exist, but the displayFlag is OFF, so we need to clear it up.
+                        flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.sys_sensor)
+                    
                     # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
                     flam3h_prm_utils.private_prm_set(node, prm, 0)
                     _MSG: str = f"This node display flag is OFF. Please use a FLAM3H™ node that is currently displayed to enter the Camera sensor viz."
@@ -4915,6 +4952,10 @@ class flam3h_general_utils
                     self.flash_message(node, f"{_MSG[:30]}")
             
             else:
+                
+                if sys_sensor_bool and sys_sensor_cachedData is not None:
+                    # If we are inside here, the sys_sensor cfacheUserData does exist, but there are no Sop viewers available, so we need to clear it up.
+                    flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.sys_sensor)
                 
                 # Fire messages
                 _MSG: str = f"No Sop viewers available."
@@ -5304,6 +5345,50 @@ class flam3h_general_utils
                 flam3h_prm_utils.private_prm_set(node, prm, 1)
                 _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
                 self.set_status_msg(_MSG, 'IMP')
+                
+                
+    def flam3h_toggle_private_tag(self) -> None:
+        """This is specifically done for the TAG icons in the SYS tab.</br>
+        It is adding the ability to enter the camera sensor viz witha [SHIFT+CLICK] on the TAG icons</br>
+        
+        otherwise it will just toggle the TAG parameter as usual.</br>
+        
+        If a toggle is OFF it will switch ON, and viceversa,</br>
+        and make sure to unlock and lock the parameter.</br>
+
+        Args:
+            (self):
+            prm_name(str): Toggle parameter name to use.
+
+        Returns:
+            (None):  
+        """
+        shiftclick: bool = self.kwargs.get('shiftclick', False)
+        
+        if shiftclick:
+            
+            node: hou.SopNode = self.node
+            
+            prm_out_edit: hou.Parm | None = node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT)
+            if prm_out_edit is not None and not prm_out_edit.eval():
+                
+                if node.isGenericFlagSet(hou.nodeFlag.Display): # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API # only if this FLAM3H™ node is displayed, we can enter the camera sensor viz mode
+                    
+                    # If there are available viewers that allow the SESNSOR VIZ mode
+                    viewers: list[hou.SceneViewer] = self.util_getSceneViewers()
+                    if self.util_is_context_available_viewer_SOP(viewers):
+                        
+                        # This is needed otherwise the camera sensor viz will not work if the edit mode is OFF
+                        flam3h_prm_utils.set(node, prm_out_edit, 1)
+                        
+                        # We dnt know yet if we are entering the SENSOR VIZ mode
+                        # but we are setting it here just in case we are.
+                        node.setCachedUserData(f3h_cachedUserData.sys_sensor, True)
+                    
+            self.flam3h_outsensor_toggle()
+        else:
+            prm_name: str = f3h_tabs.PREFS.PVT_PRM_TAG
+            self.flam3h_toggle_private(prm_name)
 
 
     def flam3h_toggle_private_FF(self, prm_name: str = f3h_tabs.PREFS.PVT_PRM_DOFF) -> None:
@@ -5363,6 +5448,14 @@ class flam3h_general_utils
                 flam3h_prm_utils.private_prm_set(self.node, f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 0)
                 self.util_set_stashed_cam()
                 self.util_clear_stashed_cam_data()
+                
+                node = self.node
+                # Try to get the sys_sensor cacheUserData if it does exist
+                sys_sensor_cachedData: bool | None = node.cachedUserData(f3h_cachedUserData.sys_sensor)
+                if sys_sensor_cachedData is not None:
+                    # If we are inside here, the sys_sensor cacheUserData does exist, so we need to clear it up.
+                    flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.sys_sensor)
+                    
             else:
                 flam3h_prm_utils.set(self.node, prm, 0)
                 
@@ -11179,14 +11272,14 @@ class flam3h_iterator_utils
         _PREFS_PVT_PRM: tuple[hou.Parm, ...] = (node.parm(f3h_tabs.PREFS.PVT_PRM_DOFF), node.parm(f3h_tabs.PREFS.PVT_PRM_RIP), node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO), node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX), node.parm(f3h_tabs.PREFS.PVT_PRM_XF_FF_VIZ_SOLO))
         for prm in _PREFS_PVT_PRM: flam3h_prm_utils.private_prm_set(node, prm, 0)
 
-        flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}")
         # descriptive message parameter
         flam3h_prm_utils.set(node, f3h_tabs.PRM_DESCRIPTIVE, '')
         
         # init/clear copy/paste iterator's data and prm
         self.flam3h_paste_reset_hou_session_data()
         
-        # Destroy data
+        # Destroy UserData - They may or may not exist but just in case
+        self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}")
         self.destroy_userData(node, f3h_userData.XML_LAST)
         
         # Updated the OUT flame name if any
@@ -13257,7 +13350,7 @@ Praveen Brijwal"""
         if h_version == 210:
             # GPU section is only available in Houdini 21.0 and above since it relies on the "gpumem" hscript command that was added in this version.
             
-            gpu_devices: list[str] = hou.hscript('gpumem -l')
+            gpu_devices: list[str] = hou.hscript('gpumem -l') # type: ignore
             if 'unknown' in gpu_devices[-1].lower():
                 print(f"{self.node.name()}: Error while trying to get GPU devices info with the \"gpumem\" hscript command.\nThis command should be available in Houdini 21.0 and above.")
                 pass 
@@ -13272,7 +13365,7 @@ Praveen Brijwal"""
         elif h_version >= 220:
             # Houdini 22.0 added OpenCL devices queries directly to their HOM python API, so we can use it to get the GPU devices info.
             
-            gpu_devices: tuple[hou.openCLDevice, ...] = hou.opencl.devices(hou.openCLDeviceType.GPU)
+            gpu_devices: tuple[hou.openCLDevice, ...] = hou.opencl.devices(hou.openCLDeviceType.GPU) # type: ignore
             if gpu_devices:
                 gpu_devices_build: list = []
                 for gpu in gpu_devices:
@@ -17818,7 +17911,7 @@ class in_flame_utils
                 # sensor data
                 in_flame_utils.in_copy_sensor(node, f3r, 0)
                 
-                node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT).set(1)
+                flam3h_prm_utils.set(node, f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT, 1)
                 
                 if node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
                     flam3h_general_utils(kwargs).util_set_clipping_viewers()
@@ -17889,7 +17982,7 @@ class in_flame_utils
                 # but since this one is run also from a callback script, i'm doing the checks twice anyway
                 out_flame_utils.out_render_curves_compare_and_set_toggle(node)
                 
-                node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT).set(1)
+                flam3h_prm_utils.set(node, f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT, 1)
                 
                 # This is not needed for just the RENDER properties, but it casue no harm, so...
                 if node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
