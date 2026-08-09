@@ -348,7 +348,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<br/>[<b>LMB</b>] to EXIT sensor viz mode. (<i> Camera sensor update <b>ON</b> </i>).<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
+            help    "<br/>[<b>LMB</b>] to EXIT sensor viz mode (<i> Camera sensor update <b>ON</b> </i>).<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
             hidewhen "{ outsensor == 0 } { outsensorupdate == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()" }
@@ -361,7 +361,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<br/>[<b>LMB</b>] to EXIT sensor viz mode. (<i> Camera sensor update <b>OFF</b> </i>).<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
+            help    "<br/>[<b>LMB</b>] to EXIT sensor viz mode (<i> Camera sensor update <b>OFF</b> </i>).<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
             hidewhen "{ outsensor == 0 } { outsensorupdate == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()" }
@@ -5404,7 +5404,7 @@
                 label   "palette HSV"
                 type    toggle
                 default { "0" }
-                help    "<h3>If switched <b>ON</b>, this option will allow you to save the color-corrected <b>HSV</b> palette instead</h3>When saving out a Flame, FLAM3H™ by default uses the non-color-corrected palette and save the <b>HSV</b> values along with it if used (<i>different from default values</i>).<br/><br/>This option will clamp the palette colors on save to <b>0</b>-<b>255</b> and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal flame editors out there."
+                help    "<h3>If switched <b>ON</b>, this option will allow you to save the color-corrected <b>HSV</b> palette instead</h3>When saving out a Flame, FLAM3H™ by default uses the non-color-corrected palette and save the <b>HSV</b> values along with it if used (<i>different from default values</i>).<br/><br/>This option will clamp the palette colors on save to <b>0</b>-<b>255</b> and you should use this only when you want to export the desired colors to be loaded inside <b>Fratorium</b> or <b>Apophysis</b> or other fractal flame editors out there."
                 parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
             }
