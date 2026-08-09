@@ -1058,12 +1058,12 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['
 |:---|:---|---:|---:|---:|
 | **SYS** | `sys_tag_off` | `button` | `from H20.5` | `v1.x` `v2.x` |
 
-- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H20.5 Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H20.5 Callback Script (_v1.x, v2.x_)
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
 ```
 
-- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H21.0 to H22.0* Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H21.0 to H22.0* Callback Script (_v2.x_)
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_tag(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1076,12 +1076,12 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_tag(), kwargs
 |:---|:---|---:|---:|---:|
 | **SYS** | `sys_tag` | `button` | `from H20.5` | `v1.x` `v2.x` |
 
-- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H20.5 Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H20.5 Callback Script (_v1.x, v2.x_)
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
 ```
 
-- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H21.0 to H22.0* Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H21.0 to H22.0* Callback Script (_v2.x_)
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_tag(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1308,11 +1308,11 @@ hou.phm().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 | **FLAME** | `mp_add_#` |  `geometry data` | `H21` | `v1.x` `v2.x` |
 | | | `button` | `from H22` | `v2.x` |
 
-- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> H21.0 Action Button Script
+- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> H21.0 Action Button Script (_v1.x, v2.x_)
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).add_iterator()
 ```
-- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H22.0* Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H22.0* Callback Script (_v2.x_)
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).add_iterator()
 ```

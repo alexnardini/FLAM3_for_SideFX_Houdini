@@ -634,14 +634,14 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 |:---|:---|---:|---:|
 | **SYS** | `sys_tag_off` | `from H20.5` | `v1.x` `v2.x` |
 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H20.5 Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H20.5 Button icon (_v1.x, v2.x_)
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueSVG_disabled.svg" /></p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg
 ```
 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21.0 to H22.0* Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21.0 to H22.0* Button icon (_v2.x_)
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueToolSVG_disabled.svg" /></p>
 
 ```
@@ -656,14 +656,14 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueToolSVG_disabled.svg
 |:---|:---|---:|---:|
 | **SYS** | `sys_tag` | `from H20.5` | `v1.x` `v2.x` |
 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H20.5 Button icon
-<p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueSVG.svg" /></p>
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H20.5 Button icon (_v1.x, v2.x_)
+<p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueSVG.svg" /></p> 
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg
 ```
 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21.0 to H22.0* Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21.0 to H22.0* Button icon (_v2.x_)
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueToolSVG.svg" /></p>
 
 ```
@@ -728,7 +728,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_SierpinskyDefSVG.svg
 opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg
 ```
 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21 to H22.0* Button icon (_v2.x_)
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21.0 to H22.0* Button icon (_v2.x_)
 <p align="left"><img width="80" height="80" src="../icons/icon_FrameBlueToolSVG.svg" /></p>
 
 ```
