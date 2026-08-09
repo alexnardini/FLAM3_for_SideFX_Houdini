@@ -137,7 +137,7 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 <a id="opencl-hardware-performance-profile"></a>
 # <img width="48" height="48" src="./icons/icon_tag_oclSVG.svg" /> OpenCL Hardware Performance Profile
 
-**FLAM3H™ OpenCL Kernel:** cl_flam3  
+**FLAM3H™ OpenCL Kernel:** [**`cl_flam3`**](./src/cl/cl_flam3.cl)  
 **Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
 **Tested On:** NVIDIA GeForce RTX 4090  
 **NVIDIA Driver Version:** 580.97  
