@@ -641,7 +641,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg
 ```
 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21.0 UP Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21.0 to H22.0* Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueToolSVG_disabled.svg" /></p>
 
 ```
@@ -663,7 +663,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueToolSVG_disabled.svg
 opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg
 ```
 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21.0 UP Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21.0 to H22.0* Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueToolSVG.svg" /></p>
 
 ```
