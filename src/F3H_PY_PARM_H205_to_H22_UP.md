@@ -1081,7 +1081,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_tag(), kwargs
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
 ```
 
-- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H21 UP Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H21.0 to H22.0* Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_tag(), kwargs['parm'].deleteAllKeyframes()
 ```
