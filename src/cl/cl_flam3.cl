@@ -3289,7 +3289,7 @@ static float2 CL_V_AUGER(
     float t = sin(sta.y);
 #endif
 #if USE_FMA
-    float dx = fma(auger.x, fma(m_HalfScale, t, fabs(in.x) * t), in.x);
+    float dx = fma(auger.w, fma(m_HalfScale, t, fabs(in.x) * t), in.x);
     float dy = fma(auger.w, fma(m_HalfScale, s, fabs(in.y) * s), in.y);
 #else
     float dx = in.x + auger.w * (m_HalfScale * t + fabs(in.x) * t);
