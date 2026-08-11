@@ -1189,14 +1189,14 @@ static float2 CL_V_CURL(
     )
 {
 
-#if USE_FMA
     float x2 = in.x * in.x;
     float y2 = in.y * in.y;
+#if USE_FMA
     float re = fma(c.y, (x2 - y2), fma(c.x, in.x, 1.0f));
     float im = fma(2.0f * c.y, in.x * in.y, c.x * in.y);
     float value = fma(re, re, im * im);
 #else
-    float re = 1.0f + c.x * in.x + c.y * ((in.x * in.x) - (in.y * in.y));
+    float re = 1.0f + c.x * in.x + c.y * (x2 - y2);
     float im = c.x * in.y + (2.0f * c.y) *  in.x * in.y;
     float value = (re * re) + (im * im);
 #endif
