@@ -1125,7 +1125,7 @@ void V_BOARDERS(
     offsetX = _px - roundX;
     offsetY = _py - roundY;
     if(nrandom("twister")>=0.75){
-        p = set(offsetX, offsetY) * 0.5 + set(roundX, roundY);
+        p = w * set(offsetX, offsetY) * 0.5 + set(roundX, roundY);
     }
     else{
         if (abs(offsetX) >= abs(offsetY)) {
