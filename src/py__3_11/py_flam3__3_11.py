@@ -23,6 +23,7 @@ import nodesearch
 import os
 import json
 import colorsys
+import platform
 import traceback
 import lxml.etree as lxmlET
 
@@ -3426,7 +3427,8 @@ class flam3h_general_utils
 * is_flat_list(x: list) -> bool:
 * is_tuple_of_tuples(x: tuple) -> bool:
 * is_flat_tuple(x: tuple) -> bool:
-* select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> str | None:
+* detect_os() -> str:
+* select_file_start_dir(node: hou.SopNode, type: str = f3h_tabs.IN.PRM_PATH) -> str | None:
 * flash_message(node: hou.SopNode, msg: str | None, timer: float = f3h_tabs.DEFAULT_FLASH_MESSAGE_TIMER, img: str | None = None, usd_context: str = 'Lop') -> None:
 * remove_locked_from_flame_stats(node) -> None:
 * houdini_version(digit: int=1) -> int:
@@ -3571,6 +3573,31 @@ class flam3h_general_utils
             (bool): True if it is a flat tuple and False if not
         """ 
         return isinstance(x, tuple) and not any(isinstance(el, list | tuple | set) for el in x)
+    
+    
+    @staticmethod
+    def detect_os() -> str:
+        """Check the OS name.</br>
+        
+        Args:
+            (None):
+            
+        Returns:
+            (str): an OS name string
+        """ 
+        system = platform.system()
+
+        if system == "Linux":
+            info = platform.freedesktop_os_release()
+            return info["PRETTY_NAME"]
+
+        elif system == "Windows":
+            return platform.platform()
+
+        elif system == "Darwin":
+            return "macOS " + platform.mac_ver()[0]
+
+        return system
         
     
     @staticmethod
@@ -12896,9 +12923,7 @@ class flam3h_about_utils
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_code}\n{__copyright__}"
         
         code_references: str = f"""CODE REFERENCES
-Flam3 :: ({__license__})
-Apophysis :: ({__license__})
-Fractorium :: ({__license__})"""
+Flam3, Apophysis, Fractorium :: ({__license__})"""
 
         special_thanks: str = """SPECIAL THANKS
 Praveen Brijwal"""
@@ -12908,25 +12933,26 @@ Praveen Brijwal"""
         example_flames: str = self.flam3h_about_format_items(items)[0]
 
         host_header: str = 'HOST'
-        h_version: str = '.'.join(str(x) for x in hou.applicationVersion())
+        h_version_str: str = '.'.join(str(x) for x in hou.applicationVersion())
         license_type: str = str(hou.licenseCategory()).split(".")[-1]
-        Houdini_version: str = f"SideFX Houdini {h_version}, {license_type}"
-        Python_version: str = f"Python: {python_version()}"
-        User: str = f"User: {hou.userName()}"
-        PC_name: str = f"Name: {hou.machineName()}"
-        Platform: str = f"Platform: {hou.applicationPlatformInfo()}"
+        houdini_v: str = f"SideFX Houdini {h_version_str}, {license_type}"
+        python_v: str = f"Python: {python_version()}"
+        ws: str = f"WS: {hou.machineName()}"
+        user: str = f"User: {hou.userName()}"
+        platform: str = f"Platform: {flam3h_general_utils.detect_os()}"
         
-        build: tuple[str, ...] = (Implementation_build, nnl,
+        build: tuple[str, ...] = (
+                                Implementation_build, nnl,
                                 code_references, nnl,
                                 special_thanks, nnl,
                                 example_flames_header, nl,
                                 example_flames, nnl,
                                 host_header, nl,
-                                Houdini_version, nl,
-                                Python_version, nl,
-                                User, nl,
-                                PC_name, nl,
-                                Platform
+                                houdini_v, nl,
+                                python_v, nl,
+                                ws, nl,
+                                user, nl,
+                                platform
                                 )
         
         flam3h_prm_utils.set(self.node, f3h_tabs.ABOUT.MSG_PRM_F3H_ABOUT, ''.join(build))

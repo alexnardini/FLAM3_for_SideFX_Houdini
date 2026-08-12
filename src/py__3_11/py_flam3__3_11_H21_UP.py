@@ -22,6 +22,7 @@ import nodesearch
 import os
 import json
 import colorsys
+import platform
 import traceback
 import lxml.etree as lxmlET
 
@@ -269,6 +270,7 @@ else:
                 LIST OF CLASSES: (classes names that start with a lowercase: "f3h" are just for namespace purposes)
                 
                     f3h_char
+                    f3h_ocl
                     f3h_HDAsections
                     f3h_userData
                     f3h_cachedUserData
@@ -393,7 +395,16 @@ class f3h_char:
     ALLOWED: Final = "_-().:"
     ALLOWED_OUT_AUTO_ADD_ITER_NUM: Final = "_-+!?().: "
     ALLOWED_XFORM_VAL: Final = "0123456789.-e"
+
+
+class f3h_ocl:
+    '''
+    NVIDIA OpenCL devices architectures considered worth tuning.</br>
     
+    '''
+    GPU_CONSUMER: Final = ("RTX 40", "RTX 50", "RTX 60", "RTX PRO")
+    GPU_ENTERPRICE: Final = ("B200", "B300", "H100", "H200", "A100", "V100")
+
     
 class f3h_HDAsections:
     '''
@@ -3439,7 +3450,9 @@ class flam3h_general_utils
 * is_flat_list(x: list) -> bool:
 * is_tuple_of_tuples(x: tuple) -> bool:
 * is_flat_tuple(x: tuple) -> bool:
-* select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> str | None:
+* ocl_gpu_nvidia_beast() -> bool:
+* detect_os() -> str:
+* select_file_start_dir(node: hou.SopNode, type: str = f3h_tabs.IN.PRM_PATH) -> str | None:
 * flash_message(node: hou.SopNode, msg: str | None, timer: float = f3h_tabs.DEFAULT_FLASH_MESSAGE_TIMER, img: str | None = None, usd_context: str = 'Lop') -> None:
 * remove_locked_from_flame_stats(node) -> None:
 * houdini_version(digit: int=1) -> int:
@@ -3586,6 +3599,78 @@ class flam3h_general_utils
             (bool): True if it is a flat tuple and False if not
         """ 
         return isinstance(x, tuple) and not any(isinstance(el, list | tuple | set) for el in x)
+    
+    
+    @staticmethod
+    def ocl_gpu_nvidia_beast() -> bool:
+        """Check if the GPU being used as OpenCL device in Houdini</br>
+        is a beast worth tuning.
+        
+        This will be used in future releases to fine tune the OpenCL compiler flags</br>
+        based on specific NVIDIA GPUs architecture.</br>
+        
+        For now just a check against a list of selected GPUs.</br>
+        They are collected inside the class f3h_ocl.</br>
+        
+        Args:
+            (None):
+            
+        Returns:
+            (bool): True if it is a beast and False if not
+        """ 
+
+        gpu_nvidia: bool = hou.hscriptExpression('ocldeviceinfo("CL_DEVICE_VENDOR_ID") == 4318 && ocldeviceinfo("CL_DEVICE_TYPE") == 4')
+        
+        if gpu_nvidia:
+            
+            # Convert bytes to Gigabytes (1024^3)
+            vram_gb: float = hou.hscriptExpression('ocldeviceinfo("CL_DEVICE_GLOBAL_MEM_SIZE")') / (1024 ** 3)
+            if vram_gb < 11.0:
+                return False
+            
+            h_version: int = flam3h_general_utils.houdini_version(2)
+            
+            gpu_devices_build: list[str] | tuple[str, ...]
+            if h_version == 210:
+                gpu_devices_build = hou.hscript('gpumem -l')
+            elif h_version >= 220:
+                gpu_devices_build = tuple(f"{gpu.label().upper()}" for gpu in hou.opencl.devices(hou.openCLDeviceType.GPU)) # pyright: ignore[reportCallIssue, reportAttributeAccessIssue]  # Houdini HOM API
+            else:
+                return False
+            
+            gpu_devices_str: str = gpu_devices_build[0] if len(gpu_devices_build) == 1 else '\n'.join(gpu_devices_build)
+            
+            is_high_end_consumer: bool = any(t in gpu_devices_str for t in f3h_ocl.GPU_CONSUMER)
+            is_enterprise_beast: bool = any(t in gpu_devices_str for t in f3h_ocl.GPU_ENTERPRICE)
+            
+            return is_high_end_consumer or is_enterprise_beast
+        
+        return False
+    
+    
+    @staticmethod
+    def detect_os() -> str:
+        """Check the OS name.</br>
+        
+        Args:
+            (None):
+            
+        Returns:
+            (str): an OS name string
+        """ 
+        system = platform.system()
+
+        if system == "Linux":
+            info = platform.freedesktop_os_release()
+            return info["PRETTY_NAME"]
+
+        elif system == "Windows":
+            return platform.platform()
+
+        elif system == "Darwin":
+            return "macOS " + platform.mac_ver()[0]
+
+        return system
         
     
     @staticmethod
@@ -13311,9 +13396,7 @@ class flam3h_about_utils
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_code}\n{__copyright__}"
         
         code_references: str = f"""CODE REFERENCES
-Flam3 :: ({__license__})
-Apophysis :: ({__license__})
-Fractorium :: ({__license__})"""
+Flam3, Apophysis, Fractorium :: ({__license__})"""
 
         special_thanks: str = """SPECIAL THANKS
 Praveen Brijwal"""
@@ -13323,25 +13406,26 @@ Praveen Brijwal"""
         example_flames: str = self.flam3h_about_format_items(items)[0]
 
         host_header: str = 'HOST'
-        h_version: str = '.'.join(str(x) for x in hou.applicationVersion())
+        h_version_str: str = '.'.join(str(x) for x in hou.applicationVersion())
         license_type: str = str(hou.licenseCategory()).split(".")[-1]
-        Houdini_version: str = f"SideFX Houdini {h_version}, {license_type}"
-        Python_version: str = f"Python: {python_version()}"
-        User: str = f"User: {hou.userName()}"
-        PC_name: str = f"Name: {hou.machineName()}"
-        Platform: str = f"Platform: {hou.applicationPlatformInfo()}"
+        houdini_v: str = f"SideFX Houdini {h_version_str}, {license_type}"
+        python_v: str = f"Python: {python_version()}"
+        ws: str = f"WS: {hou.machineName()}"
+        user: str = f"User: {hou.userName()}"
+        platform: str = f"Platform: {flam3h_general_utils.detect_os()}"
         
-        build: tuple[str, ...] = (Implementation_build, nnl,
+        build: tuple[str, ...] = (
+                                Implementation_build, nnl,
                                 code_references, nnl,
                                 special_thanks, nnl,
                                 example_flames_header, nl,
                                 example_flames, nnl,
                                 host_header, nl,
-                                Houdini_version, nl,
-                                Python_version, nl,
-                                User, nl,
-                                PC_name, nl,
-                                Platform
+                                houdini_v, nl,
+                                python_v, nl,
+                                ws, nl,
+                                user, nl,
+                                platform
                                 )
         
         gpu_section_header: str = 'GPU DEVICES'
