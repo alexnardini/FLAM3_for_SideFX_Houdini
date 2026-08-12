@@ -64,7 +64,7 @@ void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha, _bo
 {
     // UTILS
     int idx;
-    float pscl, clr, prv_clr, a, mbm; prv_clr=0; pscl=PSCL;
+    float pscl, clr, a, mbm; clr=0.0; pscl=PSCL;
     vector2 tmp, mem;
 
     // BUILD ITERATORS genomes
@@ -148,7 +148,7 @@ void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha, _bo
         // post affine
         if(_PPL) affine(tmp, px[idx], py[idx], po[idx]);
         // clr
-        prv_clr=clr=_CLR+(_OM*prv_clr);
+        clr=_CLR+(_OM*clr);
         // out
         mem=tmp;
     }
