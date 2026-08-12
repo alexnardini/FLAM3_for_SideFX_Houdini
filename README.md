@@ -160,7 +160,7 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 | **Spill Stores / Loads** | **0** bytes / **0** bytes | Register spills caused by register pressure. |
 | **Registers Used** | **50** registers | Number of 32-bit registers allocated per thread. |
 | **Execution Barriers** | **1** barrier | Number of synchronization barrier instructions. |
-| **Shared Memory (`smem`)** | **16,432** bytes (~16.4 KB) | Shared memory allocated per thread block. |
+| **Shared Memory (`smem`)** | **16,428** bytes (~16.4 KB) | Shared memory allocated per thread block. |
 | **Constant Memory 0 (`cmem[0]`)** | **872** bytes | Constant memory for kernel parameters and compiler-managed data. |
 | **Constant Memory 2 (`cmem[2]`)** | **4,120** bytes (~4.1 KB) | Constant memory for read-only data. |
 
