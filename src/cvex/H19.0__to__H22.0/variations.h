@@ -1125,23 +1125,23 @@ void V_BOARDERS(
     offsetX = _px - roundX;
     offsetY = _py - roundY;
     if(nrandom("twister")>=0.75){
-        p = w * set(offsetX, offsetY) * 0.5 + set(roundX, roundY);
+        p = w * set(offsetX * 0.5 + roundX, offsetY * 0.5 + roundY);
     }
     else{
         if (abs(offsetX) >= abs(offsetY)) {
             if (offsetX >= 0.0){
-                p = w * set((offsetX*0.5 + roundX + 0.25), (offsetY*0.5 + roundY + 0.25 * offsetY / offsetX));
+                p = w * set(offsetX * 0.5 + roundX + 0.25, offsetY * 0.5 + roundY + 0.25 * offsetY / offsetX);
             } 
             else{
-                p = w * set((offsetX*0.5 + roundX - 0.25), (offsetY*0.5 + roundY - 0.25 * offsetY / offsetX)); 
+                p = w * set(offsetX * 0.5 + roundX - 0.25, offsetY * 0.5 + roundY - 0.25 * offsetY / offsetX); 
             }
         }
             else{
                 if (offsetY >= 0.0){
-                    p = w * set((offsetX*0.5 + roundX + offsetX/offsetY*0.25), (offsetY*0.5 + roundY + 0.25));
+                    p = w * set(offsetX * 0.5 + roundX + offsetX / offsetY * 0.25, offsetY * 0.5 + roundY + 0.25);
                 } 
                 else{
-                    p = w * set((offsetX*0.5 + roundX - offsetX/offsetY*0.25), (offsetY*0.5 + roundY - 0.25));
+                    p = w * set(offsetX * 0.5 + roundX - offsetX / offsetY * 0.25, offsetY * 0.5 + roundY - 0.25);
                 }
             }
     }
