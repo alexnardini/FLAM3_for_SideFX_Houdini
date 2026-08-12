@@ -3130,85 +3130,88 @@ __llvm_entry:
   br i1 %return14, label %true, label %false
 
 true:                                             ; preds = %__llvm_entry
-  %return18 = call <2 x double> @"set@UFF"(double %output9, double %output12)
-  %cast = call <2 x double> @"set@UF"(double 5.000000e-01)
-  %output19 = call <2 x double> @"mul@UU"(<2 x double> %return18, <2 x double> %cast)
-  %return22 = call <2 x double> @"set@UFF"(double %return, double %return6)
-  %output23 = call <2 x double> @"add@UU"(<2 x double> %output19, <2 x double> %return22)
-  store <2 x double> %output23, <2 x double>* %p
+  %w16 = load double, double* %w
+  %output18 = fmul double %output9, 5.000000e-01
+  %output20 = fadd double %output18, %return
+  %output22 = fmul double %output12, 5.000000e-01
+  %output24 = fadd double %output22, %return6
+  %return25 = call <2 x double> @"set@UFF"(double %output20, double %output24)
+  %cast = call <2 x double> @"set@UF"(double %w16)
+  %output26 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return25)
+  store <2 x double> %output26, <2 x double>* %p
   br label %end
 
 false:                                            ; preds = %__llvm_entry
-  %return25 = call double @"abs@FF"(double %output9)
-  %return27 = call double @"abs@FF"(double %output12)
-  %return28 = fcmp oge double %return25, %return27
-  br i1 %return28, label %true30, label %false31
+  %return28 = call double @"abs@FF"(double %output9)
+  %return30 = call double @"abs@FF"(double %output12)
+  %return31 = fcmp oge double %return28, %return30
+  br i1 %return31, label %true33, label %false34
 
-end:                                              ; preds = %true78, %false79, %true36, %false37, %true
+end:                                              ; preds = %true81, %false82, %true39, %false40, %true
   ret void
 
-true30:                                           ; preds = %false
-  %return34 = fcmp oge double %output9, 0.000000e+00
-  %w39 = load double, double* %w
-  %output41 = fmul double %output9, 5.000000e-01
-  %output43 = fadd double %output41, %return
-  br i1 %return34, label %true36, label %false37
+true33:                                           ; preds = %false
+  %return37 = fcmp oge double %output9, 0.000000e+00
+  %w42 = load double, double* %w
+  %output44 = fmul double %output9, 5.000000e-01
+  %output46 = fadd double %output44, %return
+  br i1 %return37, label %true39, label %false40
 
-false31:                                          ; preds = %false
-  %return76 = fcmp oge double %output12, 0.000000e+00
-  %w81 = load double, double* %w
-  %output83 = fmul double %output9, 5.000000e-01
-  %output85 = fadd double %output83, %return
-  %output88 = call double @"div@FF"(double %output9, double %output12)
-  %output89 = fmul double %output88, 2.500000e-01
-  br i1 %return76, label %true78, label %false79
+false34:                                          ; preds = %false
+  %return79 = fcmp oge double %output12, 0.000000e+00
+  %w84 = load double, double* %w
+  %output86 = fmul double %output9, 5.000000e-01
+  %output88 = fadd double %output86, %return
+  %output91 = call double @"div@FF"(double %output9, double %output12)
+  %output92 = fmul double %output91, 2.500000e-01
+  br i1 %return79, label %true81, label %false82
 
-true36:                                           ; preds = %true30
-  %output44 = fadd double %output43, 2.500000e-01
-  %output46 = fmul double %output12, 5.000000e-01
-  %output48 = fadd double %output46, %return6
-  %output50 = fmul double 2.500000e-01, %output12
-  %output52 = call double @"div@FF"(double %output50, double %output9)
-  %output53 = fadd double %output48, %output52
-  %return54 = call <2 x double> @"set@UFF"(double %output44, double %output53)
-  %cast55 = call <2 x double> @"set@UF"(double %w39)
-  %output56 = call <2 x double> @"mul@UU"(<2 x double> %cast55, <2 x double> %return54)
-  store <2 x double> %output56, <2 x double>* %p
+true39:                                           ; preds = %true33
+  %output47 = fadd double %output46, 2.500000e-01
+  %output49 = fmul double %output12, 5.000000e-01
+  %output51 = fadd double %output49, %return6
+  %output53 = fmul double 2.500000e-01, %output12
+  %output55 = call double @"div@FF"(double %output53, double %output9)
+  %output56 = fadd double %output51, %output55
+  %return57 = call <2 x double> @"set@UFF"(double %output47, double %output56)
+  %cast58 = call <2 x double> @"set@UF"(double %w42)
+  %output59 = call <2 x double> @"mul@UU"(<2 x double> %cast58, <2 x double> %return57)
+  store <2 x double> %output59, <2 x double>* %p
   br label %end
 
-false37:                                          ; preds = %true30
-  %output62 = fsub double %output43, 2.500000e-01
-  %output64 = fmul double %output12, 5.000000e-01
-  %output66 = fadd double %output64, %return6
-  %output68 = fmul double 2.500000e-01, %output12
-  %output70 = call double @"div@FF"(double %output68, double %output9)
-  %output71 = fsub double %output66, %output70
-  %return72 = call <2 x double> @"set@UFF"(double %output62, double %output71)
-  %cast73 = call <2 x double> @"set@UF"(double %w39)
-  %output74 = call <2 x double> @"mul@UU"(<2 x double> %cast73, <2 x double> %return72)
-  store <2 x double> %output74, <2 x double>* %p
+false40:                                          ; preds = %true33
+  %output65 = fsub double %output46, 2.500000e-01
+  %output67 = fmul double %output12, 5.000000e-01
+  %output69 = fadd double %output67, %return6
+  %output71 = fmul double 2.500000e-01, %output12
+  %output73 = call double @"div@FF"(double %output71, double %output9)
+  %output74 = fsub double %output69, %output73
+  %return75 = call <2 x double> @"set@UFF"(double %output65, double %output74)
+  %cast76 = call <2 x double> @"set@UF"(double %w42)
+  %output77 = call <2 x double> @"mul@UU"(<2 x double> %cast76, <2 x double> %return75)
+  store <2 x double> %output77, <2 x double>* %p
   br label %end
 
-true78:                                           ; preds = %false31
-  %output90 = fadd double %output85, %output89
-  %output92 = fmul double %output12, 5.000000e-01
-  %output94 = fadd double %output92, %return6
-  %output95 = fadd double %output94, 2.500000e-01
-  %return96 = call <2 x double> @"set@UFF"(double %output90, double %output95)
-  %cast97 = call <2 x double> @"set@UF"(double %w81)
-  %output98 = call <2 x double> @"mul@UU"(<2 x double> %cast97, <2 x double> %return96)
-  store <2 x double> %output98, <2 x double>* %p
+true81:                                           ; preds = %false34
+  %output93 = fadd double %output88, %output92
+  %output95 = fmul double %output12, 5.000000e-01
+  %output97 = fadd double %output95, %return6
+  %output98 = fadd double %output97, 2.500000e-01
+  %return99 = call <2 x double> @"set@UFF"(double %output93, double %output98)
+  %cast100 = call <2 x double> @"set@UF"(double %w84)
+  %output101 = call <2 x double> @"mul@UU"(<2 x double> %cast100, <2 x double> %return99)
+  store <2 x double> %output101, <2 x double>* %p
   br label %end
 
-false79:                                          ; preds = %false31
-  %output108 = fsub double %output85, %output89
-  %output110 = fmul double %output12, 5.000000e-01
-  %output112 = fadd double %output110, %return6
-  %output113 = fsub double %output112, 2.500000e-01
-  %return114 = call <2 x double> @"set@UFF"(double %output108, double %output113)
-  %cast115 = call <2 x double> @"set@UF"(double %w81)
-  %output116 = call <2 x double> @"mul@UU"(<2 x double> %cast115, <2 x double> %return114)
-  store <2 x double> %output116, <2 x double>* %p
+false82:                                          ; preds = %false34
+  %output111 = fsub double %output88, %output92
+  %output113 = fmul double %output12, 5.000000e-01
+  %output115 = fadd double %output113, %return6
+  %output116 = fsub double %output115, 2.500000e-01
+  %return117 = call <2 x double> @"set@UFF"(double %output111, double %output116)
+  %cast118 = call <2 x double> @"set@UF"(double %w84)
+  %output119 = call <2 x double> @"mul@UU"(<2 x double> %cast118, <2 x double> %return117)
+  store <2 x double> %output119, <2 x double>* %p
   br label %end
 }
 
@@ -12743,7 +12746,6 @@ end:                                              ; preds = %true, %__llvm_entry
 
 cond:                                             ; preds = %end263, %end
   %clr.0 = phi double [ 0.000000e+00, %end ], [ %output277, %end263 ]
-  %prv_clr.0 = phi double [ 0.000000e+00, %end ], [ %output277, %end263 ]
   %i.0 = phi i64 [ 0, %end ], [ %output280, %end263 ]
   %idx.1 = phi i64 [ %idx.0, %end ], [ %phi, %end263 ]
   %return87 = call i64 @"lt@III"(i64 %i.0, i64 %GEMSYSGLB2.fca.4.load)
@@ -12948,7 +12950,7 @@ true262:                                          ; preds = %end250
   br label %end263
 
 end263:                                           ; preds = %true262, %end250
-  %output276 = fmul double %return139, %prv_clr.0
+  %output276 = fmul double %return139, %clr.0
   %output277 = fadd double %return136, %output276
   %tmp278 = load <2 x double>, <2 x double>* %tmp
   store <2 x double> %tmp278, <2 x double>* %mem
@@ -13213,7 +13215,7 @@ attributes #4 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"22.0.368"}
+!1 = !{!"22.0.409"}
 !2 = !{!"64"}
 !3 = !{!""}
 
