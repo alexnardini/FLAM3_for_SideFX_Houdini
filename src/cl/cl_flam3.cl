@@ -4147,15 +4147,12 @@ __kernel void cl_flam3(
     // CDF
     __local float local_IW[MAX_XFORMS];
 
-    // XAOS
-    __local float local_XST[MAX_XFORMS_XAOS_SIZE];
-
-    // shader
-    __local float local_SHD[MAX_XFORMS_SHD_SIZE];
-
+    // PRE/POST affine structs
     __local affine_t local_PRE_AFFINE[MAX_XFORMS];
     __local affine_t local_POST_AFFINE[MAX_XFORMS];
-    __local int local_POST[MAX_XFORMS]; // post affine toggles
+
+    // POST affine toggles
+    __local int local_POST[MAX_XFORMS];
 
     // PRE/POST variations
     __local int4 local_PPVT[MAX_XFORMS];
@@ -4164,17 +4161,12 @@ __kernel void cl_flam3(
     __local int4 local_VT[MAX_XFORMS];
     __local float4 local_VW[MAX_XFORMS];
 
-    // PRE, VAR and POST parameterics
-    __local float local_PRM_F[PRM_NUM_F_SIZE];
-    __local float2 local_PRM_F2[PRM_NUM_F2_SIZE];
-    __local float4 local_PRM_F3[PRM_NUM_F3_SIZE];   // Marked as F3 becasue it was meant to be a vector array from vex
-    __local float4 local_PRM_F4[PRM_NUM_F4_SIZE];
-
     int lid = get_local_id(0);
     int lsize = get_local_size(0);
 
     // copy cooperatively
     for(int i = lid; i < RES; i += lsize){
+
         // CDF
         local_IW[i] = IW[i];
         
@@ -4199,22 +4191,28 @@ __kernel void cl_flam3(
     // Copy arrays of floats in chunks of float4s
 
     // SHD
+    __local float local_SHD[MAX_XFORMS_SHD_SIZE];
     for(int i = lid; i < ((RES * SHD_NUM_SIZE + 3) >> 2); i += lsize)
         ((__local float4*)local_SHD)[i] = ((__global float4*)SHD)[i];
     // PRM_F
+    __local float local_PRM_F[PRM_NUM_F_SIZE];
     for(int i = lid; i < ((RES * PRM_NUM_F) >> 2); i += lsize)
         ((__local float4*)local_PRM_F)[i] = ((__global float4*)PRM_F)[i];
     // PRM_F2
+    __local float2 local_PRM_F2[PRM_NUM_F2_SIZE];
     for(int i = lid; i < ((RES * PRM_NUM_F2) >> 1); i += lsize)
         ((__local float4*)local_PRM_F2)[i] = ((__global float4*)PRM_F2)[i];
     // PRM_F3
-    for(int i = lid; i < (RES * PRM_NUM_F3); i += lsize) // Marked as F3 becasue it was meant to be a vector array from vex
+    __local float4 local_PRM_F3[PRM_NUM_F3_SIZE]; // Marked as F3 becasue it was meant to be a vector array from vex
+    for(int i = lid; i < (RES * PRM_NUM_F3); i += lsize)
         local_PRM_F3[i] = PRM_F3[i];
     // PRM_F4
+    __local float4 local_PRM_F4[PRM_NUM_F4_SIZE];
     for(int i = lid; i < (RES * PRM_NUM_F4); i += lsize)
         local_PRM_F4[i] = PRM_F4[i];
+    // XST
+    __local float local_XST[MAX_XFORMS_XAOS_SIZE];
     if(XS){
-        // XST
         for(int i = lid; i < ((RES * RES + 3) >> 2); i += lsize)
             ((__local float4*)local_XST)[i] = ((__global float4*)XST)[i];
     }
