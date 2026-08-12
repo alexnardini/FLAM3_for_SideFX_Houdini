@@ -2006,9 +2006,6 @@ static float2 CL_V_BOARDERS(
     float offsetX = in.x - roundX;
     float offsetY = in.y - roundY;
 
-    float signX = copysign(0.25f, offsetX);
-    float signY = copysign(0.25f, offsetY);
-
 #if USE_FMA
     float baseX   = fma(offsetX, 0.5f, roundX);
     float baseY   = fma(offsetY, 0.5f, roundY);
@@ -2029,6 +2026,7 @@ static float2 CL_V_BOARDERS(
     #else
         float invX = 1.0f / offsetX;
     #endif
+        float signX = copysign(0.25f, offsetX);
         #if USE_FMA
             return w * (float2)(
                 baseX + signX,
@@ -2048,6 +2046,7 @@ static float2 CL_V_BOARDERS(
     #else
         float invY = 1.0f / offsetY;
     #endif
+        float signY = copysign(0.25f, offsetY);
         #if USE_FMA
             return w * (float2)(
                 fma(signY * offsetX, invY, baseX),
@@ -4161,10 +4160,10 @@ __kernel void cl_flam3(
     __local int4 local_VT[MAX_XFORMS];
     __local float4 local_VW[MAX_XFORMS];
 
+    // copy cooperatively
     int lid = get_local_id(0);
     int lsize = get_local_size(0);
 
-    // copy cooperatively
     for(int i = lid; i < RES; i += lsize){
 
         // CDF
@@ -4188,7 +4187,7 @@ __kernel void cl_flam3(
         local_VW[i] = VW[i];
     }
 
-    // Copy arrays of floats in chunks of float4s
+    // Copy cooperatively arrays of floats in chunks of float4s
 
     // SHD
     __local float local_SHD[MAX_XFORMS_SHD_SIZE];
@@ -4226,7 +4225,6 @@ __kernel void cl_flam3(
     // init
     int idx;
     float clr = 0.0f;
-    float _prev_clr = 0.0f;
     
     // init RNG
     x128_state_t rng;
@@ -4279,7 +4277,7 @@ __kernel void cl_flam3(
         if(local_POST[idx]) _tmp = affine(_tmp, local_POST_AFFINE[idx]);
 
         // color
-        _prev_clr = clr = local_SHD[idx] + local_SHD[idx + RES] * _prev_clr;
+        clr = local_SHD[idx] + local_SHD[idx + RES] * clr;
         
         // update
         mem = _tmp;
