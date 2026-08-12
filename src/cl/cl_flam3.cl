@@ -2017,7 +2017,7 @@ static float2 CL_V_BOARDERS(
     float rnd = rng_next_float(state);
 
     if (rnd >= 0.75f)
-        return (float2)(baseX, baseY);
+        return w * (float2)(baseX, baseY);
 
     if (fabs(offsetX) >= fabs(offsetY)) {
         // Horizontal
