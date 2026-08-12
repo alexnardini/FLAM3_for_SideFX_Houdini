@@ -4354,12 +4354,6 @@ __kernel void cl_flam3_ff(
     // pre and post affine
     __local affine_t local_FF_AFFINE[FF_RES_PRM];
 
-    // // PRE, VAR and POST parameterics
-    __local float local_FF_PRM_F[FF_PRM_NUM_F_SIZE];
-    __local float2 local_FF_PRM_F2[FF_PRM_NUM_F2_SIZE];
-    __local float4 local_FF_PRM_F3[FF_PRM_NUM_F3_SIZE];   // Marked as F3 becasue it was meant to be a vector array from vex
-    __local float4 local_FF_PRM_F4[FF_PRM_NUM_F4_SIZE];
-
     // copy cooperatively
     for(int i = lid; i < FF_RES_PRM; i += lsize){
         
@@ -4371,15 +4365,19 @@ __kernel void cl_flam3_ff(
     // Copy arrays of floats in chunks of float4s
 
     // FF PRM_F
+    __local float local_FF_PRM_F[FF_PRM_NUM_F_SIZE];
     for(int i = lid; i < ((FF_RES_PRM * PRM_NUM_F) >> 2); i += lsize)
         ((__local float4*)local_FF_PRM_F)[i] = ((__global float4*)FF_PRM_F)[i];
     // FF PRM_F2
+    __local float2 local_FF_PRM_F2[FF_PRM_NUM_F2_SIZE];
     for(int i = lid; i < ((FF_RES_PRM * PRM_NUM_F2) >> 1); i += lsize)
         ((__local float4*)local_FF_PRM_F2)[i] = ((__global float4*)FF_PRM_F2)[i];
     // FF PRM_F3
-    for(int i = lid; i < (FF_RES_PRM * PRM_NUM_F3); i += lsize) // Marked as F3 becasue it was meant to be a vector array from vex
+    __local float4 local_FF_PRM_F3[FF_PRM_NUM_F3_SIZE]; // Marked as F3 becasue it was meant to be a vector array from vex
+    for(int i = lid; i < (FF_RES_PRM * PRM_NUM_F3); i += lsize)
         local_FF_PRM_F3[i] = FF_PRM_F3[i];
     // FF PRM_F4
+    __local float4 local_FF_PRM_F4[FF_PRM_NUM_F4_SIZE];
     for(int i = lid; i < (FF_RES_PRM * PRM_NUM_F4); i += lsize)
         local_FF_PRM_F4[i] = FF_PRM_F4[i];
 
