@@ -51,11 +51,11 @@ They are all available in this Github repository.
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
-- **New**: FLAM3H™ for _**H20.5**_ and _**H21.0**_ now also have parametric variations parameters tooltips as well dependent variations related pre affine tooltips (Not as beautiful as inside _**H22.0**_ with its new htlm capable formatting syntax but still very useful).
+- **New**: FLAM3H™ for _**H20.5**_ and _**H21.0**_ now also have parametric variations parameters tooltips as well dependent variations related pre affine tooltips (Not as beautiful as inside _**H22.0**_ with its new html capable formatting syntax but still very useful).
 - **Fix**: OpenCl **Auger** variation was using _`Frequency`_ instead of _`Weight`_ parametric value inside one of its calculations. it is now fixed.
 - **Fix**: OpenCl and CVEX **Boarders** variation was not using its _`Weight`_ parameter value inside one of its branches. it is now fixed.
 - **Fix**: OpenCl and CVEX **Fisheye** variation was missing an axis swap. It is now fixed.
-- **Fix**: OpenCl and CVEX **Pie** variation now matches the probability of slice indexes as in the original Flam3 even tho visually isn't noticable.
+- **Fix**: OpenCl and CVEX **Pie** variation now matches the probability of slice indexes as in the original Flam3 even tho visually isn't noticeable.
 - **OpenCL code updates**
 
 
