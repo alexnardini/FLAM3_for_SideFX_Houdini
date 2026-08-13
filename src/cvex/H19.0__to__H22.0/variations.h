@@ -330,7 +330,7 @@ void V_FISHEYE(
     float r = SQRT(_p);
     r = 2 * w / (r+1);
 
-    p = r * _p;
+    p = r * _p.yx;
 }
 // ----------------------------
 // 017 VAR POPCORN

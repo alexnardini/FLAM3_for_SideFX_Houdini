@@ -1676,11 +1676,15 @@ __llvm_entry:
   %output4 = fadd double %SQRT, 1.000000e+00
   %output5 = call double @"div@FF"(double %output, double %output4)
   %_p7 = load <2 x double>, <2 x double>* %_p
+  %return = call <2 x double> @"swizzle@UUII"(<2 x double> %_p7, i64 1, i64 0)
   %cast = call <2 x double> @"set@UF"(double %output5)
-  %output8 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %_p7)
+  %output8 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return)
   store <2 x double> %output8, <2 x double>* %p
   ret void
 }
+
+; Function Attrs: nounwind
+declare <2 x double> @"swizzle@UUII"(<2 x double>, i64, i64) #2
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_POPCORN@UUFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %c, double* %f) #0 {
@@ -1763,9 +1767,6 @@ __llvm_entry:
 
 ; Function Attrs: nounwind readnone
 declare double @"pow@FFF"(double, double) #1
-
-; Function Attrs: nounwind
-declare <2 x double> @"swizzle@UUII"(<2 x double>, i64, i64) #2
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_COSINE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
