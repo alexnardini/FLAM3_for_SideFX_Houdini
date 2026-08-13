@@ -1896,33 +1896,33 @@
                     }
                     parm {
                         name    "x_#"
-                        label   "X"
+                        label   "X (A, D)"
                         type    vector2
                         size    2
                         default { "1" "0" }
-                        help    "pre: X.x, X.y ( A, D )"
+                        help    "\\npre affine: X.x, X.y ( A, D )\\n\\n Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters. These are call: \"dependent\" variations.\\n\\n The \"dependent\" variations and the affine coefficients they employ are listed below:\\n\\n Waves* -> B, C, E, F\\n\\n Popcorn* -> C, F\\n\\n Rings* -> C\\n\\n Fan* -> C, F\\n\\n NOTE:\\n Please, read the FLAM3H™ documentation to find out more."
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
                         name    "y_#"
-                        label   "Y"
+                        label   "Y (B, E)"
                         type    vector2
                         size    2
                         default { "0" "1" }
-                        help    "pre: Y.x, Y.y ( B, E )"
+                        help    "\\npre affine: Y.x, Y.y ( B, E )\\n\\n Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters. These are call: \"dependent\" variations.\\n\\n The \"dependent\" variations and the affine coefficients they employ are listed below:\\n\\n Waves* -> B, C, E, F\\n\\n Popcorn* -> C, F\\n\\n Rings* -> C\\n\\n Fan* -> C, F\\n\\n NOTE:\\n Please, read the FLAM3H™ documentation to find out more."
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
                         name    "o_#"
-                        label   "O"
+                        label   "O (C, F)"
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "pre (offset): O.x, O.y ( C, F )"
+                        help    "\\npre affine (Offset): O.x, O.y ( C, F )\\n\\n Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters. These are call: \"dependent\" variations.\\n\\n The \"dependent\" variations and the affine coefficients they employ are listed below:\\n\\n Waves* -> B, C, E, F\\n\\n Popcorn* -> C, F\\n\\n Rings* -> C\\n\\n Fan* -> C, F\\n\\n NOTE:\\n Please, read the FLAM3H™ documentation to find out more."
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
                     }
@@ -3440,32 +3440,32 @@
                 }
                 parm {
                     name    "ffx"
-                    label   "X"
+                    label   "X (A, D)"
                     type    vector2
                     size    2
                     default { "1" "0" }
-                    help    "FF pre: X.x, X.y ( A, D )"
+                    help    "\\nFF pre affine: X.x, X.y ( A, D )\\n\\n Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters. These are call: \"dependent\" variations.\\n\\n The \"dependent\" variations and the affine coefficients they employ are listed below:\\n\\n Waves* -> B, C, E, F\\n\\n Popcorn* -> C, F\\n\\n Rings* -> C\\n\\n Fan* -> C, F\\n\\n NOTE:\\n Please, read the FLAM3H™ documentation to find out more."
                     range   { -1 1 }
                     parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
                     name    "ffy"
-                    label   "Y"
+                    label   "Y (B, E)"
                     type    vector2
                     size    2
                     default { "0" "1" }
-                    help    "FF pre: Y.x, Y.y ( B, E )"
+                    help    "\\nFF pre affine: Y.x, Y.y ( B, E )\\n\\n Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters. These are call: \"dependent\" variations.\\n\\n The \"dependent\" variations and the affine coefficients they employ are listed below:\\n\\n Waves* -> B, C, E, F\\n\\n Popcorn* -> C, F\\n\\n Rings* -> C\\n\\n Fan* -> C, F\\n\\n NOTE:\\n Please, read the FLAM3H™ documentation to find out more."
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
                     name    "ffo"
-                    label   "O"
+                    label   "O (C, F)"
                     type    vector2
                     size    2
                     default { "0" "0" }
-                    help    "FF pre (offset): O.x, O.y ( C, F )"
+                    help    "\\nFF pre affine (Offset): O.x, O.y ( C, F )\\n\\n Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters. These are call: \"dependent\" variations.\\n\\n The \"dependent\" variations and the affine coefficients they employ are listed below:\\n\\n Waves* -> B, C, E, F\\n\\n Popcorn* -> C, F\\n\\n Rings* -> C\\n\\n Fan* -> C, F\\n\\n NOTE:\\n Please, read the FLAM3H™ documentation to find out more."
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
