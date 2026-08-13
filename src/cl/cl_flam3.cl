@@ -951,7 +951,7 @@ static float2 CL_V_FISHEYE(
     r = 2.0f * w / (r + 1.0f);
 #endif
 
-    return r * in;
+    return r * in.yx;
 }
 // ----------------------------
 // 017 VAR POPCORN
