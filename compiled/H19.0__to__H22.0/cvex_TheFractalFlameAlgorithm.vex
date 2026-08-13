@@ -2515,25 +2515,26 @@ __llvm_entry:
   %output4 = extractvalue { double, double, double } %output, 2
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %output6 = fmul double %return, %output2
-  %cast = fptosi double %output6 to i64
-  %cast7 = sitofp i64 %cast to double
-  %return10 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output12 = fmul double %return10, %output3
-  %output13 = fadd double %cast7, %output12
-  %output14 = fmul double 0x401921FB54442D18, %output13
-  %output16 = call double @"div@FF"(double %output14, double %output2)
-  %output17 = fadd double %output4, %output16
-  %w18 = load double, double* %w
-  %return19 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output20 = fmul double %w18, %return19
-  store double %output17, double* %0
+  %output7 = fadd double %output6, 5.000000e-01
+  %cast = fptosi double %output7 to i64
+  %cast8 = sitofp i64 %cast to double
+  %return11 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output13 = fmul double %return11, %output3
+  %output14 = fadd double %cast8, %output13
+  %output15 = fmul double 0x401921FB54442D18, %output14
+  %output17 = call double @"div@FF"(double %output15, double %output2)
+  %output18 = fadd double %output4, %output17
+  %w19 = load double, double* %w
+  %return20 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output21 = fmul double %w19, %return20
+  store double %output18, double* %0
   call void @"sincos@FFF"(double* %0, double* %sa, double* %ca)
-  %ca23 = load double, double* %ca
-  %sa24 = load double, double* %sa
-  %return25 = call <2 x double> @"set@UFF"(double %ca23, double %sa24)
-  %cast26 = call <2 x double> @"set@UF"(double %output20)
-  %output27 = call <2 x double> @"mul@UU"(<2 x double> %cast26, <2 x double> %return25)
-  store <2 x double> %output27, <2 x double>* %p
+  %ca24 = load double, double* %ca
+  %sa25 = load double, double* %sa
+  %return26 = call <2 x double> @"set@UFF"(double %ca24, double %sa25)
+  %cast27 = call <2 x double> @"set@UF"(double %output21)
+  %output28 = call <2 x double> @"mul@UU"(<2 x double> %cast27, <2 x double> %return26)
+  store <2 x double> %output28, <2 x double>* %p
   ret void
 }
 

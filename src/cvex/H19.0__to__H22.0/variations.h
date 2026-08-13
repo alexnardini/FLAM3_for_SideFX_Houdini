@@ -780,7 +780,7 @@ void V_PIE(
     float slices, thickness, rotation, aa, rr, sa, ca, sl;
     assign(slices, thickness, rotation, pie);
 
-    sl = (int)(nrandom('twister')*slices);
+    sl = (int)(nrandom('twister') * slices + 0.5);
     aa = rotation + M_TAU * (sl + nrandom("twister") * thickness) / slices;
     rr = w * nrandom('twister');
     sincos(aa, sa, ca);
