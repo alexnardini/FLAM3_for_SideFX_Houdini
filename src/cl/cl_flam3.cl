@@ -1568,7 +1568,12 @@ static float2 CL_V_PIE(
     )
 {
 
-    float sl = (int)(rng_next_float(state) * pie.x);
+#if USE_FMA
+    float sl = (int)(fma(rng_next_float(state), pie.x, 0.5f));
+#else
+    float sl = (int)(rng_next_float(state) * pie.x + 0.5f);
+#endif
+
 #if USE_NATIVE
     float a = pie.z + native_divide(M_TAU * (sl + rng_next_float(state) * pie.y), pie.x);
 #else
