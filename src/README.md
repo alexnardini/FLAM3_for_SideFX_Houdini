@@ -66,3 +66,10 @@ List of all **FLAM3H™USD** UI parameters wired with a python definition and th
 - #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
 - #### H20.5 to H22.0 UP
 
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+_Copyright (c) 2021 F stands for liFe_<br/>

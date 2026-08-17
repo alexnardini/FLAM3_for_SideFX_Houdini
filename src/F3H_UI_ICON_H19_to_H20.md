@@ -2771,3 +2771,10 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlueSVG.svg
 opdef:/alexnardini::Sop/FLAM3H?icon_FractoriumWebSVG.svg
 ```
 
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+_Copyright (c) 2021 F stands for liFe_<br/>

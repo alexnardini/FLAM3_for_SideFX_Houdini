@@ -4818,3 +4818,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_WhiteSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+_Copyright (c) 2021 F stands for liFe_<br/>

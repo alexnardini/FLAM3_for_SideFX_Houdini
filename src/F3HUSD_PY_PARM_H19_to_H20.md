@@ -845,4 +845,9 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_
 ```
 
 
+<br/>
+<br/>
+<br/>
+<br/>
 
+_Copyright (c) 2023 F stands for liFe_<br/>

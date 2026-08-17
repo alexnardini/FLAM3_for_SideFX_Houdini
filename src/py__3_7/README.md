@@ -29,3 +29,11 @@ This is the main FLAM3H™ python file that define:
 ### Description:
 
 Simple utility node to quickly setup fractal flames point clouds in Solaris for previews.
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+_Copyright (c) 2021 F stands for liFe_<br/>

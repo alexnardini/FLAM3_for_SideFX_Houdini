@@ -296,3 +296,12 @@ _The number at the end of each preset's name indicates the iteration number that
     5. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_tatasz_examples.flame#L167-L206) - PilleHex by tatasz::**24**
     6. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_tatasz_examples.flame#L207-L247) - Waves by tatasz::**24**
     7. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_tatasz_examples.flame#L248-L288) - Waves2 by tatasz::**24**
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+_Copyright (c) 2021 F stands for liFe_<br/>

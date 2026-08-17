@@ -481,3 +481,11 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubBlueSVG.svg
 ```
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_FractoriumWebSVG.svg
 ```
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+_Copyright (c) 2023 F stands for liFe_<br/>

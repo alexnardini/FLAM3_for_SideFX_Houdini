@@ -32,3 +32,11 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 * The CVEX codebase could now benefit from the knowledge gained during the development of the GPU implementation. However, it has intentionally been left unchanged to mirror the original Flam3 codebase as closely as possible and serve as the sole reference for correctness. This ensures that the GPU implementation always has a reliable ground truth against which it can be validated.
 
 * If and when SideFX expands the capabilities of the CVEX language, I may revisit the implementation and attempt a rewrite to improve performance and, hopefully, overcome some of the current limitations of CVEX.
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+_Copyright (c) 2021 F stands for liFe_<br/>

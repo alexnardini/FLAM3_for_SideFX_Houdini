@@ -2614,3 +2614,11 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('frac
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('fractweb')
 ```
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+_Copyright (c) 2021 F stands for liFe_<br/>

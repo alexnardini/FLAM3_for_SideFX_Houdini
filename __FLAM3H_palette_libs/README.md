@@ -857,3 +857,12 @@ List of every Palette library files and their Presets contents list.
     53. - tatasz_pack_04_97
     54. - tatasz_pack_04_98
     55. - tatasz_pack_04_99
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+_Copyright (c) 2021 F stands for liFe_<br/>

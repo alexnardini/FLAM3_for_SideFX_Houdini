@@ -4,3 +4,11 @@ Those files are the **FLAM3H™** HDA utility geometries.</br>
 They are already embedded inside the HDA and are used on different occasions across the FLAM3H™ functionalities.
 
 Available in this repository for easy edit and review.
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+_Copyright (c) 2021 F stands for liFe_<br/>

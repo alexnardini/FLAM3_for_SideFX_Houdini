@@ -147,3 +147,11 @@ All the variations functions are inside here.
 ## Houdini version: H19 and up
 ### Description:
 This define the path to arrive at the xaos values dictated by the choosen index at each iteration inside the chaos game.
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+_Copyright (c) 2021 F stands for liFe_<br/>
