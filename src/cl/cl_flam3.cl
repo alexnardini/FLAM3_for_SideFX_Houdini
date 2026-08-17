@@ -1185,7 +1185,7 @@ static float2 CL_V_BLUR(__private const float w,
 static float2 CL_V_CURL(
     __private const float2 in, 
     __private const float w, 
-    __private const float2 c    // c1 c2
+    __private const float2 c    // c1, c2
     )
 {
 
@@ -1223,7 +1223,7 @@ static float2 CL_V_NGON(
     __private const float2 in, 
     __private const float w, 
     __private const float4 ngon,        // pow, sides, corners, circle
-    __private const float4 ngon_precalc // cpower csides csidesinv unusued(1.0)
+    __private const float4 ngon_precalc // cpower, csides, csidesinv, unusued(1.0)
     )
 {
 
@@ -1260,7 +1260,7 @@ static float2 CL_V_NGON(
 static float2 CL_V_PDJ(
     __private const float2 in, 
     __private const float w, 
-    __private const float4 pdj  // wA wB wC wD
+    __private const float4 pdj  // wA, wB, wC, wD
     )
 {
 
@@ -1280,7 +1280,7 @@ static float2 CL_V_PDJ(
 static float2 CL_V_BLOB(
     __private const float2 in, 
     __private const float w, 
-    __private const float4 blob // low high wave unused
+    __private const float4 blob // low, high, wave, unused
     )
 {
 
@@ -1318,7 +1318,7 @@ static float2 CL_V_JULIAN(
     __private const float2 in, 
     __private const float w, 
     __private x128_state_t* restrict state, 
-    __private const float2 julian   // power distance
+    __private const float2 julian   // power, distance
     )
 {
 
@@ -1358,7 +1358,7 @@ static float2 CL_V_JULIASCOPE(
     __private const float2 in, 
     __private const float w, 
     __private x128_state_t* restrict state, 
-    __private const float2 juliascope   // power(julian_rN) distance
+    __private const float2 juliascope   // power(julian_rN), distance
     )
 {
     
@@ -1420,7 +1420,7 @@ static float2 CL_V_FAN2(
     __private const float2 in, 
     __private const float w, 
     __private const int F3C, 
-    __private const float2 fan2 // size rotation
+    __private const float2 fan2 // size, rotation
     )
 {
     
@@ -1494,7 +1494,7 @@ static float2 CL_V_RINGS2(
 static float2 CL_V_RECTANGLES(
     __private const float2 in, 
     __private const float w, 
-    __private const float2 rectangles // x y
+    __private const float2 rectangles // x, y
     )
 {
 
@@ -1564,7 +1564,7 @@ static float2 CL_V_RADIALBLUR(
 static float2 CL_V_PIE(
     __private const float w, 
     __private x128_state_t* restrict state, 
-    __private const float4 pie  // slices thickness rotation
+    __private const float4 pie  // slices, thickness, rotation
     )
 {
 
@@ -1788,8 +1788,8 @@ static float2 CL_V_CROSS(
 static float2 CL_V_DISC2(
     __private const float2 in, 
     __private const float w, 
-    __private const float2 disc2,   // rot twist
-    __private const float4 disc2_pc // (F3) disc2_timespi disc2_sinadd disc2_cosadd
+    __private const float2 disc2,   // rot, twist
+    __private const float4 disc2_pc // (F3) disc2_timespi, disc2_sinadd, disc2_cosadd
     )
 {
 
@@ -1816,8 +1816,8 @@ static float2 CL_V_SUPERSHAPE(
     __private const float2 in, 
     __private const float w, 
     __private x128_state_t* restrict state, 
-    __private const float4 supershape,  // (F3) m rnd holes
-    __private const float4 supershape_n // (F3) n1 n2 n3
+    __private const float4 supershape,  // (F3) m, rnd, holes
+    __private const float4 supershape_n // (F3) n1, n2, n3
     )
 {
 
@@ -1870,7 +1870,7 @@ static float2 CL_V_FLOWER(
     __private const float2 in, 
     __private const float w, 
     __private x128_state_t* restrict state, 
-    __private const float2 flower   // petals holes
+    __private const float2 flower   // petals, holes
     )
 {
 
@@ -1892,7 +1892,7 @@ static float2 CL_V_CONIC(
     __private const float2 in, 
     __private const float w, 
     __private x128_state_t* restrict state, 
-    __private const float2 conic    // eccentricity holes
+    __private const float2 conic    // eccentricity, holes
     )
 {
 
@@ -1925,7 +1925,7 @@ static float2 CL_V_PARABOLA(
     __private const float2 in, 
     __private const float w, 
     __private x128_state_t* restrict state, 
-    __private const float2 parabola // height width
+    __private const float2 parabola // height, width
     )
 {
 
@@ -1947,7 +1947,7 @@ static float2 CL_V_PARABOLA(
 static float2 CL_V_BENT2(
     __private const float2 in, 
     __private const float w, 
-    __private const float2 bent2    // x y
+    __private const float2 bent2    // x, y
     )
 {
     float2 r = select(in, in * bent2, in < 0.0f);
