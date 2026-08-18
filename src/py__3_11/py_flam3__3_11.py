@@ -3225,7 +3225,8 @@ class flam3h_scripts
         if self.flam3h_compatible_type(__range_type__):
             
             # Check and set the OpenCL GPU device compiler flag options
-            flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_OCL_NV, flam3h_general_utils.ocl_gpu_nvidia_beast())
+            if __v__ >= 2: flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_OCL_NV, flam3h_general_utils.ocl_gpu_nvidia_beast())
+            
             # Force updated of the mini-menu iterator selection
             flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
             flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.edge_case_01)
