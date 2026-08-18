@@ -366,7 +366,7 @@ once and if SideFX update to python 3.12 or higher, for now just here.
 T = TypeVar('T')
 
 # TypeAlias
-TA_PrmData: TypeAlias = int | float | str | tuple | hou.Ramp | hou.Vector3 | hou.Vector2
+TA_PrmData: TypeAlias = bool | int | float | str | tuple | hou.Ramp | hou.Vector3 | hou.Vector2
 TA_Affine: TypeAlias = list[Iterable[float]]
 TA_OUT_Pre_Affine: TypeAlias = tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]
 TA_OUT_Post_Affine: TypeAlias = tuple[tuple[str | list[Never], ...], tuple[str | list[Never], ...], tuple[str | list[Never], ...]]
