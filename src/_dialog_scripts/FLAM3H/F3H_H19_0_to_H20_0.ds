@@ -5027,6 +5027,13 @@
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
+                        name    "ocl_nv"
+                        label   "OCL NV"
+                        type    toggle
+                        default { "0" }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
                         name    "empty_prefs_01"
                         label   "empty"
                         type    geometrydata

@@ -6125,17 +6125,6 @@
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
-                parm {
-                    name    "itericons"
-                    label   "iterator menus bookmark icons"
-                    type    toggle
-                    invisible
-                    default { "0" }
-                    help    "OFF by default.\\nCauses the variation menus inside each iterator to have a bookmark icon (FLAME and FF tab).\\n\\nThis is a dynamic mode that will change each variation's menu based of the value of their weight hence it will take a hit on the UI performance.\\n\\nWhen you turn this toggle back OFF,\\nHoudini will revert the density value to its default (500k points) as a way to reduce the waiting time since a re-compute of the fractal Flame is triggered."
-                    disablewhen "{ prefsdisable == 1 }"
-                    parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_menu(), kwargs['parm'].deleteAllKeyframes()" }
-                    parmtag { "script_callback_language" "python" }
-                }
             }
 
             groupcollapsible {
@@ -6364,6 +6353,13 @@
                         help    "Is this FLAM3H™ version valid for this Houdini version ?"
                         disablewhen "{ flamefunc == 0 }"
                         parmtag { "script_callback" "" }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
+                        name    "ocl_nv"
+                        label   "OCL NV"
+                        type    toggle
+                        default { [ "hou.phm().flam3.flam3h_general_utils.ocl_gpu_nvidia_beast()" python ] }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {

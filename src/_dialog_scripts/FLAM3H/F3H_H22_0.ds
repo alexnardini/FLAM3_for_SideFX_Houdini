@@ -735,7 +735,7 @@
                 type    string
                 joinnext
                 default { "iterator_#" }
-                help    "<h2>This iterator name</h2>Give this iterator a name or a short descriptive note.<br/><br/>The text you write here will be shown inside the SYS tab select iterator mini menu entries.<br/><br/><b>NOTE</b>:<br/>It will also be stored with the Flame preset file on Save and shown inside third-party applications like Apophysis and Fractorium as the iterator's name."
+                help    "<h2>This iterator name</h2>Give this iterator a name or a short descriptive note.<br/><br/>The text you write here will be shown inside the SYS tab select iterator mini menu entries.<br/><br/><b>NOTE</b>:<br/>It will also be stored with the Flame preset file on Save and shown inside third-party applications like <b>Apophysis</b> and <b>Fractorium</b> as the iterator's name."
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).destroy_data_note(), kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
             }
@@ -1277,6 +1277,7 @@
                     default { "1" }
                     help    "<h2>VAR 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
                     range   { 0 1 }
+                    parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -5979,7 +5980,7 @@
                     type    float
                     invisible
                     default { "1" }
-                    help    "The bounding box size that will be viewport framed when the SYS Tab frameview icon is clicked.\\n\\nA value of 1 should work well in every situation, but you can increase it if you'd like.\\n\\nConsider this as the size of a box at the ZERO world that, upon clicking the SYS Tab frame viewport icon, will be center framed in the viewport.\\nOnce this value is changed, Click the SYS Tab Frame viewport to see the new framing."
+                    help    "<h3>The bounding box size that will be viewport framed when the SYS Tab frameview icon is clicked</h3><br/><br/>A value of 1 should work well in every situation, but you can increase it if you'd like.<br/><br/>Consider this as the size of a box at the ZERO world that, upon clicking the SYS Tab frame viewport icon, will be center framed in the viewport.<br/><br/>Once this value is changed, Click the SYS Tab Frame viewport to see the new framing."
                     range   { 1! 2 }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame()" }
                     parmtag { "script_callback_language" "python" }
@@ -6034,17 +6035,6 @@
                     default { "1" }
                     help    "<h3>Causes the presets menus inside the <b>CP</b>, <b>IN</b> and <b>OUT</b> tab to be enumerated</h3>This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.<br/><br/>Turn this <b>OFF</b> to only display the raw preset names.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs(), kwargs['parm'].deleteAllKeyframes()" }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
-                    name    "itericons"
-                    label   "iterator menus bookmark icons"
-                    type    toggle
-                    invisible
-                    default { "0" }
-                    help    "OFF by default.\\nCauses the variation menus inside each iterator to have a bookmark icon (FLAME and FF tab).\\n\\nThis is a dynamic mode that will change each variation's menu based of the value of their weight hence it will take a hit on the UI performance.\\n\\nWhen you turn this toggle back OFF,\\nHoudini will revert the density value to its default (500k points) as a way to reduce the waiting time since a re-compute of the fractal Flame is triggered."
-                    disablewhen "{ prefsdisable == 1 }"
-                    parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_menu(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
             }
@@ -6275,6 +6265,14 @@
                         help    "Is this FLAM3H™ version valid for this Houdini version ?"
                         disablewhen "{ flamefunc == 0 }"
                         parmtag { "script_callback" "" }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
+                        name    "ocl_nv"
+                        label   "OCL NV"
+                        type    toggle
+                        default { [ "hou.phm().flam3.flam3h_general_utils.ocl_gpu_nvidia_beast()" python ] }
+                        help    "<h3>Are we using a powerful NVIDIA OpenCL GPU device?</h3>"
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
