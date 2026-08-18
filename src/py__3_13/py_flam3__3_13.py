@@ -386,7 +386,8 @@ type TA_OUT_Post_Affine = Triple[tuple[str | list[Never], ...]]
 type TA_OUT_Affine_FF = Triple[str]
 
 type TA_PrmData = (
-    int 
+    bool 
+    | int
     | float 
     | str 
     | tuple 
@@ -857,6 +858,7 @@ class f3h_tabs:
         PRM_VIEWPORT_PT_SIZE: Final = 'vpptsize'
         # PREFS tab: PRIVATE SYSTEM
         PVT_PRM_H_VALID: Final = 'h_valid'
+        PVT_PRM_OCL_NV: Final = 'ocl_nv'
         PVT_PRM_DOFF: Final = 'doff'
         PVT_PRM_RIP: Final = 'rip'
         PVT_PRM_F3C: Final = 'f3c'
@@ -927,6 +929,7 @@ class f3h_pvt:
                                 f3h_tabs.PREFS.PVT_PRM_FLOAT_0,
                                 f3h_tabs.PREFS.PVT_PRM_FLOAT_1,
                                 f3h_tabs.PREFS.PVT_PRM_H_VALID,
+                                f3h_tabs.PREFS.PVT_PRM_OCL_NV,
                                 f3h_tabs.PREFS.PVT_PRM_VIEWPORT_PT_SIZE_MEM,
                                 f3h_tabs.PREFS.PVT_PRM_VIEWPORT_PT_TYPE_MEM,
                                 f3h_tabs.PREFS.PVT_PRM_VIEWPORT_WIRE_WIDTH_MEM,
@@ -3342,6 +3345,8 @@ class flam3h_scripts
         
         if self.flam3h_compatible_type(__range_type__):
             
+            # Check and set the OpenCL GPU device compiler flag options
+            flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_OCL_NV, flam3h_general_utils.ocl_gpu_nvidia_beast())
             # Force updated of the mini-menu iterator selection
             flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
             flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.edge_case_01)

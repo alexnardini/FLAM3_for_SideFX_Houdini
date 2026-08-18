@@ -321,6 +321,8 @@ FLAM3H_USER_DATA_XML_LAST = 'XML_last_loaded'
 
 # Houdini is a valid version toggle
 FLAM3H_PVT_H_VALID = 'h_valid'
+# OCL NVIDIA GPU BEAST
+FLAM3H_PVT_OCL_NV = 'ocl_nv'
 # Main tab in the UI
 FLAM3H_ITERATORS_TAB = "f_flam3h"
 
@@ -579,6 +581,7 @@ PVT_ALL: tuple = (  CP_PVT_ISVALID_FILE,
                     PREFS_PVT_FLOAT_0,
                     PREFS_PVT_FLOAT_1,
                     FLAM3H_PVT_H_VALID,
+                    FLAM3H_PVT_OCL_NV,
                     PREFS_PVT_VIEWPORT_PT_SIZE_MEM,
                     PREFS_PVT_VIEWPORT_PT_TYPE_MEM,
                     PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM, 
@@ -2734,6 +2737,8 @@ class flam3h_scripts
         
         if self.flam3h_compatible_type(__range_type__):
             
+            # Check and set the OpenCL GPU device compiler flag options
+            flam3h_prm_utils.private_prm_set(node, FLAM3H_PVT_OCL_NV, flam3h_general_utils.ocl_gpu_nvidia_beast())
             # Force updated of the mini-menu iterator selection
             flam3h_iterator_utils.destroy_cachedUserData(node, 'iter_sel')
             flam3h_iterator_utils.destroy_cachedUserData(node, 'edge_case_01')
@@ -2933,6 +2938,7 @@ class flam3h_general_utils:
 class flam3h_general_utils
 
 @STATICMETHODS
+* ocl_gpu_nvidia_beast() -> bool:
 * select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> Union[None, str]:
 * flash_message(node: hou.SopNode, msg: Union[str, None], timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None] = None) -> None:
 * remove_locked_from_flame_stats(node) -> None:
@@ -3014,6 +3020,19 @@ class flam3h_general_utils
         # hence I added the following so I can always find the nodes even if I place them in different locations from time to time.
         self._bbox_sensor_path: Union[str, None] = self.get_node_path(NODE_NAME_OUT_BBOX_SENSOR)
         self._bbox_reframe_path: Union[str, None] = self.get_node_path(NODE_NAME_OUT_BBOX_REFRAME)
+        
+        
+    @staticmethod
+    def ocl_gpu_nvidia_beast() -> bool:
+        """I am a dummy function to keep compatibility with H21 and H22 and UP.
+        
+        Args:
+            (None):
+            
+        Returns:
+            (bool): <b>False</b>
+        """ 
+        return False
         
         
     @staticmethod

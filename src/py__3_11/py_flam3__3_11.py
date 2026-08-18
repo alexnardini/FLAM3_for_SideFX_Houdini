@@ -776,6 +776,7 @@ class f3h_tabs:
         PRM_VIEWPORT_PT_SIZE: Final = 'vpptsize'
         # PREFS tab: PRIVATE SYSTEM
         PVT_PRM_H_VALID: Final = 'h_valid'
+        PVT_PRM_OCL_NV: Final = 'ocl_nv'
         PVT_PRM_DOFF: Final = 'doff'
         PVT_PRM_RIP: Final = 'rip'
         PVT_PRM_F3C: Final = 'f3c'
@@ -846,6 +847,7 @@ class f3h_pvt:
                                 f3h_tabs.PREFS.PVT_PRM_FLOAT_0,
                                 f3h_tabs.PREFS.PVT_PRM_FLOAT_1,
                                 f3h_tabs.PREFS.PVT_PRM_H_VALID,
+                                f3h_tabs.PREFS.PVT_PRM_OCL_NV,
                                 f3h_tabs.PREFS.PVT_PRM_VIEWPORT_PT_SIZE_MEM,
                                 f3h_tabs.PREFS.PVT_PRM_VIEWPORT_PT_TYPE_MEM,
                                 f3h_tabs.PREFS.PVT_PRM_VIEWPORT_WIRE_WIDTH_MEM,
@@ -3222,6 +3224,8 @@ class flam3h_scripts
         
         if self.flam3h_compatible_type(__range_type__):
             
+            # Check and set the OpenCL GPU device compiler flag options
+            flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_OCL_NV, flam3h_general_utils.ocl_gpu_nvidia_beast())
             # Force updated of the mini-menu iterator selection
             flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
             flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.edge_case_01)
@@ -3427,6 +3431,7 @@ class flam3h_general_utils
 * is_flat_list(x: list) -> bool:
 * is_tuple_of_tuples(x: tuple) -> bool:
 * is_flat_tuple(x: tuple) -> bool:
+* ocl_gpu_nvidia_beast() -> bool:
 * detect_os() -> str:
 * select_file_start_dir(node: hou.SopNode, type: str = f3h_tabs.IN.PRM_PATH) -> str | None:
 * flash_message(node: hou.SopNode, msg: str | None, timer: float = f3h_tabs.DEFAULT_FLASH_MESSAGE_TIMER, img: str | None = None, usd_context: str = 'Lop') -> None:
@@ -3573,6 +3578,19 @@ class flam3h_general_utils
             (bool): True if it is a flat tuple and False if not
         """ 
         return isinstance(x, tuple) and not any(isinstance(el, list | tuple | set) for el in x)
+    
+    
+    @staticmethod
+    def ocl_gpu_nvidia_beast() -> bool:
+        """I am a dummy function to keep compatibility with H21 and H22 and UP.
+        
+        Args:
+            (None):
+            
+        Returns:
+            (bool): <b>False</b>
+        """ 
+        return False
     
     
     @staticmethod
