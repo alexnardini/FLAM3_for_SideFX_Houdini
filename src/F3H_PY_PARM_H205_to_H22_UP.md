@@ -2859,7 +2859,7 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(
 |:---|:---|---:|---:|---:|
 | **PREFS** | `ocl_nv` |  `toggle` | `from H20.5` | `v2.x` |
 
-- ### Channel Script
+- ### <img width="16" height="16" src="../icons/icon_channelButtonSVG.svg" /> Channel Script
 ```python
 hou.phm().flam3.flam3h_general_utils.ocl_gpu_nvidia_beast()
 ```
