@@ -154,7 +154,7 @@ else:
 
     Title:      FLAM3H™USD H22.0 UP. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       August 2025, Last revised July 2026 (cloned from: py_flam3usd__3_11_H21_UP.py)
+    date:       August 2025, Last revised August 2026 (cloned from: py_flam3usd__3_11_H21_UP.py)
                 Source file start date: August 2025
 
     Name:       PY_FLAM3USD__3_13 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -1368,11 +1368,11 @@ class flam3husd_scripts
                     _RND = _karma_cpu_name
                     break
                 
-                # GL/VK
+                # VK
                 #
                 # Just in case lets compare everything as str.lower()
                 elif _houdini_name.lower() in str(r).lower(): 
-                    _RND = 'Houdini GL'
+                    _RND = 'Houdini VK'
                     break
                 
                 # anything else
@@ -1460,6 +1460,7 @@ class flam3husd_general_utils
 * util_flam3h_node_exist_all(node: hou.LopNode) -> None:
 * util_flam3h_node_exist_self(node: hou.LopNode) -> bool:
 * in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
+* houdini_hydra_renderer_name() -> str:
 * karma_cpu_hydra_renderer_name() -> str:
 * karma_xpu_hydra_renderer_name() -> str:
 * houdini_version(digit: int = 1) -> int:
@@ -1562,6 +1563,21 @@ class flam3husd_general_utils
         """       
         var_name: str = list(mydict.keys())[list(mydict.values()).index(idx)] 
         return var_name
+    
+    
+    @staticmethod
+    def houdini_hydra_renderer_name() -> str:
+        """Return the internal hydra renderer name for Houdini Vulkan(H22) or OpenGL(<H22).
+        
+        Args:
+            (None):
+            
+        Returns:
+            (str): [Return the internal hydra renderer name for Karma.]
+        """    
+        karma_name: str = 'Houdini VK'
+        if flam3husd_general_utils.houdini_version(2) < 220: karma_name = 'Houdini GL'
+        return karma_name
 
 
     @staticmethod
@@ -1605,7 +1621,7 @@ class flam3husd_general_utils
         Returns:
             (str): [Return the internal hydra renderer name for Karma.]
         """    
-        _RND_idx: dict[str, int] = {'Houdini GL': 0,
+        _RND_idx: dict[str, int] = {flam3husd_general_utils.houdini_hydra_renderer_name(): 0,
                                     flam3husd_general_utils.karma_cpu_hydra_renderer_name(): 1,
                                     flam3husd_general_utils.karma_xpu_hydra_renderer_name(): 2
                                     }
