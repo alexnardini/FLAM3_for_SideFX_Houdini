@@ -1575,9 +1575,9 @@ class flam3husd_general_utils
         Returns:
             (str): [Return the internal hydra renderer name for Karma.]
         """    
-        karma_name: str = 'Houdini VK'
-        if flam3husd_general_utils.houdini_version(2) < 220: karma_name = 'Houdini GL'
-        return karma_name
+        viewport_name: str = 'Houdini VK'
+        if flam3husd_general_utils.houdini_version(2) < 220: viewport_name = 'Houdini GL'
+        return viewport_name
 
 
     @staticmethod
