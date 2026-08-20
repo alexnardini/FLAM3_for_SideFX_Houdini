@@ -13439,12 +13439,14 @@ Praveen Brijwal"""
         if h_version == 210:
             # GPU section is only available in Houdini 21.0 and above since it relies on the "gpumem" hscript command that was added in this version.
             
-            gpu_devices: list[str] = hou.hscript('gpumem -l') # type: ignore
-            if 'unknown' in gpu_devices[-1].lower():
+            gpu_devices_gpumem: list[str] = hou.hscript('gpumem -l') # type: ignore
+            if 'unknown' in gpu_devices_gpumem[-1].lower():
                 print(f"{self.node.name()}: Error while trying to get GPU devices info with the \"gpumem\" hscript command.\nThis command should be available in Houdini 21.0 and above.")
                 pass 
             else:
-                gpu_devices_str: str = '\n'.join([x[:-1] for x in gpu_devices if x])
+                gpu_devices_str: str = '\n'.join([x[:-1] for x in gpu_devices_gpumem if x])
+                print(len(gpu_devices_gpumem))
+                if len([x for x in gpu_devices_gpumem if x]) == 1: gpu_section_header = 'GPU DEVICE' 
                 
                 build += (  nnl, 
                             gpu_section_header, nl, 

@@ -13614,6 +13614,7 @@ Praveen Brijwal"""
                 pass 
             else:
                 gpu_devices_str: str = '\n'.join([x[:-1] for x in gpu_devices_gpumem if x])
+                if len([x for x in gpu_devices_gpumem if x]) == 1: gpu_section_header = 'GPU DEVICE'
                 
                 build += (  nnl, 
                             gpu_section_header, nl, 
@@ -13634,6 +13635,7 @@ Praveen Brijwal"""
                     gpu_devices_build.append(f"{gpu.label()} - Driver: {gpu.driverVersion()}")
                 
                 gpu_devices_str: str = gpu_devices_build[0] if len(gpu_devices_build) == 1 else '\n'.join(gpu_devices_build)
+                if len(gpu_devices_build) == 1: gpu_section_header = 'GPU DEVICE' 
                 
                 build += (  nnl, 
                             gpu_section_header, nl, 
