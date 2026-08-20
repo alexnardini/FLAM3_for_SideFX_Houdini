@@ -182,6 +182,7 @@ else:
     
         f3husd_nodeNames
         f3husd_HDAsections
+        f3husd_hydra
         
         f3husd_tabs
             PREFS
