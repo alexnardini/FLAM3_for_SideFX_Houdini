@@ -211,7 +211,7 @@ else:
 
 
 # TypeAlias
-TA_PrmData: TypeAlias = int | float | str | tuple | hou.Ramp | hou.Vector3 | hou.Vector2
+TA_PrmData: TypeAlias = bool | int | float | str | tuple | hou.Ramp | hou.Vector3 | hou.Vector2
 
 
 class f3husd_nodeNames:
@@ -534,7 +534,7 @@ class flam3husd_scripts
 @STATICMETHODS
 * flam3husd_on_create_load_first_instance(node: hou.LopNode, msg: bool = True, limit: bool = True) -> bool:
 * flam3husd_on_create_lock_parms(node: hou.LopNode) -> None:
-* flam3husd_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
+* flam3husd_h_versions_build_data(__h_versions__: tuple[int, ...] | int, last_index: bool = False) -> str:
 * flam3husd_compatible_h_versions_msg(msg: bool = True, ps_cls_about: bool = False) -> str:
 * flam3husd_compatible(h_version: int, kwargs: dict | None, msg: bool) -> bool:
 * flam3husd_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
@@ -706,11 +706,11 @@ class flam3husd_scripts
         
         
     @staticmethod
-    def flam3husd_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
+    def flam3husd_h_versions_build_data(__h_versions__: tuple[int, ...] | int, last_index: bool = False) -> str:
         """Get the houdini version number from the gloabl: __h_versions__
 
         Args:
-            __h_versions__(tuple | int): a tuple containing all the compatible Houdini versions or an int of the desire Houdini version. When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
+            __h_versions__(tuple[int, ...] | int): a tuple containing all the compatible Houdini versions or an int of the desire Houdini version. When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
             last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H™USD HDA version run on multiple Houdinin versions.
             or it can be a 3 digits int
 
