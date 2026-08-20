@@ -23512,7 +23512,7 @@ class pyside_master:
         
         BASE_BANNER_HEIGHT: int = 300
         
-        BASE_SVG_ICON_WIDTH: int = 96
+        BASE_SVG_ICON_WIDTH: int = 64
         
         IMG_PIXMAP: QtGui.QPixmap | None = None
         IMG_PIXMAP_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_IMG_BANNER
