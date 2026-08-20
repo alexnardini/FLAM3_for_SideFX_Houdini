@@ -259,6 +259,17 @@ class f3husd_HDAsections:
     HDA_SECTION_IMG_BANNER: Final = 'FLAM3HUSD_DOC_intro.jpg'
     HDA_SECTION_SVG_LOGO: Final = 'iconSVG.svg'
     HDA_SECTION_SVG_LOGO_RED: Final = 'iconSVGR.svg'
+    
+    
+class f3husd_hydra:
+    '''
+    Hydra renderers names.</br>
+    
+    '''
+    HYDRA_HOUDINI_GL: Final = 'Houdini GL'
+    HYDRA_HOUDINI_VK: Final = 'Houdini VK'
+    HYDRA_KARMA_CPU: Final = 'Karma CPU'
+    HYDRA_KARMA_XPU: Final = 'Karma XPU'
 
 
 class f3husd_tabs:
@@ -1372,7 +1383,7 @@ class flam3husd_scripts
                 #
                 # Just in case lets compare everything as str.lower()
                 elif _houdini_name.lower() in str(r).lower(): 
-                    _RND = 'Houdini VK'
+                    _RND = flam3husd_general_utils.houdini_hydra_renderer_name()
                     break
                 
                 # anything else
@@ -1575,8 +1586,8 @@ class flam3husd_general_utils
         Returns:
             (str): [Return the internal hydra renderer name for Karma.]
         """    
-        viewport_name: str = 'Houdini VK'
-        if flam3husd_general_utils.houdini_version(2) < 220: viewport_name = 'Houdini GL'
+        viewport_name: str = f3husd_hydra.HYDRA_HOUDINI_VK
+        if flam3husd_general_utils.houdini_version(2) < 220: viewport_name = f3husd_hydra.HYDRA_HOUDINI_GL
         return viewport_name
 
 
@@ -1590,7 +1601,7 @@ class flam3husd_general_utils
         Returns:
             (str): [Return the internal hydra renderer name for Karma.]
         """    
-        karma_name: str = 'Karma CPU'
+        karma_name: str = f3husd_hydra.HYDRA_KARMA_CPU
         if flam3husd_general_utils.houdini_version(2) < 200: karma_name = 'Karma'
         return karma_name
     
@@ -1605,7 +1616,7 @@ class flam3husd_general_utils
         Returns:
             (str): [Return the internal hydra renderer name for Karma.]
         """    
-        karma_name: str = 'Karma XPU'
+        karma_name: str = f3husd_hydra.HYDRA_KARMA_XPU
         if flam3husd_general_utils.houdini_version(2) < 200: karma_name = 'Karma'
         return karma_name
 
