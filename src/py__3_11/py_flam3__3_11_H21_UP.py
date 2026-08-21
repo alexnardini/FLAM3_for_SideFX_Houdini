@@ -13445,7 +13445,6 @@ Praveen Brijwal"""
                 pass 
             else:
                 gpu_devices_str: str = '\n'.join([x[:-1] for x in gpu_devices_gpumem if x])
-                print(len(gpu_devices_gpumem))
                 if len([x for x in gpu_devices_gpumem if x]) == 1: gpu_section_header = 'GPU DEVICE' 
                 
                 build += (  nnl, 
