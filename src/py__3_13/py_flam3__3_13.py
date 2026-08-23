@@ -11511,6 +11511,8 @@ class flam3h_iterator_utils
         # Destroy UserData - They may or may not exist but just in case
         self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}")
         self.destroy_userData(node, f3h_userData.XML_LAST)
+        # Remove a possibly leftover Houdini "Recipes" related data
+        self.destroy_userData(node, f3h_userData.H_LAST_INVOKED_RECIPES)
         
         # Updated the OUT flame name if any
         out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
