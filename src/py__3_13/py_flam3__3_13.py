@@ -10798,6 +10798,8 @@ class flam3h_iterator_utils
         
         # Destroy data
         flam3h_iterator_utils.destroy_userData(node, f3h_userData.XML_LAST)
+        # Remove a possibly leftover Houdini "Recipes" related data
+        flam3h_iterator_utils.destroy_userData(node, f3h_userData.H_LAST_INVOKED_RECIPES)
         
         # Print if the node has its display flag ON
         if node.isGenericFlagSet(hou.nodeFlag.Display): # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
