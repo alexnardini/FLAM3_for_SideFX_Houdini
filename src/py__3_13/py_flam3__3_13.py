@@ -489,6 +489,8 @@ class f3h_userData:
     XFVIZ_SOLO: Final = 'XF VIZ'
     # Node user data
     XML_LAST: Final = 'XML_last_loaded'
+    # Houdini Redeipes
+    H_LAST_INVOKED_RECIPES: Final = "__last_invoked_recipes__"
     
     
 class f3h_cachedUserData:
@@ -3236,6 +3238,8 @@ class flam3h_scripts
             # This is already destroyed inside: flam3h_iterator_utils(self.kwargs).flam3h_default()
             # But I keep it for now in case a make some changes later on
             flam3h_iterator_utils.destroy_userData(node, f3h_userData.XML_LAST)
+            # Remove a possibly leftover Houdini "Recipes" related data
+            flam3h_iterator_utils.destroy_userData(node, f3h_userData.H_LAST_INVOKED_RECIPES)
             
             # OUT render curves reset and set
             out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
