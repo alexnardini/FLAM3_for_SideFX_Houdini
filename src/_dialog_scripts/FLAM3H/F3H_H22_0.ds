@@ -6262,7 +6262,7 @@
                         label   "H VALID"
                         type    toggle
                         default { "1" }
-                        help    "Is this FLAM3H™ version valid for this Houdini version ?"
+                        help    "<h3>Is this FLAM3H™ version valid for this Houdini version?</h3>"
                         disablewhen "{ flamefunc == 0 }"
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -6272,7 +6272,7 @@
                         label   "OCL NV"
                         type    toggle
                         default { [ "hou.phm().flam3.flam3h_general_utils.ocl_gpu_nvidia_beast()" python ] }
-                        help    "<h3>Are we using a powerful NVIDIA OpenCL GPU device?</h3>"
+                        help    "<h3>Are we using a powerful NVIDIA OpenCL GPU device?</h3><b>NOTE</b>:<br/>If you have an RTX 40 series GPU device, this wont make any difference as it already compile as expected on Ada Lovelace architecture."
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
