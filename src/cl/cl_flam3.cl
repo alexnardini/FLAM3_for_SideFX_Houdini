@@ -2119,6 +2119,7 @@ static float2 CL_V_CELL(
     float dy = in.y - y * size;
 #endif
 
+#if USE_NATIVE
     int ix = (int)x;
     int iy = (int)y;
 
@@ -2136,6 +2137,55 @@ static float2 CL_V_CELL(
             -w * ((float)iy * size + dy)
         );
     #endif
+
+#else
+    
+    if(y >= 0){
+        if(x >= 0){
+            y *= 2.0f;
+            x *= 2.0f;
+        }
+        else{
+            y *= 2.0f;
+        #if USE_FMA
+            x = -fma(2.0f, x, 1.0f);
+        #else
+            x = -(2.0f * x + 1.0f);
+        #endif
+        }
+    }
+    else{
+        if(x >= 0){
+        #if USE_FMA
+            y = -fma(2.0f, y, 1.0f);
+        #else
+            y = -(2.0f * y + 1.0f);
+        #endif
+            x *= 2.0f;
+        }
+        else{
+        #if USE_FMA
+            y = -fma(2.0f, y, 1.0f);
+            x = -fma(2.0f, x, 1.0f);
+        #else
+            y = -(2.0f * y + 1.0f);
+            x = -(2.0f * x + 1.0f);
+        #endif
+        }
+    }
+    #if USE_FMA
+        return (float2)(
+            w * fma(x, size, dx), 
+            -(w * fma(y, size, dy))
+        );
+    #else
+        return (float2)(
+            w * (dx + x * size), 
+            -(w * (dy + y * size))
+        );
+    #endif
+
+#endif
 }
 // ----------------------------
 // 057 VAR CPOW
