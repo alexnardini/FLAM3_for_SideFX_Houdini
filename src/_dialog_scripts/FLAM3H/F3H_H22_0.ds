@@ -1012,7 +1012,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "<h2>PRE 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>)."
+                    help    "<h2>PRE 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric.<br/><br/><b>NOTE</b>:<br/>When using parametric variations,<br/>their parameters will populate the <b>VARS</b> tab."
                     range   { 0! 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1138,7 +1138,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "<h2>PRE 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>)."
+                    help    "<h2>PRE 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric.<br/><br/><b>NOTE</b>:<br/>When using parametric variations,<br/>their parameters will populate the <b>VARS</b> tab."
                     range   { 0! 1 }
                     parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_iter_pre_vars()" }
                     parmtag { "script_action_help" "[LMB] to swap the order of the PRE Variations and their weights. [CTRL+LMB] to swap the variation's names only." }
@@ -1275,7 +1275,7 @@
                     label   "   w"
                     type    float
                     default { "1" }
-                    help    "<h2>VAR 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
+                    help    "<h2>VAR 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric.<br/><br/><b>NOTE</b>:<br/>When using parametric variations,<br/>their parameters will populate the <b>VARS</b> tab."
                     range   { 0 1 }
                     parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
@@ -1402,7 +1402,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "<h2>VAR 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
+                    help    "<h2>VAR 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric.<br/><br/><b>NOTE</b>:<br/>When using parametric variations,<br/>their parameters will populate the <b>VARS</b> tab."
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1528,7 +1528,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "<h2>VAR 03 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
+                    help    "<h2>VAR 03 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric.<br/><br/><b>NOTE</b>:<br/>When using parametric variations,<br/>their parameters will populate the <b>VARS</b> tab."
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1654,7 +1654,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "<h2>VAR 04 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
+                    help    "<h2>VAR 04 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric.<br/><br/><b>NOTE</b>:<br/>When using parametric variations,<br/>their parameters will populate the <b>VARS</b> tab."
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1788,7 +1788,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "<h2>POST 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>)."
+                    help    "<h2>POST 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric.<br/><br/><b>NOTE</b>:<br/>When using parametric variations,<br/>their parameters will populate the <b>VARS</b> tab."
                     range   { 0! 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -2791,7 +2791,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "<h2>PRE 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>)."
+                help    "<h2>PRE 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric.<br/><br/><b>NOTE</b>:<br/>When using parametric variations,<br/>their parameters will populate the <b>FF: PP VARS</b> tab."
                 range   { 0! 1 }
                 parmtag { "script_callback_language" "python" }
             }
@@ -2925,7 +2925,7 @@
                 label   "   w"
                 type    float
                 default { "1" }
-                help    "<h2>VAR 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
+                help    "<h2>VAR 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric.<br/><br/><b>NOTE</b>:<br/>When using parametric variations,<br/>their parameters will populate the <b>FF: VARS</b> tab"
                 range   { 0 1 }
                 parmtag { "script_callback" "" }
                 parmtag { "script_callback_language" "python" }
@@ -3052,7 +3052,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "<h2>VAR 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
+                help    "<h2>VAR 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric.<br/><br/><b>NOTE</b>:<br/>When using parametric variations,<br/>their parameters will populate the <b>FF: VARS</b> tab"
                 range   { 0 1 }
                 parmtag { "script_callback_language" "python" }
             }
@@ -3186,7 +3186,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "<h2>POST 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>)."
+                help    "<h2>POST 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric.<br/><br/><b>NOTE</b>:<br/>When using parametric variations,<br/>their parameters will populate the <b>FF: PP VARS</b> tab."
                 range   { 0! 1 }
                 parmtag { "script_callback_language" "python" }
             }
@@ -3312,7 +3312,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "<h2>POST 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>)."
+                help    "<h2>POST 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric.<br/><br/><b>NOTE</b>:<br/>When using parametric variations,<br/>their parameters will populate the <b>FF: PP VARS</b> tab."
                 range   { 0! 1 }
                 parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_FF_post_vars()\n" }
                 parmtag { "script_action_help" "[LMB] to swap the order of the POST Variations and their weights. [CTRL+LMB] to swap the variation's names only." }
