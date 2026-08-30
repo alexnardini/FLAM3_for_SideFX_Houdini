@@ -90,7 +90,7 @@ import toolutils
 
 # Set some HDA infos
 __v__ = 0
-__version__ = "0.2.62"
+__version__ = "0.2.64"
 __status__ = "Prototype"
 # Note:
 # The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
