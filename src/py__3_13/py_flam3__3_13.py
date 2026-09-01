@@ -5026,7 +5026,7 @@ class flam3h_general_utils
                         
                 if num_viewers == 1:
                     try:
-                        _MSG: str = f"viewport REFRAMED (front)" if _SHIFT_CLICK else f"viewport REFRAMED"
+                        _MSG: str = f"viewport REFRAMED (Front)" if _SHIFT_CLICK else f"viewport REFRAMED"
                     except KeyError:
                         _MSG: str = f"viewport REFRAMED"
                     self.flash_message(node, _MSG)
@@ -5034,7 +5034,7 @@ class flam3h_general_utils
                     
                 else:
                     try:
-                        _MSG: str = f"viewports REFRAMED (front)" if _SHIFT_CLICK else f"viewports REFRAMED"
+                        _MSG: str = f"viewports REFRAMED (Front)" if _SHIFT_CLICK else f"viewports REFRAMED"
                     except KeyError:
                         _MSG: str = f"viewports REFRAMED"
                     self.flash_message(node, _MSG)
