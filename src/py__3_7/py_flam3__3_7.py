@@ -12056,7 +12056,7 @@ Tatasz, Triptychaos, TyrantWave, Zy0rg, b33rheart."""
         Returns:
             (None):
         """    
-        vars_sorted: list = [var.capitalize() for var in sorted(VARS_FLAM3_DICT_IDX.keys()) if var not in ("linear3d",)]
+        vars_sorted: list = [var.capitalize() for var in sorted(VARS_FLAM3_DICT_IDX.keys()) if var not in ("linear3d", "blur_pre")]
         n: int = 5
         vars_sorted_grp: list = [vars_sorted[i:i + n] for i in range(0, len(vars_sorted), n)]
         vars_txt: str = "".join( [", ".join(grp) + "." if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )

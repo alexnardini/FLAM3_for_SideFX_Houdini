@@ -13664,7 +13664,7 @@ Praveen Brijwal"""
             (None):
         """    
         
-        vars_txt, num_items = self.flam3h_about_format_items(list(VARS_FLAM3_DICT_IDX.keys()), ("linear3d",), 5, True)
+        vars_txt, num_items = self.flam3h_about_format_items(list(VARS_FLAM3_DICT_IDX.keys()), ("linear3d", "blur_pre"), 5, True)
         vars_txt_MSG: str = f"They are also available as PRE and POST.\n\nNumber of plugins/variations: {num_items}\n\n{vars_txt}"
         
         flam3h_prm_utils.set(self.node, f3h_tabs.ABOUT.MSG_PRM_F3H_PLUGINS, vars_txt_MSG)
