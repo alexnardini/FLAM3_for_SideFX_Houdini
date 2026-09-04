@@ -226,7 +226,7 @@ static inline uint splitmix32(uint seed)
 }
 
 // ----------------------------
-// Initialize x128 RNG state for a work-item
+// Initialize RNG state for a work-item
 // gid = get_global_id(0) or other unique thread index
 // 128 | 64 bit
 // ----------------------------
@@ -239,28 +239,15 @@ static inline void x_rng_init(rng_state_t* restrict state, uint gid)
     state->s3 = splitmix32(gid + 3u);
 }
 #else
-// ----------------------------
-// Initialize x64 RNG state for a work-item
-// gid = get_global_id(0) or other unique thread index
-// ----------------------------
 #define MWC_A 4294883355U
 static inline void x_rng_init(rng_state_t* restrict state, uint gid) 
 {
     state->s0 = splitmix32(gid);
     state->s1 = splitmix32(gid + 1u);
-
+    
     if(state->s1 >= MWC_A) state->s1 -= MWC_A;
 }
 #endif
-
-// ----------------------------
-// Helper to init either x128 or x64
-// gid = get_global_id(0) or other unique thread index
-// ----------------------------
-static inline void rng_init(rng_state_t* restrict state, uint gid) 
-{
-    x_rng_init(state, gid);
-}
 
 // ----------------------------
 // Next uint random - 128 | 64 bit
@@ -4276,7 +4263,7 @@ __kernel void cl_flam3(
     
     // init RNG
     rng_state_t rng;
-    rng_init(&rng, gid + OPID);  // unique per thread, per node
+    x_rng_init(&rng, gid + OPID);  // unique per thread, per node
     
     // build starting sample (Biunit)
     float2 mem = (float2)(x_rng_next_neg1pos1(&rng), x_rng_next_neg1pos1(&rng));
@@ -4438,7 +4425,7 @@ __kernel void cl_flam3_ff(
     
     // RNG init
     rng_state_t rng;
-    rng_init(&rng, gid + OPID);  // unique per thread, per node
+    x_rng_init(&rng, gid + OPID);  // unique per thread, per node
     
     // pp parameterics data
     __local float*  ff_pp_prm_f  = &local_FF_PRM_F[PRM_NUM_F];
