@@ -301,7 +301,7 @@ static inline float x_rng_next_float(rng_state_t* restrict state)
 // ----------------------------
 // Float in [lower, upper)
 // ----------------------------
-static inline float x_next_float_range(rng_state_t* restrict state, float lower, float upper) 
+static inline float x_rng_next_float_range(rng_state_t* restrict state, float lower, float upper) 
 {
     float f = x_rng_next_float(state);
 #if USE_FMA
