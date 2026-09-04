@@ -191,6 +191,7 @@ enum {
 
 // ----------------------------
 // RNG state per thread
+// 128 | 64 bit
 // ----------------------------
 #if USE_RNG_X128
 typedef struct {
@@ -227,6 +228,7 @@ static inline uint splitmix32(uint seed)
 // ----------------------------
 // Initialize x128 RNG state for a work-item
 // gid = get_global_id(0) or other unique thread index
+// 128 | 64 bit
 // ----------------------------
 #if USE_RNG_X128
 static inline void x_rng_init(rng_state_t* restrict state, uint gid) 
@@ -261,7 +263,7 @@ static inline void rng_init(rng_state_t* restrict state, uint gid)
 }
 
 // ----------------------------
-// Next uint32 random
+// Next uint random - 128 | 64 bit
 // ----------------------------
 #if USE_RNG_X128
 static inline uint x_rng_next_uint(rng_state_t* restrict state) 
@@ -303,7 +305,7 @@ static inline uint x_rng_next_uint(rng_state_t *restrict state)
 // ----------------------------
 // Float in [0,1)
 // ----------------------------
-static inline float x128_next_float(rng_state_t* restrict state) 
+static inline float x_rng_next_float(rng_state_t* restrict state) 
 {
     return (float)(x_rng_next_uint(state) >> 8) * 0x1p-24f; // 1/2^24 -> 1.0f / 16777216.0f -> 5.960464477539063e-8f -> 0.000000059604644775390625f -> 0x1p-24f
 }
@@ -311,9 +313,9 @@ static inline float x128_next_float(rng_state_t* restrict state)
 // ----------------------------
 // Float in [lower, upper)
 // ----------------------------
-static inline float x128_next_float_range(rng_state_t* restrict state, float lower, float upper) 
+static inline float x_next_float_range(rng_state_t* restrict state, float lower, float upper) 
 {
-    float f = x128_next_float(state);
+    float f = x_rng_next_float(state);
 #if USE_FMA
     return fma(f, upper - lower, lower);
 #else
@@ -324,9 +326,9 @@ static inline float x128_next_float_range(rng_state_t* restrict state, float low
 // ----------------------------
 // Float in [-1,1)
 // ----------------------------
-static inline float x128_next_neg1pos1(rng_state_t* restrict state) 
+static inline float x_rng_next_neg1pos1(rng_state_t* restrict state) 
 {
-    float f = x128_next_float(state);
+    float f = x_rng_next_float(state);
 #if USE_FMA
     return fma(f, 2.0f, -1.0f);
 #else
@@ -337,67 +339,12 @@ static inline float x128_next_neg1pos1(rng_state_t* restrict state)
 // ----------------------------
 // Float in [-0.5,0.5)
 // ----------------------------
-static inline float x128_next_0505(rng_state_t* restrict state) 
+static inline float x_rng_next_0505(rng_state_t* restrict state) 
 {
-    float f = x128_next_float(state);
+    float f = x_rng_next_float(state);
     return f - 0.5f;
 }
 
-// ----------------------------
-// Float in [0,1)
-// ----------------------------
-static inline float x64_next_float(uint *s0, uint *s1) 
-{
-    uint result = (*s0 + *s1);
-
-    uint t = *s1 ^ *s0;
-    *s0 = rotate_left(*s0, 26) ^ t ^ (t << 9);
-    *s1 = rotate_left(t, 13);
-
-    // return (float)(result & 0x00FFFFFFu) / 16777216.0f;
-#if USE_NATIVE
-    return native_divide((float)(result >> 8), 16777216.0f); // Get the upper 24bit for more uniform randomness
-#else
-    return (float)(result >> 8) / 16777216.0f; // Get the upper 24bit for more uniform randomness
-#endif
-}
-// ----------------------------
-// Float in [-1,1)
-// ----------------------------
-static inline float x64_next_neg1pos1(rng_state_t* state) 
-{
-    float f = x64_next_float(&state->s0, &state->s1);
-#if USE_FMA
-    return fma(f, 2.0f, -1.0f);
-#else
-    return f * 2.0f - 1.0f;
-#endif
-}
-
-// ----------------------------
-// Helper to either x128 or x64
-// Float in [0,1)
-// ----------------------------
-static inline float rng_next_float(rng_state_t* state)
-{
-#if USE_RNG_X128
-    return x128_next_float(state);
-#else
-    return x64_next_float(&state->s0, &state->s1);
-#endif
-}
-// ----------------------------
-// Helper to either x128 or x64
-// Float in [-1,1)
-// ----------------------------
-static inline float rng_next_neg1pos1(rng_state_t* state)
-{
-#if USE_RNG_X128
-    return x128_next_neg1pos1(state);
-#else
-    return x64_next_neg1pos1(state);
-#endif
-}
 
 // ----------------------------
 // CL FLAM3 SAMPLE CDF binary
@@ -913,7 +860,7 @@ static float2 CL_V_JULIA(
 {
 
     float a = 0.5 * ATAN(in);
-    a += select(0.0f, (float)M_PI, rng_next_float(state) < 0.5f);
+    a += select(0.0f, (float)M_PI, x_rng_next_float(state) < 0.5f);
 #if USE_NATIVE
     float r = w * native_sqrt(SQRT(in));
 #else
@@ -1214,12 +1161,12 @@ static float2 CL_V_BLUR(__private const float w,
                         )
 {
 
-    float tmpr = rng_next_float(state) * M_TAU;
+    float tmpr = x_rng_next_float(state) * M_TAU;
 
     float sr, cr;
     sincos_fast(tmpr, &sr, &cr);
 
-    float r = w * rng_next_float(state);
+    float r = w * x_rng_next_float(state);
 
     return r * (float2)(cr, sr);
 }
@@ -1376,7 +1323,7 @@ static float2 CL_V_JULIAN(
     float r2 = SUMSQ(in);
     float a  = ATANYX(in);
 
-    int t_rnd = (int)(julian.x * rng_next_float(state));
+    int t_rnd = (int)(julian.x * x_rng_next_float(state));
 
 #if USE_FMA
     float tmpr = fma(M_TAU, t_rnd, a) * inv_jx;
@@ -1415,7 +1362,7 @@ static float2 CL_V_JULIASCOPE(
     float _ATANYX = ATANYX(in);
     float julian_cn = juliascope.y * inv_jx * 0.5f;
 
-    int t_rnd = (int)(juliascope.x * rng_next_float(state));
+    int t_rnd = (int)(juliascope.x * x_rng_next_float(state));
 
     float sign = (t_rnd & 1) ? -1.0f : 1.0f;
 #if USE_FMA
@@ -1444,11 +1391,11 @@ static float2 CL_V_GAUSSIAN_BLUR(
     )
 {
 
-    float rndA = rng_next_float(state) * M_TAU;
-    float rndG = w * (rng_next_float(state) + 
-                rng_next_float(state) + 
-                rng_next_float(state) + 
-                rng_next_float(state) - 
+    float rndA = x_rng_next_float(state) * M_TAU;
+    float rndG = w * (x_rng_next_float(state) + 
+                x_rng_next_float(state) + 
+                x_rng_next_float(state) + 
+                x_rng_next_float(state) - 
                 2.0f
                 );
     
@@ -1574,12 +1521,13 @@ static float2 CL_V_RADIALBLUR(
     float m_spin, m_zoom;
     sincos_fast(angle * M_PI_2, &m_spin, &m_zoom);  // TO DO: compute in vex land
     
-    float rndG = w * (rng_next_float(state) +
-                    rng_next_float(state) +
-                    rng_next_float(state) +
-                    rng_next_float(state) - 
-                    2.0f
-                    );
+    float rndG = w * (
+        x_rng_next_float(state) +
+        x_rng_next_float(state) +
+        x_rng_next_float(state) +
+        x_rng_next_float(state) - 
+        2.0f
+        );
 
     float ra = SQRT(in);
 #if USE_FMA
@@ -1613,18 +1561,18 @@ static float2 CL_V_PIE(
 {
 
 #if USE_FMA
-    float sl = (int)(fma(rng_next_float(state), pie.x, 0.5f));
+    float sl = (int)(fma(x_rng_next_float(state), pie.x, 0.5f));
 #else
-    float sl = (int)(rng_next_float(state) * pie.x + 0.5f);
+    float sl = (int)(x_rng_next_float(state) * pie.x + 0.5f);
 #endif
 
 #if USE_NATIVE
-    float a = pie.z + native_divide(M_TAU * (sl + rng_next_float(state) * pie.y), pie.x);
+    float a = pie.z + native_divide(M_TAU * (sl + x_rng_next_float(state) * pie.y), pie.x);
 #else
-    float a = pie.z + M_TAU * (sl + rng_next_float(state) * pie.y) / pie.x;
+    float a = pie.z + M_TAU * (sl + x_rng_next_float(state) * pie.y) / pie.x;
 #endif
 
-    float r = w * rng_next_float(state);
+    float r = w * x_rng_next_float(state);
 
     float sa, ca;
     sincos_fast(a, &sa, &ca);
@@ -1641,7 +1589,7 @@ static float2 CL_V_ARCH(
     )
 {
     
-    float a = rng_next_float(state) * w * M_PI;
+    float a = x_rng_next_float(state) * w * M_PI;
 
     float sa, ca;
     sincos_fast(a, &sa, &ca);
@@ -1689,8 +1637,8 @@ static float2 CL_V_SQUARE(
     )
 {
     return w * (float2)(
-        rng_next_float(state) - 0.5f, 
-        rng_next_float(state) - 0.5f
+        x_rng_next_float(state) - 0.5f, 
+        x_rng_next_float(state) - 0.5f
     );
 }
 // ----------------------------
@@ -1703,7 +1651,7 @@ static float2 CL_V_RAYS(
     )
 {
 
-    float ang = w * rng_next_float(state) * M_PI;
+    float ang = w * x_rng_next_float(state) * M_PI;
 #if USE_NATIVE
     float r = w * native_recip(Zeps(SUMSQ(in)));
     float tanr = w * native_tan(ang) * r;
@@ -1732,7 +1680,7 @@ static float2 CL_V_BLADE(
     )
 {
 
-    float r = w * rng_next_float(state) * SQRT(in);
+    float r = w * x_rng_next_float(state) * SQRT(in);
 
     float sr, cr;
     sincos_fast(r, &sr, &cr);
@@ -1778,7 +1726,7 @@ static float2 CL_V_TWINTRIAN(
     )
 {
 
-    float r = rng_next_float(state) * w * SQRT(in);
+    float r = x_rng_next_float(state) * w * SQRT(in);
 
     float sr, cr;
     sincos_fast(r, &sr, &cr);
@@ -1888,14 +1836,14 @@ static float2 CL_V_SUPERSHAPE(
     float st, ct;
     sincos_fast(theta, &st, &ct);
 
-    float rnd = fma(supershape.y, rng_next_float(state), fma(inv_sy, _SQRT, -supershape.z));
+    float rnd = fma(supershape.y, x_rng_next_float(state), fma(inv_sy, _SQRT, -supershape.z));
 #else
     float theta = ss_pm_4 * ATANYX(in) + M_PI_4;
 
     float st, ct;
     sincos_fast(theta, &st, &ct);
 
-    float rnd = supershape.y * rng_next_float(state) + inv_sy * _SQRT - supershape.z;
+    float rnd = supershape.y * x_rng_next_float(state) + inv_sy * _SQRT - supershape.z;
 #endif
 #if USE_NATIVE
     float t = native_powr(fabs(ct), supershape_n.y) + native_powr(fabs(st), supershape_n.z);
@@ -1921,10 +1869,10 @@ static float2 CL_V_FLOWER(
     float theta = ATANYX(in);
 #if USE_NATIVE
     float n_theta = native_cos(flower.x * theta);
-    float r = w * (rng_next_float(state) - flower.y) * n_theta * native_rsqrt(dot(in, in));
+    float r = w * (x_rng_next_float(state) - flower.y) * n_theta * native_rsqrt(dot(in, in));
 #else
     float n_theta = cos(flower.x * theta);
-    float r = w * (rng_next_float(state) - flower.y) * n_theta / SQRT(in);
+    float r = w * (x_rng_next_float(state) - flower.y) * n_theta / SQRT(in);
 #endif
 
     return r * in;
@@ -1940,7 +1888,7 @@ static float2 CL_V_CONIC(
     )
 {
 
-    float rnd = rng_next_float(state) - conic.y;
+    float rnd = x_rng_next_float(state) - conic.y;
     
 #if USE_NATIVE
     float inv_len = native_rsqrt(dot(in, in));
@@ -1981,8 +1929,8 @@ static float2 CL_V_PARABOLA(
     float sr2 = sr * sr;
 
     return w * (float2)(
-        parabola.x * sr2 * rng_next_float(state), 
-        parabola.y * cr  * rng_next_float(state)
+        parabola.x * sr2 * x_rng_next_float(state), 
+        parabola.y * cr  * x_rng_next_float(state)
     );
 }
 // ----------------------------
@@ -2063,7 +2011,7 @@ static float2 CL_V_BOARDERS(
     float baseY   = offsetY * 0.5f + roundY;
 #endif
 
-    float rnd = rng_next_float(state);
+    float rnd = x_rng_next_float(state);
 
     if (rnd >= 0.75f)
         return w * (float2)(baseX, baseY);
@@ -2255,10 +2203,10 @@ static float2 CL_V_CPOW(
     float vd = cpow.z / cpow.x;
 #endif
 #if USE_FMA
-    float term = va * floor(cpow.x * rng_next_float(state));
+    float term = va * floor(cpow.x * x_rng_next_float(state));
     float ang = fma(vc, aa, fma(vd, lnr, term));
 #else
-    float ang = vc * aa + vd * lnr + va * floor(cpow.x * rng_next_float(state));
+    float ang = vc * aa + vd * lnr + va * floor(cpow.x * x_rng_next_float(state));
 #endif
 #if USE_NATIVE
     #if USE_FMA
@@ -2383,12 +2331,12 @@ static float2 CL_V_NOISE(
     )
 {
 
-    float tmpr = rng_next_float(state) * M_TAU;
+    float tmpr = x_rng_next_float(state) * M_TAU;
 
     float sr, cr;
     sincos_fast(tmpr, &sr, &cr);
 
-    float r = w * rng_next_float(state);
+    float r = w * x_rng_next_float(state);
 
     return r * in * (float2)(cr, sr);
 }
@@ -2548,13 +2496,14 @@ static float2 CL_V_PREBLUR(
     )
 {
     
-    float rndA = rng_next_float(state) * M_TAU;
-    float rndG = w * (rng_next_float(state) + 
-                rng_next_float(state) + 
-                rng_next_float(state) + 
-                rng_next_float(state) - 
-                2.0f
-                );
+    float rndA = x_rng_next_float(state) * M_TAU;
+    float rndG = w * (
+        x_rng_next_float(state) + 
+        x_rng_next_float(state) + 
+        x_rng_next_float(state) + 
+        x_rng_next_float(state) - 
+        2.0f
+        );
 
     float sa, ca;
     sincos_fast(rndA, &sa, &ca);
@@ -2859,14 +2808,14 @@ static float2 CL_V_WEDGEJULIA(
     float wedgeJulia_rN = fabs(wedgejulia.x);
     
 #if USE_NATIVE
-    float t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
+    float t_rnd = (int)((wedgeJulia_rN) * x_rng_next_float(state));
     #if USE_FMA
         float a = native_divide(fma(M_TAU, t_rnd, ATANYX(in)), wedgejulia.x);
     #else
         float a = native_divide(ATANYX(in) + M_TAU * t_rnd, wedgejulia.x);
     #endif
 #else
-    float t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
+    float t_rnd = (int)((wedgeJulia_rN) * x_rng_next_float(state));
     #if USE_FMA
         float a = fma(M_TAU, t_rnd, ATANYX(in)) / wedgejulia.x;
     #else
@@ -3809,8 +3758,8 @@ static float2 CL_V_CROP(
     float w2 = (x1 - x0) * (0.5f * az.x);
     float h2 = (y1 - y0) * (0.5f * az.x);
 
-    float rx = rng_next_float(state);
-    float ry = rng_next_float(state);
+    float rx = x_rng_next_float(state);
+    float ry = x_rng_next_float(state);
 
     // replacements
 #if USE_FMA
@@ -3879,7 +3828,7 @@ static float2 CL_V_GLYNNIA(
 
     float r = SQRT(in);
     float d = r + in.x;
-    bool cond = rng_next_float(state) > 0.5f;
+    bool cond = x_rng_next_float(state) > 0.5f;
 
     if (r > 1.0f)
     {
@@ -3981,7 +3930,7 @@ static float2 CL_V_POINT_SYMMETRY(
 #else
     float twoPiDivOrder = M_TAU / order;
 #endif
-    int k = (int)(rng_next_float(state) * order);
+    int k = (int)(x_rng_next_float(state) * order);
 
     float cx = ptsym.y;
     float cy = ptsym.z;
@@ -4330,15 +4279,15 @@ __kernel void cl_flam3(
     rng_init(&rng, gid + OPID);  // unique per thread, per node
     
     // build starting sample (Biunit)
-    float2 mem = (float2)(rng_next_neg1pos1(&rng), rng_next_neg1pos1(&rng));
+    float2 mem = (float2)(x_rng_next_neg1pos1(&rng), x_rng_next_neg1pos1(&rng));
     
     // if XAOS, pick a starting iterator/xform from distribution
-    if(XS) idx = sample_cdf_binary(local_IW, RES, rng_next_float(&rng));
+    if(XS) idx = sample_cdf_binary(local_IW, RES, x_rng_next_float(&rng));
 
     for (int i = 0; i < ITER; ++i){
         
         // xform selection
-        float r = rng_next_float(&rng);
+        float r = x_rng_next_float(&rng);
         idx = sample_cdf_binary(XS ? &local_XST[idx * RES] : local_IW, RES, r);
         
         // parameterics data
