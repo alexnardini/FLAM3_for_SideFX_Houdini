@@ -1,6 +1,6 @@
 
 # <img width="48" height="48" src="../../icons/icon_pythonSVG.svg" /> Python
-## File name: [**`py_flam3__3_11_H21_UP.py`**](py_flam3__3_11_H21_UP.py)
+## File name: [**`py_flam3__3_11_H21.py`**](py_flam3__3_11_H21.py)
 - _The ending filename digits represent the least python version needed to run this code_.
 ## FLAM3H™
 ## Houdini version: H21 and up
@@ -44,7 +44,7 @@ This is the main FLAM3H™ python file that define:
 <br>
 
 # <img width="48" height="48" src="../../icons/icon_pythonSVG.svg" /> Python
-## File name: [**`py_flam3usd__3_11_H21_UP.py`**](py_flam3usd__3_11_H21_UP.py)
+## File name: [**`py_flam3usd__3_11_H21.py`**](py_flam3usd__3_11_H21.py)
 - _The ending filename digits represent the least python version needed to run this code_.
 ## FLAM3H™USD
 ## Houdini version: H21 and up

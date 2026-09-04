@@ -212,7 +212,7 @@ else:
     date:       August 2025, Last revised August 2026 (cloned from: py_flam3__3_11.py)
                 Source file start date: April 2025
 
-    Name:       PY_FLAM3__3_11_H21_UP "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
+    Name:       PY_FLAM3__3_11_H21 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
 
     Comment:    Python classes and definitions for:
                 - General UX

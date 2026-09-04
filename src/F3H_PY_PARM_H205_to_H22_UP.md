@@ -171,7 +171,7 @@ def py_module_vars() -> str:
     if h < 205:
         __module_filename__ = "py_flam3__3_7"
     elif h < 220:
-        __module_filename__ = "py_flam3__3_11_H21_UP"
+        __module_filename__ = "py_flam3__3_11_H21"
     else:
         __module_filename__ = "py_flam3__3_13"
     
@@ -288,7 +288,7 @@ def py_module_vars() -> str:
     if h < 205: 
         __module_filename__: str = "py_flam3__3_7"
     else:
-        __module_filename__: str = "py_flam3__3_11_H21_UP"
+        __module_filename__: str = "py_flam3__3_11_H21"
 
     return __module_filename__
 
