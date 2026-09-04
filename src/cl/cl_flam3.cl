@@ -194,17 +194,17 @@ enum {
 // 128 | 64 bit
 // ----------------------------
 #if USE_RNG_X128
-typedef struct {
-    uint s0;
-    uint s1;
-    uint s2;
-    uint s3;
-} rng_state_t;
+    typedef struct {
+        uint s0;
+        uint s1;
+        uint s2;
+        uint s3;
+    } rng_state_t;
 #else
-typedef struct {
-    uint s0;
-    uint s1;
-} rng_state_t;
+    typedef struct {
+        uint s0;
+        uint s1;
+    } rng_state_t;
 #endif
 // ----------------------------
 // Rotate left
@@ -231,22 +231,22 @@ static inline uint splitmix32(uint seed)
 // 128 | 64 bit
 // ----------------------------
 #if USE_RNG_X128
-static inline void x_rng_init(rng_state_t* restrict state, uint gid) 
-{
-    state->s0 = splitmix32(gid);
-    state->s1 = splitmix32(gid + 1u);
-    state->s2 = splitmix32(gid + 2u);
-    state->s3 = splitmix32(gid + 3u);
-}
+    static inline void x_rng_init(rng_state_t* restrict state, uint gid) 
+    {
+        state->s0 = splitmix32(gid);
+        state->s1 = splitmix32(gid + 1u);
+        state->s2 = splitmix32(gid + 2u);
+        state->s3 = splitmix32(gid + 3u);
+    }
 #else
-#define MWC_A 4294883355U
-static inline void x_rng_init(rng_state_t* restrict state, uint gid) 
-{
-    state->s0 = splitmix32(gid);
-    state->s1 = splitmix32(gid + 1u);
-    
-    if(state->s1 >= MWC_A) state->s1 -= MWC_A;
-}
+    #define MWC_A 4294883355U
+    static inline void x_rng_init(rng_state_t* restrict state, uint gid) 
+    {
+        state->s0 = splitmix32(gid);
+        state->s1 = splitmix32(gid + 1u);
+        
+        if(state->s1 >= MWC_A) state->s1 -= MWC_A;
+    }
 #endif
 
 // ----------------------------
@@ -254,40 +254,40 @@ static inline void x_rng_init(rng_state_t* restrict state, uint gid)
 // 128 | 64 bit
 // ----------------------------
 #if USE_RNG_X128
-static inline uint x_rng_next_uint(rng_state_t* restrict state) 
-{
-    uint result = state->s0 + state->s3;
+    static inline uint x_rng_next_uint(rng_state_t* restrict state) 
+    {
+        uint result = state->s0 + state->s3;
 
-    uint t = state->s1 << 9;
+        uint t = state->s1 << 9;
 
-    state->s2 ^= state->s0;
-    state->s3 ^= state->s1;
-    state->s1 ^= state->s2;
-    state->s0 ^= state->s3;
+        state->s2 ^= state->s0;
+        state->s3 ^= state->s1;
+        state->s1 ^= state->s2;
+        state->s0 ^= state->s3;
 
-    state->s2 ^= t;
+        state->s2 ^= t;
 
-    state->s3 = rotate_left(state->s3, 11);
+        state->s3 = rotate_left(state->s3, 11);
 
-    return result;
-}
+        return result;
+    }
 #else
-static inline uint x_rng_next_uint(rng_state_t *restrict state)
-{
-    uint x = state->s0;
-    uint c = state->s1;
+    static inline uint x_rng_next_uint(rng_state_t *restrict state)
+    {
+        uint x = state->s0;
+        uint c = state->s1;
 
-    uint result = x ^ c;
+        uint result = x ^ c;
 
-    uint hi = mul_hi(x, MWC_A);
-    x = x * MWC_A + c;
-    c = hi + (x < c);
+        uint hi = mul_hi(x, MWC_A);
+        x = x * MWC_A + c;
+        c = hi + (x < c);
 
-    state->s0 = x;
-    state->s1 = c;
+        state->s0 = x;
+        state->s1 = c;
 
-    return result;
-}
+        return result;
+    }
 #endif
 
 // ----------------------------
