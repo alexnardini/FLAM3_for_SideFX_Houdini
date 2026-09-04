@@ -250,7 +250,8 @@ static inline void x_rng_init(rng_state_t* restrict state, uint gid)
 #endif
 
 // ----------------------------
-// Next uint random - 128 | 64 bit
+// Next uint random
+// 128 | 64 bit
 // ----------------------------
 #if USE_RNG_X128
 static inline uint x_rng_next_uint(rng_state_t* restrict state) 
