@@ -3775,7 +3775,7 @@ static float2 CL_V_CROP(
     p.x = right  ? xR : p.x;
     p.y = bottom ? yB : p.y;
 
-    bool outside = left | right | bottom | top;
+    bool outside = left || right || bottom || top;
 
     if (outside && az.y != 0.0f)
         p = (float2)(0.0f);

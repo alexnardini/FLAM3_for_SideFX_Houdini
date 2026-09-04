@@ -206,7 +206,7 @@ else:
 
     Title:      FLAM3H™ H205. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       April 2025, Last revised August 2026 (cloned from: py_flam3__3_7.py)
+    date:       April 2025, Last revised September 2026 (cloned from: py_flam3__3_7.py)
                 Source file start date: January 2022
 
     Name:       PY_FLAM3__3_11 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -22015,15 +22015,19 @@ class out_flame_utils
         node: hou.SopNode = self.node
         names: list = []
         for idx, prm in enumerate(WEIGHTS_tuple):
+            
             prm_w: float = node.parm(f"{prm[0]}{MP_IDX}").eval()
             if prm_w != 0:
+                
                 v_type: int = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
                 v_name: str = in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type)
                 names.append(v_name)
+                
                 if BLUR_PRE:
                     element_xform.set(FUNC(f"{v_name}_pre") if v_type == 26 else FUNC(v_name), self.out_util_round_float(prm_w))
                 else:
                     element_xform.set(FUNC(v_name), self.out_util_round_float(prm_w))
+                    
                 vars_prm: tuple = varsPRM[v_type]
                 if vars_prm[-1]:
                     f3h_prm: tuple = varsPRM[v_type][1:-1]
@@ -22037,10 +22041,23 @@ class out_flame_utils
                         out_prm: tuple = apo_prm[1:-1]
                         
                     for id, p in enumerate(out_prm):
+                        
                         if f3h_prm[id][-1]:
-                            for i in range(len(p)): # for i, n in enumerate(p):
+                            
+                            for idx, prm_name in enumerate(p):
+                                
                                 vals: tuple[float, ...] = node.parmTuple(f"{f3h_prm[id][0]}{MP_IDX}").eval()
-                                element_xform.set(FUNC(p[i]), self.out_util_round_float(vals[i]))
+                                
+                                # This is a one off fix for the "crop_zero" parameter that is a boolean but is stored as a float in Houdini.
+                                # If the value is not 0, we will force it to be 1 so that it is compatible with the FLAM3 file format.
+                                if v_type == 102 and prm_name == "crop_zero" and vals[1] != 0:
+                                    crop_vals: list[float] = list(vals)
+                                    crop_vals[1] = 1
+                                    element_xform.set(FUNC(prm_name), self.out_util_round_float(crop_vals[idx]))
+                                    
+                                else:
+                                    element_xform.set(FUNC(prm_name), self.out_util_round_float(vals[idx]))
+                                    
                         else:
                             val: float = node.parm(f"{f3h_prm[id][0]}{MP_IDX}").eval()
                             element_xform.set(FUNC(p[0]), self.out_util_round_float(val))
