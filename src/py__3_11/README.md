@@ -3,7 +3,7 @@
 ## File name: [**`py_flam3__3_11_H21.py`**](py_flam3__3_11_H21.py)
 - _The ending filename digits represent the least python version needed to run this code_.
 ## FLAM3H™
-## Houdini version: H21 and up
+## Houdini version: H21.0
 ### Description:
 
 This is the main FLAM3H™ python file that define:
@@ -47,7 +47,7 @@ This is the main FLAM3H™ python file that define:
 ## File name: [**`py_flam3usd__3_11_H21.py`**](py_flam3usd__3_11_H21.py)
 - _The ending filename digits represent the least python version needed to run this code_.
 ## FLAM3H™USD
-## Houdini version: H21 and up
+## Houdini version: H21.0
 ### Description:
 
 Simple utility node to quickly setup fractal Flames point clouds in Solaris for previews.
