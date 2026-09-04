@@ -242,10 +242,8 @@ static inline void x_rng_init(rng_state_t* restrict state, uint gid)
 #define MWC_A 4294883355U
 static inline void x_rng_init(rng_state_t* restrict state, uint gid) 
 {
-    uint seed = gid * 2u;
-
-    state->s0 = splitmix32(seed);
-    state->s1 = splitmix32(seed + 1u);
+    state->s0 = splitmix32(gid);
+    state->s1 = splitmix32(gid + 1u);
     
     if(state->s1 >= MWC_A) state->s1 -= MWC_A;
 }
