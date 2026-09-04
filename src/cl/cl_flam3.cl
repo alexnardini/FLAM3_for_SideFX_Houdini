@@ -21,7 +21,7 @@
  /
  /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       December 2025, Last revised August 2026
+ /  date:       December 2025, Last revised September 2026
  /  License:    GPL
  /  Copyright:  2021, © F stands for liFe ( made in Italy )
  /
@@ -192,24 +192,32 @@ enum {
 // ----------------------------
 // RNG state per thread
 // ----------------------------
+#if USE_RNG_X128
 typedef struct {
     uint s0;
     uint s1;
     uint s2;
     uint s3;
-} x128_state_t;
-
+} rng_state_t;
+#else
+typedef struct {
+    uint s0;
+    uint s1;
+} rng_state_t;
+#endif
 // ----------------------------
 // Rotate left
 // ----------------------------
-static inline uint rotate_left(uint x, int k) {
+static inline uint rotate_left(uint x, int k) 
+{
     return (x << k) | (x >> (32 - k));
 }
 
 // ----------------------------
 // SplitMix32 for per-thread seeding
 // ----------------------------
-static inline uint splitmix32(uint seed) {
+static inline uint splitmix32(uint seed) 
+{
     uint z = seed + 0x9E3779B9u;
     z = (z ^ (z >> 16)) * 0x85EBCA6Bu;
     z = (z ^ (z >> 13)) * 0xC2B2AE35u;
@@ -217,39 +225,47 @@ static inline uint splitmix32(uint seed) {
 }
 
 // ----------------------------
-// Initialize x64 RNG state for a work-item
-// gid = get_global_id(0) or other unique thread index
-// ----------------------------
-static inline void x64_rng_init(x128_state_t* restrict state, uint gid) {
-    state->s0 = splitmix32(gid + 0);
-    state->s1 = splitmix32(gid + 1);
-}
-// ----------------------------
 // Initialize x128 RNG state for a work-item
 // gid = get_global_id(0) or other unique thread index
 // ----------------------------
-static inline void x128_rng_init(x128_state_t* restrict state, uint gid) {
-    state->s0 = splitmix32(gid + 0);
-    state->s1 = splitmix32(gid + 1);
-    state->s2 = splitmix32(gid + 2);
-    state->s3 = splitmix32(gid + 3);
+#if USE_RNG_X128
+static inline void x_rng_init(rng_state_t* restrict state, uint gid) 
+{
+    state->s0 = splitmix32(gid);
+    state->s1 = splitmix32(gid + 1u);
+    state->s2 = splitmix32(gid + 2u);
+    state->s3 = splitmix32(gid + 3u);
 }
+#else
+// ----------------------------
+// Initialize x64 RNG state for a work-item
+// gid = get_global_id(0) or other unique thread index
+// ----------------------------
+#define MWC_A 4294883355U
+static inline void x_rng_init(rng_state_t* restrict state, uint gid) 
+{
+    state->s0 = splitmix32(gid);
+    state->s1 = splitmix32(gid + 1u);
+
+    if(state->s1 >= MWC_A) state->s1 -= MWC_A;
+}
+#endif
+
 // ----------------------------
 // Helper to init either x128 or x64
 // gid = get_global_id(0) or other unique thread index
 // ----------------------------
-static inline void rng_init(x128_state_t* restrict state, uint gid) {
-#if USE_RNG_X128
-    x128_rng_init(state, gid);
-#else
-    x64_rng_init(state, gid);
-#endif
+static inline void rng_init(rng_state_t* restrict state, uint gid) 
+{
+    x_rng_init(state, gid);
 }
 
 // ----------------------------
 // Next uint32 random
 // ----------------------------
-static inline uint x128_next_uint(x128_state_t* restrict state) {
+#if USE_RNG_X128
+static inline uint x_rng_next_uint(rng_state_t* restrict state) 
+{
     uint result = state->s0 + state->s3;
 
     uint t = state->s1 << 9;
@@ -265,18 +281,38 @@ static inline uint x128_next_uint(x128_state_t* restrict state) {
 
     return result;
 }
+#else
+static inline uint x_rng_next_uint(rng_state_t *restrict state)
+{
+    uint x = state->s0;
+    uint c = state->s1;
+
+    uint result = x ^ c;
+
+    uint hi = mul_hi(x, MWC_A);
+    x = x * MWC_A + c;
+    c = hi + (x < c);
+
+    state->s0 = x;
+    state->s1 = c;
+
+    return result;
+}
+#endif
 
 // ----------------------------
 // Float in [0,1)
 // ----------------------------
-static inline float x128_next_float(x128_state_t* restrict state) {
-    return (float)(x128_next_uint(state) >> 8) * 0x1p-24f; // 1/2^24 -> 1.0f / 16777216.0f -> 5.960464477539063e-8f -> 0.000000059604644775390625f -> 0x1p-24f
+static inline float x128_next_float(rng_state_t* restrict state) 
+{
+    return (float)(x_rng_next_uint(state) >> 8) * 0x1p-24f; // 1/2^24 -> 1.0f / 16777216.0f -> 5.960464477539063e-8f -> 0.000000059604644775390625f -> 0x1p-24f
 }
 
 // ----------------------------
 // Float in [lower, upper)
 // ----------------------------
-static inline float x128_next_float_range(x128_state_t* restrict state, float lower, float upper) {
+static inline float x128_next_float_range(rng_state_t* restrict state, float lower, float upper) 
+{
     float f = x128_next_float(state);
 #if USE_FMA
     return fma(f, upper - lower, lower);
@@ -288,7 +324,8 @@ static inline float x128_next_float_range(x128_state_t* restrict state, float lo
 // ----------------------------
 // Float in [-1,1)
 // ----------------------------
-static inline float x128_next_neg1pos1(x128_state_t* restrict state) {
+static inline float x128_next_neg1pos1(rng_state_t* restrict state) 
+{
     float f = x128_next_float(state);
 #if USE_FMA
     return fma(f, 2.0f, -1.0f);
@@ -300,7 +337,8 @@ static inline float x128_next_neg1pos1(x128_state_t* restrict state) {
 // ----------------------------
 // Float in [-0.5,0.5)
 // ----------------------------
-static inline float x128_next_0505(x128_state_t* restrict state) {
+static inline float x128_next_0505(rng_state_t* restrict state) 
+{
     float f = x128_next_float(state);
     return f - 0.5f;
 }
@@ -308,7 +346,8 @@ static inline float x128_next_0505(x128_state_t* restrict state) {
 // ----------------------------
 // Float in [0,1)
 // ----------------------------
-static inline float x64_next_float(uint *s0, uint *s1) {
+static inline float x64_next_float(uint *s0, uint *s1) 
+{
     uint result = (*s0 + *s1);
 
     uint t = *s1 ^ *s0;
@@ -325,7 +364,8 @@ static inline float x64_next_float(uint *s0, uint *s1) {
 // ----------------------------
 // Float in [-1,1)
 // ----------------------------
-static inline float x64_next_neg1pos1(x128_state_t* state) {
+static inline float x64_next_neg1pos1(rng_state_t* state) 
+{
     float f = x64_next_float(&state->s0, &state->s1);
 #if USE_FMA
     return fma(f, 2.0f, -1.0f);
@@ -338,7 +378,8 @@ static inline float x64_next_neg1pos1(x128_state_t* state) {
 // Helper to either x128 or x64
 // Float in [0,1)
 // ----------------------------
-static inline float rng_next_float(x128_state_t* state){
+static inline float rng_next_float(rng_state_t* state)
+{
 #if USE_RNG_X128
     return x128_next_float(state);
 #else
@@ -349,7 +390,8 @@ static inline float rng_next_float(x128_state_t* state){
 // Helper to either x128 or x64
 // Float in [-1,1)
 // ----------------------------
-static inline float rng_next_neg1pos1(x128_state_t* state){
+static inline float rng_next_neg1pos1(rng_state_t* state)
+{
 #if USE_RNG_X128
     return x128_next_neg1pos1(state);
 #else
@@ -364,7 +406,8 @@ static inline float rng_next_neg1pos1(x128_state_t* state){
 // because for a max of 20 xforms it might not be the fastest option,
 // even tho with more capable GPUs the xform limit may easily increase.
 // ----------------------------
-static inline int sample_cdf_binary(__local const float* CDF, const int length, const float u_rand) {
+static inline int sample_cdf_binary(__local const float* CDF, const int length, const float u_rand) 
+{
     if (length <= 0) return 0;
 
     int low = 0;
@@ -518,7 +561,8 @@ static inline void sincos_fast(float a, float* s, float* c)
 // To be used with an improved Elliptic version which helps with rounding errors.
 // For 64bit(DP, when and if I'll find the time to add support for it)
 // Source: https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html
-static inline float Sqrt1pm1(const float x){
+static inline float Sqrt1pm1(const float x)
+{
     if (-0.0625 < x && x < 0.0625)
     {
         float num = 0;
@@ -864,7 +908,7 @@ static float2 CL_V_EX(
 static float2 CL_V_JULIA(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state
+    __private rng_state_t* restrict state
     )
 {
 
@@ -1166,7 +1210,7 @@ static float2 CL_V_EYEFISH(
 // 026 VAR BLUR
 // ----------------------------
 static float2 CL_V_BLUR(__private const float w, 
-                        __private x128_state_t* restrict state
+                        __private rng_state_t* restrict state
                         )
 {
 
@@ -1317,7 +1361,7 @@ static float2 CL_V_BLOB(
 static float2 CL_V_JULIAN(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __private const float2 julian   // power, distance
     )
 {
@@ -1357,7 +1401,7 @@ static float2 CL_V_JULIAN(
 static float2 CL_V_JULIASCOPE(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __private const float2 juliascope   // power(julian_rN), distance
     )
 {
@@ -1396,7 +1440,7 @@ static float2 CL_V_JULIASCOPE(
 // ----------------------------
 static float2 CL_V_GAUSSIAN_BLUR(
     __private const float w, 
-    __private x128_state_t* restrict state
+    __private rng_state_t* restrict state
     )
 {
 
@@ -1523,7 +1567,7 @@ static float2 CL_V_RECTANGLES(
 static float2 CL_V_RADIALBLUR(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __private const float angle // angle
     )
 {
@@ -1563,7 +1607,7 @@ static float2 CL_V_RADIALBLUR(
 // ----------------------------
 static float2 CL_V_PIE(
     __private const float w, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __private const float4 pie  // slices, thickness, rotation
     )
 {
@@ -1593,7 +1637,7 @@ static float2 CL_V_PIE(
 static float2 CL_V_ARCH(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state
+    __private rng_state_t* restrict state
     )
 {
     
@@ -1641,7 +1685,7 @@ static float2 CL_V_TANGENT(
 // ----------------------------
 static float2 CL_V_SQUARE(
     __private const float w, 
-    __private x128_state_t* restrict state
+    __private rng_state_t* restrict state
     )
 {
     return w * (float2)(
@@ -1655,7 +1699,7 @@ static float2 CL_V_SQUARE(
 static float2 CL_V_RAYS(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state
+    __private rng_state_t* restrict state
     )
 {
 
@@ -1684,7 +1728,7 @@ static float2 CL_V_RAYS(
 static float2 CL_V_BLADE(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state
+    __private rng_state_t* restrict state
     )
 {
 
@@ -1730,7 +1774,7 @@ static float2 CL_V_SECANT2(
 static float2 CL_V_TWINTRIAN(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state
+    __private rng_state_t* restrict state
     )
 {
 
@@ -1815,7 +1859,7 @@ static float2 CL_V_DISC2(
 static float2 CL_V_SUPERSHAPE(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __private const float4 supershape,  // (F3) m, rnd, holes
     __private const float4 supershape_n // (F3) n1, n2, n3
     )
@@ -1869,7 +1913,7 @@ static float2 CL_V_SUPERSHAPE(
 static float2 CL_V_FLOWER(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __private const float2 flower   // petals, holes
     )
 {
@@ -1891,7 +1935,7 @@ static float2 CL_V_FLOWER(
 static float2 CL_V_CONIC(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __private const float2 conic    // eccentricity, holes
     )
 {
@@ -1924,7 +1968,7 @@ static float2 CL_V_CONIC(
 static float2 CL_V_PARABOLA(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __private const float2 parabola // height, width
     )
 {
@@ -2001,7 +2045,7 @@ static float2 CL_V_BIPOLAR(
 static float2 CL_V_BOARDERS(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state
+    __private rng_state_t* restrict state
     )
 {
 
@@ -2193,7 +2237,7 @@ static float2 CL_V_CELL(
 static float2 CL_V_CPOW(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __private const float4 cpow // power, r, i
     )
 {
@@ -2335,7 +2379,7 @@ static float2 CL_V_ELLIPTIC(
 static float2 CL_V_NOISE(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state
+    __private rng_state_t* restrict state
     )
 {
 
@@ -2500,7 +2544,7 @@ static float2 CL_V_LOONIE(
 // ----------------------------
 static float2 CL_V_PREBLUR(
     __private const float w, 
-    __private x128_state_t* restrict state
+    __private rng_state_t* restrict state
     )
 {
     
@@ -2807,7 +2851,7 @@ static float2 CL_V_WEDGE(
 static float2 CL_V_WEDGEJULIA(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __private const float4 wedgejulia   // power, angle, dist, count
     )
 {
@@ -3752,7 +3796,7 @@ static float2 CL_V_POLYNOMIAL(
 static float2 CL_V_CROP(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __private const float4 ltrb,    // left, top, right, bottom
     __private const float2 az       // area, zero
     )
@@ -3829,7 +3873,7 @@ static float2 CL_V_UNPOLAR(
 static float2 CL_V_GLYNNIA(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state
+    __private rng_state_t* restrict state
     )
 {
 
@@ -3926,7 +3970,7 @@ static float2 CL_V_GLYNNIA(
 static float2 CL_V_POINT_SYMMETRY(
     __private const float2 in, 
     __private const float w, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __private const float4 ptsym    // order, center_x, center_y
     )
 {
@@ -3978,7 +4022,7 @@ static float2 CL_V_DISPATCH(
     __private const float2  y,
     __private const float2  o, 
     __private const int     F3C, 
-    __private x128_state_t* restrict state, 
+    __private rng_state_t* restrict state, 
     __local const float*    PRM_F, 
     __local const float2*   PRM_F2, 
     __local const float4*   PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
@@ -4282,7 +4326,7 @@ __kernel void cl_flam3(
     float clr = 0.0f;
     
     // init RNG
-    x128_state_t rng;
+    rng_state_t rng;
     rng_init(&rng, gid + OPID);  // unique per thread, per node
     
     // build starting sample (Biunit)
@@ -4444,7 +4488,7 @@ __kernel void cl_flam3_ff(
     float2 mem = vload3(gid, P).xy;
     
     // RNG init
-    x128_state_t rng;
+    rng_state_t rng;
     rng_init(&rng, gid + OPID);  // unique per thread, per node
     
     // pp parameterics data
