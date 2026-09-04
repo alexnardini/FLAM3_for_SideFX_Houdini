@@ -43,6 +43,29 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.0.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.60)  ##
+
+#### FLAM3H™ v2.0.60 indie -> H22.0 UP</br>FLAM3H™ v2.0.48 indie -> H21.0</br>FLAM3H™ v2.0.42 indie -> H20.5</br>FLAM3H™ v1.9.86 indie -> H19.0 to H20 ####
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **Fix**: The Crop variation's "**_crop_zero_**" parameter is a boolean but is stored as a float in Houdini. If the value was not **0** meant it was active but third-party application where not able to read it as float value. It is now forced to be **1** if different from **0** so that it is compatible with the FLAM3 file format.
+- **OpenCL code updates** 
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.0.58 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.58)  ##
 
 #### FLAM3H™ v2.0.58 indie -> H22.0 UP</br>FLAM3H™ v2.0.46 indie -> H21.0</br>FLAM3H™ v2.0.38 indie -> H20.5</br>FLAM3H™ v1.9.86 indie -> H19.0 to H20 ####
