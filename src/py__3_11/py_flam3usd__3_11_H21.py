@@ -10,7 +10,7 @@
 __author__ = "F stands for liFe ( made in Italy )"
 __copyright__ = "© 2023 F stands for liFe"
 
-__py_version__ = "3.11.7" # H21 UP
+__py_version__ = "3.11.7" # H21
 __license__ = "GPL v3.0"
 __maintainer__ = "Alessandro Nardini"
 
@@ -153,9 +153,9 @@ else:
     Tested on:  PYTHON v3.11.7  (H21.0)
                 PYTHON v3.13.10 (H22.0)
 
-    Title:      SideFX Houdini FLAM3H™USD H21 UP
+    Title:      SideFX Houdini FLAM3H™USD H21
     Author:     F stands for liFe ( made in Italy )
-    date:       August 2025, Last revised July 2026 (cloned from: py_flam3usd__3_11.py)
+    date:       August 2025, Last revised September 2026 (cloned from: py_flam3usd__3_11.py)
                 Source file start date: April 2025
 
     Name:       PY_FLAM3USD__3_11_H21 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -169,7 +169,7 @@ else:
                 
                 Note:
                     Some definitions run directly from inside the FLAM3H™USD parameters.
-                    Please check the file: ../F3HUSD_PY_PARM_H205_to_H21_UP.md
+                    Please check the file: ../F3HUSD_PY_PARM_H205_to_H22_UP.md
                     to see if any of the definition you are curious about is being used inside any of the FLAM3H™USD parameters directly.
                     The file include a list/map of all the definitions used directly inside FLAM3H™USD and categorized as:
                         

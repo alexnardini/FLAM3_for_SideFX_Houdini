@@ -154,7 +154,7 @@ else:
 
     Title:      FLAM3H™USD H22.0 UP. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       August 2025, Last revised August 2026 (cloned from: py_flam3usd__3_11_H21.py)
+    date:       August 2025, Last revised September 2026 (cloned from: py_flam3usd__3_11_H21.py)
                 Source file start date: August 2025
 
     Name:       PY_FLAM3USD__3_13 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -168,7 +168,7 @@ else:
                 
                 Note:
                     Some definitions run directly from inside the FLAM3H™USD parameters.
-                    Please check the file: ../F3HUSD_PY_PARM_H205_to_H21_UP.md
+                    Please check the file: ../F3HUSD_PY_PARM_H205_to_H22_UP.md
                     to see if any of the definition you are curious about is being used inside any of the FLAM3H™USD parameters directly.
                     The file include a list/map of all the definitions used directly inside FLAM3H™USD and categorized as:
                         

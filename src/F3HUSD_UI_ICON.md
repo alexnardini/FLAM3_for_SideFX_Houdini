@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3H™USD. Render FLAM3H™ fractal Flame in Solaris using Karma: UI ICON MAP
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       September 2025, Last revised June 2026
+#   date:       September 2025, Last revised September 2026
 #   License:    GPL, CC BY-SA 4.0
 #   Copyright:  (c) 2023 F stands for liFe
 #
@@ -31,14 +31,14 @@
 - #### Quick links
 
     - **FLAM3H™USD** [**PY_PARM_map H19 to H20**](F3HUSD_PY_PARM_H19_to_H20.md)
-    - **FLAM3H™USD** [**PY_PARM_map H20.5 to H21 UP**](F3HUSD_PY_PARM_H205_to_H21_UP.md)
+    - **FLAM3H™USD** [**PY_PARM_map H20.5 to H22 UP**](F3HUSD_PY_PARM_H205_to_H22_UP.md)
 
     </br>
 
     - **FLAM3H™** [**UI_ICON_map H19.0 to H20.0**](F3H_UI_ICON_H19_to_H20.md)
-    - **FLAM3H™** [**UI_ICON_map H20.5 to H21.0 UP**](F3H_UI_ICON_H205_to_H21_UP.md)
+    - **FLAM3H™** [**UI_ICON_map H20.5 to H22.0 UP**](F3H_UI_ICON_H205_to_H22_UP.md)
     - **FLAM3H™** [**PY_PARM_map H19.0 to H20.0**](F3H_PY_PARM_H19_to_H20.md)
-    - **FLAM3H™** [**PY_PARM_map H20.5 to H21.0 UP**](F3H_PY_PARM_H205_to_H21_UP.md)
+    - **FLAM3H™** [**PY_PARM_map H20.5 to H22.0 UP**](F3H_PY_PARM_H205_to_H22_UP.md)
 
     </br>
 

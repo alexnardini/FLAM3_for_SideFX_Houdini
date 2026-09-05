@@ -225,7 +225,7 @@ else:
 
                 Note:
                     Some definitions run directly from inside the FLAM3H™ parameters.
-                    Please check the file: ../F3H_PY_PARM_H205_to_H21_UP.md
+                    Please check the file: ../F3H_PY_PARM_H205_to_H22_UP.md
                     to see if any of the definition you are curious about is being used inside any of the FLAM3H™ parameters directly.
                     The file include a list/map of all the definitions used directly inside FLAM3H™ and categorized as:
                         

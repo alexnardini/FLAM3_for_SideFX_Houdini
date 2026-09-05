@@ -155,7 +155,7 @@ else:
 
     Title:      SideFX Houdini FLAM3H™USD
     Author:     F stands for liFe ( made in Italy )
-    date:       April 2025, Last revised July 2026 (cloned from: py_flam3usd__3_7.py)
+    date:       April 2025, Last revised September 2026 (cloned from: py_flam3usd__3_7.py)
                 Source file start date: September 2023
 
     Name:       PY_FLAM3USD__3_11 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -169,7 +169,7 @@ else:
                 
                 Note:
                     Some definitions run directly from inside the FLAM3H™USD parameters.
-                    Please check the file: ../F3HUSD_PY_PARM_H205_to_H21_UP.md
+                    Please check the file: ../F3HUSD_PY_PARM_H205_to_H22_UP.md
                     to see if any of the definition you are curious about is being used inside any of the FLAM3H™USD parameters directly.
                     The file include a list/map of all the definitions used directly inside FLAM3H™USD and categorized as:
                         
