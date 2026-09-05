@@ -51,8 +51,8 @@ They are all available in this Github repository.
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
-- **Fix**: The Crop variation's "**_crop_zero_**" parameter is a boolean but is stored as a float in Houdini. If the value was not **0** meant it was active but third-party application where not able to read it as float value. It is now forced to be **1** if different from **0** so that it is compatible with the FLAM3 file format.
-- **OpenCL code updates** 
+- **Fix**: The Crop variation's "**_crop_zero_**" parameter is a boolean but is stored as a float in Houdini. If the value was not **0.0** meant it was active but third-party application where not able to read it as float value (_e.g.: **0.1**_). It is now forced to be **1** if different from **0.0** so that it is compatible with the FLAM3 file format.
+- **OpenCL code updates**
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
