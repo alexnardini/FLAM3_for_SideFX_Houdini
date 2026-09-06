@@ -445,7 +445,9 @@ Reference E: [**WEB :: A more accurate Elliptic variation from Claude Heiland-Al
 
 Reference F: [**WEB :: pseudorandom number generators (PRNGs) from David Blackman and Sebastiano Vigna**](https://prng.di.unimi.it)
 
-Reference G: [**WEB :: xoshiro128+ 1.0, 32-bit generator for 32-bit floating-point numbers from David Blackman and Sebastiano Vigna**](https://prng.di.unimi.it/xoshiro128plus.c)
+Reference G: [**WEB :: xoshiro128+ 1.0 is a 32-bit generator for 32-bit floating-point numbers from David Blackman and Sebastiano Vigna**](https://prng.di.unimi.it/xoshiro128plus.c)
+
+Reference H: [**WEB :: mwc64x is a 32-bit generator for 32-bit floating-point numbers created by David Thomas**](https://github.com/bstatcomp/RandomCL/blob/master/generators/mwc64x.cl)
 
 </br>
 </br>
