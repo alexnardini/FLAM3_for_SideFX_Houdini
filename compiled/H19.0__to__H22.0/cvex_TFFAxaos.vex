@@ -25,12 +25,11 @@ source_filename = "TFFAxaos"
 @20 = private constant [41 x i8] c"\0ANon digit xaos values inside iterator: \00"
 @21 = private constant [2 x i8] c"1\00"
 @22 = private constant [3 x i8] c"xm\00"
-@23 = private constant [4 x i8] c"gpu\00"
 @XS = external global i64
 @IW = external global double*
 @XST = external global double*
-@24 = private constant [3 x i8] c"XS\00"
-@25 = private constant [4 x i8] c"XST\00"
+@23 = private constant [3 x i8] c"XS\00"
+@24 = private constant [4 x i8] c"XST\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"XAOS_transpose_s@[S[SI"(i8*** %XAOS, i8*** %T, i64* %size) #0 {
@@ -439,23 +438,11 @@ end309:                                           ; preds = %cond304
 
 true335:                                          ; preds = %end260
   store i64 1, i64* %_bound_XS
-  %return337 = call i64 @"chi@IS"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @23, i64 0, i64 0))
-  %24 = icmp ne i64 %return337, 0
-  br i1 %24, label %true338, label %end339
-
-end336:                                           ; preds = %end339, %end260
-  ret void
-
-true338:                                          ; preds = %true335
-  %return342 = call i64 @"len@I[F"(double* %XAOS_TO.2)
-  %output343 = add i64 %return342, 3
-  %output344 = call double* @"resize@[FI"(double* %XAOS_TO.2, i64 %output343)
-  br label %end339
-
-end339:                                           ; preds = %true338, %true335
-  %XAOS_TO.4 = phi double* [ %output344, %true338 ], [ %XAOS_TO.2, %true335 ]
-  store double* %XAOS_TO.4, double** %_bound_XST
+  store double* %XAOS_TO.2, double** %_bound_XST
   br label %end336
+
+end336:                                           ; preds = %true335, %end260
+  ret void
 }
 
 ; Function Attrs: nounwind readnone
@@ -586,11 +573,11 @@ __llvm_entry:
   store double* %XST, double** %"<XST>"
   call void @"_TFFAxaos@I[F[F"(i64* %"<XS>", double** %"<IW>", double** %"<XST>")
   %evalue = load i64, i64* %"<XS>"
-  %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @24, i64 0, i64 0), i64 %evalue) #3
+  %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @23, i64 0, i64 0), i64 %evalue) #3
   %evalue1 = load double*, double** %"<IW>"
   %gvalue2 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @3, i64 0, i64 0), double* %evalue1) #3
   %evalue3 = load double*, double** %"<XST>"
-  %gvalue4 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @25, i64 0, i64 0), double* %evalue3) #3
+  %gvalue4 = call double* @"_export@[FS[F"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @24, i64 0, i64 0), double* %evalue3) #3
   store i64 %gvalue, i64* @XS
   store double* %gvalue2, double** @IW
   store double* %gvalue4, double** @XST
@@ -617,7 +604,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"22.0.368"}
+!1 = !{!"22.0.430"}
 !2 = !{!"64"}
 !3 = !{!""}
 

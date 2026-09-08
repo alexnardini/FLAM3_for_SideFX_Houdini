@@ -65,10 +65,10 @@
 // ----------------------------
 enum {
     MAX_XFORMS                  = 20, 
-    MAX_XFORMS_XAOS_SIZE        = MAX_XFORMS * MAX_XFORMS + 3,      // Done also in vex land, so they are multiple of 4 and we do not need to copy a remainder of 1-3 floats when copying to local memory using float4 vectors
+    MAX_XFORMS_XAOS_SIZE        = MAX_XFORMS * MAX_XFORMS,
 
     SHD_NUM_SIZE                = 3, 
-    MAX_XFORMS_SHD_SIZE         = MAX_XFORMS * SHD_NUM_SIZE + 3,    // Done also in vex land, so they are multiple of 4 and we do not need to copy a remainder of 1-3 floats when copying to local memory using float4 vectors
+    MAX_XFORMS_SHD_SIZE         = MAX_XFORMS * SHD_NUM_SIZE,
 
     // ----------------------------
     // RES PRM FF -> FF and PP (2)  
@@ -1381,14 +1381,15 @@ static float2 CL_V_GAUSSIAN_BLUR(
     )
 {
 
-    float rndA = x_rng_next_float(state) * M_TAU;
-    float rndG = w * (x_rng_next_float(state) + 
-                x_rng_next_float(state) + 
-                x_rng_next_float(state) + 
-                x_rng_next_float(state) - 
-                2.0f
-                );
+    float rndG = w * (
+        x_rng_next_float(state) + 
+        x_rng_next_float(state) + 
+        x_rng_next_float(state) + 
+        x_rng_next_float(state) - 
+        2.0f
+        );
     
+    float rndA = x_rng_next_float(state) * M_TAU;
     float sa, ca;
     sincos_fast(rndA, &sa, &ca);
 
@@ -4228,14 +4229,17 @@ __kernel void cl_flam3(
     // Copy cooperatively arrays of floats in chunks of float4s
 
     // SHD
+    __attribute__((aligned(16)))
     __local float local_SHD[MAX_XFORMS_SHD_SIZE];
     for(int i = lid; i < ((RES * SHD_NUM_SIZE + 3) >> 2); i += lsize)
         ((__local float4*)local_SHD)[i] = ((__global float4*)SHD)[i];
     // PRM_F
+    __attribute__((aligned(16)))
     __local float local_PRM_F[PRM_NUM_F_SIZE];
     for(int i = lid; i < ((RES * PRM_NUM_F) >> 2); i += lsize)
         ((__local float4*)local_PRM_F)[i] = ((__global float4*)PRM_F)[i];
     // PRM_F2
+    __attribute__((aligned(16)))
     __local float2 local_PRM_F2[PRM_NUM_F2_SIZE];
     for(int i = lid; i < ((RES * PRM_NUM_F2) >> 1); i += lsize)
         ((__local float4*)local_PRM_F2)[i] = ((__global float4*)PRM_F2)[i];
@@ -4248,6 +4252,7 @@ __kernel void cl_flam3(
     for(int i = lid; i < (RES * PRM_NUM_F4); i += lsize)
         local_PRM_F4[i] = PRM_F4[i];
     // XST
+    __attribute__((aligned(16)))
     __local float local_XST[MAX_XFORMS_XAOS_SIZE];
     if(XS){
         for(int i = lid; i < ((RES * RES + 3) >> 2); i += lsize)
@@ -4277,8 +4282,7 @@ __kernel void cl_flam3(
     for (int i = 0; i < ITER; ++i){
         
         // xform selection
-        float r = x_rng_next_float(&rng);
-        idx = sample_cdf_binary(XS ? &local_XST[idx * RES] : local_IW, RES, r);
+        idx = sample_cdf_binary(XS ? &local_XST[idx * RES] : local_IW, RES, x_rng_next_float(&rng));
         
         // parameterics data
         __local float*  xf_prm_f  = &local_PRM_F[idx * PRM_NUM_F];
@@ -4291,25 +4295,25 @@ __kernel void cl_flam3(
         mem = affine(mem, pa);
 
         // PRE/POST data
-        int4 _ppvt = local_PPVT[idx];
-        float4 _ppvw = local_PPVW[idx];
+        int4 vt = local_PPVT[idx]; int pvt = vt.w;
+        float4 vw = local_PPVW[idx]; float pvw = vw.w;
         // PRE
-        if (_ppvw.x > 0.0f) mem += CL_V_PREBLUR(_ppvw.x, &rng);
-        if (_ppvw.y > 0.0f) mem  = CL_V_DISPATCH(_ppvt.y, mem, _ppvw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-        if (_ppvw.z > 0.0f) mem  = CL_V_DISPATCH(_ppvt.z, mem, _ppvw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (vw.x > 0.0f) mem += CL_V_PREBLUR(vw.x, &rng);
+        if (vw.y > 0.0f) mem  = CL_V_DISPATCH(vt.y, mem, vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (vw.z > 0.0f) mem  = CL_V_DISPATCH(vt.z, mem, vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         
         // VAR data
-        int4 _vt = local_VT[idx];
-        float4 _vw = local_VW[idx];
+        vt = local_VT[idx];
+        vw = local_VW[idx];
         // VAR
         float2 _tmp = (float2)(0.0f);
-        if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(_vt.x, mem, _vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-        if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-        if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-        if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(_vt.w, mem, _vw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (vw.x != 0.0f) _tmp += CL_V_DISPATCH(vt.x, mem, vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (vw.y != 0.0f) _tmp += CL_V_DISPATCH(vt.y, mem, vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (vw.z != 0.0f) _tmp += CL_V_DISPATCH(vt.z, mem, vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (vw.w != 0.0f) _tmp += CL_V_DISPATCH(vt.w, mem, vw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
 
         // POST
-        if (_ppvw.w > 0.0f) _tmp = CL_V_DISPATCH(_ppvt.w, _tmp, _ppvw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (pvw > 0.0f) _tmp = CL_V_DISPATCH(pvt, _tmp, pvw, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
 
         // post affine
         if(local_POST[idx]) _tmp = affine(_tmp, local_POST_AFFINE[idx]);
@@ -4401,10 +4405,12 @@ __kernel void cl_flam3_ff(
     // Copy arrays of floats in chunks of float4s
 
     // FF PRM_F
+    __attribute__((aligned(16)))
     __local float local_FF_PRM_F[FF_PRM_NUM_F_SIZE];
     for(int i = lid; i < ((FF_RES_PRM * PRM_NUM_F) >> 2); i += lsize)
-        ((__local float4*)local_FF_PRM_F)[i] = ((__global float4*)FF_PRM_F)[i];
+        ((__local float4*)local_FF_PRM_F)[i] = vload4(i, FF_PRM_F);
     // FF PRM_F2
+    __attribute__((aligned(16)))
     __local float2 local_FF_PRM_F2[FF_PRM_NUM_F2_SIZE];
     for(int i = lid; i < ((FF_RES_PRM * PRM_NUM_F2) >> 1); i += lsize)
         ((__local float4*)local_FF_PRM_F2)[i] = ((__global float4*)FF_PRM_F2)[i];

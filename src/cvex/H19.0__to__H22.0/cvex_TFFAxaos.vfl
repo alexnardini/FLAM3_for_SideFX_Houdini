@@ -44,7 +44,7 @@
 
 // This must match whats inside:
 // "../FLAM3H_NODE/_SYS" wrangle core node vex snippet
-#define NEAR_ZERO 1e-08
+#define NEAR_ZERO   1e-08
 
 #pragma opname  "TFFAxaos"
 #pragma oplabel "TFFAxaos"
@@ -174,7 +174,6 @@ _TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
     _bound_IW = create_cdf(IW);
     if(x_chk){
         _bound_XS = 1;
-        if(chi("gpu")) resize(XAOS_TO, len(XAOS_TO) + 3);
         _bound_XST = (float[])XAOS_TO;
     }
 }
