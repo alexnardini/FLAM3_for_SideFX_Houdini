@@ -46,6 +46,8 @@
 // "../FLAM3H_NODE/_SYS" wrangle core node vex snippet
 #define NEAR_ZERO   1e-08
 
+#define ALIGNED16   4
+
 #pragma opname  "TFFAxaos"
 #pragma oplabel "TFFAxaos"
 #pragma opmininputs 1
@@ -174,6 +176,11 @@ _TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
     _bound_IW = create_cdf(IW);
     if(x_chk){
         _bound_XS = 1;
+        if(chi("gpu")){
+            int array_size = len(XAOS_TO);
+            int cond = array_size%ALIGNED16;
+            resize(XAOS_TO, cond ? array_size + (ALIGNED16 - cond) : array_size);
+        }
         _bound_XST = (float[])XAOS_TO;
     }
 }

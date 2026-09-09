@@ -39,4 +39,115 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 <br/>
 <br/>
 
+## PTXAS and SASS metrics
+
+<br/>
+<br/>
+
+## <img width="48" height="48" src="../../icons/icon_tag_oclSVG.svg" /> OpenCL Kernel: [`cl_flam3`](cl_flam3.cl)  
+
+**Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
+**Tested On:** NVIDIA GeForce RTX 4090  
+**NVIDIA Driver Version:** 580.97  
+**Compilation Context:** Houdini OpenCL Runtime Code Cache  
+
+---
+
+**Work-Group size:** 256  
+
+---
+
+<br>
+
+## <img width="24" height="24" src="../../icons/icon_tag_oclSVG.svg" /> Summary of PTXAS Compiler Report
+
+| Hardware Resource | Metric Value | Description |
+| :--- | :--- | :--- |
+| **Global Memory (`gmem`)** | **0** bytes | Statically allocated global memory usage. |
+| **Stack Frame** | **0** bytes | Per-thread stack memory allocation. |
+| **Spill Stores / Loads** | **0** bytes / **0** bytes | Register spills caused by register pressure. |
+| **Registers Used** | **48** registers | Number of 32-bit registers allocated per thread. |
+| **Execution Barriers** | **1** barrier | Number of synchronization barrier instructions. |
+| **Shared Memory (`smem`)** | **16,400** bytes (16.4 KB) | Shared memory allocated per thread block. |
+| **Constant Memory 0 (`cmem[0]`)** | **872** bytes | Constant memory for kernel parameters and compiler-managed data. |
+| **Constant Memory 2 (`cmem[2]`)** | **4,120** bytes (~4.1 KB) | Constant memory for read-only data. |
+
+---
+
+<br>
+
+## <img width="24" height="24" src="../../icons/icon_tag_oclSVG.svg" /> Summary of SASS Hardware Metrics
+
+| Instruction Class | Hardware Functions | Assembly Count | Description |
+| :--- | :--- | :--- | :--- |
+| **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **15,948** | Floating-point arithmetic operations. |
+| **Special Functions** | `MUFU` | **3,117** | Transcendental math functions (e.g., `sin`, `cos`, `log`). |
+| **Control Flow** | `BRA`, `BRX` | **2,482** | Branching and loop control instructions. |
+| **LOP3.LUT instructions** | `LOP3.LUT` | **2698** | 3-input programmable bitwise logic instructions. |
+| **Integer & Indexing** | `IADD3`, `IMAD` | **842** | Integer arithmetic and address calculations. |
+| **Shared Memory Cache** | `LDS`, `STS` | **454** | Shared memory load and store operations. |
+| **Global Memory Bus** | `LDG`, `STG` | **72** | Global memory load and store operations. |
+| **Thread Synchronization** | `BAR.SYNC` | **1** | Thread block synchronization barrier. |
+| **Dependency Management** | `DEPBAR`, `LGWR` | **0** | Instruction dependency management operations. |
+
+---
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+## <img width="48" height="48" src="../../icons/icon_tag_oclSVG.svg" /> OpenCL Kernel: [`cl_flam3_ff`](cl_flam3.cl) 
+
+**Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
+**Tested On:** NVIDIA GeForce RTX 4090  
+**NVIDIA Driver Version:** 580.97  
+**Compilation Context:** Houdini OpenCL Runtime Code Cache  
+
+---
+
+**Work-Group size:** 256  
+
+---
+
+<br>
+
+## <img width="24" height="24" src="../../icons/icon_tag_oclSVG.svg" /> Summary of PTXAS Compiler Report
+
+| Hardware Resource | Metric Value | Description |
+| :--- | :--- | :--- |
+| **Global Memory (`gmem`)** | **0** bytes | Statically allocated global memory usage. |
+| **Stack Frame** | **0** bytes | Per-thread stack memory allocation. |
+| **Spill Stores / Loads** | **0** bytes / **0** bytes | Register spills caused by register pressure. |
+| **Registers Used** | **40** registers | Number of 32-bit registers allocated per thread. |
+| **Execution Barriers** | **1** barrier | Number of synchronization barrier instructions. |
+| **Shared Memory (`smem`)** | **1,248** bytes (~1.2 KB) | Shared memory allocated per thread block. |
+| **Constant Memory 0 (`cmem[0]`)** | **624** bytes | Constant memory for kernel parameters and compiler-managed data. |
+| **Constant Memory 2 (`cmem[2]`)** | **2,960** bytes (~2.9 KB) | Constant memory for read-only data. |
+
+---
+
+<br>
+
+## <img width="24" height="24" src="../../icons/icon_tag_oclSVG.svg" /> Summary of SASS Hardware Metrics
+
+| Instruction Class | Hardware Functions | Assembly Count | Description |
+| :--- | :--- | :--- | :--- |
+| **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **11,378** | Floating-point arithmetic operations. |
+| **Special Functions** | `MUFU` | **2.225** | Transcendental math functions (e.g., `sin`, `cos`, `log`). |
+| **Control Flow** | `BRA`, `BRX` | **1,771** | Branching and loop control instructions. |
+| **LOP3.LUT instructions** | `LOP3.LUT` | **1,874** | 3-input programmable bitwise logic instructions. |
+| **Integer & Indexing** | `IADD3`, `IMAD` | **569** | Integer arithmetic and address calculations. |
+| **Shared Memory Cache** | `LDS`, `STS` | **304** | Shared memory load and store operations. |
+| **Global Memory Bus** | `LDG`, `STG` | **55** | Global memory load and store operations. |
+| **Thread Synchronization** | `BAR.SYNC` | **1** | Thread block synchronization barrier. |
+| **Dependency Management** | `DEPBAR`, `LGWR` | **0** | Instruction dependency management operations. |
+
+---
+
+<br/>
+<br/>
+<br/>
+<br/>
+
 _Copyright (c) 2021 F stands for liFe_<br/>
