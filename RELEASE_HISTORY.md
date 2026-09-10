@@ -43,6 +43,26 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.0.61 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.60)  ##
+
+#### FLAM3H™ v2.0.61 indie -> H22.0 UP</br>FLAM3H™ v2.0.49 indie -> H21.0</br>FLAM3H™ v2.0.43 indie -> H20.5</br>FLAM3H™ v1.9.86 indie -> H19.0 to H20 ####
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+- **OpenCL code updates**: Can be up to ~8% faster on high-end GPUs (_tested on an Nvidia RTX 4090_).
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.0.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.60)  ##
 
 #### FLAM3H™ v2.0.60 indie -> H22.0 UP</br>FLAM3H™ v2.0.48 indie -> H21.0</br>FLAM3H™ v2.0.42 indie -> H20.5</br>FLAM3H™ v1.9.86 indie -> H19.0 to H20 ####
