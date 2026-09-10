@@ -38,13 +38,15 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 <br/>
 <br/>
 <br/>
+<br/>
+<br/>
 
-## PTXAS and SASS metrics
+# OpenCL Hardware Performance Profile
 
 <br/>
 <br/>
 
-## <img width="48" height="48" src="../../icons/icon_tag_oclSVG.svg" /> OpenCL Kernel: [`cl_flam3`](cl_flam3.cl)  
+## <img width="48" height="48" src="../../icons/icon_tag_oclSVG.svg" /> OpenCL Kernel: <u>**cl_flam3**</u> 
 
 **Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
 **Tested On:** NVIDIA GeForce RTX 4090  
@@ -97,7 +99,7 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 <br/>
 <br/>
 
-## <img width="48" height="48" src="../../icons/icon_tag_oclSVG.svg" /> OpenCL Kernel: [`cl_flam3_ff`](cl_flam3.cl) 
+## <img width="48" height="48" src="../../icons/icon_tag_oclSVG.svg" /> OpenCL Kernel: <u>**cl_flam3_ff**</u>
 
 **Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
 **Tested On:** NVIDIA GeForce RTX 4090  
