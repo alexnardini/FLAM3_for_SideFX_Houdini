@@ -141,7 +141,7 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 | **LOP3.LUT instructions** | `LOP3.LUT` | **1,874** | 3-input programmable bitwise logic instructions. |
 | **Integer & Indexing** | `IADD3`, `IMAD` | **569** | Integer arithmetic and address calculations. |
 | **Shared Memory Cache** | `LDS`, `STS` | **304** | Shared memory load and store operations. |
-| **Global Memory Bus** | `LDG`, `STG` | **55** | Global memory load and store operations. |
+| **Global Memory Bus** | `LDG`, `STG` | **40** | Global memory load and store operations. |
 | **Thread Synchronization** | `BAR.SYNC` | **1** | Thread block synchronization barrier. |
 | **Dependency Management** | `DEPBAR`, `LGWR` | **0** | Instruction dependency management operations. |
 

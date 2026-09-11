@@ -4408,7 +4408,7 @@ __kernel void cl_flam3_ff(
     __attribute__((aligned(16)))
     __local float local_FF_PRM_F[FF_PRM_NUM_F_SIZE];
     for(int i = lid; i < ((FF_RES_PRM * PRM_NUM_F) >> 2); i += lsize)
-        ((__local float4*)local_FF_PRM_F)[i] = vload4(i, FF_PRM_F);
+        ((__local float4*)local_FF_PRM_F)[i] = ((__global float4*)FF_PRM_F)[i];
     // FF PRM_F2
     __attribute__((aligned(16)))
     __local float2 local_FF_PRM_F2[FF_PRM_NUM_F2_SIZE];
