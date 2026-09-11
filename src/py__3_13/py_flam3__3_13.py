@@ -22788,9 +22788,9 @@ class out_flame_utils
                     # make sure to use the parametric variation's parameters names that Fractorium expect.
                     apo_prm: tuple = flam3h_varsPRM_APO().varsPRM[v_type]
                     if node.parm(f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES).eval():
-                        out_prm: tuple[tuple[str, ...]] = in_flame_utils.in_prm_name_exceptions(v_type, xml_keys.XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]
+                        out_prm: tuple[tuple[str, ...], ...] = in_flame_utils.in_prm_name_exceptions(v_type, xml_keys.XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]
                     else:
-                        out_prm: tuple[tuple[str, ...]] = apo_prm[1:-1]
+                        out_prm: tuple[tuple[str, ...], ...] = apo_prm[1:-1]
                         
                     for id, p in enumerate(out_prm):
                         
