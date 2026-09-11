@@ -20249,7 +20249,7 @@ class out_flame_utils
                                 
                                 # This is a one off fix for the "crop_zero" parameter that is a boolean but is stored as a float in Houdini.
                                 # If the value is not 0, we will force it to be 1 so that it is compatible with the FLAM3 file format.
-                                if v_type == 102 and prm_name == "crop_zero" and vals[1] != 0:
+                                if v_type == 102 and prm_name == out_prm[-1][-1] and vals[1] != 0:
                                     XFORM.set(FUNC(prm_name), "1")
                                     
                                 else:

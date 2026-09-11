@@ -22788,9 +22788,9 @@ class out_flame_utils
                     # make sure to use the parametric variation's parameters names that Fractorium expect.
                     apo_prm: tuple = flam3h_varsPRM_APO().varsPRM[v_type]
                     if node.parm(f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES).eval():
-                        out_prm: tuple = in_flame_utils.in_prm_name_exceptions(v_type, xml_keys.XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]
+                        out_prm: tuple[tuple[str, ...]] = in_flame_utils.in_prm_name_exceptions(v_type, xml_keys.XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]
                     else:
-                        out_prm: tuple = apo_prm[1:-1]
+                        out_prm: tuple[tuple[str, ...]] = apo_prm[1:-1]
                         
                     for id, p in enumerate(out_prm):
                         
@@ -22802,7 +22802,7 @@ class out_flame_utils
                                 
                                 # This is a one off fix for the "crop_zero" parameter that is a boolean but is stored as a float in Houdini.
                                 # If the value is not 0, we will force it to be 1 so that it is compatible with the FLAM3 file format.
-                                if v_type == 102 and prm_name == "crop_zero" and vals[1] != 0:
+                                if v_type == 102 and prm_name == out_prm[-1][-1] and vals[1] != 0:
                                     element_xform.set(FUNC(prm_name), "1")
                                     
                                 else:
