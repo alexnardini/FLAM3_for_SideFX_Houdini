@@ -2622,6 +2622,7 @@ class flam3h_scripts
             prm_iter_name: str = f"{prm_list_post_affine[0][0]}{id + 1}"
             if node.parm(prm_iter_name).eval() and 1 not in keyframes_iters[id] and affine == f3h_affineDefaults.DEFAULT_VALS:
                 prm_node = node.parm(prm_iter_name)
+                if prm_node.keyframes(): continue
                 prm_node.lock(False)
                 prm_node.deleteAllKeyframes()
                 prm_node.set(0)
@@ -2634,6 +2635,7 @@ class flam3h_scripts
         prm_ff_name: str = f"{prm_list_post_affine_FF[0][0]}"
         if node.parm(prm_ff_name).eval() and 1 not in keyframes_FF and collect_FF == f3h_affineDefaults.DEFAULT_VALS:
             prm_node = node.parm(prm_ff_name)
+            if prm_node.keyframes(): return
             prm_node.lock(False)
             prm_node.deleteAllKeyframes()
             prm_node.set(0)
@@ -7305,6 +7307,7 @@ class flam3h_iterator_utils
                 prm_name: str = prm_list_affine[0][0]
                 prm_node = node.parm(f"{prm_name}{id}")
                 prm_from_FLAM3H_NODE = from_FLAM3H_NODE.parm(f"{prm_name}{id_from}")
+                if prm_from_FLAM3H_NODE.keyframes(): return False
                 for p in (prm_node, prm_from_FLAM3H_NODE):
                     p.lock(False)
                     p.deleteAllKeyframes()
@@ -7347,6 +7350,7 @@ class flam3h_iterator_utils
                 prm_name: str = prm_list_affine[0][0]
                 prm_node = node.parm(prm_name)
                 prm_from_FLAM3H_NODE = from_FLAM3H_NODE.parm(prm_name)
+                if prm_from_FLAM3H_NODE.keyframes(): return False
                 for p in (prm_node, prm_from_FLAM3H_NODE):
                     p.lock(False)
                     p.deleteAllKeyframes()
