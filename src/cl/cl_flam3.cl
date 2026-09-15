@@ -2487,7 +2487,6 @@ static float2 CL_V_PREBLUR(
     )
 {
     
-    float rndA = x_rng_next_float(state) * M_TAU;
     float rndG = w * (
         x_rng_next_float(state) + 
         x_rng_next_float(state) + 
@@ -2496,6 +2495,7 @@ static float2 CL_V_PREBLUR(
         2.0f
         );
 
+    float rndA = x_rng_next_float(state) * M_TAU;
     float sa, ca;
     sincos_fast(rndA, &sa, &ca);
 
