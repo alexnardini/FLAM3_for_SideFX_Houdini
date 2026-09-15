@@ -5990,7 +5990,7 @@
                     label   "palette 256+"
                     type    toggle
                     default { "1" }
-                    help    "<h3>It will allow the OUT Flame to be saved with more than <b>256</b> color keys assuming you created a Palette with this many colors otherwise it will always save the Flame using the standard <b>256</b> color keys</h3>If the Palette color keys are less than <b>256</b>, it will always sample the Palette at <b>256</b> when saving out the Flame preset.<br/><br/>The maximun Palette color keys you can use are <b>1024</b>, if you create a Palette with more, it will be sampled at <b>1024</b> colors.<br/><br/><b>NOTE</b>:<br/>If you are planning to load the saved Flame inside <b>Apophysis</b>, remember that it will fail if the Flame preset you are trying to load posses a Palette with more than <b>256</b> color keys."
+                    help    "<h3>Allow Palette with more than 256 color keys</h3>It will allow the OUT Flame to be saved with more than <b>256</b> color keys assuming you created a Palette with this many colors otherwise it will always save the Flame using the standard <b>256</b> color keys.<br/><br/>If the Palette color keys are less than <b>256</b>, it will always sample the Palette at <b>256</b> when saving out the Flame preset.<br/><br/>The maximun Palette color keys you can use are <b>1024</b>, if you create a Palette with more, it will be sampled at <b>1024</b> colors.<br/><br/><b>NOTE</b>:<br/>If you are planning to load the saved Flame inside <b>Apophysis</b>, remember that it will fail if the Flame preset you are trying to load posses a Palette with more than <b>256</b> color keys."
                     parmtag { "script_callback" "hou.phm().flam3.out_flame_utils(kwargs).out_palette_256_plus_check(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -5999,7 +5999,7 @@
                     label   "SOLO follow"
                     type    toggle
                     default { "1" }
-                    help    "<h3>When any iterator has its xform handle in SOLO mode already, it causes the iterator that is selected or picked from the SYS tab's select iterator mini-menu to be automatically configured to be in SOLO mode</h3>This enables you to swiftly go over each one automatically.<br/><br/>To prevent the selected iterator from being in SOLO mode while being selected, turn this <b>OFF</b>."
+                    help    "<h3>Keep the selected iterator in SOLO mode</h3>When any iterator has its xform handle in SOLO mode already, it causes the iterator that is selected or picked from the SYS tab's select iterator mini-menu to be automatically configured to be in SOLO mode<br/><br/>This enables you to swiftly go over each one automatically.<br/><br/>To prevent the selected iterator from being in SOLO mode while being selected, turn this <b>OFF</b>."
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6008,7 +6008,7 @@
                     label   "flash messages"
                     type    toggle
                     default { "1" }
-                    help    "<h3>Causes a message to appear briefly in the upper left corner of the network editor, then fade away</h3>Copy/Paste <b>iterators</b> and <b>FF</b> data uses flash messages, as well as some other features."
+                    help    "<h3>Use Flash messages</h3>Causes a message to appear briefly in the upper left corner of the network editor, then fade away<br/><br/>Copy/Paste <b>iterators</b> and <b>FF</b> data uses flash messages, as well as some other features."
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6017,7 +6017,7 @@
                     label   "iterative color attribute"
                     type    toggle
                     default { "0" }
-                    help    "<h3>Output the iterative color float point attribute <b>@clr</b> used internally by FLAM3H™ to map the palette colors to the points</h3>The attribute values are computed inside the chaos game<br/>and can be usefull to post process the output point cloud in many ways.<br/><br/>It is dependent of each iterator shader location and speed parameters values along with the number of iterations being used. "
+                    help    "<h3>Output the iterative color float point attribute <u><b>@clr</b></u></h3>This attribute is used internally by FLAM3H™ to map the palette colors to the points<br/><br/>The attribute values are computed inside the chaos game<br/>and can be usefull to post process the output point cloud in many ways.<br/><br/>It is dependent of each iterator shader location and speed parameters values along with the number of iterations being used. "
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6033,7 +6033,7 @@
                     label   "enumerate presets menus"
                     type    toggle
                     default { "1" }
-                    help    "<h3>Causes the presets menus inside the <b>CP</b>, <b>IN</b> and <b>OUT</b> tab to be enumerated</h3>This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.<br/><br/>Turn this <b>OFF</b> to only display the raw preset names.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
+                    help    "<h3>Enumerate presets menus inside the <b>CP</b>, <b>IN</b> and <b>OUT</b> tabs</h3>This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.<br/><br/>Turn this <b>OFF</b> to only display the raw preset names.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
