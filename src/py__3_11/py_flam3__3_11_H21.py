@@ -11344,70 +11344,77 @@ class flam3h_iterator_utils
             (None):
         """
         node: hou.SopNode = self.node
+        if not node.parm(f3h_tabs.PRM_ITERATORS_COUNT).isLocked():
         
-        if flam3h_general_utils.houdini_version(2) < 220:
-            shiftclick: bool = self.kwargs.get('shift', False)
-            ctrlclick: bool = self.kwargs.get('ctrl', False)
-            s_mp_index: int = self.kwargs['script_multiparm_index']
-        else:
-            shiftclick: bool = self.kwargs.get('shiftclick', False)
-            ctrlclick: bool = self.kwargs.get('ctrlclick', False)
-            s_mp_index: int = int(self.kwargs['script_multiparm_index'])
+            if flam3h_general_utils.houdini_version(2) < 220:
+                shiftclick: bool = self.kwargs.get('shift', False)
+                ctrlclick: bool = self.kwargs.get('ctrl', False)
+                s_mp_index: int = self.kwargs['script_multiparm_index']
+            else:
+                shiftclick: bool = self.kwargs.get('shiftclick', False)
+                ctrlclick: bool = self.kwargs.get('ctrlclick', False)
+                s_mp_index: int = int(self.kwargs['script_multiparm_index'])
+                
+            # iterators count
+            mp_prm: hou.Parm = self.node.parm(f3h_tabs.PRM_ITERATORS_COUNT)
+            mp_prm.lock(False)
+            iter_num: int = mp_prm.eval()
             
-        # iterators count
-        mp_prm: hou.Parm = self.node.parm(f3h_tabs.PRM_ITERATORS_COUNT)
-        mp_prm.lock(False)
-        iter_num: int = mp_prm.eval()
-        
-        # Clear menu cache
-        self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
-        
-        mpmem_name: str = flam3h_iterator_prm_names().main_mpmem
-        for mp_id in range(1, iter_num + 1):
-            prm_mpmem = node.parm(f"{mpmem_name}_{mp_id}")
-            flam3h_prm_utils.set(node, prm_mpmem, str(mp_id))
-        
-        # INSERT AFTER
-        if shiftclick:
-
-            mp_prm.insertMultiParmInstance(s_mp_index)
+            # Clear menu cache
+            self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
             
-            # Change multiparameter focus to the newly created iterator
-            # From Houdini 21.0.489 SideFX added multiParmTab and setMultiParmTab to hou.NetworkEditor.
-            try:
-                hou.ui.setMultiParmTabInEditors(mp_prm, s_mp_index) # type: ignore
-            except AttributeError as e:
-                F3H_Exception.F3H_traceback_print_infos(e)
-                pass # Most likely not a parameter editor in its own pane tab or floating panel in Houdini versions prior to 21.0.489
-        
-        # DELETE THIS INSTANCE
-        elif ctrlclick:
+            mpmem_name: str = flam3h_iterator_prm_names().main_mpmem
+            for mp_id in range(1, iter_num + 1):
+                prm_mpmem = node.parm(f"{mpmem_name}_{mp_id}")
+                flam3h_prm_utils.set(node, prm_mpmem, str(mp_id))
+            
+            # INSERT AFTER
+            if shiftclick:
 
-            mp_prm.removeMultiParmInstance(s_mp_index - 1)
+                mp_prm.insertMultiParmInstance(s_mp_index)
+                
+                # Change multiparameter focus to the newly created iterator
+                # From Houdini 21.0.489 SideFX added multiParmTab and setMultiParmTab to hou.NetworkEditor.
+                try:
+                    hou.ui.setMultiParmTabInEditors(mp_prm, s_mp_index) # type: ignore
+                except AttributeError as e:
+                    F3H_Exception.F3H_traceback_print_infos(e)
+                    pass # Most likely not a parameter editor in its own pane tab or floating panel in Houdini versions prior to 21.0.489
+            
+            # DELETE THIS INSTANCE
+            elif ctrlclick:
 
-            # If we are left with ZERO iterators
-            if not mp_prm.eval():
+                mp_prm.removeMultiParmInstance(s_mp_index - 1)
+
+                # If we are left with ZERO iterators
+                if not mp_prm.eval():
+                    
+                    # Do all it's needed in this case
+                    self.iterators_count_zero(node)
+            
+            # INSERT BEFORE
+            else:
+
+                mp_prm.insertMultiParmInstance(s_mp_index - 1)
+            
+            # If there are any iterators left
+            if mp_prm.eval():
                 
                 # Do all it's needed in this case
-                self.iterators_count_zero(node)
-        
-        # INSERT BEFORE
+                self.iterators_count_not_zero(node)
+                
+            # This is probably not needed but I leave it here for now
+            #
+            # If OUT Camera sensor viz mode is ON.
+            if node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
+                # We can avoid to set the clipping planes as they are already set
+                flam3h_general_utils(self.kwargs).util_set_front_viewer()
+                
         else:
-
-            mp_prm.insertMultiParmInstance(s_mp_index - 1)
-        
-        # If there are any iterators left
-        if mp_prm.eval():
             
-            # Do all it's needed in this case
-            self.iterators_count_not_zero(node)
-            
-        # This is probably not needed but I leave it here for now
-        #
-        # If OUT Camera sensor viz mode is ON.
-        if node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
-            # We can avoid to set the clipping planes as they are already set
-            flam3h_general_utils(self.kwargs).util_set_front_viewer()
+            _MSG: str = f"{node.name()} -> The Iterators Count parameter is Locked. Please unlock it to be able to add/remove iterators."
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+            flam3h_general_utils.flash_message(node, f"Iterators Count: LOCKED")
 
 
     def iterators_count_zero(self, node: hou.SopNode, do_msg: bool = True) -> None:
