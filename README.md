@@ -279,7 +279,7 @@ FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the sa
 ![Fractorium to FLAM3HOUDINI 01](./img/FractoriumToFLAM3HOUDINI_01.jpg)
 `Bipolar by tatasz. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 02](./img/FractoriumToFLAM3HOUDINI_02.jpg)
-`Flipped disk. Source: Fractorium`
+`Flipped Disk. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 03](./img/FractoriumToFLAM3HOUDINI_00.jpg)
 
 <br/>
@@ -358,7 +358,7 @@ _The following screenshots show FLAM3H™ with Houdini Karma interactive on the 
 
 Iterations needed in FLAM3H™ to resolve: **1280**
 
-`ieddaka gnarl. Author: zuek`
+`Ieddaka Gnarl. Author: zuek`
 ![Chaotica to FLAM3HOUDINI 00](./img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
 <br/>
@@ -368,10 +368,10 @@ Iterations needed in FLAM3H™ to resolve: **1280**
 Iterations needed in FLAM3H™ to resolve: **512**
 ( potentially a bit less are needed for those but just in case. )
 
-`blue modulus. Author: tatasz`
+`Blue Modulus. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 01](./img/ChaoticaToFLAM3HOUDINI_01.jpg)
 
-`lazyswirls. Author: meckie`
+`Lazyswirls. Author: meckie`
 ![Chaotica to FLAM3HOUDINI 02](./img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
 <br/>
@@ -380,7 +380,7 @@ Iterations needed in FLAM3H™ to resolve: **512**
 
 Iterations needed in FLAM3H™ to resolve: **64**
 
-`majestic. Author: tatasz`
+`Majestic. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 03](./img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
 <br/>
@@ -389,7 +389,7 @@ Iterations needed in FLAM3H™ to resolve: **64**
 
 Iterations needed in FLAM3H™ to resolve: **32**
 
-`blurry splits. Author: tatasz`
+`Blurry Splits. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 04](./img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
 The following is another preset Chaotica software ship with I truly loved ported inside FLAM3H™ and rendered with Karma renderer.
@@ -406,7 +406,7 @@ However, from all my tests, between 10 and 96 iterations will get you covered fo
 
 Iterations needed in FLAM3H™ to resolve: **6**
 
-`Knot clusters - Author: Alessandro Nardini`
+`Knot Clusters - Author: Alessandro Nardini`
 ![Chaotica to FLAM3HOUDINI 04](./img/FLAM3H_knotCluster_HQ_iter_6.jpg)
 
 I could add a lot more functionalities, but this project consumed me for a very long time.

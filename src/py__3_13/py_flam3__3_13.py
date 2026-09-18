@@ -22408,7 +22408,8 @@ class out_flame_utils
             (tuple): the xaos TO values to write out.
         """
         val: TA_XAOS_Collect = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
-        fill: list[list[str]] = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
+        _len: Callable[[list[Any]], int] = len
+        fill: list[list[str]] = [np_pad(item, (0,self.iter_count - _len(item)), 'constant', constant_values = 1).tolist() for item in val]
         xaos_vactive: list[list[str] | list[Never]] = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         _join: Callable[[Iterable[str]], str] = ' '.join
 
@@ -22425,7 +22426,8 @@ class out_flame_utils
             (tuple): the xaos FROM values transposed into xaos TO values to write out.
         """
         val: TA_XAOS_Collect = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
-        fill: list[NDArray] = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1) for item in val]
+        _len: Callable[[list[Any]], int] = len
+        fill: list[NDArray] = [np_pad(item, (0,self.iter_count - _len(item)), 'constant', constant_values = 1) for item in val]
         t: list[list[float]] = np_transpose(np_resize(fill, (self.iter_count, self.iter_count))).tolist()
         _join: Callable[[Iterable[str]], str] = ' '.join
         if mode:
