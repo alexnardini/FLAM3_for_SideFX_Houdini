@@ -145,9 +145,9 @@ else:
                 PYTHON v3.9.10  (H19.5)
                 PYTHON v3.10.10 (H20)
 
-    Title:      SideFX Houdini FLAM3H™USD
+    Title:      FLAM3H™USD H19.0 to H20.0. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       September 2023, Last revised July 2026
+    date:       September 2023, Last revised September 2026
                 This is the source file.
 
     Name:       PY_FLAM3USD__3_7 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -172,6 +172,7 @@ else:
 
     LIST OF CLASSES:
 
+        f3h_web
         flam3husd_scripts
         flam3husd_general_utils
         flam3husd_about_utils
@@ -182,6 +183,46 @@ else:
 
 '''
 
+
+class f3h_web:
+    '''
+    Attributes representing allowed websites, keywords and their heading labels</br>
+    (mostly for the About tabs web links).</br>
+    
+    '''
+    # FLAM3H™
+    F3H_KEY_SITE: str = 'web'
+    F3H_WEB_SITE: str = 'https://www.alexnardini.net/'
+    F3H_HEADING_SITE: str = 'FLAM3H™ web'
+    F3H_KEY_GIT: str = 'git'
+    F3H_WEB_GIT: str = 'https://github.com/alexnardini/FLAM3_for_SideFX_Houdini'
+    F3H_HEADING_GIT: str = 'FLAM3H™ github'
+    F3H_KEY_INSTA: str = 'insta'
+    F3H_WEB_INSTA: str = 'https://www.instagram.com/alexnardini/'
+    F3H_HEADING_INSTA: str = 'FLAM3H™ instagram'
+    F3H_KEY_YOUTUBE: str = 'youtube'
+    F3H_WEB_YOUTUBE: str = 'https://www.youtube.com/@alexnardiniITALY/videos'
+    F3H_HEADING_YOUTUBE: str = 'FLAM3H™ youtube tutorials'
+    
+    # FLAM3
+    F3_KEY_PAPER: str = 'paper'
+    F3_WEB_PAPER: str = 'https://flam3.com/flame_draves.pdf'
+    F3_HEADING_PAPER: str = 'The Fractal Flame Algorithm(FLAM3) pdf'
+    F3_KEY_GIT: str = 'flam3git'
+    F3_WEB_GIT: str = 'https://github.com/scottdraves/flam3'
+    F3_HEADING_GIT: str = 'The Fractal Flame Algorithm(FLAM3) github'
+    
+    # FRACTORIUM
+    FRACT_KEY_BIT: str = 'fractbit'
+    FRACT_WEB_BIT: str = 'https://bitbucket.org/mfeemster/fractorium/src/master/'
+    FRACT_HEADING_BIT: str = 'Fractorium bitbucket'
+    FRACT_KEY_GIT: str = 'fractgit'
+    FRACT_WEB_GIT: str = 'https://github.com/mfeemster/fractorium/tree/master'
+    FRACT_HEADING_GIT: str = 'Fractorium github'
+    FRACT_KEY_SITE: str = 'fractweb'
+    FRACT_WEB_SITE: str = 'http://fractorium.com/'
+    FRACT_HEADING_SITE: str = 'Fractorium web'
+    
 
 # NODE NAMES
 NODE_NAME_OUT_BBOX_REFRAME = 'OUT_bbox_reframe' # prefix
@@ -2485,25 +2526,15 @@ class flam3husd_about_utils
         
         node: hou.LopNode = self.node
         
-        # values
-        _FLAM3HWEB_MSG: str = 'FLAM3H™ web'
-        _FLAM3HGIT_MSG: str = 'FLAM3H™ github'
-        _FLAM3HINSTA_MSG: str = 'FLAM3H™ instagram'
-        _FLAM3HYOUTUBE_MSG: str = 'FLAM3H™ youtube tutorials'
-        _FLAM3PDF_MSG: str = 'The Fractal Flame Algorithm(FLAM3) pdf'
-        _FLAM3GIT_MSG: str = 'The Fractal Flame Algorithm(FLAM3) github'
-        _FRACTGIT_MSG: str = 'Fractorium github'
-        _FRACTWEB_MSG: str = 'Fractorium web'
-        
         # {prm_name: value, ...}
-        about_web: dict[str, str] = {   MSG_FLAM3H_WEB: _FLAM3HWEB_MSG,
-                                        MSG_FLAM3H_GIT: _FLAM3HGIT_MSG,
-                                        MSG_FLAM3H_INSTA: _FLAM3HINSTA_MSG,
-                                        MSG_FLAM3H_YOUTUBE: _FLAM3HYOUTUBE_MSG,
-                                        MSG_FLAM3_PDF: _FLAM3PDF_MSG,
-                                        MSG_FLAM3_GIT: _FLAM3GIT_MSG,
-                                        MSG_FRACT_GITHUB: _FRACTGIT_MSG,
-                                        MSG_FRACT_WEB: _FRACTWEB_MSG
+        about_web: dict[str, str] = {   MSG_FLAM3H_WEB: f3h_web.F3H_HEADING_SITE,
+                                        MSG_FLAM3H_GIT: f3h_web.F3H_HEADING_GIT,
+                                        MSG_FLAM3H_INSTA: f3h_web.F3H_HEADING_INSTA,
+                                        MSG_FLAM3H_YOUTUBE: f3h_web.F3H_HEADING_YOUTUBE,
+                                        MSG_FLAM3_PDF: f3h_web.F3_HEADING_PAPER,
+                                        MSG_FLAM3_GIT: f3h_web.F3_HEADING_GIT,
+                                        MSG_FRACT_GITHUB: f3h_web.FRACT_HEADING_GIT,
+                                        MSG_FRACT_WEB: f3h_web.FRACT_HEADING_SITE
                                         }
         
         flam3husd_prm_utils.setParms(node, about_web)
@@ -2518,8 +2549,7 @@ class flam3husd_about_utils
         Returns:
             (None):
         """
-        page: str = "https://www.alexnardini.net/"
-        www_open(page)
+        www_open(f3h_web.F3H_WEB_SITE)
         
 
     def flam3husd_about_web_github(self) -> None:
@@ -2531,8 +2561,7 @@ class flam3husd_about_utils
         Returns:
             (None):
         """  
-        page: str = "https://github.com/alexnardini/FLAM3_for_SideFX_Houdini"
-        www_open(page)
+        www_open(f3h_web.F3H_WEB_GIT)
         
 
     def flam3husd_about_web_instagram(self) -> None:
@@ -2544,8 +2573,7 @@ class flam3husd_about_utils
         Returns:
             (None):
         """  
-        page: str = "https://www.instagram.com/alexnardini/"
-        www_open(page)
+        www_open(f3h_web.F3H_WEB_INSTA)
     
     
     def flam3husd_about_web_youtube(self) -> None:
@@ -2557,8 +2585,7 @@ class flam3husd_about_utils
         Returns:
             (None):
         """  
-        page: str = "https://www.youtube.com/@alexnardiniITALY/videos"
-        www_open(page)
+        www_open(f3h_web.F3H_WEB_YOUTUBE)
 
 
     def flam3husd_about_web_flam3_paper(self) -> None:
@@ -2570,8 +2597,7 @@ class flam3husd_about_utils
         Returns:
             (None):
         """  
-        page: str = "https://flam3.com/flame_draves.pdf"
-        www_open(page)
+        www_open(f3h_web.F3_WEB_PAPER)
         
 
     def flam3husd_about_web_flam3_github(self) -> None:
@@ -2583,8 +2609,7 @@ class flam3husd_about_utils
         Returns:
             (None):
         """  
-        page: str = "https://github.com/scottdraves/flam3"
-        www_open(page)
+        www_open(f3h_web.F3_WEB_GIT)
         
         
     def flam3husd_about_web_bitbucket(self) -> None:
@@ -2596,8 +2621,7 @@ class flam3husd_about_utils
         Returns:
             (None):
         """  
-        page: str = "https://bitbucket.org/mfeemster/fractorium/src/master/"
-        www_open(page)
+        www_open(f3h_web.FRACT_WEB_BIT)
         
         
     def flam3husd_about_web_fractorium_github(self) -> None:
@@ -2609,8 +2633,7 @@ class flam3husd_about_utils
         Returns:
             (None):
         """  
-        page: str = "https://github.com/mfeemster/fractorium/tree/master"
-        www_open(page)
+        www_open(f3h_web.FRACT_WEB_GIT)
         
         
     def flam3husd_about_web_fractorium(self) -> None:
@@ -2622,8 +2645,7 @@ class flam3husd_about_utils
         Returns:
             (None):
         """  
-        page: str = "http://fractorium.com/"
-        www_open(page)
+        www_open(f3h_web.FRACT_WEB_SITE)
         
         
     def flam3husd_web_run(self, key: str) -> None:
@@ -2637,15 +2659,15 @@ class flam3husd_about_utils
             (None):
         """
         
-        web: dict[str, Callable[[], None]] = {'web': self.flam3husd_about_web_homepage,
-                                              'git': self.flam3husd_about_web_github,
-                                              'insta': self.flam3husd_about_web_instagram,
-                                              'youtube': self.flam3husd_about_web_youtube,
-                                              'paper': self.flam3husd_about_web_flam3_paper,
-                                              'flam3git': self.flam3husd_about_web_flam3_github,
-                                              'fractbitbucket': self.flam3husd_about_web_bitbucket,
-                                              'fractgithub': self.flam3husd_about_web_fractorium_github,
-                                              'fractweb': self.flam3husd_about_web_fractorium,
+        web: dict[str, Callable[[], None]] = {f3h_web.F3H_KEY_SITE: self.flam3husd_about_web_homepage,
+                                              f3h_web.F3H_KEY_GIT: self.flam3husd_about_web_github,
+                                              f3h_web.F3H_KEY_INSTA: self.flam3husd_about_web_instagram,
+                                              f3h_web.F3H_KEY_YOUTUBE: self.flam3husd_about_web_youtube,
+                                              f3h_web.F3_KEY_PAPER: self.flam3husd_about_web_flam3_paper,
+                                              f3h_web.F3_KEY_GIT: self.flam3husd_about_web_flam3_github,
+                                              f3h_web.FRACT_KEY_BIT: self.flam3husd_about_web_bitbucket,
+                                              f3h_web.FRACT_KEY_GIT: self.flam3husd_about_web_fractorium_github,
+                                              f3h_web.FRACT_KEY_SITE: self.flam3husd_about_web_fractorium,
                                             }
         
         run: Callable[[], None] | None = web.get(key)
@@ -3088,10 +3110,10 @@ class pyside_master:
                 links_label.setText(f"""
                 <html>
                     <body>
-                    <a href="https://www.alexnardini.net">Website</a>
-                    <a href="https://www.instagram.com/alexnardini/">Instagram</a>
-                    <a href="https://www.youtube.com/@alexnardiniITALY/videos">Youtube</a>
-                    <a href="https://github.com/alexnardini/FLAM3_for_SideFX_Houdini">Github</a>
+                    <a href="{f3h_web.F3H_WEB_SITE}">Website</a>
+                    <a href="{f3h_web.F3H_WEB_INSTA}">Instagram</a>
+                    <a href="{f3h_web.F3H_WEB_YOUTUBE}">Youtube</a>
+                    <a href="{f3h_web.F3H_WEB_GIT}">Github</a>
                     </body>
                 </html>
                 """)

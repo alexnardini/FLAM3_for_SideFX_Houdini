@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3H™. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       April 2023, Last revised June 2026
+#   date:       April 2023, Last revised September 2026
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
 #
@@ -2534,7 +2534,9 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('web'
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('git')
+node = kwargs['node']
+f3h_web = node.hdaModule().flam3.f3h_web
+node.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3H_KEY_GIT)
 ```
 
 </br>
@@ -2547,7 +2549,9 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('git'
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('insta')
+node = kwargs['node']
+f3h_web = node.hdaModule().flam3.f3h_web
+node.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3H_KEY_INSTA)
 ```
 
 </br>
@@ -2560,7 +2564,9 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('inst
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('youtube')
+node = kwargs['node']
+f3h_web = node.hdaModule().flam3.f3h_web
+node.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3H_KEY_YOUTUBE)
 ```
 
 </br>
@@ -2573,7 +2579,9 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('yout
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('paper')
+node = kwargs['node']
+f3h_web = node.hdaModule().flam3.f3h_web
+node.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3_KEY_PAPER)
 ```
 
 </br>
@@ -2586,7 +2594,9 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('pape
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('flam3git')
+node = kwargs['node']
+f3h_web = node.hdaModule().flam3.f3h_web
+node.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3_KEY_GIT)
 ```
 
 </br>
@@ -2599,7 +2609,9 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('flam
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('fractgithub')
+node = kwargs['node']
+f3h_web = node.hdaModule().flam3.f3h_web
+node.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.FRACT_KEY_GIT)
 ```
 
 </br>
@@ -2612,7 +2624,9 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('frac
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('fractweb')
+node = kwargs['node']
+f3h_web = node.hdaModule().flam3.f3h_web
+node.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.FRACT_KEY_SITE)
 ```
 
 
