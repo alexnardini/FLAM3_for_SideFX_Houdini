@@ -51,11 +51,11 @@ They are all available in this Github repository.
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
+- **Fix**: When the iterators' count parameter was locked, the add iterator button was still adding/removing iterators. It is now fixed.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 #### FLAM3H™USD v0.2.65 indie -> H22.0 UP</br>FLAM3H™USD v0.2.61 indie -> H21.0</br>FLAM3H™USD v0.2.57 indie -> H20.5</br>FLAM3H™USD v0.2.51 indie -> H19.0 to H20 ####
 
-- **Fix H22 UP Only**: FLAM3H™USD was not able to set the viewport renderer back to Vulkan. You need Houdini 22.0.422 and up for this fix to take place.
 - **Small fixes/improvements as part of an ongoing polishing pass H22 UP Only**
 
 
