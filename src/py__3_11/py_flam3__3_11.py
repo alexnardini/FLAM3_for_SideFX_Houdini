@@ -2570,7 +2570,7 @@ class flam3h_scripts
             elif cvex_precision == 64: platform = 'CVEX 64-bit'
             
         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
-        print(f"\nFLAM3H {platform} node compile: DONE\n")
+        print(f"\nFLAM3H™ {platform} node compile: DONE\n")
         
         
     @staticmethod
@@ -10993,7 +10993,7 @@ class flam3h_iterator_utils
         # Reset/Set density
         flam3h_general_utils.reset_density(node)
         # Iterations
-        # This is mostly useful on creation (first node instance) and when loading a FLAM3H otl version that is older (no gpu).
+        # This is mostly useful on creation (first node instance) and when loading a FLAM3H™ otl version that is older (no gpu).
         if self.gpu:
             prm_iterations_gpu = node.parm(f3h_tabs.PREFS.PRM_GPU_ITER)
             flam3h_prm_utils.set(node, prm_iterations_gpu, f3h_tabs.GLB.DEFAULT_ITERATIONS_GPU)
@@ -13991,7 +13991,7 @@ class _xml
                 flam3h_prm_utils.private_prm_set(hou.pwd(), f3h_tabs.IN.PVT_PRM_ISVALID_PRESET, 0)
             
             except (NameError, AttributeError):
-                _MSG: str = ("\nFLAM3H -> warning: Could not evaluate the current hou.SopNode. Class _xml(...).get_name(...)\n")
+                _MSG: str = ("\nFLAM3H™ -> warning: Could not evaluate the current hou.SopNode. Class _xml(...).get_name(...)\n")
                 print(f"{_MSG}\n")
                 flam3h_general_utils.set_status_msg(f"{_MSG}", 'WARN')
                 

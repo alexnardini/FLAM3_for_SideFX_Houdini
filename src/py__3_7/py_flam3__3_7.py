@@ -2097,7 +2097,7 @@ class flam3h_scripts
         elif cvex_precision == 64: platform = 'CVEX 64-bit'
         
         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
-        print(f"\nFLAM3H {platform} node compile: DONE\n")
+        print(f"\nFLAM3H™ {platform} node compile: DONE\n")
         
         
     @staticmethod
@@ -3338,7 +3338,7 @@ class flam3h_general_utils
     @staticmethod
     def util_getParameterEditors() -> list:
         """Return a list of Parameter Editors currently open in this Houdini session.
-        It will collect only the Parameter Editors with a FLAM3H node parameter on display already.
+        It will collect only the Parameter Editors with a FLAM3H™ node parameter on display already.
         
         Args:
             (None):
@@ -13044,7 +13044,7 @@ class _xml
                 flam3h_prm_utils.private_prm_set(hou.pwd(), IN_PVT_ISVALID_PRESET, 0)
                 return ()
             except:
-                _MSG: str = ("\nFLAM3H -> warning: Could not evaluate the current hou.SopNode. Class _xml(...).get_name(...)\n")
+                _MSG: str = ("\nFLAM3H™ -> warning: Could not evaluate the current hou.SopNode. Class _xml(...).get_name(...)\n")
                 print(f"{_MSG}\n")
                 flam3h_general_utils.set_status_msg(f"{_MSG}", 'WARN')
                 return ()
