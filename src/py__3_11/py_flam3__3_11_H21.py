@@ -11413,7 +11413,7 @@ class flam3h_iterator_utils
         else:
             
             _MSG: str = f"{node.name()} -> The Iterators Count parameter is Locked. Please unlock it to be able to add/remove iterators."
-            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+            flam3h_general_utils.set_status_msg(f"{_MSG}", 'IMP')
             flam3h_general_utils.flash_message(node, f"Iterators Count: LOCKED")
 
 
