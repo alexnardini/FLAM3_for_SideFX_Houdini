@@ -1206,10 +1206,59 @@ class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
         self._prm_FF_tuple: tuple[str, ...] = (self.preaffine_x, self.preaffine_y, self.preaffine_o, self.postaffine_x, self.postaffine_y, self.postaffine_o)
         self._prm_FF: tuple[str, ...] = (self.main_note, self.prevar_type_1, self.prevar_weight_1, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.postvar_type_1, self.postvar_weight_1, self.postvar_type_2, self.postvar_weight_2, self.preaffine_scale, self.preaffine_ang, self.postaffine_do, self.postaffine_scale, self.postaffine_ang)
         self._prm_FF_vars_all: tuple[str, ...] = (self.prevar_type_1, self.prevar_weight_1, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.postvar_type_1, self.postvar_weight_1, self.postvar_type_2, self.postvar_weight_2)
+        
         # Hard coded as this may be the only case with need those parameters.
         # Those are the houdini parametric variations parameters base names.
-        self._prm_parametrics_tuple: tuple[str, ...] = ("curlc", "ngon", "pdjw", "blob", "julian", "juliascope", "fan2", "rectangles", "pie", "disc2", "supershape", "supershapen", "flower", "conic", "parabola", "bent2xy", "cpow", "lazysusanxyz", "lazysusan", "modulusXYZ", "oscope", "popcorn2xyz", "separationxyz", "separationinsidexyz", "splitxyz", "splitsxyz", "stripes", "wedge", "wedgejulia", "wedgesph", "whorl", "waves2scalexyz", "waves2freqxyz", "auger", "mobiusre", "mobiusim", "curvexyzlenght", "curvexyzamp", "persp", "bwraps", "bwrapstwist", "polynomialpow", "polynomiallc", "polynomialsc", "cropltrb", "cropaz", "ptsym")
-        self._prm_parametrics: tuple[str, ...] = ("rings2val", "radialblur", "bipolarshift", "cellsize", "escherbeta", "popcorn2c", "fluxspread")
+        self._prm_parametrics_tuple: tuple[str, ...] = (  
+                                                        'auger', 
+                                                        'bent2xy', 
+                                                        'blob', 
+                                                        'bwraps', 
+                                                        'bwrapstwist', 
+                                                        'conic', 
+                                                        'cpow', 
+                                                        'cropaz', 'cropltrb', 
+                                                        'curlc', 
+                                                        'curvexyzamp', 'curvexyzlenght', 
+                                                        'disc2', 
+                                                        'fan2', 
+                                                        'flower', 
+                                                        'julian', 
+                                                        'juliascope', 
+                                                        'lazysusan', 'lazysusanxyz', 
+                                                        'mobiusim', 'mobiusre', 
+                                                        'modulusXYZ', 
+                                                        'ngon', 
+                                                        'oscope', 
+                                                        'parabola', 
+                                                        'pdjw', 
+                                                        'persp', 
+                                                        'pie', 
+                                                        'polynomiallc', 'polynomialpow', 'polynomialsc', 
+                                                        'popcorn2xyz', 
+                                                        'ptsym', 
+                                                        'rectangles', 
+                                                        'separationinsidexyz', 'separationxyz', 
+                                                        'splitsxyz', 
+                                                        'splitxyz', 
+                                                        'stripes', 
+                                                        'supershape', 'supershapen', 
+                                                        'waves2freqxyz', 'waves2scalexyz', 
+                                                        'wedge', 
+                                                        'wedgejulia', 
+                                                        'wedgesph', 
+                                                        'whorl'
+                                                        )
+        
+        self._prm_parametrics: tuple[str, ...] = (
+                                                'bipolarshift', 
+                                                'cellsize', 
+                                                'escherbeta', 
+                                                'fluxspread', 
+                                                'popcorn2c', 
+                                                'radialblur', 
+                                                'rings2val'
+                                                )
         
     
     # CLASS: PROPERTIES
