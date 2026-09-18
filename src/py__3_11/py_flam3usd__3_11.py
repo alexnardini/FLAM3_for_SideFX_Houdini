@@ -1225,7 +1225,7 @@ class flam3husd_scripts
         
         if self.flam3husd_compatible_type(__range_type__):
             
-            # Load FLAM3H node first instance if any
+            # Load FLAM3H™ node first instance if any
             self.flam3husd_on_create_load_first_instance(node)
             # Check if we are importing a valid FLAM3H™ node
             self.flam3husd_is_valid_flam3h_node()

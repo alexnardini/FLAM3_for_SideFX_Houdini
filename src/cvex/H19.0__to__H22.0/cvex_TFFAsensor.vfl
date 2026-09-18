@@ -93,7 +93,7 @@ void _TFFAsensor()
     float sensor_zoom = SENSOR.zoom;
     float sensor_rot = SENSOR.rot;
     
-    // FLAM3H CAMERA Sensor
+    // FLAM3H™ CAMERA Sensor
     vector translation, rotation;
     translation = set(sensor_center[0], sensor_center[1], 0);
     rotation = set(0, 0, sensor_rot);
@@ -177,7 +177,7 @@ void _TFFAsensor()
     int prim_l = addprim(0, "polyline", array(p1_l, p2_l, p3_l, p4_l, p1_l));
     setprimattrib(0, "P", prim_l, m4_flip, "mult");
 
-    // FLAM3H Flame points
+    // FLAM3H™ Flame points
     packedtransform(0, 0, invert(m4_first_no_scale) * m4_second * invert(m4_center_sensor) * m4_flip);
 }
 

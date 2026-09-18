@@ -265,7 +265,7 @@ Reset size [Icon:opdef:.?icon_actionButtonSVG.svg]:
     
 Points widths:
     #id: PREFS
-    The point attribute *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
+    The point attribute *`@pscale`* will become *`@widths`* when importing FLAM3H(tm) into Stage/Solaris.
     This option, which is a multiplier, enables rapid adjustments while Karma is rendering interactively.
 
     When the FLAM3H(tm) shader is in use, increasing this value will increase the additive effect if the *`Emission`* and *`Transmission`* Shader parameters are being used.

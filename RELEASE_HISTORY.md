@@ -542,7 +542,7 @@ _This is a re-release of the same version with some minor improvements that did 
 - **New H21 UP ONLY**: The SYS tab reframe button/icon now offer the ability to reframe while setting the viewports to Front type. 
 - **New**: The variations parametric parameters inside their respective VARS folder inside each iterator and FF are now alphabetically ordered instead of being ordered using their callable index value. This make more sense to the end user.
 - **Fix**: When in CPU(Cvex) mode with Motion Blur ON and the viewport TAG ON, switching to GPU mode should have removed the **MB** keyword from the viewport TAG. It is now fixed. 
-- **Fix**: When Motion Blur is active and we switch to GPU mode, FLAM3H kept generating a fractional amount of the total point count. it is now fixed.
+- **Fix**: When Motion Blur is active and we switch to GPU mode, FLAM3H™ kept generating a fractional amount of the total point count. it is now fixed.
 - **Updated OTLs repository structure**
 - **Updated HDA documentation.**
 
@@ -2219,7 +2219,7 @@ _This is a re-release of the same version but with some minor updates that were 
 - **New H21.0 UP ONLY**: Added FLAM3H™ for **H21** (_initial release_).
 - **New H21.0 UP ONLY**: New iterators' control icon to add or delete iterators while still updating their xaos string correctly.
 - **New**: When an iterator is in SOLO mode, changing the iterator focus using the SYS tab' select iterator mini menu will also set the selected iterator to be in SOLO mode, allowing you to easily review them one by one automatically.
-- **New**: The whole user interface will now be disabled and zero points will be generated when a FLAM3H OTL is installed in the incorrect Houdini version. The user will also get an error message informing them of the appropriate Houdini version to use.
+- **New**: The whole user interface will now be disabled and zero points will be generated when a FLAM3H™ OTL is installed in the incorrect Houdini version. The user will also get an error message informing them of the appropriate Houdini version to use.
 - **Fix**: CP Save action button -> [SHIFT+LMB] file chooser had the wrong default file extension to start with, it is now fxed.
 - **Fix**: Improved some status bar messages about copying PRE or POST affine values and when resetting them.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
