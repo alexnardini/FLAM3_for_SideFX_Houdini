@@ -478,10 +478,11 @@ static inline float Zeps(const float x) { return x + (x == 0) * EPS; }
 static inline float sgn(const float n){ return (float)((0.0f < n) - (n < 0.0f)); }
 
 static inline float fmod_custom(const float a, const float b){
+    float safe_b = Zeps(b); 
 #if USE_NATIVE
-    return a - trunc(native_divide(a, b)) * b;
+    return a - trunc(native_divide(a, safe_b)) * safe_b;
 #else
-    return a - trunc(a / b) * b;
+    return a - trunc(a / safe_b) * safe_b;
 #endif
 }
 
@@ -1028,32 +1029,35 @@ static float2 CL_V_RINGS(
 {
 
     float _SQRT = SQRT(in);
-    float inv_sqrt = native_recip(_SQRT);
-    float2 precalc = in * inv_sqrt;
-
-    float dx = Zeps(c * c);
 
 #if USE_NATIVE
-    float two_dx = 2.0f * dx;
-    float t = (_SQRT + dx) * native_recip(two_dx);
-    t = t - floor(t);
-    float wrapped = t * two_dx;
-    #if USE_FMA
-        float r = fma(w, wrapped, fma(-_SQRT, dx, _SQRT - dx));
-    #else
-        float r = w * wrapped - dx + _SQRT * (1.0f - dx);
-    #endif
+    float2 precalc = in * native_recip(_SQRT);
 #else
-    float wrapped = fmod(_SQRT + dx, 2.0f * dx);
-    #if USE_FMA
-        float term = fma(-_SQRT, dx, _SQRT);
-        float r = w * (wrapped - dx + term);
-    #else
-        float r = w * (wrapped - dx + _SQRT * (1.0f - dx));
-    #endif
+    float2 precalc = in / _SQRT; 
 #endif
 
-    return r * precalc.yx;
+    float dx = Zeps(c * c);
+    float rr = _SQRT;
+
+    float divisor = 2.0f * dx;
+    float safe_divisor = select(divisor, EPS, divisor == 0.0f);
+    
+#if USE_NATIVE
+    float q = (rr + dx) * native_recip(safe_divisor);
+#else
+    float q = (rr + dx) / safe_divisor; 
+#endif
+
+    float wrapped_shifted = rr - trunc(q) * safe_divisor;
+
+#if USE_FMA
+    float inner = fma(rr, 1.0f - dx, wrapped_shifted);
+    rr = w * inner;
+#else
+    rr = w * (wrapped_shifted + rr * (1.0f - dx));
+#endif
+
+    return rr * precalc.yx;
 }
 // ----------------------------
 // 022 VAR FAN
@@ -1072,7 +1076,7 @@ static float2 CL_V_FAN(
     
 #if USE_NATIVE
     float t = (a + f) * native_recip(dx);
-    float wrapped = (t - floor(t)) * dx;
+    float wrapped = (t - trunc(t)) * dx;
     a += (wrapped > dx2) ? -dx2 : dx2;
 #else
     a += (fmod(a + f, dx) > dx2) ? -dx2 : dx2;
