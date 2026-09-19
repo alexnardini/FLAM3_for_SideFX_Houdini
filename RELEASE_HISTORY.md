@@ -56,7 +56,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 #### FLAM3H™USD v0.2.65 indie -> H22.0 UP</br>FLAM3H™USD v0.2.61 indie -> H21.0</br>FLAM3H™USD v0.2.57 indie -> H20.5</br>FLAM3H™USD v0.2.51 indie -> H19.0 to H20 ####
 
-- **Small fixes/improvements as part of an ongoing polishing pass H22 UP Only**
+- **Small fixes/improvements as part of an ongoing polishing pass**
 
 
 
