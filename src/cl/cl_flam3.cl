@@ -2510,19 +2510,32 @@ static float2 CL_V_MODULUS(
     __private const float2 modulus  // x, y
     )
 {
-
-    float2 period = 2.0f * modulus;
-    float2 r = in + modulus;
     
+    float2 period = 2.0f * modulus;
+
 #if USE_NATIVE
     float2 invPeriod = native_recip(period);
 #else
     float2 invPeriod = 1.0f / period;
 #endif
 
-    r -= period * floor(r * invPeriod);
+    float2 a = in + modulus;
+    float2 b = modulus - in;
+    float2 qa = trunc(a * invPeriod);
+    float2 qb = trunc(b * invPeriod);
 
-    return w * (r - modulus);
+#if USE_FMA
+    float2 branchA = fma(-qa, period, in);
+    float2 branchB = fma(qb, period, in);
+#else
+    float2 branchA = in - qa * period;
+    float2 branchB = in + qb * period;
+#endif
+
+    float2 result = select(in, branchB, in < -modulus);
+    result = select(result, branchA, in > modulus);
+
+    return w * result;
 }
 // ----------------------------
 // 067 VAR OSCOPE
