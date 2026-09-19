@@ -43,9 +43,9 @@ They are all available in this Github repository.
 <br>
 <br>
 
-## [<ins>v2.0.63 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.63)  ##
+## [<ins>v2.0.64 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.64)  ##
 
-#### FLAM3H™ v2.0.63 indie -> H22.0 UP</br>FLAM3H™ v2.0.51 indie -> H21.0</br>FLAM3H™ v2.0.44 indie -> H20.5</br>FLAM3H™ v1.9.86 indie -> H19.0 to H20 ####
+#### FLAM3H™ v2.0.64 indie -> H22.0 UP</br>FLAM3H™ v2.0.52 indie -> H21.0</br>FLAM3H™ v2.0.45 indie -> H20.5</br>FLAM3H™ v1.9.86 indie -> H19.0 to H20 ####
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
@@ -54,7 +54,8 @@ _This is a re-release of the same version with some minor improvements that did 
 _This update require a restart of Houdini to fully pickup the changes_.
 
 - **Fix**: When the iterators' count parameter was locked, the add iterator button was still adding/removing iterators. It is now fixed.
-- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **OpenCL code updates**: Variations **Modulus**, **Rings** and **Fan** have been fixed as they had some isses in some cases and/or when negative values where involved (_e.g. `floor()` has been substitued with `trunc()` when using custom `fmod()` implementation._)
+- **Small fixes/improvements as part of an ongoing polishing pass**
 
 #### FLAM3H™USD v0.2.65 indie -> H22.0 UP</br>FLAM3H™USD v0.2.61 indie -> H21.0</br>FLAM3H™USD v0.2.57 indie -> H20.5</br>FLAM3H™USD v0.2.51 indie -> H19.0 to H20 ####
 
