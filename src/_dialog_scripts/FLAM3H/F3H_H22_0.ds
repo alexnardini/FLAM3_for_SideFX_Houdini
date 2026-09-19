@@ -649,7 +649,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "Allow you to Enable or Disable this iterator.<br/><br/>For example this iterator is now Disabled. [<b>LMB</b>] to Enable it.<br/><br/>If an xform/iterator is disabled<br/>it wont be included when saving the Flame out into a flame file.<br/>In case you still want to include the inactive iterator into the file<br/>set its Weight to <b>0</b>(<i>Zero</i>) instead.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/><br/><b>ON</b> by default."
+                help    "<h3>Allow you to Enable or Disable this iterator</h3>For example this iterator is now Disabled. [<b>LMB</b>] to Enable it.<br/><br/>If an xform/iterator is disabled<br/>it wont be included when saving the Flame out into a flame file.<br/>In case you still want to include the inactive iterator into the file<br/>set its Weight to <b>0</b>(<i>Zero</i>) instead.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/><br/><b>ON</b> by default."
                 hidewhen "{ vactive_# == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()" }
@@ -662,7 +662,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "Allow you to Enable or Disable this iterator.<br/><br/>For example this iterator is now Enabled. [<b>LMB</b>] to Disable it.<br/><br/>If an xform/iterator is disabled<br/>it wont be included when saving the Flame out into a flame file.<br/>In case you still want to include the inactive iterator into the file<br/>set its Weight to <b>0</b>(<i>Zero</i>) instead.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/><br/><b>ON</b> by default."
+                help    "<h3>Allow you to Enable or Disable this iterator</h3>For example this iterator is now Enabled. [<b>LMB</b>] to Disable it.<br/><br/>If an xform/iterator is disabled<br/>it wont be included when saving the Flame out into a flame file.<br/>In case you still want to include the inactive iterator into the file<br/>set its Weight to <b>0</b>(<i>Zero</i>) instead.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/><br/><b>ON</b> by default."
                 hidewhen "{ vactive_# == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()" }
@@ -2575,7 +2575,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "Allow you to Enable or Disable the <b>FF</b> (<i>finalXform</i>).<br/>For example this <b>FF</b> is now Disabled. [<b>LMB</b>] to Enable it.<br/><br/>Iterators like Final Flame (<b>FF</b>) or finalXform function like camera lenses.<br/>It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
+                help    "<h3>Allow you to Enable or Disable the <b>FF</b> (<i>finalXform</i>)</h3>For example this <b>FF</b> is now Disabled. [<b>LMB</b>] to Enable it.<br/><br/>Iterators like Final Flame (<b>FF</b>) or finalXform function like camera lenses.<br/>It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
                 disablewhen "{ flamefunc == 0 }"
                 hidewhen "{ flamefunc == 0 } { doff == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg" }
@@ -2589,7 +2589,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "Allow you to Enable or Disable the <b>FF</b> (<i>finalXform</i>).<br/>For example this <b>FF</b> is now Enabled. [<b>LMB</b>] to Disable it.<br/><br/>Iterators like Final Flame (<b>FF</b>) or finalXform function like camera lenses.<br/>It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
+                help    "<h3>Allow you to Enable or Disable the <b>FF</b> (<i>finalXform</i>)</h3>For example this <b>FF</b> is now Enabled. [<b>LMB</b>] to Disable it.<br/><br/>Iterators like Final Flame (<b>FF</b>) or finalXform function like camera lenses.<br/>It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
                 disablewhen "{ flamefunc == 0 }"
                 hidewhen "{ flamefunc == 0 } { doff == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg" }
