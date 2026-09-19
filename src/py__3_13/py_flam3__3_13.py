@@ -1133,18 +1133,18 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
 class flam3h_iterator_prm_names:
 
     '''
-    Mostly, handy to have all those packed into one class
-    for easy access everywhere is needed and better readability.
+    Mostly, handy to have all those packed into one class</br>
+    for easy access everywhere is needed and better readability.</br>
     
-    The parameter names for the FF(finalXform) are the same but with a string prefix: 'ff'
-    The FF parametric parameter names are as well the same but with a string prefix: 'ff_'
-    Main, Xaos and Shader parameters are not included in the FF but only: PRE, VAR, POST, pre affine and post affine.
+    The parameter names for the FF(finalXform) are the same but with a string prefix: '<b>ff</b>'</br>
+    The FF parametric parameter names are as well the same but with a string prefix: '<b>ff_</b>'</br>
+    Main, Xaos and Shader parameters are not included in the FF but only: <b>PRE</b>, <b>VAR</b>, <b>POST</b>, <b>pre affine</b> and <b>post affine</b>.
     
     Note:
         The following definitions:
         
         * def iterator_vactive_and_update(self) -> None:
-        * def menu_select_iterator_data(self, data_now: tuple[list[Any] | Any, ...], data_names: tuple[str, ...]) -> TA_Menu:
+        * def menu_select_iterator_data(self, data_cached: tuple[list[Any] | Any, ...], data_now: tuple[list[Any] | Any, ...], data_names: tuple[str, ...]) -> TA_Menu:
         * def menu_copypaste(self) -> TA_Menu:
         * def menu_copypaste_FF(self) -> TA_Menu:
         * def iterator_affine_scale(self) -> None:
@@ -4178,6 +4178,9 @@ class flam3h_general_utils
     @staticmethod
     def util_is_context_SOP(viewport: hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor) -> bool:
         """Return if we are inside a SOP context or not.</br>
+        Note that we are checking for both SOP and Object context</br>
+        as if we only check for the SOP context we wont be able to run things</br>
+        when going up to the Object level network.</br>
         
         Args:
             viewport(hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor): Any of the available pane tab types,</br>in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer

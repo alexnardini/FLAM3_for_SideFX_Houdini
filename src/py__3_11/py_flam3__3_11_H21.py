@@ -1092,7 +1092,7 @@ class flam3h_iterator_prm_names:
         The following definitions:
         
         * def iterator_vactive_and_update(self) -> None:
-        * def menu_select_iterator_data(self, data_now: tuple[list[Any] | Any, ...], data_names: tuple[str, ...]) -> TA_Menu:
+        * def menu_select_iterator_data(self, data_cached: tuple[list[Any] | Any, ...], data_now: tuple[list[Any] | Any, ...], data_names: tuple[str, ...]) -> TA_Menu:
         * def menu_copypaste(self) -> TA_Menu:
         * def menu_copypaste_FF(self) -> TA_Menu:
         * def iterator_affine_scale(self) -> None:
@@ -7343,6 +7343,13 @@ class flam3h_iterator_utils
                 return True
             
             return False
+        
+        keyframes_pre: list[int] = [item for sublist in [[1 if p.keyframes() else 0 for p in node.parmTuple(f"{prm_list_affine[idx][0]}")] if prm_list_affine[idx][1] else [1 if node.parm(f"{prm_list_affine[idx][0]}").keyframes() else 0] for idx in range(len(prm_list_affine))] for item in sublist]
+        collect_pre: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine[idx][0]}").eval() if prm_list_affine[idx][1] else node.parm(f"{prm_list_affine[idx][0]}").eval() for idx in range(len(prm_list_affine))]
+        if 1 not in keyframes_pre and collect_pre == f3h_affineDefaults.DEFAULT_VALS:
+            return True
+        
+        return False
     
     
     @staticmethod
@@ -10296,7 +10303,12 @@ class flam3h_iterator_utils
         s_mp_index: int = self.kwargs['script_multiparm_index']
         check = True
         
-        current: dict = { "affine_x": node.parmTuple(f"{n.preaffine_x}_{s_mp_index}"), "affine_y": node.parmTuple(f"{n.preaffine_y}_{s_mp_index}"), "affine_o": node.parmTuple(f"{n.preaffine_o}_{s_mp_index}"), "angle": node.parm(f"{n.preaffine_ang}_{s_mp_index}") }
+        current: dict = {
+                        "affine_x": node.parmTuple(f"{n.preaffine_x}_{s_mp_index}"), 
+                        "affine_y": node.parmTuple(f"{n.preaffine_y}_{s_mp_index}"), 
+                        "affine_o": node.parmTuple(f"{n.preaffine_o}_{s_mp_index}"), 
+                        "angle": node.parm(f"{n.preaffine_ang}_{s_mp_index}") 
+                        }
         
         if self.kwargs["shift"]:
             for prm in (current["affine_x"], current["affine_y"]):
@@ -10379,7 +10391,12 @@ class flam3h_iterator_utils
         if node.parm(f"{n.postaffine_do}_{s_mp_index}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                 
             check: bool = True
-            current: dict = { "affine_x": node.parmTuple(f"{n.postaffine_x}_{s_mp_index}"), "affine_y": node.parmTuple(f"{n.postaffine_y}_{s_mp_index}"), "affine_o": node.parmTuple(f"{n.postaffine_o}_{s_mp_index}"), "angle": node.parm(f"{n.postaffine_ang}_{s_mp_index}") }
+            current: dict = {
+                            "affine_x": node.parmTuple(f"{n.postaffine_x}_{s_mp_index}"), 
+                            "affine_y": node.parmTuple(f"{n.postaffine_y}_{s_mp_index}"), 
+                            "affine_o": node.parmTuple(f"{n.postaffine_o}_{s_mp_index}"), 
+                            "angle": node.parm(f"{n.postaffine_ang}_{s_mp_index}") 
+                            }
                 
             if self.kwargs["shift"]:
                 for prm in (current["affine_x"], current["affine_y"]):
@@ -10460,7 +10477,12 @@ class flam3h_iterator_utils
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         check: bool = True
         
-        current: dict = { "affine_x": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_x}"), "affine_y": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_y}"), "affine_o": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_o}"), "angle": node.parm(f"{f3h_ffPrmPrx.PRM}{n.preaffine_ang}") }
+        current: dict = {
+                        "affine_x": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_x}"), 
+                        "affine_y": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_y}"), 
+                        "affine_o": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_o}"), 
+                        "angle": node.parm(f"{f3h_ffPrmPrx.PRM}{n.preaffine_ang}") 
+                        }
             
         if self.kwargs["shift"]:
             for prm in (current["affine_x"], current["affine_y"]):
@@ -10542,7 +10564,12 @@ class flam3h_iterator_utils
         if node.parm(f"{f3h_ffPrmPrx.PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                 
             check: bool = True
-            current: dict = { "affine_x": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_x}"), "affine_y": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_y}"), "affine_o": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_o}"), "angle": node.parm(f"{f3h_ffPrmPrx.PRM}{n.postaffine_ang}") }
+            current: dict = {
+                            "affine_x": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_x}"), 
+                            "affine_y": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_y}"), 
+                            "affine_o": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_o}"), 
+                            "angle": node.parm(f"{f3h_ffPrmPrx.PRM}{n.postaffine_ang}") 
+                            }
             
             if self.kwargs["shift"]:
                 for prm in (current["affine_x"], current["affine_y"]):
