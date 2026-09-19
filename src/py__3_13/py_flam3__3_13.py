@@ -5656,9 +5656,23 @@ class flam3h_general_utils
                 
     def flam3h_toggle_private_tag(self) -> None:
         """This is specifically done for the TAG icons in the SYS tab.</br>
-        It is adding the ability to enter the camera sensor viz witha [SHIFT+CLICK] on the TAG icons</br>
-        
+        It is adding the ability to enter the camera sensor viz with a [<b>SHIFT</b>+<b>CLICK</b>] on the TAG icons</br>
         otherwise it will just toggle the TAG parameter as usual.</br>
+        
+        </br>
+        
+        To keep track from where we are entering the camera sensor viz mode</br>
+        a cached user data is being set here first. Its name is:
+        - <u>f3h_cachedUserData<b>.</b>sys_sensor</u> ('<b>sys_sensor</b>')
+        
+        </br>
+        
+        Functions that check/destroy the cachedUserData being set are:
+        - def flam3h_toggle_off(self, prm_name: str) -> None:
+        - def flam3h_other_sensor_viz_off(self, node: hou.SopNode) -> None:
+        - def flam3h_outsensor_toggle(self, prm_name: str = f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR) -> None:
+        
+        </br>
         
         If a toggle is OFF it will switch ON, and viceversa,</br>
         and make sure to unlock and lock the parameter.</br>
