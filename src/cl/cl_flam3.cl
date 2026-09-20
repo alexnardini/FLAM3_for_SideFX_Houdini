@@ -1737,7 +1737,7 @@ static float2 CL_V_TWINTRIAN(
 #else
     float diff = log10(ss) + cr;
 #endif
-    diff = select(diff, -30.0f, !isfinite(diff) | isnan(diff));
+    diff = select(diff, -30.0f, !isfinite(diff));
 
     float wx = w * in.x;
 
@@ -3449,8 +3449,9 @@ static float2 CL_V_CURVE(
     __private const float2 amplitude    // amplitude_x, amplitude_y
     )
 {
-    
-    if(any(isnan(in))) return (float2)(0.0f);
+
+    float2 p = in;
+    if(any(!isfinite(p))) p = (float2)(0.0f);
 
     if(F3C){
     #if USE_NATIVE
@@ -3459,13 +3460,13 @@ static float2 CL_V_CURVE(
 
         #if USE_FMA
             return w * (float2)(
-                fma(amplitude.x, native_exp(-in.y * in.y * lx), in.x),
-                fma(amplitude.y, native_exp(-in.x * in.x * ly), in.y)
+                fma(amplitude.x, native_exp(-p.y * p.y * lx), p.x),
+                fma(amplitude.y, native_exp(-p.x * p.x * ly), p.y)
             );
         #else
             return w * (float2)(
-                in.x + amplitude.x * native_exp(-in.y * in.y * lx), 
-                in.y + amplitude.y * native_exp(-in.x * in.x * ly)
+                p.x + amplitude.x * native_exp(-p.y * p.y * lx), 
+                p.y + amplitude.y * native_exp(-p.x * p.x * ly)
             );
         #endif
     #else
@@ -3474,13 +3475,13 @@ static float2 CL_V_CURVE(
 
         #if USE_FMA
             return w * (float2)(
-                fma(amplitude.x, exp(-in.y * in.y * lx), in.x),
-                fma(amplitude.y, exp(-in.x * in.x * ly), in.y)
+                fma(amplitude.x, exp(-p.y * p.y * lx), p.x),
+                fma(amplitude.y, exp(-p.x * p.x * ly), p.y)
             );
         #else
             return w * (float2)(
-                in.x + amplitude.x * exp(-in.y * in.y * lx), 
-                in.y + amplitude.y * exp(-in.x * in.x * ly)
+                p.x + amplitude.x * exp(-p.y * p.y * lx), 
+                p.y + amplitude.y * exp(-p.x * p.x * ly)
             );
         #endif
     #endif
@@ -3491,26 +3492,26 @@ static float2 CL_V_CURVE(
 
         #if USE_FMA
             return w * (float2)(
-                fma(amplitude.x, native_exp(native_divide(-in.y * in.y, Zeps(lenght.x))), in.x),
-                fma(amplitude.y, native_exp(native_divide(-in.x * in.x, Zeps(lenght.y))), in.y)
+                fma(amplitude.x, native_exp(native_divide(-p.y * p.y, Zeps(lenght.x))), p.x),
+                fma(amplitude.y, native_exp(native_divide(-p.x * p.x, Zeps(lenght.y))), p.y)
             );
         #else
             return w * (float2)(
-                in.x + amplitude.x * native_exp(native_divide(-in.y * in.y, Zeps(lenght.x))),
-                in.y + amplitude.y * native_exp(native_divide(-in.x * in.x, Zeps(lenght.y)))
+                p.x + amplitude.x * native_exp(native_divide(-p.y * p.y, Zeps(lenght.x))),
+                p.y + amplitude.y * native_exp(native_divide(-p.x * p.x, Zeps(lenght.y)))
             );
         #endif
     #else
 
         #if USE_FMA
             return w * (float2)(
-                fma(amplitude.x, exp(-in.y * in.y / Zeps(lenght.x)), in.x),
-                fma(amplitude.y, exp(-in.x * in.x / Zeps(lenght.y)), in.y)
+                fma(amplitude.x, exp(-p.y * p.y / Zeps(lenght.x)), p.x),
+                fma(amplitude.y, exp(-p.x * p.x / Zeps(lenght.y)), p.y)
             );
         #else
             return w * (float2)(
-                in.x + amplitude.x * exp(-in.y * in.y / Zeps(lenght.x)),
-                in.y + amplitude.y * exp(-in.x * in.x / Zeps(lenght.y))
+                p.x + amplitude.x * exp(-p.y * p.y / Zeps(lenght.x)),
+                p.y + amplitude.y * exp(-p.x * p.x / Zeps(lenght.y))
             );
         #endif
     #endif
@@ -3761,8 +3762,6 @@ static float2 CL_V_CROP(
     )
 {
 
-    if(any(isnan(in))) return (float2)(0.0f);
-
     float x0 = fmin(ltrb.x, ltrb.z);
     float x1 = fmax(ltrb.x, ltrb.z);
     float y0 = fmin(ltrb.y, ltrb.w);
@@ -3788,6 +3787,7 @@ static float2 CL_V_CROP(
 #endif
 
     float2 p = in;
+    if(any(!isfinite(p))) p = (float2)(0.0f);
 
     // conditions
     bool left   = p.x < x0;
