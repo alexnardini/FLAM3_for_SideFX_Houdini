@@ -3449,6 +3449,8 @@ static float2 CL_V_CURVE(
     __private const float2 amplitude    // amplitude_x, amplitude_y
     )
 {
+    
+    if(any(isnan(in))) return (float2)(0.0f);
 
     if(F3C){
     #if USE_NATIVE
@@ -3484,7 +3486,7 @@ static float2 CL_V_CURVE(
     #endif
     }
     else{
-        // This need to be revised at some point
+
     #if USE_NATIVE
 
         #if USE_FMA
@@ -3758,6 +3760,9 @@ static float2 CL_V_CROP(
     __private const float2 az       // area, zero
     )
 {
+
+    if(any(isnan(in))) return (float2)(0.0f);
+
     float x0 = fmin(ltrb.x, ltrb.z);
     float x1 = fmax(ltrb.x, ltrb.z);
     float y0 = fmin(ltrb.y, ltrb.w);
@@ -3797,8 +3802,7 @@ static float2 CL_V_CROP(
 
     bool outside = left || right || bottom || top;
 
-    if (outside && az.y != 0.0f)
-        p = (float2)(0.0f);
+    if ((outside && az.y != 0.0f)) return (float2)(0.0f);
 
     return w * p;
 }
