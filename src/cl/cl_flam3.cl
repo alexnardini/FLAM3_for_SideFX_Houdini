@@ -898,7 +898,7 @@ static float2 CL_V_WAVES(
         (in + (float2)(b, e) * native_sin(in.yx * m_D2));
     #endif
 #else
-    float m_D2 = 1.0f / Zeps((float2)(c*c, f*f));
+    float2 m_D2 = 1.0f / Zeps((float2)(c*c, f*f));
 
     return w * 
     #if USE_FMA
@@ -3454,7 +3454,7 @@ static float2 CL_V_CURVE(
         #endif
     #else
 
-        float l - 1.0f / fmax((lenght * lenght), 1e-20f);
+        float2 l = 1.0f / fmax((lenght * lenght), 1e-20f);
 
         #if USE_FMA
             return w * fma(amplitude, exp(-p.yx * p.yx * l), p);
