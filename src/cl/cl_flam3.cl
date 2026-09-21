@@ -445,6 +445,7 @@ static inline float2 affine(__private const float2 in, __private const affine_t 
 
 // Machine epsilon for single precision
 #define EPS     1.1920929e-7f
+#define Zeps(x) select((x), (x) + EPS, isequal((x), (x) * 0.0f))
 
 #define M_TAU   6.283185307179586476925f
 #define M_1_2PI 0.159154943091895335769f
@@ -472,8 +473,6 @@ static inline float SafeTan(const float x){
     return tan(clamp(x, FLOAT_MIN_TAN, FLOAT_MAX_TAN)); 
 #endif
 }
-
-static inline float Zeps(const float x) { return x + (x == 0) * EPS; }
 
 static inline float sgn(const float n){ return (float)((0.0f < n) - (n < 0.0f)); }
 
@@ -890,31 +889,23 @@ static float2 CL_V_WAVES(
 {
 
 #if USE_NATIVE
-    float m_Dx2 = native_recip(Zeps(c * c));
-    float m_Dy2 = native_recip(Zeps(f * f));
+    float2 m_D2 = native_recip(Zeps((float2)(c*c, f*f)));
 
-    return w * (float2)(
+    return w * 
     #if USE_FMA
-        fma(b, native_sin(in.y * m_Dx2), in.x), 
-        fma(e, native_sin(in.x * m_Dy2), in.y)
+        fma((float2)(b, e), native_sin(in.yx * m_D2), in);
     #else
-        in.x + b * native_sin(in.y * m_Dx2), 
-        in.y + e * native_sin(in.x * m_Dy2)
+        (in + (float2)(b, e) * native_sin(in.yx * m_D2));
     #endif
-    );
 #else
-    float m_Dx2 = 1.0f / Zeps(c * c);
-    float m_Dy2 = 1.0f / Zeps(f * f);
+    float m_D2 = 1.0f / Zeps((float2)(c*c, f*f));
 
-    return w * (float2)(
+    return w * 
     #if USE_FMA
-        fma(b, sin(in.y * m_Dx2), in.x), 
-        fma(e, sin(in.x * m_Dy2), in.y)
+        fma(b, sin(in.yx * m_D2), in);
     #else
-        in.x + b * sin(in.y * m_Dx2), 
-        in.y + e * sin(in.x * m_Dy2)
+        in + b * sin(in.yx * m_D2);
     #endif
-    );
 #endif
 }
 // ----------------------------
@@ -3449,40 +3440,26 @@ static float2 CL_V_CURVE(
     __private const float2 amplitude    // amplitude_x, amplitude_y
     )
 {
-
-    float2 p = in;
-    if(any(!isfinite(p))) p = (float2)(0.0f);
+    float2 p = select((float2)(0.0f), in, isfinite(in));
 
     if(F3C){
     #if USE_NATIVE
-        float lx = native_recip(fmax((lenght.x * lenght.x), 1e-20f));
-        float ly = native_recip(fmax((lenght.y * lenght.y), 1e-20f));
+
+        float2 l = native_recip(fmax(lenght * lenght, 1e-20f));
 
         #if USE_FMA
-            return w * (float2)(
-                fma(amplitude.x, native_exp(-p.y * p.y * lx), p.x),
-                fma(amplitude.y, native_exp(-p.x * p.x * ly), p.y)
-            );
+            return w * fma(amplitude, native_exp(-p.yx * p.yx * l), p);
         #else
-            return w * (float2)(
-                p.x + amplitude.x * native_exp(-p.y * p.y * lx), 
-                p.y + amplitude.y * native_exp(-p.x * p.x * ly)
-            );
+            return w * (p + amplitude * native_exp(-p.yx * p.yx * l));
         #endif
     #else
         float lx = 1.0f / fmax((lenght.x * lenght.x), 1e-20f);
         float ly = 1.0f / fmax((lenght.y * lenght.y), 1e-20f);
 
         #if USE_FMA
-            return w * (float2)(
-                fma(amplitude.x, exp(-p.y * p.y * lx), p.x),
-                fma(amplitude.y, exp(-p.x * p.x * ly), p.y)
-            );
+            return w * fma(amplitude, exp(-p.yx * p.yx * l), p);
         #else
-            return w * (float2)(
-                p.x + amplitude.x * exp(-p.y * p.y * lx), 
-                p.y + amplitude.y * exp(-p.x * p.x * ly)
-            );
+            return w * (p + amplitude * exp(-p.yx * p.yx * l));
         #endif
     #endif
     }
@@ -3491,28 +3468,16 @@ static float2 CL_V_CURVE(
     #if USE_NATIVE
 
         #if USE_FMA
-            return w * (float2)(
-                fma(amplitude.x, native_exp(native_divide(-p.y * p.y, Zeps(lenght.x))), p.x),
-                fma(amplitude.y, native_exp(native_divide(-p.x * p.x, Zeps(lenght.y))), p.y)
-            );
+            return w * fma(amplitude, native_exp(native_divide(-p.yx * p.yx, Zeps(lenght))), p);
         #else
-            return w * (float2)(
-                p.x + amplitude.x * native_exp(native_divide(-p.y * p.y, Zeps(lenght.x))),
-                p.y + amplitude.y * native_exp(native_divide(-p.x * p.x, Zeps(lenght.y)))
-            );
+            return w * (p + amplitude * native_exp(native_divide(-p.yx * p.yx, Zeps(lenght))));
         #endif
     #else
 
         #if USE_FMA
-            return w * (float2)(
-                fma(amplitude.x, exp(-p.y * p.y / Zeps(lenght.x)), p.x),
-                fma(amplitude.y, exp(-p.x * p.x / Zeps(lenght.y)), p.y)
-            );
+            return w * fma(amplitude, exp(-p.yx * p.yx / Zeps(lenght)), p);
         #else
-            return w * (float2)(
-                p.x + amplitude.x * exp(-p.y * p.y / Zeps(lenght.x)),
-                p.y + amplitude.y * exp(-p.x * p.x / Zeps(lenght.y))
-            );
+            return w * (p + amplitude * exp(-p.yx * p.yx / Zeps(lenght)));
         #endif
     #endif
     }
@@ -3786,8 +3751,7 @@ static float2 CL_V_CROP(
     float yT = y1 - ry * h2;
 #endif
 
-    float2 p = in;
-    if(any(!isfinite(p))) p = (float2)(0.0f);
+    float2 p = select((float2)(0.0f), in, isfinite(in));
 
     // conditions
     bool left   = p.x < x0;
