@@ -3453,8 +3453,8 @@ static float2 CL_V_CURVE(
             return w * (p + amplitude * native_exp(-p.yx * p.yx * l));
         #endif
     #else
-        float lx = 1.0f / fmax((lenght.x * lenght.x), 1e-20f);
-        float ly = 1.0f / fmax((lenght.y * lenght.y), 1e-20f);
+
+        float l - 1.0f / fmax((lenght * lenght), 1e-20f);
 
         #if USE_FMA
             return w * fma(amplitude, exp(-p.yx * p.yx * l), p);
