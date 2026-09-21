@@ -381,7 +381,7 @@ typedef struct {
     float4 xy;  // X.x X.y Y.x Y.y
     float4 o;   // O.x O.y unused unused
 } affine_t;
-static inline float2 affine(__private const float2 in, __private const affine_t affine)
+static inline float2 affine(const float2 in, const affine_t affine)
 {
     // Referece affine
     // /*A*/in.x * X.x + /*B*/in.y * Y.x + /*C*/O.x,
@@ -452,13 +452,13 @@ static inline float2 affine(__private const float2 in, __private const affine_t 
 #define FLOAT_MAX_TAN 8388607.0f
 #define FLOAT_MIN_TAN -FLOAT_MAX_TAN
 
-static inline float ATAN(__private const float2 p){return atan2(p.x, p.y); }
+static inline float ATAN(const float2 p){return atan2(p.x, p.y); }
 
-static inline float ATANYX(__private const float2 p){ return atan2(p.y, p.x); }
+static inline float ATANYX(const float2 p){ return atan2(p.y, p.x); }
 
-static inline float SUMSQ(__private const float2 p){ return dot(p, p); }
+static inline float SUMSQ(const float2 p){ return dot(p, p); }
 
-static inline float SQRT(__private const float2 p){
+static inline float SQRT(const float2 p){
 #if USE_NATIVE
     return native_sqrt(dot(p, p));
 #else
@@ -466,7 +466,7 @@ static inline float SQRT(__private const float2 p){
 #endif
 }
 
-static inline float SafeTan(__private const float x)
+static inline float SafeTan(const float x)
 { 
 #if USE_NATIVE
     return native_tan(clamp(x, FLOAT_MIN_TAN, FLOAT_MAX_TAN));
@@ -475,11 +475,11 @@ static inline float SafeTan(__private const float x)
 #endif
 }
 
-static inline float sgn(__private const float n){ return (float)((0.0f < n) - (n < 0.0f)); }
+static inline float sgn(const float n){ return (float)((0.0f < n) - (n < 0.0f)); }
 
 static inline float fmod_custom(
-    __private const float a, 
-    __private const float b
+    const float a, 
+    const float b
     )
 {
     float safe_b = Zeps(b); 
@@ -499,7 +499,7 @@ static inline float fmod_custom(
 }
 
 static inline void sincos_fast(
-    __private const float a, 
+    const float a, 
     __private float* restrict s, 
     __private float* restrict c
     )
@@ -515,7 +515,7 @@ static inline void sincos_fast(
 // To be used with an improved Elliptic version which helps with rounding errors.
 // For 64bit(DP, when and if I'll find the time to add support for it)
 // Source: https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html
-static inline float Sqrt1pm1(__private const float x)
+static inline float Sqrt1pm1(const float x)
 {
     if (-0.0625 < x && x < 0.0625)
     {
@@ -584,8 +584,8 @@ static inline float Sqrt1pm1(__private const float x)
 // 000 VAR LINEAR
 // ----------------------------
 static float2 CL_V_LINEAR(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
     return w * in;
@@ -594,8 +594,8 @@ static float2 CL_V_LINEAR(
 // 001 VAR SINUSOIDAL
 // ----------------------------
 static float2 CL_V_SINUSOIDAL(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 #if USE_NATIVE
@@ -608,8 +608,8 @@ static float2 CL_V_SINUSOIDAL(
 // 002 VAR SPHERICAL
 // ----------------------------
 static float2 CL_V_SPHERICAL(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 #if USE_NATIVE
@@ -624,8 +624,8 @@ static float2 CL_V_SPHERICAL(
 // 003 VAR SWIRL
 // ----------------------------
 static float2 CL_V_SWIRL(
-    __private float2 in, 
-    __private float w
+    float2 in, 
+    float w
     )
 {
     
@@ -648,8 +648,8 @@ static float2 CL_V_SWIRL(
 // 004 VAR HORSESHOWE
 // ----------------------------
 static float2 CL_V_HORSESHOE(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -672,8 +672,8 @@ static float2 CL_V_HORSESHOE(
 // 005 VAR POLAR
 // ----------------------------
 static float2 CL_V_POLAR(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -686,8 +686,8 @@ static float2 CL_V_POLAR(
 // 006 VAR HANDKERCHIEF
 // ----------------------------
 static float2 CL_V_HANDKERCHIEF(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -711,8 +711,8 @@ static float2 CL_V_HANDKERCHIEF(
 // 007 VAR HEART
 // ----------------------------
 static float2 CL_V_HEART(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -736,8 +736,8 @@ static float2 CL_V_HEART(
 // 008 VAR DISC
 // ----------------------------
 static float2 CL_V_DISC(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -755,8 +755,8 @@ static float2 CL_V_DISC(
 // 009 VAR SPIRAL
 // ----------------------------
 static float2 CL_V_SPIRAL(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
     
@@ -784,8 +784,8 @@ static float2 CL_V_SPIRAL(
 // 010 VAR HIPERBOLIC
 // ----------------------------
 static float2 CL_V_HIPERBOLIC(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -810,8 +810,8 @@ static float2 CL_V_HIPERBOLIC(
 // 011 VAR DIAMOND
 // ----------------------------
 static float2 CL_V_DIAMOND(
-    __private const float2 in,
-    __private const float w
+    const float2 in,
+    const float w
     )
 {
 
@@ -834,8 +834,8 @@ static float2 CL_V_DIAMOND(
 // 012 VAR EX
 // ----------------------------
 static float2 CL_V_EX(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -860,9 +860,9 @@ static float2 CL_V_EX(
 // 013 VAR JULIA
 // ----------------------------
 static float2 CL_V_JULIA(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state
     )
 {
 
@@ -883,8 +883,8 @@ static float2 CL_V_JULIA(
 // 014 VAR BENT
 // ----------------------------
 static float2 CL_V_BENT(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
     float nx = select(in.x, in.x * 2.0f, in.x < 0.0f);
@@ -896,12 +896,12 @@ static float2 CL_V_BENT(
 // 015 VAR WAVES
 // ----------------------------
 static float2 CL_V_WAVES(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float b, 
-    __private const float c, 
-    __private const float e, 
-    __private const float f
+    const float2 in, 
+    const float w, 
+    const float b, 
+    const float c, 
+    const float e, 
+    const float f
     )
 {
 
@@ -929,8 +929,8 @@ static float2 CL_V_WAVES(
 // 016 VAR FISHEYE
 // ----------------------------
 static float2 CL_V_FISHEYE(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
     float r = SQRT(in);
@@ -947,10 +947,10 @@ static float2 CL_V_FISHEYE(
 // 017 VAR POPCORN
 // ----------------------------
 static float2 CL_V_POPCORN(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float c, 
-    __private const float f
+    const float2 in, 
+    const float w, 
+    const float c, 
+    const float f
     )
 {
 #if USE_NATIVE
@@ -963,8 +963,8 @@ static float2 CL_V_POPCORN(
 // 018 VAR EXPONENTIAL
 // ----------------------------
 static float2 CL_V_EXPONENTIAL(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -984,8 +984,8 @@ static float2 CL_V_EXPONENTIAL(
 // 019 VAR POWER
 // ----------------------------
 static float2 CL_V_POWER(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -1011,8 +1011,8 @@ static float2 CL_V_POWER(
 // 020 VAR COSINE
 // ----------------------------
 static float2 CL_V_COSINE(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
     
@@ -1030,9 +1030,9 @@ static float2 CL_V_COSINE(
 // 021 VAR RINGS
 // ----------------------------
 static float2 CL_V_RINGS(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float c
+    const float2 in, 
+    const float w, 
+    const float c
     )
 {
 
@@ -1071,10 +1071,10 @@ static float2 CL_V_RINGS(
 // 022 VAR FAN
 // ----------------------------
 static float2 CL_V_FAN(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float c, 
-    __private const float f
+    const float2 in, 
+    const float w, 
+    const float c, 
+    const float f
     )
 {
 
@@ -1099,8 +1099,8 @@ static float2 CL_V_FAN(
 // 023 VAR BUBBLE
 // ----------------------------
 static float2 CL_V_BUBBLE(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 #if USE_FMA
@@ -1123,8 +1123,8 @@ static float2 CL_V_BUBBLE(
 // 024 VAR CYLINDER
 // ----------------------------
 static float2 CL_V_CYLINDER(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 #if USE_NATIVE
@@ -1143,8 +1143,8 @@ static float2 CL_V_CYLINDER(
 // 025 VAR EYEFISH
 // ----------------------------
 static float2 CL_V_EYEFISH(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 #if USE_NATIVE
@@ -1158,8 +1158,8 @@ static float2 CL_V_EYEFISH(
 // ----------------------------
 // 026 VAR BLUR
 // ----------------------------
-static float2 CL_V_BLUR(__private const float w, 
-                        __private rng_state_t* restrict state
+static float2 CL_V_BLUR(const float w, 
+                        rng_state_t* restrict state
                         )
 {
 
@@ -1176,9 +1176,9 @@ static float2 CL_V_BLUR(__private const float w,
 // 027 VAR CURL
 // ----------------------------
 static float2 CL_V_CURL(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 c    // c1, c2
+    const float2 in, 
+    const float w, 
+    const float2 c    // c1, c2
     )
 {
 
@@ -1213,10 +1213,10 @@ static float2 CL_V_CURL(
 // 028 VAR NGON
 // ----------------------------
 static float2 CL_V_NGON(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float4 ngon,        // pow, sides, corners, circle
-    __private const float4 ngon_precalc // cpower, csides, csidesinv, unusued(1.0)
+    const float2 in, 
+    const float w, 
+    const float4 ngon,        // pow, sides, corners, circle
+    const float4 ngon_precalc // cpower, csides, csidesinv, unusued(1.0)
     )
 {
 
@@ -1251,9 +1251,9 @@ static float2 CL_V_NGON(
 // 029 VAR PDG
 // ----------------------------
 static float2 CL_V_PDJ(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float4 pdj  // wA, wB, wC, wD
+    const float2 in, 
+    const float w, 
+    const float4 pdj  // wA, wB, wC, wD
     )
 {
 
@@ -1271,9 +1271,9 @@ static float2 CL_V_PDJ(
 // 030 VAR BLOB
 // ----------------------------
 static float2 CL_V_BLOB(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float4 blob // low, high, wave, unused
+    const float2 in, 
+    const float w, 
+    const float4 blob // low, high, wave, unused
     )
 {
 
@@ -1308,10 +1308,10 @@ static float2 CL_V_BLOB(
 // 031 VAR JULIAN
 // ----------------------------
 static float2 CL_V_JULIAN(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state, 
-    __private const float2 julian   // power, distance
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state, 
+    const float2 julian   // power, distance
     )
 {
 
@@ -1348,10 +1348,10 @@ static float2 CL_V_JULIAN(
 // 032 VAR JULIASCOPE
 // ----------------------------
 static float2 CL_V_JULIASCOPE(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state, 
-    __private const float2 juliascope   // power(julian_rN), distance
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state, 
+    const float2 juliascope   // power(julian_rN), distance
     )
 {
     
@@ -1388,8 +1388,8 @@ static float2 CL_V_JULIASCOPE(
 // 033 VAR GAUSSIAN BLUR
 // ----------------------------
 static float2 CL_V_GAUSSIAN_BLUR(
-    __private const float w, 
-    __private rng_state_t* restrict state
+    const float w, 
+    rng_state_t* restrict state
     )
 {
 
@@ -1411,10 +1411,10 @@ static float2 CL_V_GAUSSIAN_BLUR(
 // 034 VAR FAN2
 // ----------------------------
 static float2 CL_V_FAN2(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C, 
-    __private const float2 fan2 // size, rotation
+    const float2 in, 
+    const float w, 
+    const int F3C, 
+    const float2 fan2 // size, rotation
     )
 {
     
@@ -1451,9 +1451,9 @@ static float2 CL_V_FAN2(
 // 035 VAR RINGS2
 // ----------------------------
 static float2 CL_V_RINGS2(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float rings2val // value
+    const float2 in, 
+    const float w, 
+    const float rings2val // value
     )
 {
 
@@ -1486,9 +1486,9 @@ static float2 CL_V_RINGS2(
 // 036 VAR RECTANGLES
 // ----------------------------
 static float2 CL_V_RECTANGLES(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 rectangles // x, y
+    const float2 in, 
+    const float w, 
+    const float2 rectangles // x, y
     )
 {
 
@@ -1515,10 +1515,10 @@ static float2 CL_V_RECTANGLES(
 // 037 VAR RADIAL BLUR
 // ----------------------------
 static float2 CL_V_RADIALBLUR(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state, 
-    __private const float angle // angle
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state, 
+    const float angle // angle
     )
 {
     float m_spin, m_zoom;
@@ -1557,9 +1557,9 @@ static float2 CL_V_RADIALBLUR(
 // 038 VAR PIE
 // ----------------------------
 static float2 CL_V_PIE(
-    __private const float w, 
-    __private rng_state_t* restrict state, 
-    __private const float4 pie  // slices, thickness, rotation
+    const float w, 
+    rng_state_t* restrict state, 
+    const float4 pie  // slices, thickness, rotation
     )
 {
 
@@ -1586,9 +1586,9 @@ static float2 CL_V_PIE(
 // 039 VAR ARCH
 // ----------------------------
 static float2 CL_V_ARCH(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state
     )
 {
     
@@ -1615,8 +1615,8 @@ static float2 CL_V_ARCH(
 // 040 VAR TANGENT
 // ----------------------------
 static float2 CL_V_TANGENT(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 #if USE_NATIVE
@@ -1635,8 +1635,8 @@ static float2 CL_V_TANGENT(
 // 041 VAR SQUARE
 // ----------------------------
 static float2 CL_V_SQUARE(
-    __private const float w, 
-    __private rng_state_t* restrict state
+    const float w, 
+    rng_state_t* restrict state
     )
 {
     return w * (float2)(
@@ -1648,9 +1648,9 @@ static float2 CL_V_SQUARE(
 // 042 VAR RAYS
 // ----------------------------
 static float2 CL_V_RAYS(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state
     )
 {
 
@@ -1677,9 +1677,9 @@ static float2 CL_V_RAYS(
 // 043 VAR BLADE
 // ----------------------------
 static float2 CL_V_BLADE(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state
     )
 {
 
@@ -1699,8 +1699,8 @@ static float2 CL_V_BLADE(
 // 044 VAR SECANT2
 // ----------------------------
 static float2 CL_V_SECANT2(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -1723,9 +1723,9 @@ static float2 CL_V_SECANT2(
 // 045 VAR TWINTRIAN
 // ----------------------------
 static float2 CL_V_TWINTRIAN(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state
     )
 {
 
@@ -1762,9 +1762,9 @@ static float2 CL_V_TWINTRIAN(
 // 046 VAR TWINTRIAN
 // ----------------------------
 static float2 CL_V_CROSS(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
 
@@ -1781,10 +1781,10 @@ static float2 CL_V_CROSS(
 // 047 VAR DISC2
 // ----------------------------
 static float2 CL_V_DISC2(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 disc2,   // rot, twist
-    __private const float4 disc2_pc // (F3) disc2_timespi, disc2_sinadd, disc2_cosadd
+    const float2 in, 
+    const float w, 
+    const float2 disc2,   // rot, twist
+    const float4 disc2_pc // (F3) disc2_timespi, disc2_sinadd, disc2_cosadd
     )
 {
 
@@ -1808,11 +1808,11 @@ static float2 CL_V_DISC2(
 // 048 VAR SUPERSHAPE
 // ----------------------------
 static float2 CL_V_SUPERSHAPE(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state, 
-    __private const float4 supershape,  // (F3) m, rnd, holes
-    __private const float4 supershape_n // (F3) n1, n2, n3
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state, 
+    const float4 supershape,  // (F3) m, rnd, holes
+    const float4 supershape_n // (F3) n1, n2, n3
     )
 {
 
@@ -1862,10 +1862,10 @@ static float2 CL_V_SUPERSHAPE(
 // 049 VAR FLOWER
 // ----------------------------
 static float2 CL_V_FLOWER(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state, 
-    __private const float2 flower   // petals, holes
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state, 
+    const float2 flower   // petals, holes
     )
 {
 
@@ -1884,10 +1884,10 @@ static float2 CL_V_FLOWER(
 // 050 VAR CONIC
 // ----------------------------
 static float2 CL_V_CONIC(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state, 
-    __private const float2 conic    // eccentricity, holes
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state, 
+    const float2 conic    // eccentricity, holes
     )
 {
 
@@ -1917,10 +1917,10 @@ static float2 CL_V_CONIC(
 // 051 VAR PARABOLA
 // ----------------------------
 static float2 CL_V_PARABOLA(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state, 
-    __private const float2 parabola // height, width
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state, 
+    const float2 parabola // height, width
     )
 {
 
@@ -1940,9 +1940,9 @@ static float2 CL_V_PARABOLA(
 // 052 VAR BENT2
 // ----------------------------
 static float2 CL_V_BENT2(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 bent2    // x, y
+    const float2 in, 
+    const float w, 
+    const float2 bent2    // x, y
     )
 {
     float2 r = select(in, in * bent2, in < 0.0f);
@@ -1953,9 +1953,9 @@ return w * r;
 // 053 VAR BIPOLAR - The most expensive so far
 // ----------------------------
 static float2 CL_V_BIPOLAR(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float shift // shift
+    const float2 in, 
+    const float w, 
+    const float shift // shift
     )
 {
 
@@ -1994,9 +1994,9 @@ static float2 CL_V_BIPOLAR(
 // 054 VAR BOARDERS
 // ----------------------------
 static float2 CL_V_BOARDERS(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state
     )
 {
 
@@ -2064,8 +2064,8 @@ static float2 CL_V_BOARDERS(
 // 055 VAR BUTTERFLY
 // ----------------------------
 static float2 CL_V_BUTTERFLY(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -2091,9 +2091,9 @@ static float2 CL_V_BUTTERFLY(
 // 056 VAR CELL
 // ----------------------------
 static float2 CL_V_CELL(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float size  // size
+    const float2 in, 
+    const float w, 
+    const float size  // size
     )
 {
 
@@ -2186,10 +2186,10 @@ static float2 CL_V_CELL(
 // 057 VAR CPOW
 // ----------------------------
 static float2 CL_V_CPOW(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state, 
-    __private const float4 cpow // power, r, i
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state, 
+    const float4 cpow // power, r, i
     )
 {
 
@@ -2234,9 +2234,9 @@ static float2 CL_V_CPOW(
 // 058 VAR EDISC
 // ----------------------------
 static float2 CL_V_EDISC(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
 
@@ -2296,8 +2296,8 @@ static float2 CL_V_EDISC(
 // 059 VAR ELLIPTIC
 // ----------------------------
 static float2 CL_V_ELLIPTIC(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -2328,9 +2328,9 @@ static float2 CL_V_ELLIPTIC(
 // 060 VAR NOISE
 // ----------------------------
 static float2 CL_V_NOISE(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state
     )
 {
 
@@ -2347,10 +2347,10 @@ static float2 CL_V_NOISE(
 // 061 VAR ESCHER
 // ----------------------------
 static float2 CL_V_ESCHER(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C, 
-    __private const float beta  // beta
+    const float2 in, 
+    const float w, 
+    const int F3C, 
+    const float beta  // beta
     )
 {
     
@@ -2396,8 +2396,8 @@ static float2 CL_V_ESCHER(
 // 062 VAR FOCI
 // ----------------------------
 static float2 CL_V_FOCI(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -2427,10 +2427,10 @@ static float2 CL_V_FOCI(
 // 063 VAR LAZYSUSAN
 // ----------------------------
 static float2 CL_V_LAZYSUSAN(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float4 lazysusan,   // spin, twist, space
-    __private const float2 lazy         // x, y
+    const float2 in, 
+    const float w, 
+    const float4 lazysusan,   // spin, twist, space
+    const float2 lazy         // x, y
     )
 {
 
@@ -2469,8 +2469,8 @@ static float2 CL_V_LAZYSUSAN(
 // 064 VAR LOONIE
 // ----------------------------
 static float2 CL_V_LOONIE(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -2494,8 +2494,8 @@ static float2 CL_V_LOONIE(
 // Not dispached but hard coded inside the Chaos Game instead
 // ----------------------------
 static float2 CL_V_PREBLUR(
-    __private const float w, 
-    __private rng_state_t* restrict state
+    const float w, 
+    rng_state_t* restrict state
     )
 {
     
@@ -2517,9 +2517,9 @@ static float2 CL_V_PREBLUR(
 // 066 VAR MODULUS
 // ----------------------------
 static float2 CL_V_MODULUS(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 modulus  // x, y
+    const float2 in, 
+    const float w, 
+    const float2 modulus  // x, y
     )
 {
     
@@ -2553,9 +2553,9 @@ static float2 CL_V_MODULUS(
 // 067 VAR OSCOPE
 // ----------------------------
 static float2 CL_V_OSCOPE(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float4 oscope   // frequency, amplitude, damping, separation
+    const float2 in, 
+    const float w, 
+    const float4 oscope   // frequency, amplitude, damping, separation
     )
 {
 
@@ -2589,8 +2589,8 @@ static float2 CL_V_OSCOPE(
 // 068 VAR POLAR2
 // ----------------------------
 static float2 CL_V_POLAR2(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
     
@@ -2612,10 +2612,10 @@ static float2 CL_V_POLAR2(
 // 069 VAR POPCORN2
 // ----------------------------
 static float2 CL_V_POPCORN2(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float pop2c,    // c
-    __private const float2 pop2     // x, y
+    const float2 in, 
+    const float w, 
+    const float pop2c,    // c
+    const float2 pop2     // x, y
     )
 {
 #if USE_NATIVE
@@ -2636,8 +2636,8 @@ static float2 CL_V_POPCORN2(
 // 070 VAR SCRY
 // ----------------------------
 static float2 CL_V_SCRY(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -2656,10 +2656,10 @@ static float2 CL_V_SCRY(
 // 071 VAR SEPARATION
 // ----------------------------
 static float2 CL_V_SEPARATION(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 sep, // x, y 
-    __private const float2 ins  // inside_x, inside_y
+    const float2 in, 
+    const float w, 
+    const float2 sep, // x, y 
+    const float2 ins  // inside_x, inside_y
     )
 {
 
@@ -2702,9 +2702,9 @@ static float2 CL_V_SEPARATION(
 // 072 VAR SPLIT
 // ----------------------------
 static float2 CL_V_SPLIT(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 split    // x, y
+    const float2 in, 
+    const float w, 
+    const float2 split    // x, y
     )
 {
 #if USE_NATIVE
@@ -2739,9 +2739,9 @@ static float2 CL_V_SPLIT(
 // 073 VAR SPLITS
 // ----------------------------
 static float2 CL_V_SPLITS(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 splits   // x, y
+    const float2 in, 
+    const float w, 
+    const float2 splits   // x, y
     )
 {
     #if USE_FMA
@@ -2756,9 +2756,9 @@ static float2 CL_V_SPLITS(
 // 074 VAR STRIPES
 // ----------------------------
 static float2 CL_V_STRIPES(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 stripes  // space, warp
+    const float2 in, 
+    const float w, 
+    const float2 stripes  // space, warp
     )
 {
 
@@ -2780,9 +2780,9 @@ static float2 CL_V_STRIPES(
 // 075 VAR WEDGE
 // ----------------------------
 static float2 CL_V_WEDGE(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float4 wedge    // swirl, angle, hole, count
+    const float2 in, 
+    const float w, 
+    const float4 wedge    // swirl, angle, hole, count
     )
 {
 
@@ -2814,10 +2814,10 @@ static float2 CL_V_WEDGE(
 // 076 VAR WEDGEJULIA
 // ----------------------------
 static float2 CL_V_WEDGEJULIA(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state, 
-    __private const float4 wedgejulia   // power, angle, dist, count
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state, 
+    const float4 wedgejulia   // power, angle, dist, count
     )
 {
 
@@ -2866,9 +2866,9 @@ static float2 CL_V_WEDGEJULIA(
 // 077 VAR WEDGESPH
 // ----------------------------
 static float2 CL_V_WEDGESPH(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float4 wedgesph // swirl, angle, hole, count
+    const float2 in, 
+    const float w, 
+    const float4 wedgesph // swirl, angle, hole, count
     )
 {
 
@@ -2902,9 +2902,9 @@ static float2 CL_V_WEDGESPH(
 // 078 VAR WHORL
 // ----------------------------
 static float2 CL_V_WHORL(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 whorl    // inside, outside
+    const float2 in, 
+    const float w, 
+    const float2 whorl    // inside, outside
     )
 {
 
@@ -2926,10 +2926,10 @@ static float2 CL_V_WHORL(
 // 079 VAR WAVES2
 // ----------------------------
 static float2 CL_V_WAVES2(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 scl,     // scale x, scale y
-    __private const float2 freq     // frequency x, frequency y
+    const float2 in, 
+    const float w, 
+    const float2 scl,     // scale x, scale y
+    const float2 freq     // frequency x, frequency y
     )
 {
 #if USE_NATIVE
@@ -2950,8 +2950,8 @@ static float2 CL_V_WAVES2(
 // 080 VAR EXP
 // ----------------------------
 static float2 CL_V_EXP(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 
@@ -2970,8 +2970,8 @@ static float2 CL_V_EXP(
 // 081 VAR LOG
 // ----------------------------
 static float2 CL_V_LOG(
-    __private const float2 in, 
-    __private const float w
+    const float2 in, 
+    const float w
     )
 {
 #if USE_NATIVE
@@ -2990,9 +2990,9 @@ static float2 CL_V_LOG(
 // 082 VAR SIN
 // ----------------------------
 static float2 CL_V_SIN(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
     float2 xy = in * (F3C ? 1.0f : (float)M_PI_2);
@@ -3013,9 +3013,9 @@ static float2 CL_V_SIN(
 // 083 VAR COS
 // ----------------------------
 static float2 CL_V_COS(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
     float2 xy = in * (F3C ? 1.0f : (float)M_PI_2);
@@ -3036,9 +3036,9 @@ static float2 CL_V_COS(
 // 084 VAR TAN
 // ----------------------------
 static float2 CL_V_TAN(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
 
@@ -3078,9 +3078,9 @@ static float2 CL_V_TAN(
 // 085 VAR SEC
 // ----------------------------
 static float2 CL_V_SEC(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
 
@@ -3108,9 +3108,9 @@ static float2 CL_V_SEC(
 // 086 VAR CSC
 // ----------------------------
 static float2 CL_V_CSC(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
 
@@ -3140,9 +3140,9 @@ static float2 CL_V_CSC(
 // 087 VAR COT
 // ----------------------------
 static float2 CL_V_COT(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
 
@@ -3170,9 +3170,9 @@ static float2 CL_V_COT(
 // 088 VAR SINH
 // ----------------------------
 static float2 CL_V_SINH(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
 
@@ -3193,9 +3193,9 @@ static float2 CL_V_SINH(
 // 089 VAR COSH
 // ----------------------------
 static float2 CL_V_COSH(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
 
@@ -3216,9 +3216,9 @@ static float2 CL_V_COSH(
 // 090 VAR TANH
 // ----------------------------
 static float2 CL_V_TANH(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
 
@@ -3242,9 +3242,9 @@ static float2 CL_V_TANH(
 // 091 VAR TANH
 // ----------------------------
 static float2 CL_V_SECH(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
     
@@ -3273,9 +3273,9 @@ static float2 CL_V_SECH(
 // 092 VAR CSCH
 // ----------------------------
 static float2 CL_V_CSCH(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
     
@@ -3306,9 +3306,9 @@ static float2 CL_V_CSCH(
 // 093 VAR COTH
 // ----------------------------
 static float2 CL_V_COTH(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C
+    const float2 in, 
+    const float w, 
+    const int F3C
     )
 {
 
@@ -3331,9 +3331,9 @@ static float2 CL_V_COTH(
 // 094 VAR AUGER
 // ----------------------------
 static float2 CL_V_AUGER(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float4 auger    // frequency, scale, symmetry, weight
+    const float2 in, 
+    const float w, 
+    const float4 auger    // frequency, scale, symmetry, weight
     )
 {
 
@@ -3374,9 +3374,9 @@ static float2 CL_V_AUGER(
 // 095 VAR FLUX
 // ----------------------------
 static float2 CL_V_FLUX(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float spread    // spread
+    const float2 in, 
+    const float w, 
+    const float spread    // spread
     )
 {
 
@@ -3409,10 +3409,10 @@ static float2 CL_V_FLUX(
 // 096 VAR MOBIUS
 // ----------------------------
 static float2 CL_V_MOBIUS(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float4 re,  // reA, reB, reC, reD -> real
-    __private const float4 im   // imA, imB, imC, imD -> imaginary
+    const float2 in, 
+    const float w, 
+    const float4 re,  // reA, reB, reC, reD -> real
+    const float4 im   // imA, imB, imC, imD -> imaginary
     )
 {
 
@@ -3450,11 +3450,11 @@ static float2 CL_V_MOBIUS(
 // 097 VAR CURVE
 // ----------------------------
 static float2 CL_V_CURVE(
-    __private const float2 in, 
-    __private const float w, 
-    __private const int F3C,  
-    __private const float2 lenght,      // lenght_x, lenght_y
-    __private const float2 amplitude    // amplitude_x, amplitude_y
+    const float2 in, 
+    const float w, 
+    const int F3C,  
+    const float2 lenght,      // lenght_x, lenght_y
+    const float2 amplitude    // amplitude_x, amplitude_y
     )
 {
     float2 p = select((float2)(0.0f), in, isfinite(in));
@@ -3503,9 +3503,9 @@ static float2 CL_V_CURVE(
 // 098 VAR PERSPECTIVE
 // ----------------------------
 static float2 CL_V_PERSPECTIVE(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 presp    // angle, distance
+    const float2 in, 
+    const float w, 
+    const float2 presp    // angle, distance
     )
 {
 
@@ -3537,10 +3537,10 @@ static float2 CL_V_PERSPECTIVE(
 // 099 VAR BWRAPS
 // ----------------------------
 static float2 CL_V_BWRAPS(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float4 bwraps,  // size, space, gain
-    __private const float2 twist    // in_twist, out_twist
+    const float2 in, 
+    const float w, 
+    const float4 bwraps,  // size, space, gain
+    const float2 twist    // in_twist, out_twist
     )
 {
 
@@ -3686,8 +3686,8 @@ static float2 CL_V_BWRAPS(
 // 100 VAR HEMISPHERE
 // ----------------------------
 static float2 CL_V_HEMISPHERE(
-    __private const float2 in, 
-    __private const float w 
+    const float2 in, 
+    const float w 
     )
 {
 #if USE_NATIVE
@@ -3702,11 +3702,11 @@ static float2 CL_V_HEMISPHERE(
 // 101 VAR POLYNOMIAL
 // ----------------------------
 static float2 CL_V_POLYNOMIAL(
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 powr,    // pow_x, pow_y
-    __private const float2 lc,      // lc_x, lc_y
-    __private const float2 sc       // sc_x, sc_y
+    const float2 in, 
+    const float w, 
+    const float2 powr,    // pow_x, pow_y
+    const float2 lc,      // lc_x, lc_y
+    const float2 sc       // sc_x, sc_y
     )
 {
 
@@ -3736,11 +3736,11 @@ static float2 CL_V_POLYNOMIAL(
 // 102 VAR CROP
 // ----------------------------
 static float2 CL_V_CROP(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state, 
-    __private const float4 ltrb,    // left, top, right, bottom
-    __private const float2 az       // area, zero
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state, 
+    const float4 ltrb,    // left, top, right, bottom
+    const float2 az       // area, zero
     )
 {
 
@@ -3791,8 +3791,8 @@ static float2 CL_V_CROP(
 // 103 VAR UNPOLAR
 // ----------------------------
 static float2 CL_V_UNPOLAR(
-    __private const float2 in, 
-    __private const float w 
+    const float2 in, 
+    const float w 
     )
 {
 
@@ -3813,9 +3813,9 @@ static float2 CL_V_UNPOLAR(
 // 104 VAR GLYNNIA
 // ----------------------------
 static float2 CL_V_GLYNNIA(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state
     )
 {
 
@@ -3910,10 +3910,10 @@ static float2 CL_V_GLYNNIA(
 // 105 VAR POINT SYMMETRY
 // ----------------------------
 static float2 CL_V_POINT_SYMMETRY(
-    __private const float2 in, 
-    __private const float w, 
-    __private rng_state_t* restrict state, 
-    __private const float4 ptsym    // order, center_x, center_y
+    const float2 in, 
+    const float w, 
+    rng_state_t* restrict state, 
+    const float4 ptsym    // order, center_x, center_y
     )
 {
 
@@ -3958,13 +3958,13 @@ static float2 CL_V_POINT_SYMMETRY(
 // ----------------------------
 
 static float2 CL_V_DISPATCH(
-    __private const int     type, 
-    __private const float2  in, 
-    __private const float   w, 
-    __private const float2  y,
-    __private const float2  o, 
-    __private const int     F3C, 
-    __private rng_state_t* restrict state, 
+    const int     type, 
+    const float2  in, 
+    const float   w, 
+    const float2  y,
+    const float2  o, 
+    const int     F3C, 
+    rng_state_t* restrict state, 
     __local const float*    PRM_F, 
     __local const float2*   PRM_F2, 
     __local const float4*   PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
