@@ -452,13 +452,13 @@ static inline float2 affine(__private const float2 in, __private const affine_t 
 #define FLOAT_MAX_TAN 8388607.0f
 #define FLOAT_MIN_TAN -FLOAT_MAX_TAN
 
-static inline float ATAN(const float2 p){return atan2(p.x, p.y); }
+static inline float ATAN(__private const float2 p){return atan2(p.x, p.y); }
 
-static inline float ATANYX(const float2 p){ return atan2(p.y, p.x); }
+static inline float ATANYX(__private const float2 p){ return atan2(p.y, p.x); }
 
-static inline float SUMSQ(const float2 p){ return dot(p, p); }
+static inline float SUMSQ(__private const float2 p){ return dot(p, p); }
 
-static inline float SQRT(const float2 p){
+static inline float SQRT(__private const float2 p){
 #if USE_NATIVE
     return native_sqrt(dot(p, p));
 #else
@@ -466,7 +466,8 @@ static inline float SQRT(const float2 p){
 #endif
 }
 
-static inline float SafeTan(const float x){ 
+static inline float SafeTan(__private const float x)
+{ 
 #if USE_NATIVE
     return native_tan(clamp(x, FLOAT_MIN_TAN, FLOAT_MAX_TAN));
 #else
@@ -474,18 +475,34 @@ static inline float SafeTan(const float x){
 #endif
 }
 
-static inline float sgn(const float n){ return (float)((0.0f < n) - (n < 0.0f)); }
+static inline float sgn(__private const float n){ return (float)((0.0f < n) - (n < 0.0f)); }
 
-static inline float fmod_custom(const float a, const float b){
+static inline float fmod_custom(
+    __private const float a, 
+    __private const float b
+    )
+{
     float safe_b = Zeps(b); 
 #if USE_NATIVE
-    return a - trunc(native_divide(a, safe_b)) * safe_b;
+    #if USE_FMA
+        return fma(trunc(native_divide(a, safe_b)), -safe_b, a);
+    #else
+        return a - trunc(native_divide(a, safe_b)) * safe_b;
+    #endif
 #else
-    return a - trunc(a / safe_b) * safe_b;
+    #if USE_FMA
+        return fma(trunc(a / safe_b), -safe_b, a);
+    #else
+        return a - trunc(a / safe_b) * safe_b;
+    #endif
 #endif
 }
 
-static inline void sincos_fast(float a, float* s, float* c)
+static inline void sincos_fast(
+    __private const float a, 
+    __private float* restrict s, 
+    __private float* restrict c
+    )
 {
 #if USE_NATIVE
     *s = native_sin(a);
@@ -498,7 +515,7 @@ static inline void sincos_fast(float a, float* s, float* c)
 // To be used with an improved Elliptic version which helps with rounding errors.
 // For 64bit(DP, when and if I'll find the time to add support for it)
 // Source: https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html
-static inline float Sqrt1pm1(const float x)
+static inline float Sqrt1pm1(__private const float x)
 {
     if (-0.0625 < x && x < 0.0625)
     {
