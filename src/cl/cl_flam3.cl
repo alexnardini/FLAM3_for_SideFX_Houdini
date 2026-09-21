@@ -919,9 +919,9 @@ static float2 CL_V_WAVES(
 
     return w * 
     #if USE_FMA
-        fma(b, sin(in.yx * m_D2), in);
+        fma((float2)(b, e), sin(in.yx * m_D2), in);
     #else
-        in + b * sin(in.yx * m_D2);
+        in + (float2)(b, e) * sin(in.yx * m_D2);
     #endif
 #endif
 }
