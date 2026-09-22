@@ -53,8 +53,8 @@ _This is a re-release of the same version with some minor improvements that did 
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
-- **OpenCL code updates**
-- **Cvex code updates**: not **F3C** branch of the **Curve** variation now matches the same `NaN` recovery method as in the OpencCL code base.
+- **OpenCL code updates** 
+- **Cvex code updates**: non-**F3C** branch of the **Curve** variation now matches the same `NaN` recovery method as in the OpenCL code base.
 
 
 
@@ -79,7 +79,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 - **Fix**: When the iterators' count parameter was locked, the add iterator button was still adding/removing iterators. It is now fixed.
 - **OpenCL code updates**:
-   - Variations **Modulus**, **Rings** and **Fan** have been fixed as they had some isses in some cases and/or when negative values where involved (_e.g. `floor()` has been substitued with `trunc()` when using custom `fmod()` implementation._).
+   - Variations **Modulus**, **Rings** and **Fan** have been fixed as they had some issues in some cases and/or when negative values where involved (_e.g. `floor()` has been substituted with `trunc()` when using custom `fmod()` implementation._).
    - Variations **Crop** and **Curve** missed a `NaN` check to produce correct results under some edge cases.
 - **Small fixes/improvements as part of an ongoing polishing pass**
 
