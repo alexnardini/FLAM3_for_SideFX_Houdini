@@ -5406,31 +5406,48 @@ true:                                             ; preds = %__llvm_entry
   br label %end
 
 false:                                            ; preds = %__llvm_entry
-  %w47 = load double, double* %w
-  %return51 = call double @"neg@FF"(double %output3)
-  %output53 = fmul double %return51, %output3
+  %_p47 = load <2 x double>, <2 x double>* %_p
+  %return48 = call double @"sum@FU"(<2 x double> %_p47)
+  %return49 = call i64 @"isfinite@IF"(double %return48)
+  %return50 = call i64 @"not@II"(i64 %return49)
+  %3 = icmp ne i64 %return50, 0
+  br i1 %3, label %true51, label %end52
+
+end:                                              ; preds = %end52, %true
+  ret void
+
+true51:                                           ; preds = %false
+  %return53 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output54 = fsub double %return53, 5.000000e-01
+  %return55 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output56 = fsub double %return55, 5.000000e-01
+  br label %end52
+
+end52:                                            ; preds = %true51, %false
+  %_py.0 = phi double [ %output56, %true51 ], [ %output3, %false ]
+  %_px.0 = phi double [ %output54, %true51 ], [ %output2, %false ]
+  %w57 = load double, double* %w
+  %return61 = call double @"neg@FF"(double %_py.0)
+  %output63 = fmul double %return61, %_py.0
   store double %output6, double* %0
   %Zeps = call double @"Zeps@FF"(double* %0)
-  %output55 = call double @"div@FF"(double %output53, double %Zeps)
-  %return56 = call double @"exp@FF"(double %output55)
-  %output57 = fmul double %output10, %return56
-  %output58 = fadd double %output2, %output57
-  %return62 = call double @"neg@FF"(double %output2)
-  %output64 = fmul double %return62, %output2
+  %output65 = call double @"div@FF"(double %output63, double %Zeps)
+  %return66 = call double @"exp@FF"(double %output65)
+  %output67 = fmul double %output10, %return66
+  %output68 = fadd double %_px.0, %output67
+  %return72 = call double @"neg@FF"(double %_px.0)
+  %output74 = fmul double %return72, %_px.0
   store double %output7, double* %1
-  %Zeps66 = call double @"Zeps@FF"(double* %1)
-  %output67 = call double @"div@FF"(double %output64, double %Zeps66)
-  %return68 = call double @"exp@FF"(double %output67)
-  %output69 = fmul double %output11, %return68
-  %output70 = fadd double %output3, %output69
-  %return71 = call <2 x double> @"set@UFF"(double %output58, double %output70)
-  %cast72 = call <2 x double> @"set@UF"(double %w47)
-  %output73 = call <2 x double> @"mul@UU"(<2 x double> %cast72, <2 x double> %return71)
-  store <2 x double> %output73, <2 x double>* %p
+  %Zeps76 = call double @"Zeps@FF"(double* %1)
+  %output77 = call double @"div@FF"(double %output74, double %Zeps76)
+  %return78 = call double @"exp@FF"(double %output77)
+  %output79 = fmul double %output11, %return78
+  %output80 = fadd double %_py.0, %output79
+  %return81 = call <2 x double> @"set@UFF"(double %output68, double %output80)
+  %cast82 = call <2 x double> @"set@UF"(double %w57)
+  %output83 = call <2 x double> @"mul@UU"(<2 x double> %cast82, <2 x double> %return81)
+  store <2 x double> %output83, <2 x double>* %p
   br label %end
-
-end:                                              ; preds = %false, %true
-  ret void
 }
 
 ; Function Attrs: nounwind readnone
@@ -13217,7 +13234,7 @@ attributes #4 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"22.0.409"}
+!1 = !{!"22.0.447"}
 !2 = !{!"64"}
 !3 = !{!""}
 

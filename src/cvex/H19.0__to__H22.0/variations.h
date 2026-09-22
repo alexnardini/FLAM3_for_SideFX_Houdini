@@ -2179,7 +2179,7 @@ void V_MOBIUS(
 void V_CURVE(
     const int f3c; 
     vector2 p; 
-    const vector2 _p; 
+    vector2 _p; 
     const float w; 
     const vector2 l, a
 )
@@ -2197,7 +2197,13 @@ void V_CURVE(
         p = w * set(_px + ax * exp(-_py * _py * lx), _py + ay * exp(-_px * _px * ly));
     }
     else{
-        // This seem to match the Chaotica behavior
+
+        // To match NaN recovery as in the OpenCl code base.
+        if(!isfinite(sum(_p))){
+            _px = nrandom('twister')-0.5;
+            _py = nrandom('twister')-0.5;
+        }
+
         p = w * set(_px + ax * exp(-_py * _py / Zeps(lx)), _py + ay * exp(-_px * _px / Zeps(ly)));
     }
 }
