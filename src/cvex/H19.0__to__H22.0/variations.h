@@ -2179,7 +2179,7 @@ void V_MOBIUS(
 void V_CURVE(
     const int f3c; 
     vector2 p; 
-    vector2 _p; 
+    const vector2 _p; 
     const float w; 
     const vector2 l, a
 )
