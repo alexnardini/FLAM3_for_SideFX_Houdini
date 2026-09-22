@@ -3452,12 +3452,12 @@ static float2 CL_V_MOBIUS(
 static float2 CL_V_CURVE(
     const float2 in, 
     const float w, 
-    const int F3C,  
+    const int F3C, 
+    rng_state_t* restrict state, 
     const float2 lenght,      // lenght_x, lenght_y
     const float2 amplitude    // amplitude_x, amplitude_y
     )
 {
-    float2 p = select((float2)(0.0f), in, isfinite(in));
 
     if(F3C){
     #if USE_NATIVE
@@ -3465,22 +3465,29 @@ static float2 CL_V_CURVE(
         float2 l = native_recip(fmax(lenght * lenght, 1e-20f));
 
         #if USE_FMA
-            return w * fma(amplitude, native_exp(-p.yx * p.yx * l), p);
+            return w * fma(amplitude, native_exp(-in.yx * in.yx * l), in);
         #else
-            return w * (p + amplitude * native_exp(-p.yx * p.yx * l));
+            return w * (in + amplitude * native_exp(-in.yx * in.yx * l));
         #endif
     #else
 
         float2 l = 1.0f / fmax((lenght * lenght), 1e-20f);
 
         #if USE_FMA
-            return w * fma(amplitude, exp(-p.yx * p.yx * l), p);
+            return w * fma(amplitude, exp(-in.yx * in.yx * l), in);
         #else
-            return w * (p + amplitude * exp(-p.yx * p.yx * l));
+            return w * (in + amplitude * exp(-in.yx * in.yx * l));
         #endif
     #endif
     }
     else{
+
+        float2 p = in;
+        if(any(!isfinite(in)))
+            p = (float2)(
+                        x_rng_next_0505(state), 
+                        x_rng_next_0505(state)
+                        );
 
     #if USE_NATIVE
 
@@ -4070,7 +4077,7 @@ static float2 CL_V_DISPATCH(
         case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
         case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
         case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
-        case 97:    return CL_V_CURVE(in, w, F3C, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
+        case 97:    return CL_V_CURVE(in, w, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
         case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
         case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
         case 100:   return CL_V_HEMISPHERE(in, w);
