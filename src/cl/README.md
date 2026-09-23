@@ -82,10 +82,10 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 
 | Instruction Class | Hardware Functions | Assembly Count | Description |
 | :--- | :--- | :--- | :--- |
-| **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **16,392** | Floating-point arithmetic operations. |
-| **Special Functions** | `MUFU` | **3,159** | Transcendental math functions (e.g., `sin`, `cos`, `log`). |
-| **Control Flow** | `BRA`, `BRX` | **2,489** | Branching and loop control instructions. |
-| **LOP3.LUT instructions** | `LOP3.LUT` | **2,768** | 3-input programmable bitwise logic instructions. |
+| **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **16,462** | Floating-point arithmetic operations. |
+| **Special Functions** | `MUFU` | **3,166** | Transcendental math functions (e.g., `sin`, `cos`, `log`). |
+| **Control Flow** | `BRA`, `BRX` | **2,492** | Branching and loop control instructions. |
+| **LOP3.LUT instructions** | `LOP3.LUT` | **2,796** | 3-input programmable bitwise logic instructions. |
 | **Integer & Indexing** | `IADD3`, `IMAD` | **856** | Integer arithmetic and address calculations. |
 | **Shared Memory Cache** | `LDS`, `STS` | **454** | Shared memory load and store operations. |
 | **Global Memory Bus** | `LDG`, `STG` | **72** | Global memory load and store operations. |
@@ -135,11 +135,11 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 
 | Instruction Class | Hardware Functions | Assembly Count | Description |
 | :--- | :--- | :--- | :--- |
-| **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **11,703** | Floating-point arithmetic operations. |
-| **Special Functions** | `MUFU` | **2,255** | Transcendental math functions (e.g., `sin`, `cos`, `log`). |
-| **Control Flow** | `BRA`, `BRX` | **1,776** | Branching and loop control instructions. |
-| **LOP3.LUT instructions** | `LOP3.LUT` | **1,919** | 3-input programmable bitwise logic instructions. |
-| **Integer & Indexing** | `IADD3`, `IMAD` | **577** | Integer arithmetic and address calculations. |
+| **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **11,753** | Floating-point arithmetic operations. |
+| **Special Functions** | `MUFU` | **2,260** | Transcendental math functions (e.g., `sin`, `cos`, `log`). |
+| **Control Flow** | `BRA`, `BRX` | **1,777** | Branching and loop control instructions. |
+| **LOP3.LUT instructions** | `LOP3.LUT` | **1,938** | 3-input programmable bitwise logic instructions. |
+| **Integer & Indexing** | `IADD3`, `IMAD` | **582** | Integer arithmetic and address calculations. |
 | **Shared Memory Cache** | `LDS`, `STS` | **304** | Shared memory load and store operations. |
 | **Global Memory Bus** | `LDG`, `STG` | **40** | Global memory load and store operations. |
 | **Thread Synchronization** | `BAR.SYNC` | **1** | Thread block synchronization barrier. |
