@@ -2200,8 +2200,8 @@ void V_CURVE(
 
         // To match NaN recovery as in the OpenCl code base.
         if(!isfinite(sum(_p))){
-            _px = nrandom('twister')-0.5;
-            _py = nrandom('twister')-0.5;
+            _px = ax * exp(2*nrandom('twister')-1) + nrandom('twister');
+            _py = ay * exp(2*nrandom('twister')-1) + nrandom('twister');
         }
 
         p = w * set(_px + ax * exp(-_py * _py / Zeps(lx)), _py + ay * exp(-_px * _px / Zeps(ly)));

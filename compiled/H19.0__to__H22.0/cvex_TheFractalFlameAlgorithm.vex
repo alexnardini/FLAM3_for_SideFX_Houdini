@@ -5417,36 +5417,46 @@ end:                                              ; preds = %end52, %true
   ret void
 
 true51:                                           ; preds = %false
-  %return53 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output54 = fsub double %return53, 5.000000e-01
-  %return55 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output56 = fsub double %return55, 5.000000e-01
+  %return54 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output55 = fmul double 2.000000e+00, %return54
+  %output56 = fsub double %output55, 1.000000e+00
+  %return57 = call double @"exp@FF"(double %output56)
+  %output58 = fmul double %output10, %return57
+  %return59 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output60 = fadd double %output58, %return59
+  %return62 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output63 = fmul double 2.000000e+00, %return62
+  %output64 = fsub double %output63, 1.000000e+00
+  %return65 = call double @"exp@FF"(double %output64)
+  %output66 = fmul double %output11, %return65
+  %return67 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output68 = fadd double %output66, %return67
   br label %end52
 
 end52:                                            ; preds = %true51, %false
-  %_py.0 = phi double [ %output56, %true51 ], [ %output3, %false ]
-  %_px.0 = phi double [ %output54, %true51 ], [ %output2, %false ]
-  %w57 = load double, double* %w
-  %return61 = call double @"neg@FF"(double %_py.0)
-  %output63 = fmul double %return61, %_py.0
+  %_py.0 = phi double [ %output68, %true51 ], [ %output3, %false ]
+  %_px.0 = phi double [ %output60, %true51 ], [ %output2, %false ]
+  %w69 = load double, double* %w
+  %return73 = call double @"neg@FF"(double %_py.0)
+  %output75 = fmul double %return73, %_py.0
   store double %output6, double* %0
   %Zeps = call double @"Zeps@FF"(double* %0)
-  %output65 = call double @"div@FF"(double %output63, double %Zeps)
-  %return66 = call double @"exp@FF"(double %output65)
-  %output67 = fmul double %output10, %return66
-  %output68 = fadd double %_px.0, %output67
-  %return72 = call double @"neg@FF"(double %_px.0)
-  %output74 = fmul double %return72, %_px.0
-  store double %output7, double* %1
-  %Zeps76 = call double @"Zeps@FF"(double* %1)
-  %output77 = call double @"div@FF"(double %output74, double %Zeps76)
+  %output77 = call double @"div@FF"(double %output75, double %Zeps)
   %return78 = call double @"exp@FF"(double %output77)
-  %output79 = fmul double %output11, %return78
-  %output80 = fadd double %_py.0, %output79
-  %return81 = call <2 x double> @"set@UFF"(double %output68, double %output80)
-  %cast82 = call <2 x double> @"set@UF"(double %w57)
-  %output83 = call <2 x double> @"mul@UU"(<2 x double> %cast82, <2 x double> %return81)
-  store <2 x double> %output83, <2 x double>* %p
+  %output79 = fmul double %output10, %return78
+  %output80 = fadd double %_px.0, %output79
+  %return84 = call double @"neg@FF"(double %_px.0)
+  %output86 = fmul double %return84, %_px.0
+  store double %output7, double* %1
+  %Zeps88 = call double @"Zeps@FF"(double* %1)
+  %output89 = call double @"div@FF"(double %output86, double %Zeps88)
+  %return90 = call double @"exp@FF"(double %output89)
+  %output91 = fmul double %output11, %return90
+  %output92 = fadd double %_py.0, %output91
+  %return93 = call <2 x double> @"set@UFF"(double %output80, double %output92)
+  %cast94 = call <2 x double> @"set@UF"(double %w69)
+  %output95 = call <2 x double> @"mul@UU"(<2 x double> %cast94, <2 x double> %return93)
+  store <2 x double> %output95, <2 x double>* %p
   br label %end
 }
 

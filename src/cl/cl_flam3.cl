@@ -3485,9 +3485,14 @@ static float2 CL_V_CURVE(
         float2 p = in;
         if(any(!isfinite(in)))
             p = (float2)(
-                        x_rng_next_0505(state), 
-                        x_rng_next_0505(state)
-                        );
+            #if USE_NATIVE
+                fma(amplitude.x, native_exp(x_rng_next_neg1pos1(state)), x_rng_next_float(state)), 
+                fma(amplitude.y, native_exp(x_rng_next_neg1pos1(state)), x_rng_next_float(state))
+            #else
+                amplitude.x * exp(x_rng_next_neg1pos1(state)) + x_rng_next_float(state), 
+                amplitude.y + exp(x_rng_next_neg1pos1(state)) + x_rng_next_float(state)
+            #endif
+            );
 
     #if USE_NATIVE
 
