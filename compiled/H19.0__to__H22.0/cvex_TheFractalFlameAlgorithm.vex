@@ -5424,61 +5424,83 @@ true51:                                           ; preds = %false
   %return55 = call <2 x double> @"set@UFF"(double %return53, double %return54)
   %w56 = load double, double* %w
   %return58 = call double @"getcomp@FUI"(<2 x double> %return55, i64 0)
-  %o59 = load <2 x double>, <2 x double>* %o
-  %return60 = call double @"getcomp@FUI"(<2 x double> %o59, i64 0)
-  %output61 = fadd double %return58, %return60
-  %return64 = call double @"getcomp@FUI"(<2 x double> %return55, i64 1)
-  %return65 = call double @"neg@FF"(double %return64)
-  %output68 = fmul double %return65, %return64
-  %return69 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  store double %return69, double* %0
-  %Zeps = call double @"Zeps@FF"(double* %0)
-  %output70 = call double @"div@FF"(double %output68, double %Zeps)
-  %return71 = call double @"exp@FF"(double %output70)
-  %output72 = fmul double %output10, %return71
-  %output73 = fadd double %output61, %output72
-  %output74 = fmul double %w56, %output73
-  %w75 = load double, double* %w
-  %o78 = load <2 x double>, <2 x double>* %o
-  %return79 = call double @"getcomp@FUI"(<2 x double> %o78, i64 1)
-  %output80 = fadd double %return64, %return79
-  %return84 = call double @"neg@FF"(double %return58)
-  %output87 = fmul double %return84, %return58
-  %return88 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  store double %return88, double* %1
-  %Zeps89 = call double @"Zeps@FF"(double* %1)
-  %output90 = call double @"div@FF"(double %output87, double %Zeps89)
-  %return91 = call double @"exp@FF"(double %output90)
-  %output92 = fmul double %output11, %return91
-  %output93 = fadd double %output80, %output92
-  %output94 = fmul double %w75, %output93
-  br label %end52
+  %return60 = fcmp olt double %output10, 0.000000e+00
+  br i1 %return60, label %true62, label %end64
 
-end52:                                            ; preds = %true51, %false
-  %_py.0 = phi double [ %output94, %true51 ], [ %output3, %false ]
-  %_px.0 = phi double [ %output74, %true51 ], [ %output2, %false ]
-  %w95 = load double, double* %w
-  %return99 = call double @"neg@FF"(double %_py.0)
-  %output101 = fmul double %return99, %_py.0
-  store double %output6, double* %2
-  %Zeps103 = call double @"Zeps@FF"(double* %2)
-  %output104 = call double @"div@FF"(double %output101, double %Zeps103)
-  %return105 = call double @"exp@FF"(double %output104)
-  %output106 = fmul double %output10, %return105
-  %output107 = fadd double %_px.0, %output106
-  %return111 = call double @"neg@FF"(double %_px.0)
-  %output113 = fmul double %return111, %_px.0
-  store double %output7, double* %3
-  %Zeps115 = call double @"Zeps@FF"(double* %3)
-  %output116 = call double @"div@FF"(double %output113, double %Zeps115)
-  %return117 = call double @"exp@FF"(double %output116)
-  %output118 = fmul double %output11, %return117
-  %output119 = fadd double %_py.0, %output118
-  %return120 = call <2 x double> @"set@UFF"(double %output107, double %output119)
-  %cast121 = call <2 x double> @"set@UF"(double %w95)
-  %output122 = call <2 x double> @"mul@UU"(<2 x double> %cast121, <2 x double> %return120)
-  store <2 x double> %output122, <2 x double>* %p
+end52:                                            ; preds = %end92, %false
+  %_py.0 = phi double [ %output113, %end92 ], [ %output3, %false ]
+  %_px.0 = phi double [ %output83, %end92 ], [ %output2, %false ]
+  %w114 = load double, double* %w
+  %return118 = call double @"neg@FF"(double %_py.0)
+  %output120 = fmul double %return118, %_py.0
+  store double %output6, double* %0
+  %Zeps122 = call double @"Zeps@FF"(double* %0)
+  %output123 = call double @"div@FF"(double %output120, double %Zeps122)
+  %return124 = call double @"exp@FF"(double %output123)
+  %output125 = fmul double %output10, %return124
+  %output126 = fadd double %_px.0, %output125
+  %return130 = call double @"neg@FF"(double %_px.0)
+  %output132 = fmul double %return130, %_px.0
+  store double %output7, double* %1
+  %Zeps134 = call double @"Zeps@FF"(double* %1)
+  %output135 = call double @"div@FF"(double %output132, double %Zeps134)
+  %return136 = call double @"exp@FF"(double %output135)
+  %output137 = fmul double %output11, %return136
+  %output138 = fadd double %_py.0, %output137
+  %return139 = call <2 x double> @"set@UFF"(double %output126, double %output138)
+  %cast140 = call <2 x double> @"set@UF"(double %w114)
+  %output141 = call <2 x double> @"mul@UU"(<2 x double> %cast140, <2 x double> %return139)
+  store <2 x double> %output141, <2 x double>* %p
   br label %end
+
+true62:                                           ; preds = %true51
+  %return65 = call i64 @"neg@II"(i64 1)
+  br label %end64
+
+end64:                                            ; preds = %true51, %true62
+  %phi = phi i64 [ %return65, %true62 ], [ 1, %true51 ]
+  %cast66 = sitofp i64 %phi to double
+  %output67 = fmul double %return58, %cast66
+  %o68 = load <2 x double>, <2 x double>* %o
+  %return69 = call double @"getcomp@FUI"(<2 x double> %o68, i64 0)
+  %output70 = fadd double %output67, %return69
+  %return73 = call double @"getcomp@FUI"(<2 x double> %return55, i64 1)
+  %return74 = call double @"neg@FF"(double %return73)
+  %output77 = fmul double %return74, %return73
+  %return78 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  store double %return78, double* %2
+  %Zeps = call double @"Zeps@FF"(double* %2)
+  %output79 = call double @"div@FF"(double %output77, double %Zeps)
+  %return80 = call double @"exp@FF"(double %output79)
+  %output81 = fmul double %output10, %return80
+  %output82 = fadd double %output70, %output81
+  %output83 = fmul double %w56, %output82
+  %w84 = load double, double* %w
+  %return88 = fcmp olt double %output11, 0.000000e+00
+  br i1 %return88, label %true90, label %end92
+
+true90:                                           ; preds = %end64
+  %return93 = call i64 @"neg@II"(i64 1)
+  br label %end92
+
+end92:                                            ; preds = %end64, %true90
+  %phi94 = phi i64 [ %return93, %true90 ], [ 1, %end64 ]
+  %cast95 = sitofp i64 %phi94 to double
+  %output96 = fmul double %return73, %cast95
+  %o97 = load <2 x double>, <2 x double>* %o
+  %return98 = call double @"getcomp@FUI"(<2 x double> %o97, i64 1)
+  %output99 = fadd double %output96, %return98
+  %return103 = call double @"neg@FF"(double %return58)
+  %output106 = fmul double %return103, %return58
+  %return107 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  store double %return107, double* %3
+  %Zeps108 = call double @"Zeps@FF"(double* %3)
+  %output109 = call double @"div@FF"(double %output106, double %Zeps108)
+  %return110 = call double @"exp@FF"(double %output109)
+  %output111 = fmul double %output11, %return110
+  %output112 = fadd double %output99, %output111
+  %output113 = fmul double %w84, %output112
+  br label %end52
 }
 
 ; Function Attrs: nounwind readnone
