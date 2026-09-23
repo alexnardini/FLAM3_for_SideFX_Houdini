@@ -3452,6 +3452,7 @@ static float2 CL_V_MOBIUS(
 static float2 CL_V_CURVE(
     const float2 in, 
     const float w, 
+    const float2 o, // Offset -> this iterator/xform' Affine offset(O.xy)
     const int F3C, 
     rng_state_t* restrict state, 
     const float2 lenght,      // lenght_x, lenght_y
@@ -3486,9 +3487,9 @@ static float2 CL_V_CURVE(
         if(any(!isfinite(in))){
             float2 reseed = (float2)(x_rng_next_float(state), x_rng_next_float(state));
             #if USE_NATIVE
-                p = w * fma(amplitude, native_exp(native_divide(-reseed.yx * reseed.yx, x_rng_next_float(state))), reseed);
+                p = w * fma(amplitude, native_exp(native_divide(-reseed.yx * reseed.yx, Zeps(x_rng_next_float(state)))), reseed) + o;
             #else
-                p = w * (reseed + amplitude * native_exp(native_divide(-reseed.yx * reseed.yx, x_rng_next_float(state))));
+                p = w * (reseed + amplitude * native_exp(native_divide(-reseed.yx * reseed.yx, Zeps(x_rng_next_float(state))))) + o;
             #endif
         }
 
@@ -4080,7 +4081,7 @@ static float2 CL_V_DISPATCH(
         case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
         case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
         case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
-        case 97:    return CL_V_CURVE(in, w, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
+        case 97:    return CL_V_CURVE(in, w, o, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
         case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
         case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
         case 100:   return CL_V_HEMISPHERE(in, w);
