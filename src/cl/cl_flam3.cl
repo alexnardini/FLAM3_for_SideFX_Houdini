@@ -3486,7 +3486,7 @@ static float2 CL_V_CURVE(
         if(any(!isfinite(in))){
             float2 reseed = (float2)(x_rng_next_float(state), x_rng_next_float(state));
             #if USE_NATIVE
-                p = w * fma(amplitude, native_exp(native_divide(-reseed.yx * reseed.yx, x_rng_next_float(state))), native_exp(reseed));
+                p = w * fma(amplitude, native_exp(native_divide(-reseed.yx * reseed.yx, x_rng_next_float(state))), reseed);
             #else
                 p = w * (reseed + amplitude * native_exp(native_divide(-reseed.yx * reseed.yx, x_rng_next_float(state))));
             #endif
