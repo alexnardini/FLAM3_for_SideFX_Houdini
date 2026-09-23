@@ -53,8 +53,11 @@ _This is a re-release of the same version with some minor improvements that did 
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
-- **OpenCL code updates** 
-- **Cvex code updates**: non-**F3C** branch of the **Curve** variation now matches the same `NaN` recovery method as in the OpenCL code base.
+- **OpenCL code updates**:
+   - non-**F3C** branch of the **Curve** variation now uses a much better `NaN` recovery method to re-seed those samples.
+   - Vectorized some functions.
+- **Cvex code updates**:
+   - non-**F3C** branch of the **Curve** variation now matches the same `NaN` recovery method as in the OpenCL code base.
 
 
 
