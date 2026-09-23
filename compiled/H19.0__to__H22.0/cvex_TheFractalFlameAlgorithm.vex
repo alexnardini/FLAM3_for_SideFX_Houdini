@@ -5359,7 +5359,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_CURVE@IUUFUUU"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %offset, <2 x double>* %l, <2 x double>* %a) #0 {
+define private void @"V_CURVE@IUUFUUU"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %o, <2 x double>* %l, <2 x double>* %a) #0 {
 __llvm_entry:
   %0 = alloca double
   %1 = alloca double
@@ -5424,34 +5424,34 @@ true51:                                           ; preds = %false
   %return55 = call <2 x double> @"set@UFF"(double %return53, double %return54)
   %w56 = load double, double* %w
   %return58 = call double @"getcomp@FUI"(<2 x double> %return55, i64 0)
-  %return61 = call double @"getcomp@FUI"(<2 x double> %return55, i64 1)
-  %return62 = call double @"neg@FF"(double %return61)
-  %output65 = fmul double %return62, %return61
-  %return66 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  store double %return66, double* %0
+  %o59 = load <2 x double>, <2 x double>* %o
+  %return60 = call double @"getcomp@FUI"(<2 x double> %o59, i64 0)
+  %output61 = fadd double %return58, %return60
+  %return64 = call double @"getcomp@FUI"(<2 x double> %return55, i64 1)
+  %return65 = call double @"neg@FF"(double %return64)
+  %output68 = fmul double %return65, %return64
+  %return69 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  store double %return69, double* %0
   %Zeps = call double @"Zeps@FF"(double* %0)
-  %output67 = call double @"div@FF"(double %output65, double %Zeps)
-  %return68 = call double @"exp@FF"(double %output67)
-  %output69 = fmul double %output10, %return68
-  %output70 = fadd double %return58, %output69
-  %output71 = fmul double %w56, %output70
-  %offset72 = load <2 x double>, <2 x double>* %offset
-  %return73 = call double @"getcomp@FUI"(<2 x double> %offset72, i64 0)
-  %output74 = fadd double %output71, %return73
+  %output70 = call double @"div@FF"(double %output68, double %Zeps)
+  %return71 = call double @"exp@FF"(double %output70)
+  %output72 = fmul double %output10, %return71
+  %output73 = fadd double %output61, %output72
+  %output74 = fmul double %w56, %output73
   %w75 = load double, double* %w
-  %return81 = call double @"neg@FF"(double %return58)
-  %output84 = fmul double %return81, %return58
-  %return85 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  store double %return85, double* %1
-  %Zeps86 = call double @"Zeps@FF"(double* %1)
-  %output87 = call double @"div@FF"(double %output84, double %Zeps86)
-  %return88 = call double @"exp@FF"(double %output87)
-  %output89 = fmul double %output11, %return88
-  %output90 = fadd double %return61, %output89
-  %output91 = fmul double %w75, %output90
-  %offset92 = load <2 x double>, <2 x double>* %offset
-  %return93 = call double @"getcomp@FUI"(<2 x double> %offset92, i64 1)
-  %output94 = fadd double %output91, %return93
+  %o78 = load <2 x double>, <2 x double>* %o
+  %return79 = call double @"getcomp@FUI"(<2 x double> %o78, i64 1)
+  %output80 = fadd double %return64, %return79
+  %return84 = call double @"neg@FF"(double %return58)
+  %output87 = fmul double %return84, %return58
+  %return88 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  store double %return88, double* %1
+  %Zeps89 = call double @"Zeps@FF"(double* %1)
+  %output90 = call double @"div@FF"(double %output87, double %Zeps89)
+  %return91 = call double @"exp@FF"(double %output90)
+  %output92 = fmul double %output11, %return91
+  %output93 = fadd double %output80, %output92
+  %output94 = fmul double %w75, %output93
   br label %end52
 
 end52:                                            ; preds = %true51, %false
