@@ -3452,7 +3452,6 @@ static float2 CL_V_MOBIUS(
 static float2 CL_V_CURVE(
     const float2 in, 
     const float w, 
-    const float2 o, // Offset -> this iterator/xform' Affine offset(O.xy)
     const int F3C, 
     rng_state_t* restrict state, 
     const float2 lenght,      // lenght_x, lenght_y
@@ -3482,36 +3481,18 @@ static float2 CL_V_CURVE(
     #endif
     }
     else{
-        
-        float2 p = in;
-        if(any(!isfinite(in))){
-            float2 reseed = (float2)(x_rng_next_float(state), x_rng_next_float(state));
-        #if USE_NATIVE
-            #if USE_FMA
-                p = w * fma(amplitude, native_exp(native_divide(-reseed.yx * reseed.yx, Zeps(x_rng_next_float(state)))), copysign(reseed, amplitude) + o);
-            #else
-                p = w * (copysign(reseed, amplitude) + o + amplitude * native_exp(native_divide(-reseed.yx * reseed.yx, Zeps(x_rng_next_float(state)))));
-            #endif
-        #else
-            #if USE_FMA
-                p = w * fma(amplitude, exp(-reseed.yx * reseed.yx / Zeps(x_rng_next_float(state))), copysign(reseed, amplitude) + o);
-            #else
-                p = w * (copysign(reseed, amplitude) + o + amplitude * exp(-reseed.yx * reseed.yx / Zeps(x_rng_next_float(state))));
-            #endif
-        #endif
-        }
 
     #if USE_NATIVE
         #if USE_FMA
-            return w * fma(amplitude, native_exp(native_divide(-p.yx * p.yx, Zeps(lenght))), p);
+            return w * fma(amplitude, native_exp(native_divide(-in.yx * in.yx, Zeps(lenght))), in);
         #else
-            return w * (p + amplitude * native_exp(native_divide(-p.yx * p.yx, Zeps(lenght))));
+            return w * (in + amplitude * native_exp(native_divide(-in.yx * in.yx, Zeps(lenght))));
         #endif
     #else
         #if USE_FMA
-            return w * fma(amplitude, exp(-p.yx * p.yx / Zeps(lenght)), p);
+            return w * fma(amplitude, exp(-in.yx * in.yx / Zeps(lenght)), in);
         #else
-            return w * (p + amplitude * exp(-p.yx * p.yx / Zeps(lenght)));
+            return w * (in + amplitude * exp(-in.yx * in.yx / Zeps(lenght)));
         #endif
     #endif
     }
@@ -3785,7 +3766,7 @@ static float2 CL_V_CROP(
     float yT = y1 - ry * h2;
 #endif
 
-    float2 p = select((float2)(0.0f), in, isfinite(in));
+    float2 p = in;
 
     // conditions
     bool left   = p.x < x0;
@@ -4087,7 +4068,7 @@ static float2 CL_V_DISPATCH(
         case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
         case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
         case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
-        case 97:    return CL_V_CURVE(in, w, o, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
+        case 97:    return CL_V_CURVE(in, w, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
         case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
         case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
         case 100:   return CL_V_HEMISPHERE(in, w);
@@ -4300,6 +4281,9 @@ __kernel void cl_flam3(
 
     for (int i = 0; i < ITER; ++i){
         
+        // Check sample
+        if(any(!isfinite(mem))) mem = (float2)(x_rng_next_neg1pos1(&rng), x_rng_next_neg1pos1(&rng));
+        
         // xform selection
         idx = sample_cdf_binary(XS ? &local_XST[idx * RES] : local_IW, RES, x_rng_next_float(&rng));
         
@@ -4450,7 +4434,7 @@ __kernel void cl_flam3_ff(
 
     // get sample
     float2 mem = vload3(gid, P).xy;
-    
+
     // RNG init
     rng_state_t rng;
     x_rng_init(&rng, gid + OPID);  // unique per thread, per node
@@ -4464,7 +4448,7 @@ __kernel void cl_flam3_ff(
     // pre affine 
     affine_t pa = local_FF_AFFINE[0];
     mem = affine(mem, pa);
-
+    
     // PRE
     if (FF_PRE_VW.x > 0.0f) mem  = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
     
@@ -4472,7 +4456,7 @@ __kernel void cl_flam3_ff(
     float2 _tmp = (float2)(0.0f);
     if (FF_VPP_VW.x != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.x, mem, FF_VPP_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
     if (FF_VPP_VW.y != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.y, mem, FF_VPP_VW.y, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
-
+    
     // POST
     if (FF_VPP_VW.z > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
     if (FF_VPP_VW.w > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);

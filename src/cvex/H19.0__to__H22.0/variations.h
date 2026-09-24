@@ -26,7 +26,7 @@
  /
  /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised August 2026
+ /  date:       October 2020, Last revised September 2026
  /  License:    GPL
  /  Copyright:  2021, © F stands for liFe ( made in Italy )
  /
@@ -2181,7 +2181,7 @@ void V_CURVE(
     vector2 p; 
     const vector2 _p; 
     const float w; 
-    const vector2 o, l, a  // Offset -> this iterator/xform' Affine offset(O.xy)
+    const vector2 l, a  // Offset -> this iterator/xform' Affine offset(O.xy)
 )
 {
     float _px, _py, lx, ly, ax, ay;
@@ -2197,14 +2197,7 @@ void V_CURVE(
         p = w * set(_px + ax * exp(-_py * _py * lx), _py + ay * exp(-_px * _px * ly));
     }
     else{
-
-        // To match NaN recovery as in the OpenCl code base.
-        if(!isfinite(sum(_p))){
-            vector2 reseed = set(nrandom('twister'), nrandom('twister'));
-            _px = w * ((reseed.x * (ax < 0 ? -1 : 1)) + o.x + ax * exp(((-reseed.y * reseed.y) / Zeps(nrandom('twister')))));
-            _py = w * ((reseed.y * (ay < 0 ? -1 : 1)) + o.y + ay * exp(((-reseed.x * reseed.x) / Zeps(nrandom('twister')))));
-        }
-
+        
         p = w * set(_px + ax * exp(-_py * _py / Zeps(lx)), _py + ay * exp(-_px * _px / Zeps(ly)));
     }
 }

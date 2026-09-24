@@ -172,11 +172,11 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 
 | Instruction Class | Hardware Functions | Assembly Count | Description |
 | :--- | :--- | :--- | :--- |
-| **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **16,462** | Floating-point arithmetic operations. |
-| **Special Functions** | `MUFU` | **3,152** | Transcendental math functions (e.g., `sin`, `cos`, `log`). |
-| **Control Flow** | `BRA`, `BRX` | **2,492** | Branching and loop control instructions. |
-| **LOP3.LUT instructions** | `LOP3.LUT` | **2,887** | 3-input programmable bitwise logic instructions. |
-| **Integer & Indexing** | `IADD3`, `IMAD` | **877** | Integer arithmetic and address calculations. |
+| **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **15,960** | Floating-point arithmetic operations. |
+| **Special Functions** | `MUFU` | **3,117** | Transcendental math functions (e.g., `sin`, `cos`, `log`). |
+| **Control Flow** | `BRA`, `BRX` | **2,482** | Branching and loop control instructions. |
+| **LOP3.LUT instructions** | `LOP3.LUT` | **2,709** | 3-input programmable bitwise logic instructions. |
+| **Integer & Indexing** | `IADD3`, `IMAD` | **844** | Integer arithmetic and address calculations. |
 | **Shared Memory Cache** | `LDS`, `STS` | **454** | Shared memory load and store operations. |
 | **Global Memory Bus** | `LDG`, `STG` | **72** | Global memory load and store operations. |
 | **Thread Synchronization** | `BAR.SYNC` | **1** | Thread block synchronization barrier. |
