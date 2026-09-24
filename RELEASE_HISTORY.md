@@ -54,6 +54,7 @@ _This is a re-release of the same version with some minor improvements that did 
 _This update require a restart of Houdini to fully pickup the changes_.
 
 - **OpenCL code updates**:
+   - **Fix**: fixed a rare edge case in the OpenCL CROP variation.
    - Reverted preview changes and now matching Fractorium's NaN recovery method.
    - Vectorized some functions.
 - **Cvex code updates**: Reverted preview changes and now matching Fractorium's NaN recovery method.
