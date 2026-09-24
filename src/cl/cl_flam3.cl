@@ -3781,7 +3781,7 @@ static float2 CL_V_CROP(
 
     bool outside = left || right || bottom || top;
 
-    if ((outside && az.y != 0.0f)) return (float2)(0.0f);
+    if ((outside && az.y != 0.0f)) return (float2)(1e-18f);
 
     return w * p;
 }
