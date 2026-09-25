@@ -8046,7 +8046,9 @@ class flam3h_iterator_utils
             prm.set(hou.Vector2(m2_new[idx])) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
 
         # Reset to no-scale value (1 being 100%)
-        scl_prm.set(1) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        # scl_prm.set(1) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        scl_prm.revertToDefaults()
+        scl_prm.setRangeToDefault()
         
         
     def iterator_post_affine_scale(self) -> None:
@@ -8080,7 +8082,9 @@ class flam3h_iterator_utils
             prm.set(hou.Vector2(m2_new[idx])) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
 
         # Reset to no-scale value (1 being 100%)
-        scl_prm.set(1) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        # scl_prm.set(1) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        scl_prm.revertToDefaults()
+        scl_prm.setRangeToDefault()
         
         
     def iterator_FF_affine_scale(self) -> None:
@@ -8110,7 +8114,9 @@ class flam3h_iterator_utils
             prm.set(hou.Vector2(m2_new[idx])) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
 
         # Reset to no-scale value (1 being 100%)
-        scl_prm.set(1) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        # scl_prm.set(1) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        scl_prm.revertToDefaults()
+        scl_prm.setRangeToDefault()
         
         
     def iterator_FF_post_affine_scale(self) -> None:
@@ -8140,7 +8146,9 @@ class flam3h_iterator_utils
             prm.set(hou.Vector2(m2_new[idx])) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
         
         # Reset to no-scale value (1 being 100%)
-        scl_prm.set(1) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        # scl_prm.set(1) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        scl_prm.revertToDefaults()
+        scl_prm.setRangeToDefault()
 
         
     def destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool = False) -> None:
