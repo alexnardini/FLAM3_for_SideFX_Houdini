@@ -52,15 +52,15 @@ They are all available in this Github repository.
 _This update require a restart of Houdini to fully pickup the changes_.
 
 - **New**: Recompiled all **Cvex** code using the latest **H22.0.453** vcc compiler (_No major changes but for piece of mind_).
-- **New**: OpenCL SOP nodes and Cvex Wrangle Core nodes now have the ability to use an alternative/temporary Kernel/Cvex file to make it easier to debug/test things without loosing the link to the official file being used and compiled by FLAM3H™ by default.
+- **New**: OpenCL SOP nodes and Cvex Wrangle Core nodes now have the ability to use an alternative/temporary Kernel/Cvex file to make it easier to debug/test things without losing the link to the official file being used and compiled by FLAM3H™ by default.
 - **OpenCL code updates** 
-   - **Fix**: Small numerical improvemennt in the **CROP** variation when the **Zero** parameter is **On**/_Active_.
+   - **Fix**: Small numerical improvement in the **CROP** variation when the **Zero** parameter is **On**/_Active_.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
    </br>_Worth a mention_:
    - **Fix**: Cvex context functions names now matches their respective file names.
    - **Fix**: Better primitive path name for the camera sensor packed geometry.
    - **Fix**: The camera sensor was failing to pack a fractal Flame geometry with a very large(_huge_) bounding box. It is now fixed.
-   - **Fix**: Smarter handling of the iterators names' rename method when they are added or removed or when saving a Flame with inactive inbetween iterators.
+   - **Fix**: Smarter handling of the iterators names' rename method when they are added or removed or when saving a Flame with inactive in-between iterators.
 
 
 
