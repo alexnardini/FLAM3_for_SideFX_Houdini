@@ -1,6 +1,6 @@
-;_name	TFFAcamhandles
-; ModuleID = 'TFFAcamhandles'
-source_filename = "TFFAcamhandles"
+;_name	cvex_TFFAcamhandles
+; ModuleID = 'cvex_TFFAcamhandles'
+source_filename = "cvex_TFFAcamhandles"
 
 @0 = private constant [5 x i8] c"fcam\00"
 @1 = private constant [6 x i8] c"/near\00"
@@ -12,7 +12,7 @@ source_filename = "TFFAcamhandles"
 @orient = external global <4 x double>
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAcamhandles@P"(<4 x double>* %_bound_orient) #0 {
+define private void @"_cvex_TFFAcamhandles@P"(<4 x double>* %_bound_orient) #0 {
 __llvm_entry:
   %return = call i8* @"chs@SS"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @0, i64 0, i64 0))
   %return2 = call i8* @"concat@SSS"(i8* %return, i8* getelementptr inbounds ([6 x i8], [6 x i8]* @1, i64 0, i64 0))
@@ -120,11 +120,11 @@ declare i64 @"setpointattrib@IISIFS"(i64, i8*, i64, double, i8*) #2
 declare i64 @"removepoint@III"(i64, i64) #2
 
 ; Function Attrs: nounwind
-define void @TFFAcamhandles(<4 x double> %orient) #2 {
+define void @cvex_TFFAcamhandles(<4 x double> %orient) #2 {
 __llvm_entry:
   %"<orient>" = alloca <4 x double>
   store <4 x double> %orient, <4 x double>* %"<orient>"
-  call void @"_TFFAcamhandles@P"(<4 x double>* %"<orient>")
+  call void @"_cvex_TFFAcamhandles@P"(<4 x double>* %"<orient>")
   %evalue = load <4 x double>, <4 x double>* %"<orient>"
   %gvalue = call <4 x double> @"_export@PSP"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @3, i64 0, i64 0), <4 x double> %evalue) #3
   store <4 x double> %gvalue, <4 x double>* @orient
@@ -135,7 +135,7 @@ declare <4 x double> @"_export@PSP"(i8*, <4 x double>)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TFFAcamhandles(<4 x double> <double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, double 1.000000e+00>)
+  call void @cvex_TFFAcamhandles(<4 x double> <double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, double 1.000000e+00>)
   ret void
 }
 
@@ -149,7 +149,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"22.0.368"}
+!1 = !{!"22.0.453"}
 !2 = !{!"64"}
 
 ;_code_end

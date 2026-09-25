@@ -1,6 +1,6 @@
-;_name	TFFAmbcalc
-; ModuleID = 'TFFAmbcalc'
-source_filename = "TFFAmbcalc"
+;_name	cvex_TFFAmbcalc
+; ModuleID = 'cvex_TFFAmbcalc'
+source_filename = "cvex_TFFAmbcalc"
 
 %MB = type { i64, i64, double }
 
@@ -60,7 +60,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAmbcalc@FFF"(double* %_bound_Time, double* %_bound_Tstep, double* %_bound_Tstep_mult) #0 {
+define private void @"_cvex_TFFAmbcalc@FFF"(double* %_bound_Time, double* %_bound_Tstep, double* %_bound_Tstep_mult) #0 {
 __llvm_entry:
   %mb = alloca %MB
   %mb1 = call %MB @"MB@Z2MBM3N3FPSIN7samplesIN13shutter_speedF"()
@@ -120,7 +120,7 @@ declare double @"abs@FF"(double) #2
 declare double @"detail@FIS"(i64, i8*) #2
 
 ; Function Attrs: nounwind
-define void @TFFAmbcalc(double %Time, double %Tstep, double %Tstep_mult) #2 {
+define void @cvex_TFFAmbcalc(double %Time, double %Tstep, double %Tstep_mult) #2 {
 __llvm_entry:
   %"<Tstep>" = alloca double
   %"<Tstep_mult>" = alloca double
@@ -128,7 +128,7 @@ __llvm_entry:
   store double %Tstep, double* %"<Tstep>"
   store double %Tstep_mult, double* %"<Tstep_mult>"
   store double %Time, double* %0
-  call void @"_TFFAmbcalc@FFF"(double* %0, double* %"<Tstep>", double* %"<Tstep_mult>")
+  call void @"_cvex_TFFAmbcalc@FFF"(double* %0, double* %"<Tstep>", double* %"<Tstep_mult>")
   %evalue = load double, double* %"<Tstep>"
   %gvalue = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @5, i64 0, i64 0), double %evalue) #3
   %evalue2 = load double, double* %"<Tstep_mult>"
@@ -142,7 +142,7 @@ declare double @"_export@FSF"(i8*, double)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TFFAmbcalc(double 0.000000e+00, double 0.000000e+00, double 0.000000e+00)
+  call void @cvex_TFFAmbcalc(double 0.000000e+00, double 0.000000e+00, double 0.000000e+00)
   ret void
 }
 
@@ -156,7 +156,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"22.0.368"}
+!1 = !{!"22.0.453"}
 !2 = !{!"64"}
 
 ;_code_end

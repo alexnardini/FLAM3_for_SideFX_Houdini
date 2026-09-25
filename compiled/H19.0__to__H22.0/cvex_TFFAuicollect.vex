@@ -1,6 +1,6 @@
-;_name	TFFAuicollect
-; ModuleID = 'TFFAuicollect'
-source_filename = "TFFAuicollect"
+;_name	cvex_TFFAuicollect
+; ModuleID = 'cvex_TFFAuicollect'
+source_filename = "cvex_TFFAuicollect"
 
 %gemtag = type { i8**, i64, i64*, i64*, i64*, i64*, i64*, i64*, i64*, double*, double*, double*, double*, double*, double*, double*, double* }
 %gemtagff = type { i64, i64, i64, i64, i64, double, double, double, double, double }
@@ -450,7 +450,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAuicollect@[S"(i8*** %_bound_VARTYPE) #0 {
+define private void @"_cvex_TFFAuicollect@[S"(i8*** %_bound_VARTYPE) #0 {
 __llvm_entry:
   %GEMTAG = alloca %gemtag
   %GEMTAGFF = alloca %gemtagff
@@ -1053,11 +1053,11 @@ declare i8* @"concat@SSS:SSS"(i8*, i8*, i8*, i8*, i8*) #2
 declare i8* @"toupper@SS"(i8*) #1
 
 ; Function Attrs: nounwind
-define void @TFFAuicollect(i8** %VARTYPE) #1 {
+define void @cvex_TFFAuicollect(i8** %VARTYPE) #1 {
 __llvm_entry:
   %"<VARTYPE>" = alloca i8**
   store i8** %VARTYPE, i8*** %"<VARTYPE>"
-  call void @"_TFFAuicollect@[S"(i8*** %"<VARTYPE>")
+  call void @"_cvex_TFFAuicollect@[S"(i8*** %"<VARTYPE>")
   %evalue = load i8**, i8*** %"<VARTYPE>"
   %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @164, i64 0, i64 0), i8** %evalue) #3
   store i8** %gvalue, i8*** @VARTYPE
@@ -1068,7 +1068,7 @@ declare i8** @"_export@[SS[S"(i8*, i8**)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TFFAuicollect(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0))
+  call void @cvex_TFFAuicollect(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0))
   ret void
 }
 
@@ -1082,7 +1082,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"22.0.368"}
+!1 = !{!"22.0.453"}
 !2 = !{!"64"}
 
 ;_code_end

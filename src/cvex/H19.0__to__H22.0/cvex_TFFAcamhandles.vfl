@@ -42,14 +42,14 @@
 */
 
 
-#pragma opname  "TFFAcamhandles"
-#pragma oplabel "TFFAcamhandles"
+#pragma opname  "cvex_TFFAcamhandles"
+#pragma oplabel "cvex_TFFAcamhandles"
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
 
 void
-_TFFAcamhandles(vector4 _bound_orient)
+_cvex_TFFAcamhandles(vector4 _bound_orient)
 {
 
     float   n_pscale, f_pscale;
@@ -88,7 +88,7 @@ _TFFAcamhandles(vector4 _bound_orient)
 }
 
 cvex
-TFFAcamhandles(export vector4 orient = {0,0,0,1})
+cvex_TFFAcamhandles(export vector4 orient = {0,0,0,1})
 {
-    _TFFAcamhandles(orient);
+    _cvex_TFFAcamhandles(orient);
 }

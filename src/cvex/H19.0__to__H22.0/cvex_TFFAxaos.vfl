@@ -48,8 +48,8 @@
 
 #define ALIGNED16   4
 
-#pragma opname  "TFFAxaos"
-#pragma oplabel "TFFAxaos"
+#pragma opname  "cvex_TFFAxaos"
+#pragma oplabel "cvex_TFFAxaos"
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
@@ -59,7 +59,7 @@
 
 
 void
-_TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
+_cvex_TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
 {
 
     int inum = chi("flamefunc");
@@ -186,9 +186,11 @@ _TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
 }
 
 cvex
-TFFAxaos( export int    XS    = 0;
-          export float  IW[]  = {};
-          export float  XST[] = {}; )
+cvex_TFFAxaos(
+    export int    XS    = 0;
+    export float  IW[]  = {};
+    export float  XST[] = {};
+    )
 {
-    _TFFAxaos(XS, IW, XST);
+    _cvex_TFFAxaos(XS, IW, XST);
 }

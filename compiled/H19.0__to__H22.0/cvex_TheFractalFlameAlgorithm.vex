@@ -1,6 +1,6 @@
-;_name	FLAM3
-; ModuleID = 'FLAM3'
-source_filename = "FLAM3"
+;_name	cvex_TheFractalFlameAlgorithm
+; ModuleID = 'cvex_TheFractalFlameAlgorithm'
+source_filename = "cvex_TheFractalFlameAlgorithm"
 
 %gemSYSGLB = type { i64, i64, i64, i64, i64 }
 %gemSYS = type { i64, i64, double*, double* }
@@ -12376,7 +12376,7 @@ declare <3 x double> @"chv@VS"(i8*) #1
 declare double @"chf@FS"(i8*) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_FLAM3@IFFFFV"(i64* %_bound_ptnum, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, double* %_bound_mb, <3 x double>* %_bound_P) #0 {
+define private void @"_cvex_TheFractalFlameAlgorithm@IFFFFV"(i64* %_bound_ptnum, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, double* %_bound_mb, <3 x double>* %_bound_P) #0 {
 __llvm_entry:
   %tmp = alloca <2 x double>
   %mem = alloca <2 x double>
@@ -13172,7 +13172,7 @@ declare double @"detail@FISI"(i64, i8*, i64) #2
 declare <3 x double> @"set@VU"(<2 x double>) #1
 
 ; Function Attrs: nounwind
-define void @FLAM3(i64 %ptnum, double %pscale, double %clr, double %Alpha, double %mb, <3 x double> %P) #2 {
+define void @cvex_TheFractalFlameAlgorithm(i64 %ptnum, double %pscale, double %clr, double %Alpha, double %mb, <3 x double> %P) #2 {
 __llvm_entry:
   %"<pscale>" = alloca double
   %"<clr>" = alloca double
@@ -13186,7 +13186,7 @@ __llvm_entry:
   store double %mb, double* %"<mb>"
   store <3 x double> %P, <3 x double>* %"<P>"
   store i64 %ptnum, i64* %0
-  call void @"_FLAM3@IFFFFV"(i64* %0, double* %"<pscale>", double* %"<clr>", double* %"<Alpha>", double* %"<mb>", <3 x double>* %"<P>")
+  call void @"_cvex_TheFractalFlameAlgorithm@IFFFFV"(i64* %0, double* %"<pscale>", double* %"<clr>", double* %"<Alpha>", double* %"<mb>", <3 x double>* %"<P>")
   %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @141, i64 0, i64 0), i64 %ptnum) #4
   %evalue2 = load double, double* %"<pscale>"
   %gvalue3 = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @142, i64 0, i64 0), double %evalue2) #4
@@ -13215,7 +13215,7 @@ declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @FLAM3(i64 0, double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, <3 x double> zeroinitializer)
+  call void @cvex_TheFractalFlameAlgorithm(i64 0, double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, <3 x double> zeroinitializer)
   ret void
 }
 
@@ -13230,7 +13230,7 @@ attributes #4 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"22.0.447"}
+!1 = !{!"22.0.453"}
 !2 = !{!"64"}
 !3 = !{!""}
 

@@ -42,8 +42,8 @@
 */
 
 
-#pragma opname  "TFFAsensorInfo"
-#pragma oplabel "TFFAsensorInfo"
+#pragma opname  "cvex_TFFAsensorInfo"
+#pragma oplabel "cvex_TFFAsensorInfo"
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
@@ -64,7 +64,7 @@ struct sensor_info{
     }
 }
 
-void _TFFAsensorInfo(vector _bound_P, _bound_Cd)
+void _cvex_TFFAsensorInfo(vector _bound_P, _bound_Cd)
 {
     int mode;
     float sensor_zoom, resx, resy, sw, factor, scale, w, resw;
@@ -110,8 +110,10 @@ void _TFFAsensorInfo(vector _bound_P, _bound_Cd)
 
 
 cvex
-TFFAsensorInfo( export vector P = 0;
-                export vector Cd = 2 )
+cvex_TFFAsensorInfo(
+    export vector P = 0;
+    export vector Cd = 2
+    )
 {
-    _TFFAsensorInfo(P, Cd);
+    _cvex_TFFAsensorInfo(P, Cd);
 }

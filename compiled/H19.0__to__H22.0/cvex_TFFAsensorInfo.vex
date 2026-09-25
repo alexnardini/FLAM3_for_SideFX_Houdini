@@ -1,6 +1,6 @@
-;_name	TFFAsensorInfo
-; ModuleID = 'TFFAsensorInfo'
-source_filename = "TFFAsensorInfo"
+;_name	cvex_TFFAsensorInfo
+; ModuleID = 'cvex_TFFAsensorInfo'
+source_filename = "cvex_TFFAsensorInfo"
 
 %sensor_info = type { i64, double, <2 x double> }
 
@@ -78,7 +78,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAsensorInfo@VV"(<3 x double>* %_bound_P, <3 x double>* %_bound_Cd) #0 {
+define private void @"_cvex_TFFAsensorInfo@VV"(<3 x double>* %_bound_P, <3 x double>* %_bound_Cd) #0 {
 __llvm_entry:
   %INFO = alloca %sensor_info
   %0 = alloca double
@@ -171,13 +171,13 @@ declare <16 x double> @"maketransform@4IIVVV"(i64, i64, <3 x double>, <3 x doubl
 declare <3 x double> @"mul@V4"(<3 x double>, <16 x double>) #2
 
 ; Function Attrs: nounwind
-define void @TFFAsensorInfo(<3 x double> %P, <3 x double> %Cd) #2 {
+define void @cvex_TFFAsensorInfo(<3 x double> %P, <3 x double> %Cd) #2 {
 __llvm_entry:
   %"<Cd>" = alloca <3 x double>
   %"<P>" = alloca <3 x double>
   store <3 x double> %P, <3 x double>* %"<P>"
   store <3 x double> %Cd, <3 x double>* %"<Cd>"
-  call void @"_TFFAsensorInfo@VV"(<3 x double>* %"<P>", <3 x double>* %"<Cd>")
+  call void @"_cvex_TFFAsensorInfo@VV"(<3 x double>* %"<P>", <3 x double>* %"<Cd>")
   %evalue = load <3 x double>, <3 x double>* %"<P>"
   %gvalue = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @3, i64 0, i64 0), <3 x double> %evalue) #3
   %evalue1 = load <3 x double>, <3 x double>* %"<Cd>"
@@ -191,7 +191,7 @@ declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TFFAsensorInfo(<3 x double> zeroinitializer, <3 x double> <double 2.000000e+00, double 2.000000e+00, double 2.000000e+00>)
+  call void @cvex_TFFAsensorInfo(<3 x double> zeroinitializer, <3 x double> <double 2.000000e+00, double 2.000000e+00, double 2.000000e+00>)
   ret void
 }
 
@@ -205,7 +205,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"22.0.368"}
+!1 = !{!"22.0.453"}
 !2 = !{!"64"}
 
 ;_code_end

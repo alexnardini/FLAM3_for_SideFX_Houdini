@@ -1,13 +1,13 @@
-;_name	TFFAcompensate
-; ModuleID = 'TFFAcompensate'
-source_filename = "TFFAcompensate"
+;_name	cvex_TFFAcompensate
+; ModuleID = 'cvex_TFFAcompensate'
+source_filename = "cvex_TFFAcompensate"
 
 @0 = private constant [10 x i8] c"mbsamples\00"
 @Tstep_mult_compensate = external global double
 @1 = private constant [22 x i8] c"Tstep_mult_compensate\00"
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAcompensate@F"(double* %_bound_Tstep_mult_compensate) #0 {
+define private void @"_cvex_TFFAcompensate@F"(double* %_bound_Tstep_mult_compensate) #0 {
 __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @0, i64 0, i64 0))
   br label %cond
@@ -56,11 +56,11 @@ declare double @"abs@FF"(double) #2
 declare double @"div@FF"(double, double) #1
 
 ; Function Attrs: nounwind
-define void @TFFAcompensate(double %Tstep_mult_compensate) #2 {
+define void @cvex_TFFAcompensate(double %Tstep_mult_compensate) #2 {
 __llvm_entry:
   %"<Tstep_mult_compensate>" = alloca double
   store double %Tstep_mult_compensate, double* %"<Tstep_mult_compensate>"
-  call void @"_TFFAcompensate@F"(double* %"<Tstep_mult_compensate>")
+  call void @"_cvex_TFFAcompensate@F"(double* %"<Tstep_mult_compensate>")
   %evalue = load double, double* %"<Tstep_mult_compensate>"
   %gvalue = call double @"_export@FSF"(i8* getelementptr inbounds ([22 x i8], [22 x i8]* @1, i64 0, i64 0), double %evalue) #3
   store double %gvalue, double* @Tstep_mult_compensate
@@ -71,7 +71,7 @@ declare double @"_export@FSF"(i8*, double)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TFFAcompensate(double 0.000000e+00)
+  call void @cvex_TFFAcompensate(double 0.000000e+00)
   ret void
 }
 
@@ -85,7 +85,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"22.0.368"}
+!1 = !{!"22.0.453"}
 !2 = !{!"64"}
 
 ;_code_end

@@ -42,13 +42,13 @@
 */
 
 
-#pragma opname  "TFFAcompensate"
-#pragma oplabel "TFFAcompensate"
+#pragma opname  "cvex_TFFAcompensate"
+#pragma oplabel "cvex_TFFAcompensate"
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
 void
-_TFFAcompensate(float _bound_Tstep_mult_compensate)
+_cvex_TFFAcompensate(float _bound_Tstep_mult_compensate)
 {   
     // init
     int     samples;
@@ -66,7 +66,7 @@ _TFFAcompensate(float _bound_Tstep_mult_compensate)
 }
 
 cvex
-TFFAcompensate(export float Tstep_mult_compensate = 0)
+cvex_TFFAcompensate(export float Tstep_mult_compensate = 0)
 {
-    _TFFAcompensate(Tstep_mult_compensate);
+    _cvex_TFFAcompensate(Tstep_mult_compensate);
 }

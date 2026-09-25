@@ -42,8 +42,8 @@
 */
 
 
-#pragma opname  "TFFAuicollect"
-#pragma oplabel "TFFAuicollect"
+#pragma opname  "cvex_TFFAuicollect"
+#pragma oplabel "cvex_TFFAuicollect"
 #pragma opmininputs 1
 #pragma opmaxinputs 3
 
@@ -127,7 +127,7 @@ struct gemtagff{
 
 
 void
-_TFFAuicollect(string _bound_VARTYPE[]){
+_cvex_TFFAuicollect(string _bound_VARTYPE[]){
 
     string T[];
     string Ts[] = { "linear", 
@@ -398,7 +398,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
 }
 
 cvex
-TFFAuicollect( export string VARTYPE[] = {} )
+cvex_TFFAuicollect( export string VARTYPE[] = {} )
 {
-    _TFFAuicollect(VARTYPE);
+    _cvex_TFFAuicollect(VARTYPE);
 }

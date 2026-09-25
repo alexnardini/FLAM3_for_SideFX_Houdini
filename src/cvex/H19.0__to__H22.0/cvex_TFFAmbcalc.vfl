@@ -42,8 +42,8 @@
 */
 
 
-#pragma opname  "TFFAmbcalc"
-#pragma oplabel "TFFAmbcalc"
+#pragma opname  "cvex_TFFAmbcalc"
+#pragma oplabel "cvex_TFFAmbcalc"
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
@@ -60,7 +60,7 @@ struct MB{
 }
 
 void
-_TFFAmbcalc(const float _bound_Time; float _bound_Tstep; float _bound_Tstep_mult)
+_cvex_TFFAmbcalc(const float _bound_Time; float _bound_Tstep; float _bound_Tstep_mult)
 {   
     // init
     int     samples, FPS, iter;
@@ -88,9 +88,11 @@ _TFFAmbcalc(const float _bound_Time; float _bound_Tstep; float _bound_Tstep_mult
 }
 
 cvex
-TFFAmbcalc( float Time = 0;
-	        export float Tstep = 0;
-	        export float Tstep_mult = 0)
+cvex_TFFAmbcalc(
+    float Time = 0;
+    export float Tstep = 0;
+    export float Tstep_mult = 0
+    )
 {
-    _TFFAmbcalc(Time, Tstep, Tstep_mult);
+    _cvex_TFFAmbcalc(Time, Tstep, Tstep_mult);
 }

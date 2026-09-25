@@ -1,6 +1,6 @@
-;_name	TFFAsensorbbox
-; ModuleID = 'TFFAsensorbbox'
-source_filename = "TFFAsensorbbox"
+;_name	cvex_TFFAsensorbbox
+; ModuleID = 'cvex_TFFAsensorbbox'
+source_filename = "cvex_TFFAsensorbbox"
 
 %sensor_info = type { i64, double, <2 x double> }
 
@@ -68,7 +68,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @_TFFAsensorbbox() #0 {
+define private void @_cvex_TFFAsensorbbox() #0 {
 __llvm_entry:
   %INFO = alloca %sensor_info
   %0 = alloca double
@@ -181,15 +181,15 @@ declare <3 x double> @"mul@V4"(<3 x double>, <16 x double>) #2
 declare i64 @"addpoint@IIV"(i64, <3 x double>) #2
 
 ; Function Attrs: nounwind
-define void @TFFAsensorbbox() #2 {
+define void @cvex_TFFAsensorbbox() #2 {
 __llvm_entry:
-  call void @_TFFAsensorbbox()
+  call void @_cvex_TFFAsensorbbox()
   ret void
 }
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TFFAsensorbbox()
+  call void @cvex_TFFAsensorbbox()
   ret void
 }
 
@@ -202,7 +202,7 @@ attributes #2 = { nounwind }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"22.0.368"}
+!1 = !{!"22.0.453"}
 !2 = !{!"64"}
 
 ;_code_end

@@ -48,8 +48,8 @@
 
 #define LIMIT   1000
 
-#pragma opname  "TFFAsensor"
-#pragma oplabel "TFFAsensor"
+#pragma opname  "cvex_TFFAsensor"
+#pragma oplabel "cvex_TFFAsensor"
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
@@ -75,7 +75,7 @@ struct sensor{
     }
 }
 
-void _TFFAsensor()
+void _cvex_TFFAsensor()
 {
     
     sensor SENSOR;
@@ -182,7 +182,7 @@ void _TFFAsensor()
 }
 
 cvex
-TFFAsensor()
+cvex_TFFAsensor()
 {
-    _TFFAsensor();
+    _cvex_TFFAsensor();
 }

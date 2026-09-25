@@ -42,15 +42,15 @@
 */
 
 
-#pragma opname  "TFFAcamcull"
-#pragma oplabel "TFFAcamcull"
+#pragma opname  "cvex_TFFAcamcull"
+#pragma oplabel "cvex_TFFAcamcull"
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
 
 
 void
-_TFFAcamcull(vector _bound_P; int _bound_ptnum)
+_cvex_TFFAcamcull(vector _bound_P; int _bound_ptnum)
 {
     vector pos = _bound_P;
     string CAM  = relativepath(opfullpath("."), chs("fcam"));
@@ -64,8 +64,10 @@ _TFFAcamcull(vector _bound_P; int _bound_ptnum)
 }
 
 cvex
-TFFAcamcull(export vector P = 0;
-            export int ptnum = 0)
+cvex_TFFAcamcull(
+    export vector P = 0;
+    export int ptnum = 0
+    )
 {
-    _TFFAcamcull(P, ptnum);
+    _cvex_TFFAcamcull(P, ptnum);
 }

@@ -42,8 +42,8 @@
 */
 
 
-#pragma opname  "TFFAsensorbbox"
-#pragma oplabel "TFFAsensorbbox"
+#pragma opname  "cvex_TFFAsensorbbox"
+#pragma oplabel "cvex_TFFAsensorbbox"
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
@@ -63,7 +63,7 @@ struct sensor_info{
     }
 }
 
-void _TFFAsensorbbox()
+void _cvex_TFFAsensorbbox()
 {
     float sensor_zoom, resx, resy, sw, factor, scale, w, resw;
     vector pos_info, myp, myp_offset;
@@ -110,7 +110,7 @@ void _TFFAsensorbbox()
 
 
 cvex
-TFFAsensorbbox()
+cvex_TFFAsensorbbox()
 {
-    _TFFAsensorbbox();
+    _cvex_TFFAsensorbbox();
 }

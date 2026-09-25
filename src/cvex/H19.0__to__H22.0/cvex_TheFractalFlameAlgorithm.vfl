@@ -46,8 +46,8 @@
 #define FL "../ff_"
 #define FP "../fp1_"
 
-#pragma opname  "FLAM3"
-#pragma oplabel "FLAM3"
+#pragma opname  "cvex_TheFractalFlameAlgorithm"
+#pragma oplabel "cvex_TheFractalFlameAlgorithm"
 #pragma opmininputs 1
 #pragma opmaxinputs 2
 
@@ -60,7 +60,7 @@
 
 
 
-void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha, _bound_mb; vector _bound_P)
+void _cvex_TheFractalFlameAlgorithm(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha, _bound_mb; vector _bound_P)
 {
     // UTILS
     int idx;
@@ -206,12 +206,14 @@ void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha, _bo
 }
 
 cvex
-FLAM3(  export int      ptnum   = 0;
-	    export float    pscale  = 0;
-	    export float    clr     = 0;
-        export float    Alpha   = 0;
-        export float    mb      = 0;
-	    export vector   P       = 0)
+cvex_TheFractalFlameAlgorithm(
+    export int      ptnum   = 0;
+    export float    pscale  = 0;
+    export float    clr     = 0;
+    export float    Alpha   = 0;
+    export float    mb      = 0;
+    export vector   P       = 0
+    )
 {
-    _FLAM3(ptnum, pscale, clr, Alpha, mb, P);
+    _cvex_TheFractalFlameAlgorithm(ptnum, pscale, clr, Alpha, mb, P);
 }
