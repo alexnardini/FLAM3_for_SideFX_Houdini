@@ -6747,7 +6747,7 @@ class flam3h_iterator_utils
             regex(str): Default to: <b>f3h_char.RE_ITERATOR_NAME_SEARCH</b></br>The regex expresion to use. Default to one build for the current iterators default name.
         
         Returns:
-            (bool): True if the iterator name is a default name and False if not.
+            (tuple[bool, tuple[str | Any, ...]]): a tuple with True if the iterator name is a default name and False if not and a tuple of 3 strings as the regex goups.
         """
         name_strip: str = name.strip()
         x = re_search(regex, name_strip, IGNORECASE)
