@@ -70,7 +70,7 @@ from itertools import islice as it_islice
 from textwrap import wrap
 from datetime import datetime
 from re import sub as re_sub
-from re import search as re_search
+from re import search as re_search, IGNORECASE
 from numpy import pad as np_pad
 from numpy import resize as np_resize
 from numpy import array as np_array
@@ -442,6 +442,9 @@ class f3h_char:
     ALLOWED: Final = "_-().:"
     ALLOWED_OUT_AUTO_ADD_ITER_NUM: Final = "_-+!?().: "
     ALLOWED_XFORM_VAL: Final = "0123456789.-e"
+    
+    RE_ITERATOR_NAME_BASE: Final = "iterator_"
+    RE_ITERATOR_NAME_SEARCH: Final = rf"^(?=.*?({RE_ITERATOR_NAME_BASE}\d+))(.*?)(?={RE_ITERATOR_NAME_BASE}\d+){RE_ITERATOR_NAME_BASE}\d+(.*)$"
     
     
 class f3h_HDAsections:
@@ -6412,7 +6415,7 @@ class flam3h_iterator_utils:
 class flam3h_iterator_utils
 
 @STATICMETHODS
-* flam3h_iterator_is_default_name(name: str, regex: str = "^[^\d\s()]+(?: [^\d\s()]+)*[\d]+") -> bool:
+* flam3h_iterator_is_default_name(name: str, regex: str = f3h_char.RE_ITERATOR_NAME_SEARCH) -> tuple[bool, tuple[str | Any, ...]]:
 * flam3h_update_iterators_names(node: hou.SopNode, iter_count: int) -> None:
 * flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
 * sierpinski_settings(node: hou.SopNode) -> None:
@@ -6532,19 +6535,26 @@ class flam3h_iterator_utils
         
         
     @staticmethod
-    def flam3h_iterator_is_default_name(name: str, regex: str = "^[^\\d\\s()]+(?: [^\\d\\s()]+)*[\\d]+") -> bool:
-        """Check if an iterator name is a default name or not.</br>
+    def flam3h_iterator_is_default_name(name: str, regex: str = f3h_char.RE_ITERATOR_NAME_SEARCH) -> tuple[bool, tuple[str | Any, ...]]:
+        """Check if an iterator name has its default name in it or not.</br>
+        
+        - The regex will create the following Groups:
+            - <b>Group1</b> -> the iterator name.
+            - <b>Group2</b> -> whatever precede the iterator name or an empty string if nothing precede it.
+            - <b>Group3</b> -> whatever come after the iterator name or an empty string if nothing come next.
+            - If an iterator name is not found it will output this tuple: <b>("Group1", "Group2", "Group3")</b> instead.
         
         Args:
             name(str): current iterator name to check.
-            regex(str): Default to: <b>^[^\\d\\s()]+(?: [^\\d\\s()]+)*[\\d]+</b></br>The regex expresion to use. Default to one build for the current iterators default name.
+            regex(str): Default to: <b>f3h_char.RE_ITERATOR_NAME_SEARCH</b></br>The regex expresion to use. Default to one build for the current iterators default name.
         
         Returns:
             (bool): True if the iterator name is a default name and False if not.
         """
         name_strip: str = name.strip()
-        x = re_search(regex, name_strip)
-        return True if x is not None and x.group() == name_strip else False
+        x = re_search(regex, name_strip, IGNORECASE)
+        
+        return x is not None and x.group() == name_strip, x.groups() if x is not None else ("Group1", "Group2", "Group3")
     
     
     @staticmethod
@@ -6560,14 +6570,15 @@ class flam3h_iterator_utils
             (None):
         """
         
-        _flam3h_iterator_is_default_name: Callable[[str, str], bool] = flam3h_iterator_utils.flam3h_iterator_is_default_name
+        _flam3h_iterator_is_default_name: Callable[[str, str], tuple[bool, tuple[str | Any, ...]]] = flam3h_iterator_utils.flam3h_iterator_is_default_name
         mp_note_name: str = flam3h_iterator_prm_names().main_note
         for mp_idx in range(iter_count):
             new_mp_idx: str = str(mp_idx + 1)
             param_name: str = f"{mp_note_name}_{new_mp_idx}"
             param_val: str = str(node.parm(param_name).eval()).strip()
-            if _flam3h_iterator_is_default_name(param_val):
-                flam3h_prm_utils.set(node, param_name, f"iterator_{new_mp_idx}")
+            reg: tuple[bool, tuple[str | Any, ...]] = _flam3h_iterator_is_default_name(param_val)
+            if reg[0]:
+                flam3h_prm_utils.set(node, param_name, f"{reg[1][1]}{f3h_char.RE_ITERATOR_NAME_BASE}{new_mp_idx}{reg[1][2]}")
 
 
     @staticmethod
@@ -7940,7 +7951,7 @@ class flam3h_iterator_utils
         prm = self.kwargs['parm']
         s_mp_index: int = self.kwargs['script_multiparm_index']
         if not prm.eval():
-            prm.set(f"iterator_{s_mp_index}")
+            prm.set(f"{f3h_char.RE_ITERATOR_NAME_BASE}{s_mp_index}")
         else:
             prm.set(str(prm.eval()).strip())
             
@@ -10506,7 +10517,7 @@ class flam3h_iterator_utils
         #
         # iter main
         node.setParms(  # type: ignore
-                        {f"{n.main_note}_{s_mp_index}": f"iterator_{s_mp_index}", 
+                        {f"{n.main_note}_{s_mp_index}": f"{f3h_char.RE_ITERATOR_NAME_BASE}{s_mp_index}", 
                         f"{n.main_weight}_{s_mp_index}": 0.5}
                         )
         
@@ -20922,7 +20933,7 @@ class out_flame_utils
         xf_name: tuple[str, ...] = f3d.xf_name
         xf_vactive: tuple[str, ...] = f3d.xf_vactive
         iter_count: int = f3d.iter_count
-        _flam3h_iterator_is_default_name: Callable[[str, str], bool] = flam3h_iterator_utils.flam3h_iterator_is_default_name
+        _flam3h_iterator_is_default_name: Callable[[str, str], tuple[bool, tuple[str | Any, ...]]] = flam3h_iterator_utils.flam3h_iterator_is_default_name
 
         # build
         new_names: list[str] = []
@@ -20932,8 +20943,10 @@ class out_flame_utils
                 
                 if int(xf_vactive[i]):
                     
-                    if _flam3h_iterator_is_default_name((xfn := xf_name[i])) or not str(xfn).strip():
-                        new_names.append(f"iterator_{mp_idx}")
+                    xfn: str = xf_name[i]
+                    reg: tuple[bool, tuple[str | Any, ...]] = _flam3h_iterator_is_default_name(xfn)
+                    if reg[0] or not str(xfn).strip():
+                        new_names.append(f"{reg[1][1]}{f3h_char.RE_ITERATOR_NAME_BASE}{mp_idx}{reg[1][2]}")
                         
                     else:
                         new_names.append(xf_name[i])
@@ -20945,7 +20958,7 @@ class out_flame_utils
 
             return tuple(new_names)
         
-        return tuple(f"iterator_{i + 1}" if _flam3h_iterator_is_default_name((xfn := xf_name[i])) or not str(xfn).strip() else xfn for i in range(iter_count))
+        return tuple(f"{f3h_char.RE_ITERATOR_NAME_BASE}{i + 1}" if _flam3h_iterator_is_default_name((xfn := xf_name[i]))[0] or not str(xfn).strip() else xfn for i in range(iter_count))
 
 
     # CLASS: PROPERTIES
