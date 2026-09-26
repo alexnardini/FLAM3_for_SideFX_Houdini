@@ -6900,8 +6900,8 @@ class flam3h_iterator_utils
         
         _flam3h_iterator_is_default_name: Callable[[str, str], tuple[bool, tuple[str | Any, ...]]] = flam3h_iterator_utils.flam3h_iterator_is_default_name
         mp_note_name: str = flam3h_iterator_prm_names().main_note
-        for mp_idx in range(iter_count):
-            new_mp_idx: str = str(mp_idx + 1)
+        for mp_idx in range(1, iter_count + 1):
+            new_mp_idx: str = str(mp_idx)
             param_name: str = f"{mp_note_name}_{new_mp_idx}"
             param_val: str = str(node.parm(param_name).eval()).strip()
             reg: tuple[bool, tuple[str | Any, ...]] = _flam3h_iterator_is_default_name(param_val)
