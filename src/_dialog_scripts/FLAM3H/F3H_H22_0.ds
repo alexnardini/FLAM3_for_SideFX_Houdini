@@ -2061,23 +2061,23 @@
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
-                        name    "cropltrb_#"
-                        label   "l/t/r/b CROP"
-                        type    vector4
-                        size    4
-                        default { "-1" "-1" "1" "1" }
-                        help    "<br/><i>Crop</i> <u><b>L</b></u><i>eft</i>, <u><b>T</b></u><i>op</i>, <u><b>R</b></u><i>ight</i>, <u><b>B</b></u><i>ottom</i> <h2>X -> Left</h2> Sets the left boundary of the crop area. <h2>Y -> Top</h2> Sets the top boundary of the crop area. <h2>Z -> Right</h2> Sets the right boundary of the crop area. <h2>W -> Bottom</h2> Sets the bottom boundary of the crop area."
-                        hidewhen "{ p1type_# != 102 pre1type_# != 102 pre2type_# != 102 v1type_# != 102 v2type_# != 102 v3type_# != 102 v4type_# != 102 v5type_# != 102 }"
-                        range   { -1 1 }
-                        parmtag { "script_callback_language" "python" }
-                    }
-                    parm {
                         name    "cropaz_#"
                         label   "area/zero CROP"
                         type    vector2
                         size    2
                         default { "0" "0" }
                         help    "<br/><i>Crop</i> <u><b>Area</b></u>, <u><b>Zero</b></u> <h2>X -> Area</h2> Controls the amount of random repositioning inside the crop area. Higher values create a larger randomized region. <h2>Y -> Zero</h2> Controls what happens to points outside the crop area. When enabled (<i>it just need to be higher than <b>0</b>(Zero)</i>), outside points are moved to the center instead."
+                        hidewhen "{ p1type_# != 102 pre1type_# != 102 pre2type_# != 102 v1type_# != 102 v2type_# != 102 v3type_# != 102 v4type_# != 102 v5type_# != 102 }"
+                        range   { -1 1 }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
+                        name    "cropltrb_#"
+                        label   "l/t/r/b CROP"
+                        type    vector4
+                        size    4
+                        default { "-1" "-1" "1" "1" }
+                        help    "<br/><i>Crop</i> <u><b>L</b></u><i>eft</i>, <u><b>T</b></u><i>op</i>, <u><b>R</b></u><i>ight</i>, <u><b>B</b></u><i>ottom</i> <h2>X -> Left</h2> Sets the left boundary of the crop area. <h2>Y -> Top</h2> Sets the top boundary of the crop area. <h2>Z -> Right</h2> Sets the right boundary of the crop area. <h2>W -> Bottom</h2> Sets the bottom boundary of the crop area."
                         hidewhen "{ p1type_# != 102 pre1type_# != 102 pre2type_# != 102 v1type_# != 102 v2type_# != 102 v3type_# != 102 v4type_# != 102 v5type_# != 102 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2094,23 +2094,23 @@
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
-                        name    "curvexyzlenght_#"
-                        label   "lenght:xy CURVE"
-                        type    vector2
-                        size    2
-                        default { "1" "1" }
-                        help    "<br/><i>Curve</i> <u><b>Lenght X</b></u>, <u><b>Lenght Y</b></u> <h2>X -> Lenght X</h2> Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area. <h2>Y -> Lenght Y</h2> Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
-                        hidewhen "{ p1type_# != 97 pre1type_# != 97 pre2type_# != 97 v1type_# != 97 v2type_# != 97 v3type_# != 97 v4type_# != 97 v5type_# != 97 }"
-                        range   { 0 2 }
-                        parmtag { "script_callback_language" "python" }
-                    }
-                    parm {
                         name    "curvexyzamp_#"
                         label   "amp:xy CURVE"
                         type    vector2
                         size    2
                         default { "0" "0" }
                         help    "<br/><i>Curve</i> <u><b>Amplitude X</b></u>, <u><b>Amplitude Y</b></u> <h2>X -> Amplitude X</h2> Controls the strength of the horizontal bend. Higher values create a stronger curve along X. <h2>Y -> Amplitude Y</h2> Controls the strength of the vertical bend. Higher values create a stronger curve along Y."
+                        hidewhen "{ p1type_# != 97 pre1type_# != 97 pre2type_# != 97 v1type_# != 97 v2type_# != 97 v3type_# != 97 v4type_# != 97 v5type_# != 97 }"
+                        range   { 0 2 }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
+                        name    "curvexyzlenght_#"
+                        label   "lenght:xy CURVE"
+                        type    vector2
+                        size    2
+                        default { "1" "1" }
+                        help    "<br/><i>Curve</i> <u><b>Lenght X</b></u>, <u><b>Lenght Y</b></u> <h2>X -> Lenght X</h2> Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area. <h2>Y -> Lenght Y</h2> Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
                         hidewhen "{ p1type_# != 97 pre1type_# != 97 pre2type_# != 97 v1type_# != 97 v2type_# != 97 v3type_# != 97 v4type_# != 97 v5type_# != 97 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -2356,6 +2356,16 @@
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
+                        name    "popcorn2c_#"
+                        label   "c POPCORN2"
+                        type    float
+                        default { "2" }
+                        help    "<br/><i>Popcorn2</i> <u><b>C</b></u> <h2>C - Detail</h2> Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns."
+                        hidewhen "{ p1type_# != 69 pre1type_# != 69 pre2type_# != 69 v1type_# != 69 v2type_# != 69 v3type_# != 69 v4type_# != 69 v5type_# != 69 }"
+                        range   { 0 8 }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
                         name    "popcorn2xyz_#"
                         label   "xy POPCORN2"
                         type    vector2
@@ -2364,16 +2374,6 @@
                         help    "<br/><i>Popcorn2</i> <u><b>X</b></u>, <u><b>Y</b></u> <h2>X -> Horizontal</h2> Controls the strength of the effect along the X (horizontal) direction. <h2>Y -> Vertical</h2> Controls the strength of the effect along the Y (vertical) direction."
                         hidewhen "{ p1type_# != 69 pre1type_# != 69 pre2type_# != 69 v1type_# != 69 v2type_# != 69 v3type_# != 69 v4type_# != 69 v5type_# != 69 }"
                         range   { 0 1 }
-                        parmtag { "script_callback_language" "python" }
-                    }
-                    parm {
-                        name    "popcorn2c_#"
-                        label   "c POPCORN2"
-                        type    float
-                        default { "2" }
-                        help    "<br/><i>Popcorn2</i> <u><b>C</b></u> <h2>C - Detail</h2> Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns."
-                        hidewhen "{ p1type_# != 69 pre1type_# != 69 pre2type_# != 69 v1type_# != 69 v2type_# != 69 v3type_# != 69 v4type_# != 69 v5type_# != 69 }"
-                        range   { 0 8 }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
@@ -3586,23 +3586,23 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
-                    name    "ff_cropltrb"
-                    label   "l/t/r/b CROP"
-                    type    vector4
-                    size    4
-                    default { "-1" "-1" "1" "1" }
-                    help    "<br/><i>Crop</i> <u><b>L</b></u><i>eft</i>, <u><b>T</b></u><i>op</i>, <u><b>R</b></u><i>ight</i>, <u><b>B</b></u><i>ottom</i> <h2>X -> Left</h2> Sets the left boundary of the crop area. <h2>Y -> Top</h2> Sets the top boundary of the crop area. <h2>Z -> Right</h2> Sets the right boundary of the crop area. <h2>W -> Bottom</h2> Sets the bottom boundary of the crop area."
-                    hidewhen "{ ffv1type != 102 ffv2type != 102 }"
-                    range   { -1 1 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "ff_cropaz"
                     label   "area/zero CROP"
                     type    vector2
                     size    2
                     default { "0" "0" }
                     help    "<br/><i>Crop</i> <u><b>Area</b></u>, <u><b>Zero</b></u> <h2>X -> Area</h2> Controls the amount of random repositioning inside the crop area. Higher values create a larger randomized region. <h2>Y -> Zero</h2> Controls what happens to points outside the crop area. When enabled (<i>it just need to be higher than <b>0</b>(Zero)</i>), outside points are moved to the center instead."
+                    hidewhen "{ ffv1type != 102 ffv2type != 102 }"
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "ff_cropltrb"
+                    label   "l/t/r/b CROP"
+                    type    vector4
+                    size    4
+                    default { "-1" "-1" "1" "1" }
+                    help    "<br/><i>Crop</i> <u><b>L</b></u><i>eft</i>, <u><b>T</b></u><i>op</i>, <u><b>R</b></u><i>ight</i>, <u><b>B</b></u><i>ottom</i> <h2>X -> Left</h2> Sets the left boundary of the crop area. <h2>Y -> Top</h2> Sets the top boundary of the crop area. <h2>Z -> Right</h2> Sets the right boundary of the crop area. <h2>W -> Bottom</h2> Sets the bottom boundary of the crop area."
                     hidewhen "{ ffv1type != 102 ffv2type != 102 }"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
@@ -3619,23 +3619,23 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
-                    name    "ff_curvexyzlenght"
-                    label   "lenght:xy CURVE"
-                    type    vector2
-                    size    2
-                    default { "1" "1" }
-                    help    "<br/><i>Curve</i> <u><b>Lenght X</b></u>, <u><b>Lenght Y</b></u> <h2>X -> Lenght X</h2> Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area. <h2>Y -> Lenght Y</h2> Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
-                    hidewhen "{ ffv1type != 97 ffv2type != 97 }"
-                    range   { 0 2 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "ff_curvexyzamp"
                     label   "amp:xy CURVE"
                     type    vector2
                     size    2
                     default { "0" "0" }
                     help    "<br/><i>Curve</i> <u><b>Amplitude X</b></u>, <u><b>Amplitude Y</b></u> <h2>X -> Amplitude X</h2> Controls the strength of the horizontal bend. Higher values create a stronger curve along X. <h2>Y -> Amplitude Y</h2> Controls the strength of the vertical bend. Higher values create a stronger curve along Y."
+                    hidewhen "{ ffv1type != 97 ffv2type != 97 }"
+                    range   { 0 2 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "ff_curvexyzlenght"
+                    label   "lenght:xy CURVE"
+                    type    vector2
+                    size    2
+                    default { "1" "1" }
+                    help    "<br/><i>Curve</i> <u><b>Lenght X</b></u>, <u><b>Lenght Y</b></u> <h2>X -> Lenght X</h2> Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area. <h2>Y -> Lenght Y</h2> Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
                     hidewhen "{ ffv1type != 97 ffv2type != 97 }"
                     range   { 0 2 }
                     parmtag { "script_callback_language" "python" }
@@ -3881,6 +3881,16 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
+                    name    "ff_popcorn2c"
+                    label   "c POPCORN2"
+                    type    float
+                    default { "2" }
+                    help    "<br/><i>Popcorn2</i> <u><b>C</b></u> <h2>C - Detail</h2> Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns."
+                    hidewhen "{ ffv1type != 69 ffv2type != 69 }"
+                    range   { 0 8 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
                     name    "ff_popcorn2xyz"
                     label   "xy POPCORN2"
                     type    vector2
@@ -3889,16 +3899,6 @@
                     help    "<br/><i>Popcorn2</i> <u><b>X</b></u>, <u><b>Y</b></u> <h2>X -> Horizontal</h2> Controls the strength of the effect along the X (horizontal) direction. <h2>Y -> Vertical</h2> Controls the strength of the effect along the Y (vertical) direction."
                     hidewhen "{ ffv1type != 69 ffv2type != 69 }"
                     range   { 0 1 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
-                    name    "ff_popcorn2c"
-                    label   "c POPCORN2"
-                    type    float
-                    default { "2" }
-                    help    "<br/><i>Popcorn2</i> <u><b>C</b></u> <h2>C - Detail</h2> Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns."
-                    hidewhen "{ ffv1type != 69 ffv2type != 69 }"
-                    range   { 0 8 }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -4187,23 +4187,23 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
-                    name    "fp1_cropltrb"
-                    label   "l/t/r/b CROP"
-                    type    vector4
-                    size    4
-                    default { "-1" "-1" "1" "1" }
-                    help    "<br/><i>Crop</i> <u><b>L</b></u><i>eft</i>, <u><b>T</b></u><i>op</i>, <u><b>R</b></u><i>ight</i>, <u><b>B</b></u><i>ottom</i> <h2>X -> Left</h2> Sets the left boundary of the crop area. <h2>Y -> Top</h2> Sets the top boundary of the crop area. <h2>Z -> Right</h2> Sets the right boundary of the crop area. <h2>W -> Bottom</h2> Sets the bottom boundary of the crop area."
-                    hidewhen "{ ffpre1type != 102 ffp1type != 102 ffp2type != 102 }"
-                    range   { -1 1 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "fp1_cropaz"
                     label   "area/zero CROP"
                     type    vector2
                     size    2
                     default { "0" "0" }
                     help    "<br/><i>Crop</i> <u><b>Area</b></u>, <u><b>Zero</b></u> <h2>X -> Area</h2> Controls the amount of random repositioning inside the crop area. Higher values create a larger randomized region. <h2>Y -> Zero</h2> Controls what happens to points outside the crop area. When enabled (<i>it just need to be higher than <b>0</b>(Zero)</i>), outside points are moved to the center instead."
+                    hidewhen "{ ffpre1type != 102 ffp1type != 102 ffp2type != 102 }"
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "fp1_cropltrb"
+                    label   "l/t/r/b CROP"
+                    type    vector4
+                    size    4
+                    default { "-1" "-1" "1" "1" }
+                    help    "<br/><i>Crop</i> <u><b>L</b></u><i>eft</i>, <u><b>T</b></u><i>op</i>, <u><b>R</b></u><i>ight</i>, <u><b>B</b></u><i>ottom</i> <h2>X -> Left</h2> Sets the left boundary of the crop area. <h2>Y -> Top</h2> Sets the top boundary of the crop area. <h2>Z -> Right</h2> Sets the right boundary of the crop area. <h2>W -> Bottom</h2> Sets the bottom boundary of the crop area."
                     hidewhen "{ ffpre1type != 102 ffp1type != 102 ffp2type != 102 }"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
@@ -4220,23 +4220,23 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
-                    name    "fp1_curvexyzlenght"
-                    label   "lenght:xy CURVE"
-                    type    vector2
-                    size    2
-                    default { "1" "1" }
-                    help    "<br/><i>Curve</i> <u><b>Lenght X</b></u>, <u><b>Lenght Y</b></u> <h2>X -> Lenght X</h2> Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area. <h2>Y -> Lenght Y</h2> Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
-                    hidewhen "{ ffpre1type != 97 ffp1type != 97 ffp2type != 97 }"
-                    range   { 0 2 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "fp1_curvexyzamp"
                     label   "amp:xy CURVE"
                     type    vector2
                     size    2
                     default { "0" "0" }
                     help    "<br/><i>Curve</i> <u><b>Amplitude X</b></u>, <u><b>Amplitude Y</b></u> <h2>X -> Amplitude X</h2> Controls the strength of the horizontal bend. Higher values create a stronger curve along X. <h2>Y -> Amplitude Y</h2> Controls the strength of the vertical bend. Higher values create a stronger curve along Y."
+                    hidewhen "{ ffpre1type != 97 ffp1type != 97 ffp2type != 97 }"
+                    range   { 0 2 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "fp1_curvexyzlenght"
+                    label   "lenght:xy CURVE"
+                    type    vector2
+                    size    2
+                    default { "1" "1" }
+                    help    "<br/><i>Curve</i> <u><b>Lenght X</b></u>, <u><b>Lenght Y</b></u> <h2>X -> Lenght X</h2> Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area. <h2>Y -> Lenght Y</h2> Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
                     hidewhen "{ ffpre1type != 97 ffp1type != 97 ffp2type != 97 }"
                     range   { 0 2 }
                     parmtag { "script_callback_language" "python" }
@@ -4482,6 +4482,16 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
+                    name    "fp1_popcorn2c"
+                    label   "c POPCORN2"
+                    type    float
+                    default { "2" }
+                    help    "<br/><i>Popcorn2</i> <u><b>C</b></u> <h2>C - Detail</h2> Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns."
+                    hidewhen "{ ffpre1type != 69 ffp1type != 69 ffp2type != 69 }"
+                    range   { 0 8 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
                     name    "fp1_popcorn2xyz"
                     label   "xy POPCORN2"
                     type    vector2
@@ -4490,16 +4500,6 @@
                     help    "<br/><i>Popcorn2</i> <u><b>X</b></u>, <u><b>Y</b></u> <h2>X -> Horizontal</h2> Controls the strength of the effect along the X (horizontal) direction. <h2>Y -> Vertical</h2> Controls the strength of the effect along the Y (vertical) direction."
                     hidewhen "{ ffpre1type != 69 ffp1type != 69 ffp2type != 69 }"
                     range   { 0 1 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
-                    name    "fp1_popcorn2c"
-                    label   "c POPCORN2"
-                    type    float
-                    default { "2" }
-                    help    "<br/><i>Popcorn2</i> <u><b>C</b></u> <h2>C - Detail</h2> Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns."
-                    hidewhen "{ ffpre1type != 69 ffp1type != 69 ffp2type != 69 }"
-                    range   { 0 8 }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -5281,7 +5281,7 @@
                 label   "SENSOR"
                 type    button
                 default { "0" }
-                help    "<br/>[<b>LMB</b>] to copy only the loaded Flame preset <b>SENSOR</b> settings intos the OUT Sensor settings.<br/><br/><b>NOTE</b>:<br/>All the render properties of a Flame preset loaded from the Clipboard will be automatically copied into the OUT render properties on load (<i><b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b> settings</i>)."
+                help    "<h3>Loaded Flame preset <b>SENSOR</b> settings</h3>[<b>LMB</b>] to copy only the loaded Flame preset <b>SENSOR</b> settings intos the OUT Sensor settings.<br/><br/><b>NOTE</b>:<br/>All the render properties of a Flame preset loaded from the Clipboard will be automatically copied into the OUT render properties on load (<i><b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b> settings</i>)."
                 disablewhen "{ inisvalidpreset == 0 }"
                 hidewhen "{ inisvalidpreset == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg" }
@@ -5301,7 +5301,7 @@
                 label   "RENDER"
                 type    button
                 default { "0" }
-                help    "<br/>[<b>LMB</b>] to copy only the loaded Flame preset <b>RENDER</b> and <b>CC CURVES</b> settings intos the OUT Renderer serttings.<br/><br/><b>NOTE</b>:<br/>All the render properties of a Flame preset loaded from the Clipboard will be automatically copied into the OUT render properties on load (<i><b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b> settings</i>)."
+                help    "<h3>Loaded Flame preset <b>RENDER</b> and <b>CC CURVES</b> settings</h3>[<b>LMB</b>] to copy only the loaded Flame preset <b>RENDER</b> and <b>CC CURVES</b> settings intos the OUT Renderer serttings.<br/><br/><b>NOTE</b>:<br/>All the render properties of a Flame preset loaded from the Clipboard will be automatically copied into the OUT render properties on load (<i><b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b> settings</i>)."
                 disablewhen "{ inisvalidpreset == 0 }"
                 hidewhen "{ inisvalidpreset == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg" }
