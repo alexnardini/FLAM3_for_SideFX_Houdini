@@ -6,6 +6,13 @@ You need to copy those files inside: `$HOME/houdini‹X›.‹Y›/otls/` (where
 
 * _The OTLs are entirely self contained, and do not need any package or external files to function_.
 
+<br/>
+
+---
+<u>**FLAM3H™ and FLAM3H™USD HDAs UI have been built for the new Houdini 22 UI Skin**</br>
+**and not for the deprectad old UI**.</u>
+
+---
 
 <br/>
 <br/>
