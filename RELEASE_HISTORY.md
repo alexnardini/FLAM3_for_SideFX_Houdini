@@ -43,9 +43,9 @@ They are all available in this Github repository.
 <br>
 <br>
 
-## [<ins>v2.0.70 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.70)  ##
+## [<ins>v2.0.71 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.71)  ##
 
-#### FLAM3H™ v2.0.70 indie -> H22.0 UP</br>FLAM3H™ v2.0.57 indie -> H21.0</br>FLAM3H™ v2.0.50 indie -> H20.5</br>FLAM3H™ v1.9.87 indie -> H19.0 to H20 ####
+#### FLAM3H™ v2.0.71 indie -> H22.0 UP</br>FLAM3H™ v2.0.57 indie -> H21.0</br>FLAM3H™ v2.0.50 indie -> H20.5</br>FLAM3H™ v1.9.87 indie -> H19.0 to H20 ####
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
@@ -59,8 +59,9 @@ _This update require a restart of Houdini to fully pickup the changes_.
    - **Fix**: Small numerical improvement in the **CROP** variation when the **Zero** parameter is **On**/_Active_.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
    </br>_Worth a mention_:
-   - **Fix**: Cvex context functions names now matches their respective file names.
+   - **Fix H22 UP Only**: Improved internals networks custom parameters and icons tooltips.
    - **Fix**: Better primitive path name for the camera sensor packed geometry.
+   - **Fix**: Cvex context functions names now matches their respective file names so that they can be compiled in batch easily.
    - **Fix**: The camera sensor was failing to pack a fractal Flame geometry with a very large(_huge_) bounding box. It is now fixed.
    - **Fix**: Smarter handling of the iterators names' rename method when they are added or removed or when saving a Flame with inactive in-between iterators.
 
