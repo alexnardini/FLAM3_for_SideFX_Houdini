@@ -8057,6 +8057,8 @@ class flam3h_iterator_utils
 
         # Reset to no-scale value (1 being 100%)
         # scl_prm.set(1) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        
+        # since H22
         scl_prm.revertToDefaults()
         scl_prm.setRangeToDefault()
         
@@ -8093,6 +8095,8 @@ class flam3h_iterator_utils
 
         # Reset to no-scale value (1 being 100%)
         # scl_prm.set(1) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        
+        # since H22
         scl_prm.revertToDefaults()
         scl_prm.setRangeToDefault()
         
@@ -8125,6 +8129,8 @@ class flam3h_iterator_utils
 
         # Reset to no-scale value (1 being 100%)
         # scl_prm.set(1) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        
+        # since H22
         scl_prm.revertToDefaults()
         scl_prm.setRangeToDefault()
         
@@ -8157,6 +8163,8 @@ class flam3h_iterator_utils
         
         # Reset to no-scale value (1 being 100%)
         # scl_prm.set(1) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        
+        # since H22
         scl_prm.revertToDefaults()
         scl_prm.setRangeToDefault()
 
