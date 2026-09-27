@@ -6091,7 +6091,7 @@
                     label   "density"
                     type    integer
                     default { "500000" }
-                    help    "<h3>Set a custom density value for the fractal Flame</h3>If the global tab's density menu entries do not have whant you need, you can set a custom density value using this parameter.<br/><br/><b>NOTE</b>:<br/>This is the only place where you are allowed to animate the density value."
+                    help    "<h3>Set a custom density value for the fractal Flame</h3>If the global tab's density menu entries do not have whant you need, you can set a custom density value using this parameter.<br/><br/><i>Density in FLAM3H™ stands for -> <u>number of points (_samples_) to use.</u></i><br/><br/><b>NOTE</b>:<br/>This is the only place where you are allowed to animate the density value."
                     hidewhen "{ flamefunc == 0 }"
                     range   { 1! 1e+06 }
                     parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density_set_default()" }
