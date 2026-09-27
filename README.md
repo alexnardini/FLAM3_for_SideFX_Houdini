@@ -454,4 +454,4 @@ Reference H: [**WEB :: mwc64x is a 32-bit generator for 32-bit floating-point nu
 
 ## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Copyrights
 
-_All images and logos copyright (c) 2021 F stands for liFe (and their other respective owners)._
+_Copyright (c) 2021 F stands for liFe_<br/>
