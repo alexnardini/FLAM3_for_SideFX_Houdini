@@ -359,8 +359,7 @@ def flam3h_compile_first_time_msg() -> None:
     now: str = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
     
     h: int = nodetype.hdaModule().houdini_version(2)
-    if h < 205: __module_version__: str = "3.7"
-    else: __module_version__: str = "3.11"
+    __module_version__: str = '.'.join((nodetype.hdaModule().flam3.__py_version__.split('.'))[:2])
     
     try:
         hou.session.F3H_FIRST_INSTANCE_32BIT # type: ignore
