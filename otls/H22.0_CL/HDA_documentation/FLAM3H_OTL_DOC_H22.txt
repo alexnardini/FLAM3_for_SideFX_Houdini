@@ -4850,6 +4850,21 @@ _Documentation for each of them is also provided_.
     It makes real-time fractal flame editing in Houdini possible<br />
     by running billions of iterations per second on AMD and Nvidia GPUs.<br />
 
+    At its current stage, the GPU implementation is intentionally general-purpose.<br />
+    It lets you explore different combinations of variations and settings<br />
+    without needing to compile a new kernel every time something changes.<br />
+    
+    Since it runs directly inside Houdini,<br />
+    keeping this level of interactivity was an important part of the design.<br />
+    You can experiment, tweak things, and follow an idea as it develops<br />
+    without constantly stopping to wait for a new kernel to compile.<br />
+    The goal is to keep the process fluid and preserve that state of flow while exploring.
+
+    The entire data and memory layout has also been designed from the ground up around this approach,<br />
+    with the goal of making the most of the GPU and squeezing every bit of performance possible out of the hardware.
+
+    <br />
+
     Compared to Cvex, OpenCL development adds a few layers of complexity.<br />
 
     Beside being really fast on GPU,<br />
