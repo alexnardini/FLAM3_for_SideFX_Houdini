@@ -96,7 +96,7 @@ they can be fed into a pipeline like any other piece of data.
 FLAM3H™ is a high performance implementation of the fractal Flame algorithm
 fully developed within the SideFX Houdini environment, no HDK.
 
-- **Supported devices**<br>It run on GPU as well on CPU.<br>
+- **Supported devices**<br>It run on GPU(_OpenCL_) as well on CPU(_Cvex_).<br>
 
 - **GPU availability**<br>GPU mode is only available with FLAM3H™ for H20.5 and up.
 
@@ -105,7 +105,7 @@ It makes real-time fractal Flame editing in Houdini possible by running billions
 At its current stage, the GPU implementation is intentionally general-purpose.<br>
 It lets you explore different combinations of variations and settings<br>
 without needing to compile a new kernel every time something changes.<br><br>
-Since it runs directly inside Houdini,<br>
+Since it runs directly inside SideFX Houdini,<br>
 keeping this level of interactivity was an important part of the design.<br>
 You can experiment, tweak things, and follow an idea as it develops<br>
 without constantly stopping to wait for a new kernel to compile.<br>
