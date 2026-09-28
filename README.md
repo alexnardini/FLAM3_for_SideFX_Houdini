@@ -409,10 +409,12 @@ Iterations needed in FLAM3H™ to resolve: **6**
 `Knot Clusters - Author: Alessandro Nardini`
 ![Chaotica to FLAM3HOUDINI 04](./img/FLAM3H_knotCluster_HQ_iter_6.jpg)
 
-I could add a lot more functionalities, but this project consumed me for a very long time.
-Every aspect of this algorithm, once understood, looks simple on the surface, but they all present challenges on their own. It has been quite a crazy ride to pack everything into this implementation.
+I could add a lot more functionalities, but this project consumed me for a very long time ( _years_ ).</br>
+Every aspect of this algorithm, once understood, looks simple on its own. </br>
+But the simplicity of the individual pieces is almost deceptive: once they are put together, their interactions turn them into a much more complex system-level problem. 
+It has been quite a crazy ride to pack everything into this implementation.
 
-It is time to park this project for a little bit, but I really, really loved the long journey on this topic, and I will now forever love fractal Flames as a whole, they are awesome  ( and addictive )!
+It is time to park this project for a little bit, but I really, really loved the long journey on this topic, and I will now forever love fractal Flames as a whole, they are awesome  ( _and addictive_ )!
 
 <br/>
 
