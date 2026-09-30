@@ -201,7 +201,7 @@ Although Cvex it's not a real-time thing, it will still be a lot of fun if you h
 <br/>
 
 You can review the FinalXForm(**_FF_**) kernel metrics at the link below:<br/>
-* <img width="24" height="24" src="./icons/icon_tag_oclSVG.svg" /> [**cl_flam3_ff** ( _finalXform_ ) OpenCL Hardware Performance Profile](./src/cl/#opencl-hardware-performance-profile-cl-flam3-ff)
+* <img width="24" height="24" src="./icons/icon_tag_oclSVG.svg" /> [**cl_flam3_ff** ( _finalXform_ ) OpenCL Hardware Performance Profile](./src/cl/README.md#opencl-hardware-performance-profile-cl-flam3-ff)
 
 <br/>
 <br/>
