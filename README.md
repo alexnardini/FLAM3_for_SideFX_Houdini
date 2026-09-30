@@ -30,9 +30,13 @@ _(*)_ _Indicate the version allowed to run on future Houdini releases._
 
 `The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer. Originally rendered at 7k resolution.`
 
+<br/>
+<br/>
+
 ## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> FLAM3 for SideFX Houdini - aka: FLAM3H™
 **_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
 
+<br/>
 <br/>
 
 <p align="center">
@@ -93,12 +97,14 @@ they can be fed into a pipeline like any other piece of data.
 `FLAM3H™ node OTL documentation`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_OTL_documentation.jpg)
 
+<br/>
+
 FLAM3H™ is a high performance implementation of the fractal Flame algorithm
 fully developed within the SideFX Houdini environment, no HDK.
 
-- **Supported devices**<br>It run on GPU(_OpenCL_) as well on CPU(_Cvex_).<br>
+- **Supported devices**<br>It run on GPU(_OpenCL_) as well on CPU(_Cvex_).<br><br>
 
-- **GPU availability**<br>GPU mode is only available with FLAM3H™ for H20.5 and up.
+- **GPU availability**<br>GPU mode is only available with FLAM3H™ for H20.5 and up.<br><br>
 
 - **GPU OpenCL**<br>OpenCL (_-cl-std=CL1.2_) has been used to implement the algorithm so it can fully run on the system GPU device.<br>
 It makes real-time fractal Flame editing in Houdini possible by running billions of iterations per second on AMD and Nvidia GPUs.<br><br>
@@ -111,33 +117,30 @@ You can experiment, tweak things, and follow an idea as it develops<br>
 without constantly stopping to wait for a new kernel to compile.<br>
 The goal is to keep the process fluid and preserve that state of flow while exploring.<br><br>
 The entire data and memory layout has also been designed from the ground up around this approach,<br>
-with the goal of making the most of the GPU and squeezing every bit of performance possible out of the hardware.
+with the goal of making the most of the GPU and squeezing every bit of performance possible out of the hardware.<br><br>
 
-- **GPU performance**<br>Depending on the GPU device being used in the system, the FLAM3H™ GPU mode (_the default in H20.5 and up_) can be hundreds of times quicker than the CPU (_Cvex_) mode. Tests using an Nvidia RTX 4090 device show throughput ranging from ~40 to ~140 billion iterations per second, which practically enables the creation of high-quality point clouds with hundreds of millions of points in seconds as well as real-time fractal Flame editing within Houdini. A range of Flame settings were tested across 500 million points at 1024 (_the GPU mode iterations default_) and 2048 iterations, respectively.<br><br>_Simpler Flames like the Sierpiński triangle which features 3 xforms, weighted probability xform selection, color accumulation and output for position, color ramp lookup value, Alpha and point scale reached ~176 billions iterations per second with a 1 billions points cloud at 4096 iterations each on the same Nvidia RTX 4090 GPU device._
+- **GPU performance**<br>Depending on the GPU device being used in the system, the FLAM3H™ GPU mode (_the default in H20.5 and up_) can be hundreds of times quicker than the CPU (_Cvex_) mode. Tests using an Nvidia RTX 4090 device show throughput ranging from ~40 to ~140 billion iterations per second, which practically enables the creation of high-quality point clouds with hundreds of millions of points in seconds as well as real-time fractal Flame editing within Houdini. A range of Flame settings were tested across 500 million points at 1024 (_the GPU mode iterations default_) and 2048 iterations, respectively.<br><br>_Simpler Flames like the Sierpiński triangle which features 3 xforms, weighted probability xform selection, color accumulation and output for position, color ramp lookup value, Alpha and point scale reached ~176 billions iterations per second with a 1 billions points cloud at 4096 iterations each on the same Nvidia RTX 4090 GPU device._<br><br>
 
 - **CPU**<br>CPU mode uses Houdini's Cvex (_Callable vector expression language_).<br>
-Although Cvex it's not a real-time thing, it will still be a lot of fun if you have a powerful CPU (_two powerful CPUs are even better_).
+Although Cvex it's not a real-time thing, it will still be a lot of fun if you have a powerful CPU (_two powerful CPUs are even better_).<br><br>
 
-<br>
-<br>
+- **Additionally**<br>
 
-_Additionally_:
+  - The code went up and down and finally settled on the most minimalistic version in favor of performance.
 
-- The code went up and down and finally settled on the most minimalistic version in favor of performance.
+  - Part of the work is done inside the HDA in the Houdini environment
+  like attribute binding, UI building, parameter creations, their visibility conditions, the final compile and much more.
 
-- Part of the work is done inside the HDA in the Houdini environment
-like attribute binding, UI building, parameter creations, their visibility conditions, the final compile and much more.
+  - Python has been used to enhance the user experience and add functionalities like:
+    - copy/paste iterator data
+    - load/save palette's libraries
+    - load/save Flame's file format
+    - responses/automations to user actions
+    - and much more...
 
-- Python has been used to enhance the user experience and add functionalities like:
-  - copy/paste iterator data
-  - load/save palette's libraries
-  - load/save Flame's file format
-  - responses/automations to user actions
-  - and much more...
-
-- FLAM3H™ generates a live point cloud of the fractal Flame being worked on, which is the actual render.
-From there to the final image, it is left to the users (_aka points rendering_).
-With Houdini integrated Karma renderer, you will be able to render the generated fractal Flames in nearly real time.
+  - FLAM3H™ generates a live point cloud of the fractal Flame being worked on, which is the actual render.
+  From there to the final image, it is left to the users (_aka points rendering_).
+  With Houdini integrated Karma renderer, you will be able to render the generated fractal Flames in nearly real time.
 
 <br/>
 <br/>
@@ -147,7 +150,7 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 <a id="opencl-hardware-performance-profile"></a>
 # <img width="48" height="48" src="./icons/icon_tag_oclSVG.svg" /> OpenCL Hardware Performance Profile
 
-**FLAM3H™ OpenCL Kernel:** [**`cl_flam3`**](./src/cl/README.md)  
+**FLAM3H™ OpenCL Kernel:** [**`cl_flam3`**](./src/cl/)  
 **Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
 **Tested On:** NVIDIA GeForce RTX 4090  
 **NVIDIA Driver Version:** 580.97  
@@ -161,7 +164,7 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 
 <br>
 
-## <img width="24" height="24" src="./icons/icon_tag_oclSVG.svg" /> Summary of PTXAS Compiler Report
+## <img width="24" height="24" src="./icons/icon_optionOCLSVG.svg" /> Summary of PTXAS Compiler Report
 
 | Hardware Resource | Metric Value | Description |
 | :--- | :--- | :--- |
@@ -178,7 +181,7 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 
 <br>
 
-## <img width="24" height="24" src="./icons/icon_tag_oclSVG.svg" /> Summary of SASS Hardware Metrics
+## <img width="24" height="24" src="./icons/icon_optionOCLSVG.svg" /> Summary of SASS Hardware Metrics
 
 | Instruction Class | Hardware Functions | Assembly Count | Description |
 | :--- | :--- | :--- | :--- |
@@ -196,6 +199,12 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 
 <br/>
 <br/>
+
+You can review the FinalXForm(**_FF_**) kernel metrics at the link below:<br/>
+* <img width="24" height="24" src="./icons/icon_tag_oclSVG.svg" /> [**cl_flam3_ff** ( _finalXform_ ) OpenCL Hardware Performance Profile](./src/cl/#opencl-hardware-performance-profile-cl-flam3-ff)
+
+<br/>
+<br/>
 <br/>
 <br/>
 
@@ -203,25 +212,26 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 
 From FLAM3H™ [<ins>v1.8.98</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98),<br/>
 a new custom materialX Shader has been introduced to the FLAM3H™USD HDA to allow proper points color values accumulation. It will perfectly match what third-party implementations refer to as:<br/>
-_"build a buffer with the histogram or summation/accumulation of every point in every pixel"_.
+* _"build a buffer with the histogram or summation/accumulation of every point in every pixel"_
 
 This custom shader will match the visual quality of the fractal Flames rendered with Apophysis, Fractorium and others.
 Fully available only with FLAM3H™USD HDA versions for Houdini H20.5 and up.
 
 <br/>
 
-`Karma interactive.`<br/>
+`Karma interactive`<br/>
 `Sphere Sugar Dragon - Author: Pillemaster`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_00_Karma.jpg)
 
-`Karma interactive.`<br/>
+`Karma interactive`<br/>
 `Worlds - Author: Alessandro Nardini`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_01_Karma.jpg)
 
-`Karma interactive.`<br/>
+`Karma interactive`<br/>
 `Its Pink - Author: Plangkye`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_02_Karma.jpg)
 
+<br/>
 <br/>
 
 ##  <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Highly inspired by Apophysis and its workflow design
@@ -241,12 +251,13 @@ Or you can use Apophysis or Fractorium to author your Flames first and load them
 **Download Fractorium here**: [**Fractorium download**](http://fractorium.com/)
 
 <br/>
+<br/>
 
 ## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Viewport live point cloud
 
 FLAM3H™ generate a live point cloud of the fractal Flame you are working on.
 
-Following are some screenshots showing it for a few different Flame presets.
+* _Following are some screenshots showing it for a few different Flame presets_.
 
 </br>
 
@@ -257,6 +268,7 @@ Following are some screenshots showing it for a few different Flame presets.
 `Crystal Eggs - Author: Alessandro Nardini`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H19.jpg)
 
+<br/>
 <br/>
 
 ## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Camera sensor
@@ -269,10 +281,14 @@ The FLAM3H™ camera sensor will precisely display the image framing.
 
 Once framed, you can save the Flame and be sure it will be framed the same in all other applications.
 
-![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
-![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
-`Camera sensor: FLAM3H™ to Fractorium`
+</br>
 
+`Camera sensor: FLAM3H™ to Fractorium`
+![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
+`Camera sensor: FLAM3H™ to Fractorium`
+![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
+
+<br/>
 <br/>
 
 ## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Load Flames files authored with Apophysis, Fractorium, etc.
@@ -293,6 +309,7 @@ FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the sa
 ![Fractorium to FLAM3HOUDINI 03](./img/FractoriumToFLAM3HOUDINI_00.jpg)
 
 <br/>
+<br/>
 
 ## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> List of all available variations/plugins
 
@@ -302,6 +319,7 @@ _`Arch` `Auger` `Bent` `Bent2` `Bipolar` `Blade` `Blob` `Blur` `Boarders` `Bubbl
 
 _They are 106, if you were wondering..._
 
+<br/>
 <br/>
 
 ## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> User experience
@@ -325,6 +343,7 @@ FLAM3H™ comes with a straightforward utility LOP node call **FLAM3H™USD** to
 
 To finish, FLAM3H™ features a detailed documentation that is designed to provide you with all the informations you would need. This also extend to generous tooltips for each parameter in the FLAM3H™ Houdini user interface.
 
+<br/>
 <br/>
 
 ## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Considerations
@@ -360,14 +379,17 @@ Some require thousands of iterations to show you the proper results; some of the
 </br>
 </br>
 
-_The following screenshots show FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right_.
+* _The following screenshots show FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right_.
+
+* _They were all computed using the CPU mode because, at the time, the GPU mode was not yet ready. Therefore, the number of iterations listed below represents the minimum number required to compute the Flame properly_.
 
 <br/>
 
 ### Lets start with this gnarl preset:
 
-Iterations needed in FLAM3H™ to resolve: **1280**
+<br/>
 
+_Iterations needed in FLAM3H™ to resolve_: **1280**</br>
 `Ieddaka Gnarl. Author: zuek`
 ![Chaotica to FLAM3HOUDINI 00](./img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
@@ -375,9 +397,9 @@ Iterations needed in FLAM3H™ to resolve: **1280**
 
 ### The next two are a bit more speedy:
 
-Iterations needed in FLAM3H™ to resolve: **512**
-( potentially a bit less are needed for those but just in case. )
+<br/>
 
+_Iterations needed in FLAM3H™ to resolve_: **512**</br>
 `Blue Modulus. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 01](./img/ChaoticaToFLAM3HOUDINI_01.jpg)
 
@@ -388,8 +410,9 @@ Iterations needed in FLAM3H™ to resolve: **512**
 
 ### This one is quick and beautiful:
 
-Iterations needed in FLAM3H™ to resolve: **64**
+<br/>
 
+_Iterations needed in FLAM3H™ to resolve_: **64**</br>
 `Majestic. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 03](./img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
@@ -397,27 +420,39 @@ Iterations needed in FLAM3H™ to resolve: **64**
 
 ### And the last one:
 
-Iterations needed in FLAM3H™ to resolve: **32**
+<br/>
 
+_Iterations needed in FLAM3H™ to resolve_: **32**</br>
 `Blurry Splits. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 04](./img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
+</br>
+
 The following is another preset Chaotica software ship with I truly loved ported inside FLAM3H™ and rendered with Karma renderer.
 
-Iterations needed in FLAM3H™ to resolve: **64**
+<br/>
 
+_Iterations needed in FLAM3H™ to resolve_: **64**</br>
 `Golden Dragon - Author: meckie`
 ![goldenDragon_RENDER_2K_portrait](https://user-images.githubusercontent.com/42110232/237032379-56571708-d00a-4b93-ab2b-ea773700dce5.jpg)
+
+<br/>
 
 You'll find other scenarios where your iterations number will need to rise up,
 especially when relying heavily on containers and such.
 
 However, from all my tests, between 10 and 96 iterations will get you covered for almost all your needs. And don't forget, you can create some beautiful fractal Flames with just six iterations. Here is one I did:
 
-Iterations needed in FLAM3H™ to resolve: **6**
+<br/>
 
+_Iterations needed in FLAM3H™ to resolve_: **6**</br>
 `Knot Clusters - Author: Alessandro Nardini`
 ![Chaotica to FLAM3HOUDINI 04](./img/FLAM3H_knotCluster_HQ_iter_6.jpg)
+
+<br/>
+<br/>
+
+## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Final thoughts
 
 I could add a lot more functionalities, but this project consumed me for a very long time ( _years_ ).</br>
 Every aspect of this algorithm, once understood, looks simple on its own. </br>
@@ -426,6 +461,7 @@ It has been quite a crazy ride to pack everything into this implementation.
 
 It is time to park this project for a little bit, but I really, really loved the long journey on this topic, and I will now forever love fractal Flames as a whole, they are awesome  ( _and addictive_ )!
 
+<br/>
 <br/>
 
 ## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Example Flame files
@@ -441,6 +477,7 @@ Please be sure to check out their gallery:
 [TyranWave](https://www.deviantart.com/tyrantwave/gallery), 
 [Zy0rg](https://www.deviantart.com/zy0rg/gallery)
 
+<br/>
 <br/>
 
 ## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> References

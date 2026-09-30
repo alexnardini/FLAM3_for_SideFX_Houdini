@@ -42,10 +42,20 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 <br/>
 
 # OpenCL Hardware Performance Profile
+Following are OpenCL hardware performance profiles for both FLAM3H™ kernels.<br/>
+Those kernels will compile once on their first cook, and never anymore.
+
+* **cl_flam3** (_the Chaos Game_)
+* **cl_flam3_ff** (_the FinalXForm_)
+
 
 <br/>
 <br/>
+<br/>
+<br/>
+<br/>
 
+<a id="opencl-hardware-performance-profile-cl-flam3"></a>
 ## <img width="48" height="48" src="../../icons/icon_tag_oclSVG.svg" /> OpenCL Kernel: <u>**cl_flam3**</u> 
 
 **Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
@@ -61,7 +71,7 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 
 <br>
 
-## <img width="24" height="24" src="../../icons/icon_tag_oclSVG.svg" /> Summary of PTXAS Compiler Report
+## <img width="24" height="24" src="../../icons/icon_optionOCLSVG.svg" /> Summary of PTXAS Compiler Report
 
 | Hardware Resource | Metric Value | Description |
 | :--- | :--- | :--- |
@@ -78,7 +88,7 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 
 <br>
 
-## <img width="24" height="24" src="../../icons/icon_tag_oclSVG.svg" /> Summary of SASS Hardware Metrics
+## <img width="24" height="24" src="../../icons/icon_optionOCLSVG.svg" /> Summary of SASS Hardware Metrics
 
 | Instruction Class | Hardware Functions | Assembly Count | Description |
 | :--- | :--- | :--- | :--- |
@@ -98,7 +108,9 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 <br/>
 <br/>
 <br/>
+<br/>
 
+<a id="opencl-hardware-performance-profile-cl-flam3-ff"></a>
 ## <img width="48" height="48" src="../../icons/icon_tag_oclSVG.svg" /> OpenCL Kernel: <u>**cl_flam3_ff**</u>
 
 **Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
@@ -114,7 +126,7 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 
 <br>
 
-## <img width="24" height="24" src="../../icons/icon_tag_oclSVG.svg" /> Summary of PTXAS Compiler Report
+## <img width="24" height="24" src="../../icons/icon_optionOCLSVG.svg" /> Summary of PTXAS Compiler Report
 
 | Hardware Resource | Metric Value | Description |
 | :--- | :--- | :--- |
@@ -131,7 +143,7 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 
 <br>
 
-## <img width="24" height="24" src="../../icons/icon_tag_oclSVG.svg" /> Summary of SASS Hardware Metrics
+## <img width="24" height="24" src="../../icons/icon_optionOCLSVG.svg" /> Summary of SASS Hardware Metrics
 
 | Instruction Class | Hardware Functions | Assembly Count | Description |
 | :--- | :--- | :--- | :--- |
