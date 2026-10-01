@@ -1,9 +1,12 @@
 # FLAM3H™
 
+</br>
 
 <p align="center">
   <img width="160" height="160" src="./img/LOGO_F_github.svg" />
 </p>
+
+</br>
 
 ## Web
 
