@@ -6071,7 +6071,7 @@
                     label   "mode"
                     type    ordinal
                     default { "0" }
-                    help    "<h3>Set the XAOS mode to use</h3>Once changed, FLAM3H™ will reset all iterators' xaos weights to reflect the new mode.<br/><br/>When saving out Flame files, <b>xaos FROM</b> mode will internally be converted into xaos TO on save and reloaded as <b>xaos TO</b>.<h2>xaos TO (<i>default</i>)</h2>Specifies how likely an iterator/xform is to be chosen based on the previous iterator/xform that was chosen.<h2>xaos FROM</h2>Specifies the probability modifier of the next chosen iterator/xform based on the currently chosen one."
+                    help    "<h3>Set the XAOS mode to use</h3>Once changed, FLAM3H™ will reset all iterators' xaos weights to reflect the new mode.<br/><br/>When saving out Flame files, <b>xaos FROM</b> mode will internally be converted into xaos TO on save and reloaded as <b>xaos TO</b>.<h2>xaos TO (<i>default</i>)</h2><i>Specifies how likely an iterator/xform is to be chosen based on the previous iterator/xform that was chosen</i>.<h2>xaos FROM</h2><i>Specifies the probability modifier of the next chosen iterator/xform based on the currently chosen one</i>."
                     menu usetokenvalue {
                         "0" "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]xaos TO       "
                         "1" "xaos FROM"
