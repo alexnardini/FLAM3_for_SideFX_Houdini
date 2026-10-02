@@ -6214,7 +6214,7 @@
                     label   "wire width"
                     type    float
                     default { "3" }
-                    help    "<h3>When the SYS tab \"xforms handles VIZ\" is <b>ON</b>, this parameter will set the wire curves thickness for the viewport display</h3>A value of <b>3.0</b> is generally good."
+                    help    "<h3>Xforms handles VIZ width</h3>When the SYS tab <u><b>xforms handles VIZ</b></u> is <b>ON</b>, this parameter will set the wire curves thickness for the viewport display.<br/><br/>A value of <b>3.0</b> is generally good."
                     disablewhen "{ vizhandles == 0 } { outsensor == 1 } { ptcount > 5000000 }"
                     range   { 0.1! 5! }
                     parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(3.0)" }
