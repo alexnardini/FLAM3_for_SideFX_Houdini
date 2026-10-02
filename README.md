@@ -106,7 +106,7 @@ fully developed within the SideFX Houdini environment, no HDK.
 
 - **GPU availability**<br>GPU mode is only available with FLAM3H™ for H20.5 and up.<br><br>
 
-- **GPU OpenCL**<br>OpenCL (_-cl-std=CL1.2_) has been used to implement the algorithm so it can fully run on the system GPU device.<br>
+- **GPU OpenCL**<br>OpenCL (_-cl-std=CL1.2_) has been used to implement the algorithm so it can fully run on the system GPU device. 
 It makes real-time fractal Flame editing in Houdini possible by running billions of iterations per second on AMD and Nvidia GPUs.<br><br>
 At its current stage, the GPU implementation is intentionally general-purpose.<br>
 It lets you explore different combinations of variations and settings<br>
