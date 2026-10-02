@@ -43,7 +43,7 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 
 # OpenCL Hardware Performance Profile
 Following are OpenCL hardware performance profiles for both FLAM3H™ kernels.<br/>
-Those kernels will compile once on their first cook, and never anymore.
+Those kernels will compile once on their first cook, and never again.
 
 * **cl_flam3** (_the Chaos Game_)
 * **cl_flam3_ff** (_the FinalXForm_)
