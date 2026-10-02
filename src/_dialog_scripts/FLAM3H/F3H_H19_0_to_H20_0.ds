@@ -1391,23 +1391,23 @@
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
-                        name    "cropltrb_#"
-                        label   "l/t/r/b CROP"
-                        type    vector4
-                        size    4
-                        default { "-1" "-1" "1" "1" }
-                        help    "\\nLEFT, TOP, RIGHT, BOTTOM"
-                        hidewhen "{ p1type_# != 102 pre1type_# != 102 pre2type_# != 102 v1type_# != 102 v2type_# != 102 v3type_# != 102 v4type_# != 102 v5type_# != 102 }"
-                        range   { -1 1 }
-                        parmtag { "script_callback_language" "python" }
-                    }
-                    parm {
                         name    "cropaz_#"
                         label   "area/zero CROP"
                         type    vector2
                         size    2
                         default { "0" "0" }
                         help    "\\nAREA, ZERO( [int] either 0 or 1 )"
+                        hidewhen "{ p1type_# != 102 pre1type_# != 102 pre2type_# != 102 v1type_# != 102 v2type_# != 102 v3type_# != 102 v4type_# != 102 v5type_# != 102 }"
+                        range   { -1 1 }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
+                        name    "cropltrb_#"
+                        label   "l/t/r/b CROP"
+                        type    vector4
+                        size    4
+                        default { "-1" "-1" "1" "1" }
+                        help    "\\nLEFT, TOP, RIGHT, BOTTOM"
                         hidewhen "{ p1type_# != 102 pre1type_# != 102 pre2type_# != 102 v1type_# != 102 v2type_# != 102 v3type_# != 102 v4type_# != 102 v5type_# != 102 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -1424,23 +1424,23 @@
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
-                        name    "curvexyzlenght_#"
-                        label   "lenght:xy CURVE"
-                        type    vector2
-                        size    2
-                        default { "1" "1" }
-                        help    "\\nLENGHT X, LENGTH Y"
-                        hidewhen "{ p1type_# != 97 pre1type_# != 97 pre2type_# != 97 v1type_# != 97 v2type_# != 97 v3type_# != 97 v4type_# != 97 v5type_# != 97 }"
-                        range   { 0 2 }
-                        parmtag { "script_callback_language" "python" }
-                    }
-                    parm {
                         name    "curvexyzamp_#"
                         label   "amp:xy CURVE"
                         type    vector2
                         size    2
                         default { "0" "0" }
                         help    "\\nAMPLITUDE X, AMPLITUDE Y"
+                        hidewhen "{ p1type_# != 97 pre1type_# != 97 pre2type_# != 97 v1type_# != 97 v2type_# != 97 v3type_# != 97 v4type_# != 97 v5type_# != 97 }"
+                        range   { 0 2 }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
+                        name    "curvexyzlenght_#"
+                        label   "lenght:xy CURVE"
+                        type    vector2
+                        size    2
+                        default { "1" "1" }
+                        help    "\\nLENGHT X, LENGTH Y"
                         hidewhen "{ p1type_# != 97 pre1type_# != 97 pre2type_# != 97 v1type_# != 97 v2type_# != 97 v3type_# != 97 v4type_# != 97 v5type_# != 97 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -1686,6 +1686,16 @@
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
+                        name    "popcorn2c_#"
+                        label   "c POPCORN2"
+                        type    float
+                        default { "2" }
+                        help    "\\nC"
+                        hidewhen "{ p1type_# != 69 pre1type_# != 69 pre2type_# != 69 v1type_# != 69 v2type_# != 69 v3type_# != 69 v4type_# != 69 v5type_# != 69 }"
+                        range   { 0 8 }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
                         name    "popcorn2xyz_#"
                         label   "xy POPCORN2"
                         type    vector2
@@ -1694,16 +1704,6 @@
                         help    "\\nX, Y"
                         hidewhen "{ p1type_# != 69 pre1type_# != 69 pre2type_# != 69 v1type_# != 69 v2type_# != 69 v3type_# != 69 v4type_# != 69 v5type_# != 69 }"
                         range   { 0 1 }
-                        parmtag { "script_callback_language" "python" }
-                    }
-                    parm {
-                        name    "popcorn2c_#"
-                        label   "c POPCORN2"
-                        type    float
-                        default { "2" }
-                        help    "\\nC"
-                        hidewhen "{ p1type_# != 69 pre1type_# != 69 pre2type_# != 69 v1type_# != 69 v2type_# != 69 v3type_# != 69 v4type_# != 69 v5type_# != 69 }"
-                        range   { 0 8 }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
@@ -2422,23 +2422,23 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
-                    name    "ff_cropltrb"
-                    label   "l/t/r/b CROP"
-                    type    vector4
-                    size    4
-                    default { "-1" "-1" "1" "1" }
-                    help    "\\nLEFT, TOP, RIGHT, BOTTOM"
-                    hidewhen "{ ffv1type != 102 ffv2type != 102 }"
-                    range   { -1 1 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "ff_cropaz"
                     label   "area/zero CROP"
                     type    vector2
                     size    2
                     default { "0" "0" }
                     help    "\\nAREA, ZERO( [int] either 0 or 1 )"
+                    hidewhen "{ ffv1type != 102 ffv2type != 102 }"
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "ff_cropltrb"
+                    label   "l/t/r/b CROP"
+                    type    vector4
+                    size    4
+                    default { "-1" "-1" "1" "1" }
+                    help    "\\nLEFT, TOP, RIGHT, BOTTOM"
                     hidewhen "{ ffv1type != 102 ffv2type != 102 }"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
@@ -2455,23 +2455,23 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
-                    name    "ff_curvexyzlenght"
-                    label   "lenght:xy CURVE"
-                    type    vector2
-                    size    2
-                    default { "1" "1" }
-                    help    "\\nLENGTH X, LENGTH Y"
-                    hidewhen "{ ffv1type != 97 ffv2type != 97 }"
-                    range   { 0 2 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "ff_curvexyzamp"
                     label   "amp:xy CURVE"
                     type    vector2
                     size    2
                     default { "0" "0" }
                     help    "\\nAMPLITUDE X, AMPLITUDE Y"
+                    hidewhen "{ ffv1type != 97 ffv2type != 97 }"
+                    range   { 0 2 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "ff_curvexyzlenght"
+                    label   "lenght:xy CURVE"
+                    type    vector2
+                    size    2
+                    default { "1" "1" }
+                    help    "\\nLENGTH X, LENGTH Y"
                     hidewhen "{ ffv1type != 97 ffv2type != 97 }"
                     range   { 0 2 }
                     parmtag { "script_callback_language" "python" }
@@ -2717,6 +2717,16 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
+                    name    "ff_popcorn2c"
+                    label   "c POPCORN2"
+                    type    float
+                    default { "2" }
+                    help    "\\nC"
+                    hidewhen "{ ffv1type != 69 ffv2type != 69 }"
+                    range   { 0 8 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
                     name    "ff_popcorn2xyz"
                     label   "xy POPCORN2"
                     type    vector2
@@ -2725,16 +2735,6 @@
                     help    "\\nX, Y"
                     hidewhen "{ ffv1type != 69 ffv2type != 69 }"
                     range   { 0 1 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
-                    name    "ff_popcorn2c"
-                    label   "c POPCORN2"
-                    type    float
-                    default { "2" }
-                    help    "\\nC"
-                    hidewhen "{ ffv1type != 69 ffv2type != 69 }"
-                    range   { 0 8 }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -3023,23 +3023,23 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
-                    name    "fp1_cropltrb"
-                    label   "l/t/r/b CROP"
-                    type    vector4
-                    size    4
-                    default { "-1" "-1" "1" "1" }
-                    help    "\\nLEFT, TOP, RIGHT, BOTTOM"
-                    hidewhen "{ ffpre1type != 102 ffp1type != 102 ffp2type != 102 }"
-                    range   { -1 1 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "fp1_cropaz"
                     label   "area/zero CROP"
                     type    vector2
                     size    2
                     default { "0" "0" }
                     help    "\\nAREA, ZERO( [int] either 0 or 1 )"
+                    hidewhen "{ ffpre1type != 102 ffp1type != 102 ffp2type != 102 }"
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "fp1_cropltrb"
+                    label   "l/t/r/b CROP"
+                    type    vector4
+                    size    4
+                    default { "-1" "-1" "1" "1" }
+                    help    "\\nLEFT, TOP, RIGHT, BOTTOM"
                     hidewhen "{ ffpre1type != 102 ffp1type != 102 ffp2type != 102 }"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
@@ -3056,23 +3056,23 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
-                    name    "fp1_curvexyzlenght"
-                    label   "lenght:xy CURVE"
-                    type    vector2
-                    size    2
-                    default { "1" "1" }
-                    help    "\\nLENGTH X, LENGTH Y"
-                    hidewhen "{ ffpre1type != 97 ffp1type != 97 ffp2type != 97 }"
-                    range   { 0 2 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "fp1_curvexyzamp"
                     label   "amp:xy CURVE"
                     type    vector2
                     size    2
                     default { "0" "0" }
                     help    "\\nAMPLITUDE X, AMPLITUDE Y"
+                    hidewhen "{ ffpre1type != 97 ffp1type != 97 ffp2type != 97 }"
+                    range   { 0 2 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "fp1_curvexyzlenght"
+                    label   "lenght:xy CURVE"
+                    type    vector2
+                    size    2
+                    default { "1" "1" }
+                    help    "\\nLENGTH X, LENGTH Y"
                     hidewhen "{ ffpre1type != 97 ffp1type != 97 ffp2type != 97 }"
                     range   { 0 2 }
                     parmtag { "script_callback_language" "python" }
@@ -3318,6 +3318,16 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
+                    name    "fp1_popcorn2c"
+                    label   "c POPCORN2"
+                    type    float
+                    default { "2" }
+                    help    "\\nC"
+                    hidewhen "{ ffpre1type != 69 ffp1type != 69 ffp2type != 69 }"
+                    range   { 0 8 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
                     name    "fp1_popcorn2xyz"
                     label   "xy POPCORN2"
                     type    vector2
@@ -3326,16 +3336,6 @@
                     help    "\\nX, Y"
                     hidewhen "{ ffpre1type != 69 ffp1type != 69 ffp2type != 69 }"
                     range   { 0 1 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
-                    name    "fp1_popcorn2c"
-                    label   "c POPCORN2"
-                    type    float
-                    default { "2" }
-                    help    "\\nC"
-                    hidewhen "{ ffpre1type != 69 ffp1type != 69 ffp2type != 69 }"
-                    range   { 0 8 }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -4921,7 +4921,7 @@
                     label   "dark"
                     type    toggle
                     default { "0" }
-                    help    "OFF by default.\\nSet dark viewport color scheme"
+                    help    "OFF by default.\\nSet dark viewport color scheme.\\n\\nIf it isn’t already, change the viewport’s color scheme to dark.\\n\\nIf unchecked, it will remember the color scheme for every viewport and fall back on it.\\n\\nChecking this box has no effect if the color scheme in a viewport is already dark."
                     parmtag { "script_callback" "hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -5637,7 +5637,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('web')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3H_KEY_SITE)\n" }
                     parmtag { "script_action_help" "Open a web browser to the FLAM3H website." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?iconSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -5658,7 +5658,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('git')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3H_KEY_GIT)\n" }
                     parmtag { "script_action_help" "Open a web browser to the FLAM3H Github." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlackSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -5679,7 +5679,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('insta')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3H_KEY_INSTA)\n" }
                     parmtag { "script_action_help" "Open a web browser to the FLAM3H Instagram." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_InstagramSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -5700,7 +5700,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('youtube')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3H_KEY_YOUTUBE)\n" }
                     parmtag { "script_action_help" "Open a web browser to the FLAM3H youtube video tutorials." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_youtube_red_play.svg" }
                     parmtag { "script_callback" "" }
@@ -5750,7 +5750,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('paper')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3_KEY_PAPER)\n" }
                     parmtag { "script_action_help" "Open a web browser to the Fractal Flame Algorithm PDF publication." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -5771,7 +5771,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('flam3git')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3_KEY_GIT)\n" }
                     parmtag { "script_action_help" "Open a web browser to the original FLAM3 Github." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_GithubWhiteSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -5792,7 +5792,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('fractgithub')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.FRACT_KEY_GIT)\n" }
                     parmtag { "script_action_help" "Open a web browser to the Fractorium Github code repository." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlueSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -5808,12 +5808,12 @@
                 }
                 parm {
                     name    "fract_web"
-                    label   "Fractorium bitbucket"
+                    label   "Fractorium website"
                     type    geometrydata
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('fractweb')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.FRACT_KEY_SITE)\n" }
                     parmtag { "script_action_help" "Open a web browser to the Fractorium website." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_FractoriumWebSVG.svg" }
                     parmtag { "script_callback" "" }

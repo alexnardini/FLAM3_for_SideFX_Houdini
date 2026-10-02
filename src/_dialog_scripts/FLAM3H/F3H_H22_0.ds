@@ -6162,7 +6162,7 @@
                     label   "dark"
                     type    toggle
                     default { "0" }
-                    help    "<h3>Set dark viewport color scheme</h3>"
+                    help    "<h3>Set dark viewport color scheme</h3>If it isn’t already, change the viewport’s color scheme to dark.<br/><br/>If unchecked, it will remember the color scheme for every viewport and fall back on it.<br/><br/><i>Checking this box has no effect if the color scheme in a viewport is already dark</i>."
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }

@@ -290,6 +290,15 @@
             parmtag { "script_callback_language" "python" }
         }
         parm {
+            name    "empty_sys_03"
+            label   "empty"
+            type    geometrydata
+            nolabel
+            joinnext
+            default { "0" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
             name    "xfviz_no_iterators"
             label   "XF VIZ OFF"
             type    button
@@ -360,7 +369,7 @@
             parmtag { "script_callback_language" "python" }
         }
         parm {
-            name    "empty_sys_03"
+            name    "empty_sys_04"
             label   "empty"
             type    geometrydata
             nolabel
@@ -473,7 +482,7 @@
             parmtag { "sidefx::look" "icon" }
         }
         parm {
-            name    "empty_sys_04"
+            name    "empty_sys_05"
             label   "empty"
             type    geometrydata
             nolabel
@@ -494,7 +503,7 @@
             parmtag { "script_callback_language" "python" }
         }
         parm {
-            name    "empty_sys_05"
+            name    "empty_sys_06"
             label   "empty"
             type    geometrydata
             nolabel
@@ -529,7 +538,7 @@
             parmtag { "script_callback_language" "python" }
         }
         parm {
-            name    "empty_sys_06"
+            name    "empty_sys_07"
             label   "empty"
             type    geometrydata
             nolabel
@@ -597,7 +606,7 @@
             parmtag { "script_callback_language" "python" }
         }
         parm {
-            name    "empty_sys_07"
+            name    "empty_sys_08"
             label   "empty"
             type    geometrydata
             nolabel
@@ -644,7 +653,7 @@
             parmtag { "script_callback_language" "python" }
         }
         parm {
-            name    "empty_sys_08"
+            name    "empty_sys_09"
             label   "empty"
             type    geometrydata
             nolabel
@@ -1094,7 +1103,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of PRE_var_01.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one)."
+                    help    "The weight of PRE_var_01.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one).\\n\\nVariation names that end with an asterisk(*) are dependent,\\nwhile those that end with three dots(...) are parametric.\\n\\nNOTE:\\nWhen using parametric(...) variations,\\ntheir parameters will populate the VARS tab."
                     range   { 0! 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1220,7 +1229,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of PRE_var_02.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one)."
+                    help    "The weight of PRE_var_02.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one).\\n\\nVariation names that end with an asterisk(*) are dependent,\\nwhile those that end with three dots(...) are parametric.\\n\\nNOTE:\\nWhen using parametric(...) variations,\\ntheir parameters will populate the VARS tab."
                     range   { 0! 1 }
                     parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_iter_pre_vars()" }
                     parmtag { "script_action_help" "[LMB] to swap the order of the PRE Variations and their weights. [CTRL+LMB] to swap the variation's names only." }
@@ -1357,7 +1366,7 @@
                     label   "   w"
                     type    float
                     default { "1" }
-                    help    "The weight of the selected variation.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one) and negative too."
+                    help    "The weight of the selected variation.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one) and negative too.\\n\\nVariation names that end with an asterisk(*) are dependent,\\nwhile those that end with three dots(...) are parametric.\\n\\nNOTE:\\nWhen using parametric(...) variations,\\ntheir parameters will populate the VARS tab."
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1483,7 +1492,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of the selected variation.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one) and negative too."
+                    help    "The weight of the selected variation.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one) and negative too.\\n\\nVariation names that end with an asterisk(*) are dependent,\\nwhile those that end with three dots(...) are parametric.\\n\\nNOTE:\\nWhen using parametric(...) variations,\\ntheir parameters will populate the VARS tab."
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1609,7 +1618,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of the selected variation.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one) and negative too."
+                    help    "The weight of the selected variation.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one) and negative too.\\n\\nVariation names that end with an asterisk(*) are dependent,\\nwhile those that end with three dots(...) are parametric.\\n\\nNOTE:\\nWhen using parametric(...) variations,\\ntheir parameters will populate the VARS tab."
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1735,7 +1744,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of the selected variation.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one) and negative too."
+                    help    "The weight of the selected variation.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one) and negative too.\\n\\nVariation names that end with an asterisk(*) are dependent,\\nwhile those that end with three dots(...) are parametric.\\n\\nNOTE:\\nWhen using parametric(...) variations,\\ntheir parameters will populate the VARS tab."
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1869,7 +1878,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of the POST_var_01.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one). "
+                    help    "The weight of the POST_var_01.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one).\\n\\nVariation names that end with an asterisk(*) are dependent,\\nwhile those that end with three dots(...) are parametric.\\n\\nNOTE:\\nWhen using parametric(...) variations,\\ntheir parameters will populate the VARS tab."
                     range   { 0! 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -2142,23 +2151,23 @@
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
-                        name    "cropltrb_#"
-                        label   "l/t/r/b CROP"
-                        type    vector4
-                        size    4
-                        default { "-1" "-1" "1" "1" }
-                        help    "\\nLEFT, TOP, RIGHT, BOTTOM\\n\\n X -> Left\\n Sets the left boundary of the crop area.\\n\\n Y -> Top\\n Sets the top boundary of the crop area.\\n\\n Z -> Right\\n Sets the right boundary of the crop area.\\n\\n W -> Bottom\\n Sets the bottom boundary of the crop area."
-                        hidewhen "{ p1type_# != 102 pre1type_# != 102 pre2type_# != 102 v1type_# != 102 v2type_# != 102 v3type_# != 102 v4type_# != 102 v5type_# != 102 }"
-                        range   { -1 1 }
-                        parmtag { "script_callback_language" "python" }
-                    }
-                    parm {
                         name    "cropaz_#"
                         label   "area/zero CROP"
                         type    vector2
                         size    2
                         default { "0" "0" }
                         help    "\\nAREA, ZERO( [int] either 0 or 1 )\\n\\n X -> Area\\n Controls the amount of random repositioning inside the crop area. Higher values create a larger randomized region.\\n\\n Y -> Zero\\n Controls what happens to points outside the crop area. When enabled (it just need to be higher than 0(Zero)), outside points are moved to the center instead."
+                        hidewhen "{ p1type_# != 102 pre1type_# != 102 pre2type_# != 102 v1type_# != 102 v2type_# != 102 v3type_# != 102 v4type_# != 102 v5type_# != 102 }"
+                        range   { -1 1 }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
+                        name    "cropltrb_#"
+                        label   "l/t/r/b CROP"
+                        type    vector4
+                        size    4
+                        default { "-1" "-1" "1" "1" }
+                        help    "\\nLEFT, TOP, RIGHT, BOTTOM\\n\\n X -> Left\\n Sets the left boundary of the crop area.\\n\\n Y -> Top\\n Sets the top boundary of the crop area.\\n\\n Z -> Right\\n Sets the right boundary of the crop area.\\n\\n W -> Bottom\\n Sets the bottom boundary of the crop area."
                         hidewhen "{ p1type_# != 102 pre1type_# != 102 pre2type_# != 102 v1type_# != 102 v2type_# != 102 v3type_# != 102 v4type_# != 102 v5type_# != 102 }"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
@@ -2175,23 +2184,23 @@
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
-                        name    "curvexyzlenght_#"
-                        label   "lenght:xy CURVE"
-                        type    vector2
-                        size    2
-                        default { "1" "1" }
-                        help    "\\nLENGHT X, LENGTH Y\\n\\n X -> Lenght X\\n Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area.\\n\\n Y -> Lenght Y\\n Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
-                        hidewhen "{ p1type_# != 97 pre1type_# != 97 pre2type_# != 97 v1type_# != 97 v2type_# != 97 v3type_# != 97 v4type_# != 97 v5type_# != 97 }"
-                        range   { 0 2 }
-                        parmtag { "script_callback_language" "python" }
-                    }
-                    parm {
                         name    "curvexyzamp_#"
                         label   "amp:xy CURVE"
                         type    vector2
                         size    2
                         default { "0" "0" }
                         help    "\\nAMPLITUDE X, AMPLITUDE Y\\n\\n X -> Amplitude X\\n Controls the strength of the horizontal bend. Higher values create a stronger curve along X.\\n\\n Y -> Amplitude Y\\n Controls the strength of the vertical bend. Higher values create a stronger curve along Y."
+                        hidewhen "{ p1type_# != 97 pre1type_# != 97 pre2type_# != 97 v1type_# != 97 v2type_# != 97 v3type_# != 97 v4type_# != 97 v5type_# != 97 }"
+                        range   { 0 2 }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
+                        name    "curvexyzlenght_#"
+                        label   "lenght:xy CURVE"
+                        type    vector2
+                        size    2
+                        default { "1" "1" }
+                        help    "\\nLENGHT X, LENGTH Y\\n\\n X -> Lenght X\\n Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area.\\n\\n Y -> Lenght Y\\n Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
                         hidewhen "{ p1type_# != 97 pre1type_# != 97 pre2type_# != 97 v1type_# != 97 v2type_# != 97 v3type_# != 97 v4type_# != 97 v5type_# != 97 }"
                         range   { 0 2 }
                         parmtag { "script_callback_language" "python" }
@@ -2437,6 +2446,16 @@
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
+                        name    "popcorn2c_#"
+                        label   "c POPCORN2"
+                        type    float
+                        default { "2" }
+                        help    "\\nC\\n\\n C - Detail\\n Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns."
+                        hidewhen "{ p1type_# != 69 pre1type_# != 69 pre2type_# != 69 v1type_# != 69 v2type_# != 69 v3type_# != 69 v4type_# != 69 v5type_# != 69 }"
+                        range   { 0 8 }
+                        parmtag { "script_callback_language" "python" }
+                    }
+                    parm {
                         name    "popcorn2xyz_#"
                         label   "xy POPCORN2"
                         type    vector2
@@ -2445,16 +2464,6 @@
                         help    "\\nX, Y\\n\\n X -> Horizontal\\n Controls the strength of the effect along the X (horizontal) direction.\\n\\n Y -> Vertical\\n Controls the strength of the effect along the Y (vertical) direction."
                         hidewhen "{ p1type_# != 69 pre1type_# != 69 pre2type_# != 69 v1type_# != 69 v2type_# != 69 v3type_# != 69 v4type_# != 69 v5type_# != 69 }"
                         range   { 0 1 }
-                        parmtag { "script_callback_language" "python" }
-                    }
-                    parm {
-                        name    "popcorn2c_#"
-                        label   "c POPCORN2"
-                        type    float
-                        default { "2" }
-                        help    "\\nC\\n\\n C - Detail\\n Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns."
-                        hidewhen "{ p1type_# != 69 pre1type_# != 69 pre2type_# != 69 v1type_# != 69 v2type_# != 69 v3type_# != 69 v4type_# != 69 v5type_# != 69 }"
-                        range   { 0 8 }
                         parmtag { "script_callback_language" "python" }
                     }
                     parm {
@@ -2889,7 +2898,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "The weight of the FF_PRE_var_01.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one)."
+                help    "The weight of the FF_PRE_var_01.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one).\\n\\nVariation names that end with an asterisk(*) are dependent,\\nwhile those that end with three dots(...) are parametric.\\n\\nNOTE:\\nWhen using parametric(...) variations,\\ntheir parameters will populate the FF: PP VARS tab."
                 range   { 0! 1 }
                 parmtag { "script_callback_language" "python" }
             }
@@ -3023,7 +3032,7 @@
                 label   "   w"
                 type    float
                 default { "1" }
-                help    "The weight of the selected final variation.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one) and negative too."
+                help    "The weight of the selected final variation.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one) and negative too.\\n\\nVariation names that end with an asterisk(*) are dependent,\\nwhile those that end with three dots(...) are parametric.\\n\\nNOTE:\\nWhen using parametric(...) variations,\\ntheir parameters will populate the FF: VARS tab."
                 range   { 0 1 }
                 parmtag { "script_callback" "" }
                 parmtag { "script_callback_language" "python" }
@@ -3150,7 +3159,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "The weight of the selected final variation.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one) and negative too."
+                help    "The weight of the selected final variation.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one) and negative too.\\n\\nVariation names that end with an asterisk(*) are dependent,\\nwhile those that end with three dots(...) are parametric.\\n\\nNOTE:\\nWhen using parametric(...) variations,\\ntheir parameters will populate the FF: VARS tab."
                 range   { 0 1 }
                 parmtag { "script_callback_language" "python" }
             }
@@ -3284,7 +3293,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "The weight of the FF_POST_var_01.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one)."
+                help    "The weight of the FF_POST_var_01.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one).\\n\\nVariation names that end with an asterisk(*) are dependent,\\nwhile those that end with three dots(...) are parametric.\\n\\nNOTE:\\nWhen using parametric(...) variations,\\ntheir parameters will populate the FF: PP VARS tab."
                 range   { 0! 1 }
                 parmtag { "script_callback_language" "python" }
             }
@@ -3410,7 +3419,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "The weight of the FF_POST_var_02.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one)."
+                help    "The weight of the FF_POST_var_02.\\n\\nSet it to 0(Zero) to disable it.\\nCan be set higher than 1(one).\\n\\nVariation names that end with an asterisk(*) are dependent,\\nwhile those that end with three dots(...) are parametric.\\n\\nNOTE:\\nWhen using parametric(...) variations,\\ntheir parameters will populate the FF: PP VARS tab."
                 range   { 0! 1 }
                 parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_FF_post_vars()\n" }
                 parmtag { "script_action_help" "[LMB] to swap the order of the POST Variations and their weights. [CTRL+LMB] to swap the variation's names only." }
@@ -3684,23 +3693,23 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
-                    name    "ff_cropltrb"
-                    label   "l/t/r/b CROP"
-                    type    vector4
-                    size    4
-                    default { "-1" "-1" "1" "1" }
-                    help    "\\nLEFT, TOP, RIGHT, BOTTOM\\n\\n X -> Left\\n Sets the left boundary of the crop area.\\n\\n Y -> Top\\n Sets the top boundary of the crop area.\\n\\n Z -> Right\\n Sets the right boundary of the crop area.\\n\\n W -> Bottom\\n Sets the bottom boundary of the crop area."
-                    hidewhen "{ ffv1type != 102 ffv2type != 102 }"
-                    range   { -1 1 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "ff_cropaz"
                     label   "area/zero CROP"
                     type    vector2
                     size    2
                     default { "0" "0" }
                     help    "\\nAREA, ZERO( [int] either 0 or 1 )\\n\\n X -> Area\\n Controls the amount of random repositioning inside the crop area. Higher values create a larger randomized region.\\n\\n Y -> Zero\\n Controls what happens to points outside the crop area. When enabled (it just need to be higher than 0(Zero)), outside points are moved to the center instead."
+                    hidewhen "{ ffv1type != 102 ffv2type != 102 }"
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "ff_cropltrb"
+                    label   "l/t/r/b CROP"
+                    type    vector4
+                    size    4
+                    default { "-1" "-1" "1" "1" }
+                    help    "\\nLEFT, TOP, RIGHT, BOTTOM\\n\\n X -> Left\\n Sets the left boundary of the crop area.\\n\\n Y -> Top\\n Sets the top boundary of the crop area.\\n\\n Z -> Right\\n Sets the right boundary of the crop area.\\n\\n W -> Bottom\\n Sets the bottom boundary of the crop area."
                     hidewhen "{ ffv1type != 102 ffv2type != 102 }"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
@@ -3717,23 +3726,23 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
-                    name    "ff_curvexyzlenght"
-                    label   "lenght:xy CURVE"
-                    type    vector2
-                    size    2
-                    default { "1" "1" }
-                    help    "\\nLENGHT X, LENGTH Y\\n\\n X -> Lenght X\\n Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area.\\n\\n Y -> Lenght Y\\n Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
-                    hidewhen "{ ffv1type != 97 ffv2type != 97 }"
-                    range   { 0 2 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "ff_curvexyzamp"
                     label   "amp:xy CURVE"
                     type    vector2
                     size    2
                     default { "0" "0" }
                     help    "\\nAMPLITUDE X, AMPLITUDE Y\\n\\n X -> Amplitude X\\n Controls the strength of the horizontal bend. Higher values create a stronger curve along X.\\n\\n Y -> Amplitude Y\\n Controls the strength of the vertical bend. Higher values create a stronger curve along Y."
+                    hidewhen "{ ffv1type != 97 ffv2type != 97 }"
+                    range   { 0 2 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "ff_curvexyzlenght"
+                    label   "lenght:xy CURVE"
+                    type    vector2
+                    size    2
+                    default { "1" "1" }
+                    help    "\\nLENGHT X, LENGTH Y\\n\\n X -> Lenght X\\n Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area.\\n\\n Y -> Lenght Y\\n Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
                     hidewhen "{ ffv1type != 97 ffv2type != 97 }"
                     range   { 0 2 }
                     parmtag { "script_callback_language" "python" }
@@ -3979,6 +3988,16 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
+                    name    "ff_popcorn2c"
+                    label   "c POPCORN2"
+                    type    float
+                    default { "2" }
+                    help    "\\nC\\n\\n C - Detail\\n Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns."
+                    hidewhen "{ ffv1type != 69 ffv2type != 69 }"
+                    range   { 0 8 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
                     name    "ff_popcorn2xyz"
                     label   "xy POPCORN2"
                     type    vector2
@@ -3987,16 +4006,6 @@
                     help    "\\nX, Y\\n\\n X -> Horizontal\\n Controls the strength of the effect along the X (horizontal) direction.\\n\\n Y -> Vertical\\n Controls the strength of the effect along the Y (vertical) direction."
                     hidewhen "{ ffv1type != 69 ffv2type != 69 }"
                     range   { 0 1 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
-                    name    "ff_popcorn2c"
-                    label   "c POPCORN2"
-                    type    float
-                    default { "2" }
-                    help    "\\nC\\n\\n C - Detail\\n Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns."
-                    hidewhen "{ ffv1type != 69 ffv2type != 69 }"
-                    range   { 0 8 }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -4285,23 +4294,23 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
-                    name    "fp1_cropltrb"
-                    label   "l/t/r/b CROP"
-                    type    vector4
-                    size    4
-                    default { "-1" "-1" "1" "1" }
-                    help    "\\nLEFT, TOP, RIGHT, BOTTOM\\n\\n X -> Left\\n Sets the left boundary of the crop area.\\n\\n Y -> Top\\n Sets the top boundary of the crop area.\\n\\n Z -> Right\\n Sets the right boundary of the crop area.\\n\\n W -> Bottom\\n Sets the bottom boundary of the crop area."
-                    hidewhen "{ ffpre1type != 102 ffp1type != 102 ffp2type != 102 }"
-                    range   { -1 1 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "fp1_cropaz"
                     label   "area/zero CROP"
                     type    vector2
                     size    2
                     default { "0" "0" }
                     help    "\\nAREA, ZERO( [int] either 0 or 1 )\\n\\n X -> Area\\n Controls the amount of random repositioning inside the crop area. Higher values create a larger randomized region.\\n\\n Y -> Zero\\n Controls what happens to points outside the crop area. When enabled (it just need to be higher than 0(Zero)), outside points are moved to the center instead."
+                    hidewhen "{ ffpre1type != 102 ffp1type != 102 ffp2type != 102 }"
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "fp1_cropltrb"
+                    label   "l/t/r/b CROP"
+                    type    vector4
+                    size    4
+                    default { "-1" "-1" "1" "1" }
+                    help    "\\nLEFT, TOP, RIGHT, BOTTOM\\n\\n X -> Left\\n Sets the left boundary of the crop area.\\n\\n Y -> Top\\n Sets the top boundary of the crop area.\\n\\n Z -> Right\\n Sets the right boundary of the crop area.\\n\\n W -> Bottom\\n Sets the bottom boundary of the crop area."
                     hidewhen "{ ffpre1type != 102 ffp1type != 102 ffp2type != 102 }"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
@@ -4318,23 +4327,23 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
-                    name    "fp1_curvexyzlenght"
-                    label   "lenght:xy CURVE"
-                    type    vector2
-                    size    2
-                    default { "1" "1" }
-                    help    "\\nLENGHT X, LENGTH Y\\n\\n X -> Lenght X\\n Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area.\\n\\n Y -> Lenght Y\\n Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
-                    hidewhen "{ ffpre1type != 97 ffp1type != 97 ffp2type != 97 }"
-                    range   { 0 2 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
                     name    "fp1_curvexyzamp"
                     label   "amp:xy CURVE"
                     type    vector2
                     size    2
                     default { "0" "0" }
                     help    "\\nAMPLITUDE X, AMPLITUDE Y\\n\\n X -> Amplitude X\\n Controls the strength of the horizontal bend. Higher values create a stronger curve along X.\\n\\n Y -> Amplitude Y\\n Controls the strength of the vertical bend. Higher values create a stronger curve along Y."
+                    hidewhen "{ ffpre1type != 97 ffp1type != 97 ffp2type != 97 }"
+                    range   { 0 2 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "fp1_curvexyzlenght"
+                    label   "lenght:xy CURVE"
+                    type    vector2
+                    size    2
+                    default { "1" "1" }
+                    help    "\\nLENGHT X, LENGTH Y\\n\\n X -> Lenght X\\n Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area.\\n\\n Y -> Lenght Y\\n Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area."
                     hidewhen "{ ffpre1type != 97 ffp1type != 97 ffp2type != 97 }"
                     range   { 0 2 }
                     parmtag { "script_callback_language" "python" }
@@ -4580,6 +4589,16 @@
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
+                    name    "fp1_popcorn2c"
+                    label   "c POPCORN2"
+                    type    float
+                    default { "2" }
+                    help    "\\nC\\n\\n C - Detail\\n Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns."
+                    hidewhen "{ ffpre1type != 69 ffp1type != 69 ffp2type != 69 }"
+                    range   { 0 8 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
                     name    "fp1_popcorn2xyz"
                     label   "xy POPCORN2"
                     type    vector2
@@ -4588,16 +4607,6 @@
                     help    "\\nX, Y\\n\\n X -> Horizontal\\n Controls the strength of the effect along the X (horizontal) direction.\\n\\n Y -> Vertical\\n Controls the strength of the effect along the Y (vertical) direction."
                     hidewhen "{ ffpre1type != 69 ffp1type != 69 ffp2type != 69 }"
                     range   { 0 1 }
-                    parmtag { "script_callback_language" "python" }
-                }
-                parm {
-                    name    "fp1_popcorn2c"
-                    label   "c POPCORN2"
-                    type    float
-                    default { "2" }
-                    help    "\\nC\\n\\n C - Detail\\n Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns."
-                    hidewhen "{ ffpre1type != 69 ffp1type != 69 ffp2type != 69 }"
-                    range   { 0 8 }
                     parmtag { "script_callback_language" "python" }
                 }
                 parm {
@@ -6132,10 +6141,10 @@
                 }
             }
 
-            groupsimple {
+            groupcollapsible {
                 name    "f_prefsui"
                 label   "prefs UI"
-                grouptag { "group_type" "simple" }
+                grouptag { "group_type" "collapsible" }
 
                 parm {
                     name    "enumeratemenu"
@@ -6190,10 +6199,10 @@
                 }
             }
 
-            groupsimple {
+            groupcollapsible {
                 name    "f_prefsdensity"
                 label   "prefs density"
-                grouptag { "group_type" "simple" }
+                grouptag { "group_type" "collapsible" }
 
                 parm {
                     name    "ptcount"
@@ -6271,7 +6280,7 @@
                     label   "dark"
                     type    toggle
                     default { "0" }
-                    help    "OFF by default.\\nSet dark viewport color scheme"
+                    help    "OFF by default.\\nSet dark viewport color scheme.\\n\\nIf it isn’t already, change the viewport’s color scheme to dark.\\n\\nIf unchecked, it will remember the color scheme for every viewport and fall back on it.\\n\\nChecking this box has no effect if the color scheme in a viewport is already dark."
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6993,7 +7002,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('web')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3H_KEY_SITE)\n" }
                     parmtag { "script_action_help" "Open a web browser to the FLAM3H website." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?iconSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -7014,7 +7023,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('git')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3H_KEY_GIT)\n" }
                     parmtag { "script_action_help" "Open a web browser to the FLAM3H Github." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlackSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -7035,7 +7044,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('insta')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3H_KEY_INSTA)\n" }
                     parmtag { "script_action_help" "Open a web browser to the FLAM3H Instagram." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_InstagramSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -7056,7 +7065,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('youtube')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3H_KEY_YOUTUBE)\n" }
                     parmtag { "script_action_help" "Open a web browser to the FLAM3H youtube video tutorials." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_youtube_red_play.svg" }
                     parmtag { "script_callback" "" }
@@ -7106,7 +7115,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('paper')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3_KEY_PAPER)\n" }
                     parmtag { "script_action_help" "Open a web browser to the Fractal Flame Algorithm PDF publication." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -7127,7 +7136,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('flam3git')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.F3_KEY_GIT)\n" }
                     parmtag { "script_action_help" "Open a web browser to the original FLAM3 Github." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_GithubWhiteSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -7148,7 +7157,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('fractgithub')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.FRACT_KEY_GIT)\n" }
                     parmtag { "script_action_help" "Open a web browser to the Fractorium Github code repository." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlueSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -7164,12 +7173,12 @@
                 }
                 parm {
                     name    "fract_web"
-                    label   "Fractorium bitbucket"
+                    label   "Fractorium website"
                     type    geometrydata
                     nolabel
                     joinnext
                     default { "0" }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('fractweb')" }
+                    parmtag { "script_action" "node = kwargs['node']\nf3h_web = node.hdaModule().flam3.f3h_web\nnode.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.FRACT_KEY_SITE)\n" }
                     parmtag { "script_action_help" "Open a web browser to the Fractorium website." }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_FractoriumWebSVG.svg" }
                     parmtag { "script_callback" "" }
