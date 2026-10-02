@@ -6152,10 +6152,13 @@
                 }
             }
 
-            groupsimple {
+            groupcollapsible {
                 name    "f_prefsviewport"
                 label   "prefs viewport"
+                parmtag { "group_default" "1" }
                 grouptag { "group_type" "simple" }
+                parmtag { "sidefx::header_parm" "vpptsize" }
+                parmtag { "sidefx::header_toggle" "setdark" }
 
                 parm {
                     name    "setdark"
@@ -6174,33 +6177,40 @@
                     parmtag { "sidefx::layout_height" "medium" }
                     parmtag { "sidefx::look" "blank" }
                 }
-                parm {
-                    name    "vptype"
-                    label   "display"
-                    type    ordinal
-                    default { "0" }
-                    help    "<h3>Types of Viewport Point Display types</h3>"
-                    menu {
-                        "0" "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]Points          "
-                        "1" "Pixels"
+                groupsimple {
+                    name    "f_prefsviewport_points"
+                    label   "Points"
+                    grouptag { "group_type" "simple" }
+
+                    parm {
+                        name    "vptype"
+                        label   "display"
+                        type    ordinal
+                        default { "0" }
+                        help    "<h3>Viewport Point display types</h3>You can choose between <b>Pixels</b> and <b>Points</b> (_default_).<br/><br/><b>TIP</b>:<br/><i><b>Pixels</b> are faster to display, but <b>Points</b> give you more control on their viewport size representation in Houdini</i>."
+                        menu {
+                            "0" "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]Points          "
+                            "1" "Pixels"
+                        }
+                        parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes()" }
+                        parmtag { "script_callback_language" "python" }
                     }
-                    parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes()" }
-                    parmtag { "script_callback_language" "python" }
+                    parm {
+                        name    "vpptsize"
+                        label   "size"
+                        type    float
+                        default { "1" }
+                        help    "<h3>Points size in the viewport</h3>If display type is set to <b>Points</b>,<br/>this parameter will set their size in the viewport."
+                        disablewhen "{ vptype == 1 }"
+                        range   { 0.1! 2 }
+                        parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize(1.0)" }
+                        parmtag { "script_action_help" "[LMB] to reset this parameter to a value of: 1.0" }
+                        parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg" }
+                        parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).viewportParticleSize(), kwargs['parm'].deleteAllKeyframes()" }
+                        parmtag { "script_callback_language" "python" }
+                    }
                 }
-                parm {
-                    name    "vpptsize"
-                    label   "size"
-                    type    float
-                    default { "1" }
-                    help    "<h3>If display type is set to Points,<br/>this parameter will set the size of those points in the viewport</h3>"
-                    disablewhen "{ vptype == 1 }"
-                    range   { 0.1! 2 }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize(1.0)" }
-                    parmtag { "script_action_help" "[LMB] to reset this parameter to a value of: 1.0" }
-                    parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg" }
-                    parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).viewportParticleSize(), kwargs['parm'].deleteAllKeyframes()" }
-                    parmtag { "script_callback_language" "python" }
-                }
+
                 parm {
                     name    "sepparm3"
                     label   "Spacer"
@@ -6209,20 +6219,27 @@
                     parmtag { "sidefx::layout_height" "medium" }
                     parmtag { "sidefx::look" "blank" }
                 }
-                parm {
-                    name    "vpww"
-                    label   "wire width"
-                    type    float
-                    default { "3" }
-                    help    "<h3>Xforms handles VIZ width</h3>When the SYS tab <u><b>xforms handles VIZ</b></u> is <b>ON</b>, this parameter will set the wire curves thickness for the viewport display.<br/><br/>A value of <b>3.0</b> is generally good."
-                    disablewhen "{ vizhandles == 0 } { outsensor == 1 } { ptcount > 5000000 }"
-                    range   { 0.1! 5! }
-                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(3.0)" }
-                    parmtag { "script_action_help" "[LMB] to reset this parameter to a value of: 3.0" }
-                    parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg" }
-                    parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).viewportWireWidth(), kwargs['parm'].deleteAllKeyframes()" }
-                    parmtag { "script_callback_language" "python" }
+                groupsimple {
+                    name    "f_prefsviewport_wire"
+                    label   "Wire"
+                    grouptag { "group_type" "simple" }
+
+                    parm {
+                        name    "vpww"
+                        label   "wire width"
+                        type    float
+                        default { "3" }
+                        help    "<h3>Xforms handles VIZ width</h3>When the SYS tab <u><b>xforms handles VIZ</b></u> is <b>ON</b>, this parameter will set the wire curves thickness for the viewport display.<br/><br/>A value of <b>3.0</b> is generally good."
+                        disablewhen "{ vizhandles == 0 } { outsensor == 1 } { ptcount > 5000000 }"
+                        range   { 0.1! 5! }
+                        parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(3.0)" }
+                        parmtag { "script_action_help" "[LMB] to reset this parameter to a value of: 3.0" }
+                        parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg" }
+                        parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).viewportWireWidth(), kwargs['parm'].deleteAllKeyframes()" }
+                        parmtag { "script_callback_language" "python" }
+                    }
                 }
+
             }
 
             groupcollapsible {
