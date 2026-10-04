@@ -42,7 +42,7 @@
 
     </br>
 
-    - [**FULL ICON set**](../icons/README.md)
+    - [**FULL ICON SET**](../icons/README.md)
     - [**PALETTE PREVIEWS**](../__FLAM3H_palette_libs/README.md)
 
     </br>
