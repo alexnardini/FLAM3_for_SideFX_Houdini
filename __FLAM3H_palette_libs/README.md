@@ -31,7 +31,8 @@ Some Palette library files included here are made specifically for this as well 
 
 </br>
 
-List of every Palette library files and their Presets contents list.
+List of every Palette library files and their Presets contents list.</br>
+A SVG preview icon is also provided to make it easier to find and review them. 
 
 They are subdivided in 2(_two_) main categories:
 - **FLAM3H™ palette libs**:
