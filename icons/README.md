@@ -20,6 +20,10 @@
 
   - [**PALETTE PREVIEWS**](../__FLAM3H_palette_libs/README.md)
 
+  </br>
+
+  - [**FLAME PRESETS**](../__FLAM3H_flame_libs/README.md)
+
 <br>
 <br>
 <br>
