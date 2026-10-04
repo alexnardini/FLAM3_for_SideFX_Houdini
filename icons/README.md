@@ -1045,7 +1045,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Fra
 
 <p align="center">
   <img width="160" height="160" src="./icon_geo_reloadSVG.svg" /></p>
-<b><p align="center">icon_geo_reloadSVG.svg</p></b>
+<b><p align="center">icon_geo_reloadSVG.svg</b><br/><i>Copyright (c) Side Effects Software inc. All rights reserved</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
