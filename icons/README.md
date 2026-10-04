@@ -16,6 +16,10 @@
   - **FLAM3H™USD** [**PY_PARM_map H19 to H20**](../src/F3HUSD_PY_PARM_H19_to_H20.md)
   - **FLAM3H™USD** [**PY_PARM_map H20.5 to H22 UP**](../src/F3HUSD_PY_PARM_H205_to_H22_UP.md)
 
+  </br>
+
+  - [**PALETTE PREVIEWS**](../__FLAM3H_palette_libs/README.md)
+
 <br>
 <br>
 <br>
