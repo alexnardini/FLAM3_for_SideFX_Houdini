@@ -41,7 +41,10 @@ They are all available in this Github repository.
 </br>
 
 <details>
-<summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2026 Releases</summary>
+<summary>
+<img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">2026 Releases</h1>
+</summary>
 
 <br>
 <br>
@@ -1186,7 +1189,10 @@ _This update require a restart of Houdini to fully pickup the changes_.
 </details>
 
 <details>
-<summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2025 Releases</summary>
+<summary>
+<img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">2025 Releases</h1>
+</summary>
 
 <br>
 <br>
@@ -3406,11 +3412,20 @@ _This simple utility node got an upgrade._
 
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 </details>
 
 <details>
-<summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2024 Releases</summary>
+<summary>
+<img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">2024 Releases</h1>
+</summary>
 
 <br>
 <br>
@@ -5028,11 +5043,20 @@ _More small things:_
 
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 </details>
 
 <details>
-<summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2023 Releases</summary>
+<summary>
+<img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">2023 Releases</h1>
+</summary>
 
 <br>
 <br>
@@ -5537,11 +5561,20 @@ _Will update once H20 release._
 
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 </details>
 
 <details>
-<summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2022 Releases</summary>
+<summary>
+<img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">2022 Releases</h1>
+</summary>
 
 <br>
 <br>
@@ -5660,11 +5693,20 @@ _Will update once H20 release._
 
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 </details>
 
 <details>
-<summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2021 Releases</summary>
+<summary>
+<img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">2021 Releases</h1>
+</summary>
 
 <br>
 <br>
