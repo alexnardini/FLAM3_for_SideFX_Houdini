@@ -2761,7 +2761,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_pyt
 
 <p align="center">
   <img width="160" height="160" src="./icon_rendererKarmaPropertiesSVG.svg" /></p>
-<b><p align="center">icon_rendererKarmaPropertiesSVG.svg</b><br/><i>Copyright (c) Side Effects Software Inc. All rights reserved</i>.</p>
+<b><p align="center">icon_rendererKarmaPropertiesSVG.svg</b><br/><i>Karma logo is Copyright (c) Side Effects Software Inc. All rights reserved</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
