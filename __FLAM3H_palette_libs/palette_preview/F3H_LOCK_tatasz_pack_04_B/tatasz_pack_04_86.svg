@@ -1,4 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="768" height="80" viewBox="0 0 768 80" preserveAspectRatio="none">
+<metadata>
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+           xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:cc="http://creativecommons.org/ns#">
+    <cc:Work rdf:about="">
+      <dc:title>F stands for liFe</dc:title>
+      <dc:creator>
+        <cc:Agent>
+          <dc:title>F stands for liFe</dc:title>
+        </cc:Agent>
+      </dc:creator>
+      <dc:rights>Copyright (c) 2021 F stands for liFe. All rights reserved.</dc:rights>
+    </cc:Work>
+  </rdf:RDF>
+</metadata>
   <rect x="0" y="0" width="3" height="80" fill="#AD3C04"/>
   <rect x="3" y="0" width="3" height="80" fill="#C33801"/>
   <rect x="6" y="0" width="3" height="80" fill="#DA2F01"/>
