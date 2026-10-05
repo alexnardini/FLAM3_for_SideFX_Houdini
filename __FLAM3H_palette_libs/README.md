@@ -555,37 +555,35 @@ They are subdivided in 2(_two_) main categories:
     11. - `impressionism`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/impressionism.svg" /> 
     12. - `just_after_dawn_in_winter`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/just_after_dawn_in_winter.svg" /> 
     13. - `lavander_gold_cyan`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/lavander_gold_cyan.svg" /> 
-    14. - `lectric`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/lectric.svg" /> 
-    15. - `library`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/library.svg" /> 
-    16. - `like_a_bomb_pop`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/like_a_bomb_pop.svg" /> 
-    17. - `lime_cyan_orange`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/lime_cyan_orange.svg" /> 
-    18. - `lut_gholein`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/lut_gholein.svg" /> 
-    19. - `mauve_and_cyan`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/mauve_and_cyan.svg" /> 
-    20. - `mint_orange_blue`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/mint_orange_blue.svg" /> 
-    21. - `modern_orange`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/modern_orange.svg" /> 
-    22. - `monochrome_is_unimaginative`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/monochrome_is_unimaginative.svg" /> 
-    23. - `mood_swings`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/mood_swings.svg" /> 
-    24. - `mostly_grey`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/mostly_grey.svg" /> 
-    25. - `motherfucking_rainbow`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/motherfucking_rainbow.svg" /> 
-    26. - `movie_posters`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/movie_posters.svg" /> 
-    27. - `muted_and_dark`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/muted_and_dark.svg" /> 
-    28. - `muted_but_wide_hued`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/muted_but_wide_hued.svg" /> 
-    29. - `neonest_of_the_rainbows`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/neonest_of_the_rainbows.svg" /> 
-    30. - `never_as_good`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/never_as_good.svg" /> 
-    31. - `nom_those_rainbows`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/nom_those_rainbows.svg" /> 
-    32. - `oil_painting`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/oil_painting.svg" /> 
-    33. - `oil_painting_at_night`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/oil_painting_at_night.svg" /> 
-    34. - `olive_and_sky`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/olive_and_sky.svg" /> 
-    35. - `opening_the_drapes`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/opening_the_drapes.svg" /> 
-    36. - `orange_lime_aqua`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/orange_lime_aqua.svg" /> 
-    37. - `orange_and_dark_cyan`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/orange_and_dark_cyan.svg" /> 
-    38. - `orange_and_ff00ff`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/orange_and_ff00ff.svg" /> 
-    39. - `orange_like_a_sunset`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/orange_like_a_sunset.svg" /> 
-    40. - `paradiso`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/paradiso.svg" /> 
-    41. - `pink_cyan_grey`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/pink_cyan_grey.svg" /> 
-    42. - `pink_cyan_white`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/pink_cyan_white.svg" /> 
-    43. - `pink_royal_purple_cyan`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/pink_royal_purple_cyan.svg" /> 
-    44. - `pink_yellow_white`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/pink_yellow_white.svg" /> 
+    14. - `like_a_bomb_pop`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/like_a_bomb_pop.svg" /> 
+    15. - `lime_cyan_orange`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/lime_cyan_orange.svg" /> 
+    16. - `lut_gholein`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/lut_gholein.svg" /> 
+    17. - `mauve_and_cyan`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/mauve_and_cyan.svg" /> 
+    18. - `mint_orange_blue`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/mint_orange_blue.svg" /> 
+    19. - `modern_orange`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/modern_orange.svg" /> 
+    20. - `monochrome_is_unimaginative`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/monochrome_is_unimaginative.svg" /> 
+    21. - `mood_swings`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/mood_swings.svg" /> 
+    22. - `mostly_grey`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/mostly_grey.svg" /> 
+    23. - `motherfucking_rainbow`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/motherfucking_rainbow.svg" /> 
+    24. - `movie_posters`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/movie_posters.svg" /> 
+    25. - `muted_and_dark`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/muted_and_dark.svg" /> 
+    26. - `muted_but_wide_hued`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/muted_but_wide_hued.svg" /> 
+    27. - `neonest_of_the_rainbows`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/neonest_of_the_rainbows.svg" /> 
+    28. - `never_as_good`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/never_as_good.svg" /> 
+    29. - `nom_those_rainbows`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/nom_those_rainbows.svg" /> 
+    30. - `oil_painting`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/oil_painting.svg" /> 
+    31. - `oil_painting_at_night`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/oil_painting_at_night.svg" /> 
+    32. - `olive_and_sky`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/olive_and_sky.svg" /> 
+    33. - `opening_the_drapes`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/opening_the_drapes.svg" /> 
+    34. - `orange_lime_aqua`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/orange_lime_aqua.svg" /> 
+    35. - `orange_and_dark_cyan`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/orange_and_dark_cyan.svg" /> 
+    36. - `orange_and_ff00ff`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/orange_and_ff00ff.svg" /> 
+    37. - `orange_like_a_sunset`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/orange_like_a_sunset.svg" /> 
+    38. - `paradiso`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/paradiso.svg" /> 
+    39. - `pink_cyan_grey`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/pink_cyan_grey.svg" /> 
+    40. - `pink_cyan_white`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/pink_cyan_white.svg" /> 
+    41. - `pink_royal_purple_cyan`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/pink_royal_purple_cyan.svg" /> 
+    42. - `pink_yellow_white`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/pink_yellow_white.svg" /> 
 
 </br>
 </br>
@@ -922,28 +920,27 @@ They are subdivided in 2(_two_) main categories:
     31. - `tatasz_pack_04_75`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_75.svg" /> 
     32. - `tatasz_pack_04_76`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_76.svg" /> 
     33. - `tatasz_pack_04_77`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_77.svg" /> 
-    34. - `tatasz_pack_04_78`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_78.svg" /> 
-    35. - `tatasz_pack_04_79`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_79.svg" /> 
-    36. - `tatasz_pack_04_80`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_80.svg" /> 
-    37. - `tatasz_pack_04_81`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_81.svg" /> 
-    38. - `tatasz_pack_04_82`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_82.svg" /> 
-    39. - `tatasz_pack_04_83`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_83.svg" /> 
-    40. - `tatasz_pack_04_84`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_84.svg" /> 
-    41. - `tatasz_pack_04_85`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_85.svg" /> 
-    42. - `tatasz_pack_04_86`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_86.svg" /> 
-    43. - `tatasz_pack_04_87`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_87.svg" /> 
-    44. - `tatasz_pack_04_88`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_88.svg" /> 
-    45. - `tatasz_pack_04_89`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_89.svg" /> 
-    46. - `tatasz_pack_04_90`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_90.svg" /> 
-    47. - `tatasz_pack_04_91`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_91.svg" /> 
-    48. - `tatasz_pack_04_92`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_92.svg" /> 
-    49. - `tatasz_pack_04_93`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_93.svg" /> 
-    50. - `tatasz_pack_04_94`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_94.svg" /> 
-    51. - `tatasz_pack_04_95`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_95.svg" /> 
-    52. - `tatasz_pack_04_96`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_96.svg" /> 
-    53. - `tatasz_pack_04_97`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_97.svg" /> 
-    54. - `tatasz_pack_04_98`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_98.svg" /> 
-    55. - `tatasz_pack_04_99`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_99.svg" /> 
+    34. - `tatasz_pack_04_79`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_79.svg" /> 
+    35. - `tatasz_pack_04_80`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_80.svg" /> 
+    36. - `tatasz_pack_04_81`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_81.svg" /> 
+    37. - `tatasz_pack_04_82`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_82.svg" /> 
+    38. - `tatasz_pack_04_83`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_83.svg" /> 
+    39. - `tatasz_pack_04_84`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_84.svg" /> 
+    40. - `tatasz_pack_04_85`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_85.svg" /> 
+    41. - `tatasz_pack_04_86`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_86.svg" /> 
+    42. - `tatasz_pack_04_87`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_87.svg" /> 
+    43. - `tatasz_pack_04_88`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_88.svg" /> 
+    44. - `tatasz_pack_04_89`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_89.svg" /> 
+    45. - `tatasz_pack_04_90`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_90.svg" /> 
+    46. - `tatasz_pack_04_91`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_91.svg" /> 
+    47. - `tatasz_pack_04_92`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_92.svg" /> 
+    48. - `tatasz_pack_04_93`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_93.svg" /> 
+    49. - `tatasz_pack_04_94`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_94.svg" /> 
+    50. - `tatasz_pack_04_95`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_95.svg" /> 
+    51. - `tatasz_pack_04_96`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_96.svg" /> 
+    52. - `tatasz_pack_04_97`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_97.svg" /> 
+    53. - `tatasz_pack_04_98`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_98.svg" /> 
+    54. - `tatasz_pack_04_99`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_99.svg" /> 
 
 </details>
 
