@@ -42,7 +42,7 @@ Some Palette library files included here are made specifically for this as well 
 <b>NOTE</b>:
 
 - _All these library presets have also been converted into Houdini's native Recipes, allowing them to be previewed in the new H22 Color Palette Gallery window_.
-- _These new Recipes have been organized into 2(two) separate Houdini Digital Assets:_
+- _Instead of one asset for each JSON library file these new Recipes have been organized into **2**(two) main **H**oudini **D**igital **A**ssets:_
     
     - **alexnardini__FLAM3H_f3h_palette.hda** ( _FLAM3H™ palette libs_ )
     - **alexnardini__FLAM3H_apo_palette.hda** ( _APOPHYSIS palette libs_ )

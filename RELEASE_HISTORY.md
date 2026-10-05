@@ -49,6 +49,33 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.1.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.00)  ##
+
+#### FLAM3H™ v2.1.00 indie -> H22.0 UP</br>FLAM3H™ v2.0.80 indie -> H21.0</br>FLAM3H™ v2.0.55 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+- **New H21, H22 or higher**: The palette presets shipped with FLAM3H™ (JSON format) have been now converted into Houdini's native Recipes. They are not as light weight but they take advantage of the interanl Recipes system, showup when you right-click on the FLAM3H™ CP tab palette parameter under the recipes sub-menu and showup inside the ramp presets gallery panel which is really nice. They total to 696 palette presets both as JSON and Recipes format (_The JSON format is native to FLAM3H™ and is also used for things like copying and pasting palette presets between different FLAM3H™ nodes, from the Clipboard, or from third-party standalone applications such as Fractorium or Apophysis, and so on_).
+- **New**: Updated Git documentation with preview icons of all the FLAM3H™ palette presets: [**Palette presets previews**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/__FLAM3H_palette_libs/README.md#palette-previews)
+- **Fix**: Updated the metadata of all SVG icons to include proper © copyright notices where applicable.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+#### FLAM3H™USD v0.2.70 indie -> H22.0 UP</br>FLAM3H™USD v0.2.66 indie -> H21.0</br>FLAM3H™USD v0.2.62 indie -> H20.5</br>FLAM3H™USD v0.2.51 indie -> H19.0 to H20 ####
+
+- **Fix**: Updated the metadata of all SVG icons to include proper © copyright notices where applicable.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.0.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.75)  ##
 
 #### FLAM3H™ v2.0.75 indie -> H22.0 UP</br>FLAM3H™ v2.0.60 indie -> H21.0</br>FLAM3H™ v2.0.53 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
