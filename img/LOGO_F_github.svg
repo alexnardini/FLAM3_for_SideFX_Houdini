@@ -19,17 +19,16 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:dc="http://purl.org/dc/elements/1.1/">
-  <metadata
-     id="metadata3420">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
+   <metadata>
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            xmlns:dc="http://purl.org/dc/elements/1.1/">
+      <rdf:Description rdf:about="">
+         <dc:title>F stands for liFe</dc:title>
+         <dc:creator>F stands for liFe</dc:creator>
+         <dc:rights>Copyright (c) 2021 F stands for liFe. All rights reserved.</dc:rights>
+      </rdf:Description>
+   </rdf:RDF>
+   </metadata>
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
