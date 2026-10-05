@@ -2198,6 +2198,41 @@ Reload preset [Icon:opdef:.?icon_actionButtonSVG.svg]:
     
     - When loading a palette preset (_from a file or from Clipboard_),<br />if the palette data possess any invalid hex values, only one red color key will be created to signal it.<br /><br />This is valid for either a palette JSON data (_from a file or from Clipboard_)<br />or a XML Flame preset palette data (_only from Clipboard_).
 
+
+:box:
+    #display: rounded white
+    
+    == CP: Presets libraries == (CPPRESETSLIBS)
+        
+Json libraries:
+    #id: PALETTELIBS
+    FLAM3H(tm) ship with a vast library of palette presets in a JSON file format.
+
+    These libraries are light-weight, and work within the FLAM3H(tm) copy-paste palette system. You can copy and paste palette to/from the Clipboard using the JSON format.
+
+    <br />
+
+Recipes libraries:
+    #id: PALETTELIBS
+    FLAM3H(tm) ship also with the same JSON library palette presets but in a native Houdini recipe format instead.
+
+    These libraries work well within the Houdini recipe system and also show up inside the ramp Gallery panel which is really nice.
+
+    _These new Recipes have been organized into *`2`*(two) separate Houdini Digital Assets:_
+
+    - *`alexnardini__FLAM3H_f3h_palette.hda`* ( _FLAM3H™ palette libs_ )
+    - *`alexnardini__FLAM3H_apo_palette.hda`* ( _APOPHYSIS palette libs_ )
+
+Palette previews:
+    #id: PALETTELIBS
+
+    You can review a preview for each palette preset included in both formats here:<br />
+    _[Palette presets previews|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/__FLAM3H_palette_libs/README.md]_
+
+    <br />
+
+
+
 :box:
     #display: rounded white
 
