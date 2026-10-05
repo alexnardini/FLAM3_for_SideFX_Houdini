@@ -49,7 +49,7 @@ Some Palette library files included here are made specifically for this as well 
 
 </br>
 
-- _They can be found in the_ **`./otls/H22.0_CL/`** _directory of this repository_.
+- _They can be found inide the_ **`./otls/PALETTE__Recipes/`** _directory of this repository_.
 
 </br>
 </br>

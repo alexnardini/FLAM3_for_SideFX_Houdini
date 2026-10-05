@@ -19,6 +19,9 @@
   </br>
 
     - [**FULL ICON SET**](../icons/README.md)
+
+  </br>
+  
     - [**PALETTE PREVIEWS**](../__FLAM3H_palette_libs/README.md)
 
 <br>
