@@ -4746,7 +4746,7 @@
                 label   "keep on Load"
                 type    toggle
                 default { "0" }
-                help    "When loading a palette, FLAM3H™ will either set the <b>HSV</b> values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.<br/><br/>Toggle this option <b>ON</b> to keep the current <b>HSV</b> values untouched after loading a palette preset."
+                help    "When loading a JSON palette, FLAM3H™ will either set the <b>HSV</b> values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.<br/><br/>Toggle this option <b>ON</b> to keep the current <b>HSV</b> values untouched after loading a palette preset."
                 parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
             }
@@ -6155,8 +6155,7 @@
             groupcollapsible {
                 name    "f_prefsviewport"
                 label   "prefs viewport"
-                parmtag { "group_default" "1" }
-                grouptag { "group_type" "simple" }
+                grouptag { "group_type" "collapsible" }
                 parmtag { "sidefx::header_parm" "vpptsize" }
                 parmtag { "sidefx::header_toggle" "setdark" }
 
@@ -6165,7 +6164,7 @@
                     label   "dark"
                     type    toggle
                     default { "0" }
-                    help    "<h3>Set dark viewport color scheme</h3>If it isn’t already, change the viewport’s color scheme to dark.<br/><br/>If unchecked, it will remember the color scheme for every viewport and fall back on it.<br/><br/><i><b>TIP</b>:<br/>Checking this box has no effect<br/>if the color scheme in a viewport is already dark</i>."
+                    help    "<h3>Set dark viewport color scheme</h3>If it isn’t already, change the viewport’s color scheme to dark.<br/><br/>If unchecked, it will remember the color scheme for every viewport and fall back on it.<br/><br/><b>TIP</b>:<br/><i>Checking this box has no effect<br/>if the color scheme in a viewport is already dark</i>."
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }

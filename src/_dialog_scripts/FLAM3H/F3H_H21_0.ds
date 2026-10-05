@@ -4853,7 +4853,7 @@
                 label   "keep on Load"
                 type    toggle
                 default { "0" }
-                help    "OFF by default.\\nWhen loading a palette, FLAM3H™ will either set the HSV values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.\\n\\nToggle this option ON to keep the current HSV values untouched after loading a palette preset."
+                help    "OFF by default.\\nWhen loading a JSON palette, FLAM3H™ will either set the HSV values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.\\n\\nToggle this option ON to keep the current HSV values untouched after loading a palette preset."
                 parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
             }
