@@ -56,6 +56,7 @@ Some Palette library files included here are made specifically for this as well 
 </br>
 </br>
 
+<a id="palette-previews"></a>
 # Contents
 
 </br>

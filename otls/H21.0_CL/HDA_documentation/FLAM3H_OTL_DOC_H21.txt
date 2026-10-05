@@ -2232,7 +2232,7 @@ Palette previews:
     #id: PALETTELIBS
 
     You can review a preview for each palette preset included in both formats here:<br />
-    _[Palette presets previews|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/__FLAM3H_palette_libs/README.md]_
+    _[Palette presets previews|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/__FLAM3H_palette_libs/README.md#palette-previews]_
 
     <br />
 
