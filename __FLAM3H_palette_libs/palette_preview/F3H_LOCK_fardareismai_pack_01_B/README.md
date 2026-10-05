@@ -18,37 +18,35 @@
     11. - `impressionism`</br><img width="512" height="32" src="./impressionism.svg" /> 
     12. - `just_after_dawn_in_winter`</br><img width="512" height="32" src="./just_after_dawn_in_winter.svg" /> 
     13. - `lavander_gold_cyan`</br><img width="512" height="32" src="./lavander_gold_cyan.svg" /> 
-    14. - `lectric`</br><img width="512" height="32" src="./lectric.svg" /> 
-    15. - `library`</br><img width="512" height="32" src="./library.svg" /> 
-    16. - `like_a_bomb_pop`</br><img width="512" height="32" src="./like_a_bomb_pop.svg" /> 
-    17. - `lime_cyan_orange`</br><img width="512" height="32" src="./lime_cyan_orange.svg" /> 
-    18. - `lut_gholein`</br><img width="512" height="32" src="./lut_gholein.svg" /> 
-    19. - `mauve_and_cyan`</br><img width="512" height="32" src="./mauve_and_cyan.svg" /> 
-    20. - `mint_orange_blue`</br><img width="512" height="32" src="./mint_orange_blue.svg" /> 
-    21. - `modern_orange`</br><img width="512" height="32" src="./modern_orange.svg" /> 
-    22. - `monochrome_is_unimaginative`</br><img width="512" height="32" src="./monochrome_is_unimaginative.svg" /> 
-    23. - `mood_swings`</br><img width="512" height="32" src="./mood_swings.svg" /> 
-    24. - `mostly_grey`</br><img width="512" height="32" src="./mostly_grey.svg" /> 
-    25. - `motherfucking_rainbow`</br><img width="512" height="32" src="./motherfucking_rainbow.svg" /> 
-    26. - `movie_posters`</br><img width="512" height="32" src="./movie_posters.svg" /> 
-    27. - `muted_and_dark`</br><img width="512" height="32" src="./muted_and_dark.svg" /> 
-    28. - `muted_but_wide_hued`</br><img width="512" height="32" src="./muted_but_wide_hued.svg" /> 
-    29. - `neonest_of_the_rainbows`</br><img width="512" height="32" src="./neonest_of_the_rainbows.svg" /> 
-    30. - `never_as_good`</br><img width="512" height="32" src="./never_as_good.svg" /> 
-    31. - `nom_those_rainbows`</br><img width="512" height="32" src="./nom_those_rainbows.svg" /> 
-    32. - `oil_painting`</br><img width="512" height="32" src="./oil_painting.svg" /> 
-    33. - `oil_painting_at_night`</br><img width="512" height="32" src="./oil_painting_at_night.svg" /> 
-    34. - `olive_and_sky`</br><img width="512" height="32" src="./olive_and_sky.svg" /> 
-    35. - `opening_the_drapes`</br><img width="512" height="32" src="./opening_the_drapes.svg" /> 
-    36. - `orange_lime_aqua`</br><img width="512" height="32" src="./orange_lime_aqua.svg" /> 
-    37. - `orange_and_dark_cyan`</br><img width="512" height="32" src="./orange_and_dark_cyan.svg" /> 
-    38. - `orange_and_ff00ff`</br><img width="512" height="32" src="./orange_and_ff00ff.svg" /> 
-    39. - `orange_like_a_sunset`</br><img width="512" height="32" src="./orange_like_a_sunset.svg" /> 
-    40. - `paradiso`</br><img width="512" height="32" src="./paradiso.svg" /> 
-    41. - `pink_cyan_grey`</br><img width="512" height="32" src="./pink_cyan_grey.svg" /> 
-    42. - `pink_cyan_white`</br><img width="512" height="32" src="./pink_cyan_white.svg" /> 
-    43. - `pink_royal_purple_cyan`</br><img width="512" height="32" src="./pink_royal_purple_cyan.svg" /> 
-    44. - `pink_yellow_white`</br><img width="512" height="32" src="./pink_yellow_white.svg" /> 
+    14. - `like_a_bomb_pop`</br><img width="512" height="32" src="./like_a_bomb_pop.svg" /> 
+    15. - `lime_cyan_orange`</br><img width="512" height="32" src="./lime_cyan_orange.svg" /> 
+    16. - `lut_gholein`</br><img width="512" height="32" src="./lut_gholein.svg" /> 
+    17. - `mauve_and_cyan`</br><img width="512" height="32" src="./mauve_and_cyan.svg" /> 
+    18. - `mint_orange_blue`</br><img width="512" height="32" src="./mint_orange_blue.svg" /> 
+    19. - `modern_orange`</br><img width="512" height="32" src="./modern_orange.svg" /> 
+    20. - `monochrome_is_unimaginative`</br><img width="512" height="32" src="./monochrome_is_unimaginative.svg" /> 
+    21. - `mood_swings`</br><img width="512" height="32" src="./mood_swings.svg" /> 
+    22. - `mostly_grey`</br><img width="512" height="32" src="./mostly_grey.svg" /> 
+    23. - `motherfucking_rainbow`</br><img width="512" height="32" src="./motherfucking_rainbow.svg" /> 
+    24. - `movie_posters`</br><img width="512" height="32" src="./movie_posters.svg" /> 
+    25. - `muted_and_dark`</br><img width="512" height="32" src="./muted_and_dark.svg" /> 
+    26. - `muted_but_wide_hued`</br><img width="512" height="32" src="./muted_but_wide_hued.svg" /> 
+    27. - `neonest_of_the_rainbows`</br><img width="512" height="32" src="./neonest_of_the_rainbows.svg" /> 
+    28. - `never_as_good`</br><img width="512" height="32" src="./never_as_good.svg" /> 
+    29. - `nom_those_rainbows`</br><img width="512" height="32" src="./nom_those_rainbows.svg" /> 
+    30. - `oil_painting`</br><img width="512" height="32" src="./oil_painting.svg" /> 
+    31. - `oil_painting_at_night`</br><img width="512" height="32" src="./oil_painting_at_night.svg" /> 
+    32. - `olive_and_sky`</br><img width="512" height="32" src="./olive_and_sky.svg" /> 
+    33. - `opening_the_drapes`</br><img width="512" height="32" src="./opening_the_drapes.svg" /> 
+    34. - `orange_lime_aqua`</br><img width="512" height="32" src="./orange_lime_aqua.svg" /> 
+    35. - `orange_and_dark_cyan`</br><img width="512" height="32" src="./orange_and_dark_cyan.svg" /> 
+    36. - `orange_and_ff00ff`</br><img width="512" height="32" src="./orange_and_ff00ff.svg" /> 
+    37. - `orange_like_a_sunset`</br><img width="512" height="32" src="./orange_like_a_sunset.svg" /> 
+    38. - `paradiso`</br><img width="512" height="32" src="./paradiso.svg" /> 
+    39. - `pink_cyan_grey`</br><img width="512" height="32" src="./pink_cyan_grey.svg" /> 
+    40. - `pink_cyan_white`</br><img width="512" height="32" src="./pink_cyan_white.svg" /> 
+    41. - `pink_royal_purple_cyan`</br><img width="512" height="32" src="./pink_royal_purple_cyan.svg" /> 
+    42. - `pink_yellow_white`</br><img width="512" height="32" src="./pink_yellow_white.svg" /> 
 
 <br/>
 <br/>

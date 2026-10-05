@@ -38,28 +38,27 @@
     31. - `tatasz_pack_04_75`</br><img width="512" height="32" src="./tatasz_pack_04_75.svg" /> 
     32. - `tatasz_pack_04_76`</br><img width="512" height="32" src="./tatasz_pack_04_76.svg" /> 
     33. - `tatasz_pack_04_77`</br><img width="512" height="32" src="./tatasz_pack_04_77.svg" /> 
-    34. - `tatasz_pack_04_78`</br><img width="512" height="32" src="./tatasz_pack_04_78.svg" /> 
-    35. - `tatasz_pack_04_79`</br><img width="512" height="32" src="./tatasz_pack_04_79.svg" /> 
-    36. - `tatasz_pack_04_80`</br><img width="512" height="32" src="./tatasz_pack_04_80.svg" /> 
-    37. - `tatasz_pack_04_81`</br><img width="512" height="32" src="./tatasz_pack_04_81.svg" /> 
-    38. - `tatasz_pack_04_82`</br><img width="512" height="32" src="./tatasz_pack_04_82.svg" /> 
-    39. - `tatasz_pack_04_83`</br><img width="512" height="32" src="./tatasz_pack_04_83.svg" /> 
-    40. - `tatasz_pack_04_84`</br><img width="512" height="32" src="./tatasz_pack_04_84.svg" /> 
-    41. - `tatasz_pack_04_85`</br><img width="512" height="32" src="./tatasz_pack_04_85.svg" /> 
-    42. - `tatasz_pack_04_86`</br><img width="512" height="32" src="./tatasz_pack_04_86.svg" /> 
-    43. - `tatasz_pack_04_87`</br><img width="512" height="32" src="./tatasz_pack_04_87.svg" /> 
-    44. - `tatasz_pack_04_88`</br><img width="512" height="32" src="./tatasz_pack_04_88.svg" /> 
-    45. - `tatasz_pack_04_89`</br><img width="512" height="32" src="./tatasz_pack_04_89.svg" /> 
-    46. - `tatasz_pack_04_90`</br><img width="512" height="32" src="./tatasz_pack_04_90.svg" /> 
-    47. - `tatasz_pack_04_91`</br><img width="512" height="32" src="./tatasz_pack_04_91.svg" /> 
-    48. - `tatasz_pack_04_92`</br><img width="512" height="32" src="./tatasz_pack_04_92.svg" /> 
-    49. - `tatasz_pack_04_93`</br><img width="512" height="32" src="./tatasz_pack_04_93.svg" /> 
-    50. - `tatasz_pack_04_94`</br><img width="512" height="32" src="./tatasz_pack_04_94.svg" /> 
-    51. - `tatasz_pack_04_95`</br><img width="512" height="32" src="./tatasz_pack_04_95.svg" /> 
-    52. - `tatasz_pack_04_96`</br><img width="512" height="32" src="./tatasz_pack_04_96.svg" /> 
-    53. - `tatasz_pack_04_97`</br><img width="512" height="32" src="./tatasz_pack_04_97.svg" /> 
-    54. - `tatasz_pack_04_98`</br><img width="512" height="32" src="./tatasz_pack_04_98.svg" /> 
-    55. - `tatasz_pack_04_99`</br><img width="512" height="32" src="./tatasz_pack_04_99.svg" /> 
+    34. - `tatasz_pack_04_79`</br><img width="512" height="32" src="./tatasz_pack_04_79.svg" /> 
+    35. - `tatasz_pack_04_80`</br><img width="512" height="32" src="./tatasz_pack_04_80.svg" /> 
+    36. - `tatasz_pack_04_81`</br><img width="512" height="32" src="./tatasz_pack_04_81.svg" /> 
+    37. - `tatasz_pack_04_82`</br><img width="512" height="32" src="./tatasz_pack_04_82.svg" /> 
+    38. - `tatasz_pack_04_83`</br><img width="512" height="32" src="./tatasz_pack_04_83.svg" /> 
+    39. - `tatasz_pack_04_84`</br><img width="512" height="32" src="./tatasz_pack_04_84.svg" /> 
+    40. - `tatasz_pack_04_85`</br><img width="512" height="32" src="./tatasz_pack_04_85.svg" /> 
+    41. - `tatasz_pack_04_86`</br><img width="512" height="32" src="./tatasz_pack_04_86.svg" /> 
+    42. - `tatasz_pack_04_87`</br><img width="512" height="32" src="./tatasz_pack_04_87.svg" /> 
+    43. - `tatasz_pack_04_88`</br><img width="512" height="32" src="./tatasz_pack_04_88.svg" /> 
+    44. - `tatasz_pack_04_89`</br><img width="512" height="32" src="./tatasz_pack_04_89.svg" /> 
+    45. - `tatasz_pack_04_90`</br><img width="512" height="32" src="./tatasz_pack_04_90.svg" /> 
+    46. - `tatasz_pack_04_91`</br><img width="512" height="32" src="./tatasz_pack_04_91.svg" /> 
+    47. - `tatasz_pack_04_92`</br><img width="512" height="32" src="./tatasz_pack_04_92.svg" /> 
+    48. - `tatasz_pack_04_93`</br><img width="512" height="32" src="./tatasz_pack_04_93.svg" /> 
+    49. - `tatasz_pack_04_94`</br><img width="512" height="32" src="./tatasz_pack_04_94.svg" /> 
+    50. - `tatasz_pack_04_95`</br><img width="512" height="32" src="./tatasz_pack_04_95.svg" /> 
+    51. - `tatasz_pack_04_96`</br><img width="512" height="32" src="./tatasz_pack_04_96.svg" /> 
+    52. - `tatasz_pack_04_97`</br><img width="512" height="32" src="./tatasz_pack_04_97.svg" /> 
+    53. - `tatasz_pack_04_98`</br><img width="512" height="32" src="./tatasz_pack_04_98.svg" /> 
+    54. - `tatasz_pack_04_99`</br><img width="512" height="32" src="./tatasz_pack_04_99.svg" /> 
 
 <br/>
 <br/>
