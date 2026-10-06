@@ -49,7 +49,7 @@ Some Palette library files included here are made specifically for this as well 
 
 </br>
 
-- _They can be found inide the_ **`./otls/PALETTE__Recipes/`** _directory of this repository_.
+- _They can be found inside the_ **`./otls/PALETTE__Recipes/`** _directory of this repository_.
 
 </br>
 </br>
@@ -99,7 +99,7 @@ They are subdivided in 2(_two_) main categories:
     6. - `50s old Superman`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_alexnardini_50s_Heros_HQ/50s old Superman.svg" /> 
     7. - `50s old Batman`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_alexnardini_50s_Heros_HQ/50s old Batman.svg" /> 
     8. - `50s old Wolverine`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_alexnardini_50s_Heros_HQ/50s old Wolverine.svg" /> 
-    9. - `50s X-Man origin Wolverin`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_alexnardini_50s_Heros_HQ/50s old Wolverine.svg" /> 
+    9. - `50s X-Man origin Wolverin`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_alexnardini_50s_Heros_HQ/50s X-Man origin Wolverin.svg" /> 
     10. - `50s Hulk`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_alexnardini_50s_Heros_HQ/50s Hulk.svg" /> 
     11. - `50s fat Batman`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_alexnardini_50s_Heros_HQ/50s fat Batman.svg" /> 
     12. - `50s young Joker`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_alexnardini_50s_Heros_HQ/50s young Joker.svg" /> 
