@@ -29,7 +29,7 @@
     22. - `desaturated_green_and_purple`</br><img width="512" height="32" src="./desaturated_green_and_purple.svg" /> 
     23. - `encore`</br><img width="512" height="32" src="./encore.svg" /> 
     24. - `evening_reflection`</br><img width="512" height="32" src="./evening_reflection.svg" /> 
-    25. - `garden`</br><img width="512" height="32" src="./garden.svg" /> 
+    25. - `garden_a`</br><img width="512" height="32" src="./garden_a.svg" /> 
     26. - `garish`</br><img width="512" height="32" src="./garish.svg" /> 
     27. - `gold_and_turquoise`</br><img width="512" height="32" src="./gold_and_turquoise.svg" /> 
     28. - `green_grey_pink`</br><img width="512" height="32" src="./green_grey_pink.svg" /> 

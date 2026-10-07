@@ -661,7 +661,7 @@ They are subdivided in 2(_two_) main categories:
     22. - `desaturated_green_and_purple`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/desaturated_green_and_purple.svg" /> 
     23. - `encore`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/encore.svg" /> 
     24. - `evening_reflection`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/evening_reflection.svg" /> 
-    25. - `garden`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/garden.svg" /> 
+    25. - `garden_a`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/garden_a.svg" /> 
     26. - `garish`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/garish.svg" /> 
     27. - `gold_and_turquoise`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/gold_and_turquoise.svg" /> 
     28. - `green_grey_pink`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/green_grey_pink.svg" /> 
