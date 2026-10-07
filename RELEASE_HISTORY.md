@@ -49,9 +49,49 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.1.02 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.02)  ##
+
+#### FLAM3H™ v2.1.02 indie -> H22.0 UP</br>FLAM3H™ v2.0.82 indie -> H21.0</br>FLAM3H™ v2.0.55 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+- **New H21, H22 or higher**: Each Palette Recipe HDA definition now has its own Help card. For example, you can easily view one using a Python SOP with the following code (_In case you are not familiar with Python and Houdini HDA definitions_):
+
+   ```python
+   # The name of the Recipe HDA definition for which you want to display the Help.
+   #
+   # The following definition lives inside: alexnardini__FLAM3H_f3h_palette.hda
+   # so you need that HDA installed into your Houdini's otls directory
+   definition_name: str = "alexnardini::Data/f3h_watercolors_on_paper"
+
+   # Get its node type
+   definition_node_type: hou.OpNodeType = hou.nodeType(definition_name)
+
+   # Display its Documentation
+   hou.ui.displayNodeHelp(definition_node_type)
+
+   # You can also print its internal version number
+   print(definition_node_type.definition().version())
+   ```
+
+- **Fix H21, H22 or higher**: Some Recipe names in the Palette Recipe definitions for the Apophysis collections were clashing with each other, while others were missing. It is now fixed.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.1.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.00)  ##
 
 #### FLAM3H™ v2.1.00 indie -> H22.0 UP</br>FLAM3H™ v2.0.80 indie -> H21.0</br>FLAM3H™ v2.0.55 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
+
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
 **Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
 
