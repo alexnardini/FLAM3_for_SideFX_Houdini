@@ -13,7 +13,7 @@
     6. - `Cold_again`</br><img width="512" height="32" src="./Cold_again.svg" /> 
     7. - `desudesu_err`</br><img width="512" height="32" src="./desudesu_err.svg" /> 
     8. - `Fresh`</br><img width="512" height="32" src="./Fresh.svg" /> 
-    9. - `Garden`</br><img width="512" height="32" src="./Garden.svg" /> 
+    9. - `Garden_b`</br><img width="512" height="32" src="./Garden_b.svg" /> 
     10. - `Hey_lets_go`</br><img width="512" height="32" src="./Hey_lets_go.svg" /> 
     11. - `Hipster_cat`</br><img width="512" height="32" src="./Hipster_cat.svg" /> 
     12. - `I_see_it_tehe`</br><img width="512" height="32" src="./I_see_it_tehe.svg" /> 

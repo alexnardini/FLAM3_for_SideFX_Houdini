@@ -8,7 +8,7 @@
     1. - `pink_and_blue`</br><img width="512" height="32" src="./pink_and_blue.svg" /> 
     2. - `pink_and_green`</br><img width="512" height="32" src="./pink_and_green.svg" /> 
     3. - `pretty_damn_yellow`</br><img width="512" height="32" src="./pretty_damn_yellow.svg" /> 
-    4. - `primaries`</br><img width="512" height="32" src="./primaries.svg" /> 
+    4. - `primaries_c`</br><img width="512" height="32" src="./primaries_c.svg" /> 
     5. - `purple_cyan_beige`</br><img width="512" height="32" src="./purple_cyan_beige.svg" /> 
     6. - `purple_and_red`</br><img width="512" height="32" src="./purple_and_red.svg" /> 
     7. - `purple_and_yellow`</br><img width="512" height="32" src="./purple_and_yellow.svg" /> 

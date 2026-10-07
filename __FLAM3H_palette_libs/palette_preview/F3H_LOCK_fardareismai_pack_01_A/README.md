@@ -25,7 +25,7 @@
     18. - `blue_and_dark_salmon`</br><img width="512" height="32" src="./blue_and_dark_salmon.svg" /> 
     19. - `blue_and_dust`</br><img width="512" height="32" src="./blue_and_dust.svg" /> 
     20. - `blue_and_green`</br><img width="512" height="32" src="./blue_and_green.svg" /> 
-    21. - `blue_and_orange`</br><img width="512" height="32" src="./blue_and_orange.svg" /> 
+    21. - `blue_and_orange_b`</br><img width="512" height="32" src="./blue_and_orange_b.svg" /> 
     22. - `blue_and_red`</br><img width="512" height="32" src="./blue_and_red.svg" /> 
     23. - `cadet_and_cream`</br><img width="512" height="32" src="./cadet_and_cream.svg" /> 
     24. - `cadet_and_olive`</br><img width="512" height="32" src="./cadet_and_olive.svg" /> 

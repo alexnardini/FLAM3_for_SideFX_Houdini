@@ -28,7 +28,7 @@
     21. - `Mesa`</br><img width="512" height="32" src="./Mesa.svg" /> 
     22. - `Mossy_Cobble`</br><img width="512" height="32" src="./Mossy_Cobble.svg" /> 
     23. - `Nether`</br><img width="512" height="32" src="./Nether.svg" /> 
-    24. - `Primaries`</br><img width="512" height="32" src="./Primaries.svg" /> 
+    24. - `Primaries_bt`</br><img width="512" height="32" src="./Primaries_bt.svg" /> 
     25. - `Rich_over_vein`</br><img width="512" height="32" src="./Rich_over_vein.svg" /> 
     26. - `Smooth_Stone`</br><img width="512" height="32" src="./Smooth_Stone.svg" /> 
     27. - `Spider`</br><img width="512" height="32" src="./Spider.svg" /> 

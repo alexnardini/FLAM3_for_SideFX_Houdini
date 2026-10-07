@@ -10,7 +10,7 @@
     3. - `black_yellow_teal_maroon`</br><img width="512" height="32" src="./black_yellow_teal_maroon.svg" /> 
     4. - `black_and_cyan`</br><img width="512" height="32" src="./black_and_cyan.svg" /> 
     5. - `blue_green_red`</br><img width="512" height="32" src="./blue_green_red.svg" /> 
-    6. - `blue_and_orange`</br><img width="512" height="32" src="./blue_and_orange.svg" /> 
+    6. - `blue_and_orange_a`</br><img width="512" height="32" src="./blue_and_orange_a.svg" /> 
     7. - `brown_cyan_green`</br><img width="512" height="32" src="./brown_cyan_green.svg" /> 
     8. - `brown_cyan_purple_coral`</br><img width="512" height="32" src="./brown_cyan_purple_coral.svg" /> 
     9. - `brown_with_brights`</br><img width="512" height="32" src="./brown_with_brights.svg" /> 

@@ -426,7 +426,7 @@ They are subdivided in 2(_two_) main categories:
     6. - `Cold_again`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_03_triangle/Cold_again.svg" /> 
     7. - `desudesu_err`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_03_triangle/desudesu_err.svg" /> 
     8. - `Fresh`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_03_triangle/Fresh.svg" /> 
-    9. - `Garden`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_03_triangle/Garden.svg" /> 
+    9. - `Garden_b`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_03_triangle/Garden_b.svg" /> 
     10. - `Hey_lets_go`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_03_triangle/Hey_lets_go.svg" /> 
     11. - `Hipster_cat`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_03_triangle/Hipster_cat.svg" /> 
     12. - `I_see_it_tehe`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_03_triangle/I_see_it_tehe.svg" /> 
@@ -477,7 +477,7 @@ They are subdivided in 2(_two_) main categories:
     21. - `Mesa`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_04/Mesa.svg" /> 
     22. - `Mossy_Cobble`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_04/Mossy_Cobble.svg" /> 
     23. - `Nether`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_04/Nether.svg" /> 
-    24. - `Primaries`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_04/Primaries.svg" /> 
+    24. - `Primaries_bt`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_04/Primaries_bt.svg" /> 
     25. - `Rich_over_vein`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_04/Rich_over_vein.svg" /> 
     26. - `Smooth_Stone`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_04/Smooth_Stone.svg" /> 
     27. - `Spider`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_boxtail_pack_04/Spider.svg" /> 
@@ -513,7 +513,7 @@ They are subdivided in 2(_two_) main categories:
     18. - `blue_and_dark_salmon`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_A/blue_and_dark_salmon.svg" /> 
     19. - `blue_and_dust`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_A/blue_and_dust.svg" /> 
     20. - `blue_and_green`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_A/blue_and_green.svg" /> 
-    21. - `blue_and_orange`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_A/blue_and_orange.svg" /> 
+    21. - `blue_and_orange_b`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_A/blue_and_orange_b.svg" /> 
     22. - `blue_and_red`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_A/blue_and_red.svg" /> 
     23. - `cadet_and_cream`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_A/cadet_and_cream.svg" /> 
     24. - `cadet_and_olive`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_A/cadet_and_olive.svg" /> 
@@ -593,7 +593,7 @@ They are subdivided in 2(_two_) main categories:
     1. - `pink_and_blue`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_C/pink_and_blue.svg" /> 
     2. - `pink_and_green`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_C/pink_and_green.svg" /> 
     3. - `pretty_damn_yellow`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_C/pretty_damn_yellow.svg" /> 
-    4. - `primaries`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_C/primaries.svg" /> 
+    4. - `primaries_c`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_C/primaries_c.svg" /> 
     5. - `purple_cyan_beige`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_C/purple_cyan_beige.svg" /> 
     6. - `purple_and_red`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_C/purple_and_red.svg" /> 
     7. - `purple_and_yellow`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_C/purple_and_yellow.svg" /> 
@@ -642,7 +642,7 @@ They are subdivided in 2(_two_) main categories:
     3. - `black_yellow_teal_maroon`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/black_yellow_teal_maroon.svg" /> 
     4. - `black_and_cyan`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/black_and_cyan.svg" /> 
     5. - `blue_green_red`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/blue_green_red.svg" /> 
-    6. - `blue_and_orange`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/blue_and_orange.svg" /> 
+    6. - `blue_and_orange_a`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/blue_and_orange_a.svg" /> 
     7. - `brown_cyan_green`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/brown_cyan_green.svg" /> 
     8. - `brown_cyan_purple_coral`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/brown_cyan_purple_coral.svg" /> 
     9. - `brown_with_brights`</br><img width="512" height="32" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/brown_with_brights.svg" /> 
