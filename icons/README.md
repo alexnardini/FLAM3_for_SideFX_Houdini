@@ -4875,6 +4875,10 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Whi
 
 # FLAM3H™ DOC image set #
 
+The following images are used for illustration purpose inside the HDAs documentations.
+
+</br>
+
 
 <p align="center">
   <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_camera_sensor_outline.svg" /></p>
