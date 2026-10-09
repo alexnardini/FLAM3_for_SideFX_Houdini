@@ -4866,6 +4866,167 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Whi
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+# FLAM3H™ DOC image set #
+
+
+<p align="center">
+  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_camera_sensor_outline.svg" /></p>
+<b><p align="center">FLAM3H_DOC_camera_sensor_outline.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>Image</b>
+
+```
+[Image:opdef:.?FLAM3H_DOC_camera_sensor_outline.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_camera_sensor_outline.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_pixel_fill.svg" /></p>
+<b><p align="center">FLAM3H_DOC_pixel_fill.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>Image</b>
+
+```
+[Image:opdef:.?FLAM3H_DOC_pixel_fill.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_pixel_fill.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_pixel_view.svg" /></p>
+<b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>Image</b>
+
+```
+[Image:opdef:.?FLAM3H_DOC_pixel_view.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_pixel_view.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_pixels_grid.svg" /></p>
+<b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>Image</b>
+
+```
+[Image:opdef:.?FLAM3H_DOC_pixels_grid.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_pixels_grid.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_point_dimension.svg" /></p>
+<b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>Image</b>
+
+```
+[Image:opdef:.?FLAM3H_DOC_point_dimension.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_point_dimension.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_tag.svg" /></p>
+<b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>Image</b>
+
+```
+[Image:opdef:.?FLAM3H_DOC_tag.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_tag.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_xaos_pathsSVG.svg" /></p>
+<b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>Image</b>
+
+```
+[Image:opdef:.?FLAM3H_DOC_xaos_pathsSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_xaos_pathsSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_xforms_handles.svg" /></p>
+<b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>Image</b>
+
+```
+[Image:opdef:.?FLAM3H_DOC_xforms_handles.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_xforms_handles.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
 
 <br/>
 <br/>

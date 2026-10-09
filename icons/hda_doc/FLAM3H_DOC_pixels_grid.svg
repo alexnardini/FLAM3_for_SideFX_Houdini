@@ -1,0 +1,12 @@
+<svg width="225mm" height="100mm" viewBox="0 0 225 100" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+<metadata>
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+           xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <rdf:Description rdf:about="">
+      <dc:title>F stands for liFe</dc:title>
+      <dc:creator>F stands for liFe</dc:creator>
+      <dc:rights>Copyright (c) 2021 F stands for liFe. All rights reserved.</dc:rights>
+    </rdf:Description>
+  </rdf:RDF>
+</metadata>
+<defs><linearGradient xlink:href="#b" id="d" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.31828 0 0 2.31828 -118.523 -20.132)" x1="109.279" y1="48.66" x2="148.163" y2="12.177"/><linearGradient id="b"><stop offset="0" stop-color="#fff"/><stop offset=".04" stop-color="#fff" stop-opacity=".922"/><stop offset=".13" stop-color="#fff" stop-opacity="0"/><stop offset=".144" stop-color="#fff"/><stop offset=".25" stop-color="#fff" stop-opacity="0"/><stop offset=".269" stop-color="#fff" stop-opacity=".031"/><stop offset=".409" stop-color="#fff" stop-opacity=".047"/><stop offset=".443" stop-color="#fff" stop-opacity=".806"/><stop offset=".567" stop-color="#fff" stop-opacity="0"/><stop offset=".635" stop-color="#fff" stop-opacity=".224"/><stop offset=".775" stop-color="#fff" stop-opacity=".841"/><stop offset=".877" stop-color="#fff" stop-opacity=".329"/><stop offset=".968" stop-color="#fff" stop-opacity=".557"/><stop offset="1" stop-color="#fff"/></linearGradient><pattern xlink:href="#a" preserveAspectRatio="xMidYMid" id="c" patternTransform="matrix(.6 0 0 .6 -45.386 -65.63)" x="4" y="1.65"/><pattern patternUnits="userSpaceOnUse" width="12" height="12" preserveAspectRatio="xMidYMid" id="a" x="0" y="0" fill="#0067f0"><path paint-order="markers fill stroke" d="M0 0h10v10H0z"/></pattern></defs><path fill="url(#c)" d="M.003.002h100v100h-100z"/><rect width="92.56" height="92.56" x="130.969" y="3.818" rx="2.843" ry="2.843" stroke="#fff" stroke-width="2.508" stroke-linecap="square" paint-order="stroke fill markers"/><path fill="#ff4d4d" stroke="#fff" stroke-width=".423" stroke-linecap="round" stroke-linejoin="round" d="M43.41 28.964h6.003v6.003H43.41z"/><rect width="93.614" height="93.614" x="130.479" y="3.363" rx="4.028" ry="4.028" opacity=".5" fill="url(#d)"/></svg>
