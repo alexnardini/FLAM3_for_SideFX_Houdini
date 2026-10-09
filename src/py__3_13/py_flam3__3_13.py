@@ -586,10 +586,10 @@ class f3h_affineNames:
     
     '''
     # Default affine key names
-    DEFAULT_AX: Final = "affine_x"
-    DEFAULT_AY: Final = "affine_y"
-    DEFAULT_AO: Final = "affine_o"
-    DEFAULT_A: Final = "angle"
+    DEFAULT_KEY_AX: Final = "affine_x"
+    DEFAULT_KEY_AY: Final = "affine_y"
+    DEFAULT_KEY_AO: Final = "affine_o"
+    DEFAULT_KEY_A: Final = "angle"
 
 
 class f3h_affineDefaults:
@@ -598,7 +598,7 @@ class f3h_affineDefaults:
     
     '''
     # Default affine values
-    DEFAULT_DICT: Final[dict[str, hou.Vector2 | float]] = {f3h_affineNames.DEFAULT_AX: hou.Vector2((1.0, 0.0)), f3h_affineNames.DEFAULT_AY: hou.Vector2((0.0, 1.0)), f3h_affineNames.DEFAULT_AO: hou.Vector2((0.0, 0.0)), f3h_affineNames.DEFAULT_A: float(0.0)} # X, Y, O, ANGLE
+    DEFAULT_DICT: Final[dict[str, hou.Vector2 | float]] = {f3h_affineNames.DEFAULT_KEY_AX: hou.Vector2((1.0, 0.0)), f3h_affineNames.DEFAULT_KEY_AY: hou.Vector2((0.0, 1.0)), f3h_affineNames.DEFAULT_KEY_AO: hou.Vector2((0.0, 0.0)), f3h_affineNames.DEFAULT_KEY_A: float(0.0)} # X, Y, O, ANGLE
     DEFAULT_VALS: Final[list[tuple[float, ...] | float]] = [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]
     DEFAULT_IDENT: Final[list[float]] = [1.0, 0.0, 0.0, 1.0, 0.0, 0.0]
 
@@ -10486,22 +10486,22 @@ class flam3h_iterator_utils
         check = True
         
         current: dict = { 
-                        f3h_affineNames.DEFAULT_AX: node.parmTuple(f"{n.preaffine_x}_{s_mp_index}"), 
-                        f3h_affineNames.DEFAULT_AY: node.parmTuple(f"{n.preaffine_y}_{s_mp_index}"), 
-                        f3h_affineNames.DEFAULT_AO: node.parmTuple(f"{n.preaffine_o}_{s_mp_index}"), 
-                        f3h_affineNames.DEFAULT_A: node.parm(f"{n.preaffine_ang}_{s_mp_index}") 
+                        f3h_affineNames.DEFAULT_KEY_AX: node.parmTuple(f"{n.preaffine_x}_{s_mp_index}"), 
+                        f3h_affineNames.DEFAULT_KEY_AY: node.parmTuple(f"{n.preaffine_y}_{s_mp_index}"), 
+                        f3h_affineNames.DEFAULT_KEY_AO: node.parmTuple(f"{n.preaffine_o}_{s_mp_index}"), 
+                        f3h_affineNames.DEFAULT_KEY_A: node.parm(f"{n.preaffine_ang}_{s_mp_index}") 
                         }
         
         if self.kwargs["shift"]:
-            for prm in (current[f3h_affineNames.DEFAULT_AX], current[f3h_affineNames.DEFAULT_AY]):
+            for prm in (current[f3h_affineNames.DEFAULT_KEY_AX], current[f3h_affineNames.DEFAULT_KEY_AY]):
                 prm.lock(False)
                 prm.deleteAllKeyframes()
             for key in list(f3h_affineDefaults.DEFAULT_DICT.keys())[:1]:
                 if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT.get(key):
                     check = False
                     # pre affine
-                    current[f3h_affineNames.DEFAULT_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AX))
-                    current[f3h_affineNames.DEFAULT_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AY))
+                    current[f3h_affineNames.DEFAULT_KEY_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AX))
+                    current[f3h_affineNames.DEFAULT_KEY_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AY))
                     # Print to Houdini's status bar
                     _MSG: str = f"{node.name()}: Iterator.{s_mp_index} PRE Affine X and Y -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10511,11 +10511,11 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["ctrl"]:
-            current[f3h_affineNames.DEFAULT_AO].lock(False)
-            current[f3h_affineNames.DEFAULT_AO].deleteAllKeyframes()
-            if current[f3h_affineNames.DEFAULT_AO].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO):
+            current[f3h_affineNames.DEFAULT_KEY_AO].lock(False)
+            current[f3h_affineNames.DEFAULT_KEY_AO].deleteAllKeyframes()
+            if current[f3h_affineNames.DEFAULT_KEY_AO].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO):
                 check = False
-                current[f3h_affineNames.DEFAULT_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO))
+                current[f3h_affineNames.DEFAULT_KEY_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO))
                 # Print to Houdini's status bar
                 _MSG: str = f"{node.name()}: Iterator.{s_mp_index} PRE Affine OFFSET -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10524,11 +10524,11 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["alt"]:
-            current[f3h_affineNames.DEFAULT_A].lock(False)
-            current[f3h_affineNames.DEFAULT_A].deleteAllKeyframes()
-            if current[f3h_affineNames.DEFAULT_A].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A):
+            current[f3h_affineNames.DEFAULT_KEY_A].lock(False)
+            current[f3h_affineNames.DEFAULT_KEY_A].deleteAllKeyframes()
+            if current[f3h_affineNames.DEFAULT_KEY_A].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A):
                 check = False
-                current[f3h_affineNames.DEFAULT_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A))
+                current[f3h_affineNames.DEFAULT_KEY_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A))
                 # Print to Houdini's status bar
                 _MSG: str = f"{node.name()}: Iterator.{s_mp_index} PRE Affine ROT Angle -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10544,10 +10544,10 @@ class flam3h_iterator_utils
                 if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                     check = False
                     # pre affine
-                    current[f3h_affineNames.DEFAULT_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AX))
-                    current[f3h_affineNames.DEFAULT_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AY))
-                    current[f3h_affineNames.DEFAULT_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO))
-                    current[f3h_affineNames.DEFAULT_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A))
+                    current[f3h_affineNames.DEFAULT_KEY_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AX))
+                    current[f3h_affineNames.DEFAULT_KEY_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AY))
+                    current[f3h_affineNames.DEFAULT_KEY_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO))
+                    current[f3h_affineNames.DEFAULT_KEY_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A))
                     # Print to Houdini's status bar
                     _MSG: str = f"{node.name()}: Iterator.{s_mp_index} PRE Affine ALL -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10574,22 +10574,22 @@ class flam3h_iterator_utils
                 
             check: bool = True
             current: dict = {
-                            f3h_affineNames.DEFAULT_AX: node.parmTuple(f"{n.postaffine_x}_{s_mp_index}"), 
-                            f3h_affineNames.DEFAULT_AY: node.parmTuple(f"{n.postaffine_y}_{s_mp_index}"), 
-                            f3h_affineNames.DEFAULT_AO: node.parmTuple(f"{n.postaffine_o}_{s_mp_index}"), 
-                            f3h_affineNames.DEFAULT_A: node.parm(f"{n.postaffine_ang}_{s_mp_index}") 
+                            f3h_affineNames.DEFAULT_KEY_AX: node.parmTuple(f"{n.postaffine_x}_{s_mp_index}"), 
+                            f3h_affineNames.DEFAULT_KEY_AY: node.parmTuple(f"{n.postaffine_y}_{s_mp_index}"), 
+                            f3h_affineNames.DEFAULT_KEY_AO: node.parmTuple(f"{n.postaffine_o}_{s_mp_index}"), 
+                            f3h_affineNames.DEFAULT_KEY_A: node.parm(f"{n.postaffine_ang}_{s_mp_index}") 
                             }
                 
             if self.kwargs["shift"]:
-                for prm in (current[f3h_affineNames.DEFAULT_AX], current[f3h_affineNames.DEFAULT_AY]):
+                for prm in (current[f3h_affineNames.DEFAULT_KEY_AX], current[f3h_affineNames.DEFAULT_KEY_AY]):
                     prm.lock(False)
                     prm.deleteAllKeyframes()
                 for key in list(f3h_affineDefaults.DEFAULT_DICT.keys())[:1]:
                     if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                         check = False
                         # pre affine
-                        current[f3h_affineNames.DEFAULT_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AX))
-                        current[f3h_affineNames.DEFAULT_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AY))
+                        current[f3h_affineNames.DEFAULT_KEY_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AX))
+                        current[f3h_affineNames.DEFAULT_KEY_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AY))
                         # Print to Houdini's status bar
                         _MSG: str = f"{node.name()}: Iterator.{s_mp_index} POST Affine X and Y -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10599,11 +10599,11 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["ctrl"]:
-                current[f3h_affineNames.DEFAULT_AO].lock(False)
-                current[f3h_affineNames.DEFAULT_AO].deleteAllKeyframes()
-                if current[f3h_affineNames.DEFAULT_AO].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO):
+                current[f3h_affineNames.DEFAULT_KEY_AO].lock(False)
+                current[f3h_affineNames.DEFAULT_KEY_AO].deleteAllKeyframes()
+                if current[f3h_affineNames.DEFAULT_KEY_AO].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO):
                     check = False
-                    current[f3h_affineNames.DEFAULT_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO))
+                    current[f3h_affineNames.DEFAULT_KEY_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO))
                     # Print to Houdini's status bar
                     _MSG: str = f"{node.name()}: Iterator.{s_mp_index} POST Affine OFFSET -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10612,12 +10612,12 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["alt"]:
-                current[f3h_affineNames.DEFAULT_A].lock(False)
-                current[f3h_affineNames.DEFAULT_A].deleteAllKeyframes()
-                if current[f3h_affineNames.DEFAULT_A].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A):
+                current[f3h_affineNames.DEFAULT_KEY_A].lock(False)
+                current[f3h_affineNames.DEFAULT_KEY_A].deleteAllKeyframes()
+                if current[f3h_affineNames.DEFAULT_KEY_A].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A):
                     check = False
                     # post affine
-                    current[f3h_affineNames.DEFAULT_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A))
+                    current[f3h_affineNames.DEFAULT_KEY_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A))
                     # Print to Houdini's status bar
                     _MSG: str = f"{node.name()}: Iterator.{s_mp_index} POST Affine ROT Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10633,10 +10633,10 @@ class flam3h_iterator_utils
                     if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                         check = False
                         # post affine
-                        current[f3h_affineNames.DEFAULT_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AX))
-                        current[f3h_affineNames.DEFAULT_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AY))
-                        current[f3h_affineNames.DEFAULT_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO))
-                        current[f3h_affineNames.DEFAULT_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A))
+                        current[f3h_affineNames.DEFAULT_KEY_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AX))
+                        current[f3h_affineNames.DEFAULT_KEY_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AY))
+                        current[f3h_affineNames.DEFAULT_KEY_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO))
+                        current[f3h_affineNames.DEFAULT_KEY_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A))
                         # Print to Houdini's status bar
                         _MSG: str = f"{node.name()}: Iterator.{s_mp_index} POST Affine ALL -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10660,22 +10660,22 @@ class flam3h_iterator_utils
         check: bool = True
         
         current: dict = {
-                        f3h_affineNames.DEFAULT_AX: node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_x}"), 
-                        f3h_affineNames.DEFAULT_AY: node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_y}"), 
-                        f3h_affineNames.DEFAULT_AO: node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_o}"), 
-                        f3h_affineNames.DEFAULT_A: node.parm(f"{f3h_ffPrmPrx.PRM}{n.preaffine_ang}") 
+                        f3h_affineNames.DEFAULT_KEY_AX: node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_x}"), 
+                        f3h_affineNames.DEFAULT_KEY_AY: node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_y}"), 
+                        f3h_affineNames.DEFAULT_KEY_AO: node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_o}"), 
+                        f3h_affineNames.DEFAULT_KEY_A: node.parm(f"{f3h_ffPrmPrx.PRM}{n.preaffine_ang}") 
                         }
             
         if self.kwargs["shift"]:
-            for prm in (current[f3h_affineNames.DEFAULT_AX], current[f3h_affineNames.DEFAULT_AY]):
+            for prm in (current[f3h_affineNames.DEFAULT_KEY_AX], current[f3h_affineNames.DEFAULT_KEY_AY]):
                 prm.lock(False)
                 prm.deleteAllKeyframes()
             for key in list(f3h_affineDefaults.DEFAULT_DICT.keys())[:1]:
                 if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                     check = False
                     # pre affine
-                    current[f3h_affineNames.DEFAULT_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AX))
-                    current[f3h_affineNames.DEFAULT_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AY))
+                    current[f3h_affineNames.DEFAULT_KEY_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AX))
+                    current[f3h_affineNames.DEFAULT_KEY_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AY))
                     # Print to Houdini's status bar
                     _MSG: str = f"{node.name()}: FF PRE Affine X and Y -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10685,11 +10685,11 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         elif self.kwargs["ctrl"]:
-            current[f3h_affineNames.DEFAULT_AO].lock(False)
-            current[f3h_affineNames.DEFAULT_AO].deleteAllKeyframes()
-            if current[f3h_affineNames.DEFAULT_AO].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO):
+            current[f3h_affineNames.DEFAULT_KEY_AO].lock(False)
+            current[f3h_affineNames.DEFAULT_KEY_AO].deleteAllKeyframes()
+            if current[f3h_affineNames.DEFAULT_KEY_AO].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO):
                 check = False
-                current[f3h_affineNames.DEFAULT_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO))
+                current[f3h_affineNames.DEFAULT_KEY_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO))
                 # Print to Houdini's status bar
                 _MSG: str = f"{node.name()}: FF PRE Affine OFFSET -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10698,11 +10698,11 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["alt"]:
-            current[f3h_affineNames.DEFAULT_A].lock(False)
-            current[f3h_affineNames.DEFAULT_A].deleteAllKeyframes()
-            if current[f3h_affineNames.DEFAULT_A].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A):
+            current[f3h_affineNames.DEFAULT_KEY_A].lock(False)
+            current[f3h_affineNames.DEFAULT_KEY_A].deleteAllKeyframes()
+            if current[f3h_affineNames.DEFAULT_KEY_A].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A):
                 check = False
-                current[f3h_affineNames.DEFAULT_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A))
+                current[f3h_affineNames.DEFAULT_KEY_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A))
                 # Print to Houdini's status bar
                 _MSG: str = f"{node.name()}: FF PRE Affine ROT Angle -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10718,10 +10718,10 @@ class flam3h_iterator_utils
                 if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                     check = False
                     # pre affine
-                    current[f3h_affineNames.DEFAULT_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AX))
-                    current[f3h_affineNames.DEFAULT_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AY))
-                    current[f3h_affineNames.DEFAULT_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO))
-                    current[f3h_affineNames.DEFAULT_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A))
+                    current[f3h_affineNames.DEFAULT_KEY_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AX))
+                    current[f3h_affineNames.DEFAULT_KEY_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AY))
+                    current[f3h_affineNames.DEFAULT_KEY_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO))
+                    current[f3h_affineNames.DEFAULT_KEY_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A))
                     # Print to Houdini's status bar
                     _MSG: str = f"{node.name()}: FF PRE Affine ALL -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10747,22 +10747,22 @@ class flam3h_iterator_utils
                 
             check: bool = True
             current: dict = {
-                            f3h_affineNames.DEFAULT_AX: node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_x}"), 
-                            f3h_affineNames.DEFAULT_AY: node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_y}"), 
-                            f3h_affineNames.DEFAULT_AO: node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_o}"), 
-                            f3h_affineNames.DEFAULT_A: node.parm(f"{f3h_ffPrmPrx.PRM}{n.postaffine_ang}") 
+                            f3h_affineNames.DEFAULT_KEY_AX: node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_x}"), 
+                            f3h_affineNames.DEFAULT_KEY_AY: node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_y}"), 
+                            f3h_affineNames.DEFAULT_KEY_AO: node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_o}"), 
+                            f3h_affineNames.DEFAULT_KEY_A: node.parm(f"{f3h_ffPrmPrx.PRM}{n.postaffine_ang}") 
                             }
             
             if self.kwargs["shift"]:
-                for prm in (current[f3h_affineNames.DEFAULT_AX], current[f3h_affineNames.DEFAULT_AY]):
+                for prm in (current[f3h_affineNames.DEFAULT_KEY_AX], current[f3h_affineNames.DEFAULT_KEY_AY]):
                     prm.lock(False)
                     prm.deleteAllKeyframes()
                 for key in list(f3h_affineDefaults.DEFAULT_DICT.keys())[:1]:
                     if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                         check = False
                         # pre affine
-                        current[f3h_affineNames.DEFAULT_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AX))
-                        current[f3h_affineNames.DEFAULT_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AY))
+                        current[f3h_affineNames.DEFAULT_KEY_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AX))
+                        current[f3h_affineNames.DEFAULT_KEY_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AY))
                         # Print to Houdini's status bar
                         _MSG: str = f"{node.name()}: FF POST Affine X and Y -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10772,11 +10772,11 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["ctrl"]:
-                current[f3h_affineNames.DEFAULT_AO].lock(False)
-                current[f3h_affineNames.DEFAULT_AO].deleteAllKeyframes()
-                if current[f3h_affineNames.DEFAULT_AO].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO):
+                current[f3h_affineNames.DEFAULT_KEY_AO].lock(False)
+                current[f3h_affineNames.DEFAULT_KEY_AO].deleteAllKeyframes()
+                if current[f3h_affineNames.DEFAULT_KEY_AO].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO):
                     check = False
-                    current[f3h_affineNames.DEFAULT_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO))
+                    current[f3h_affineNames.DEFAULT_KEY_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO))
                     # Print to Houdini's status bar
                     _MSG: str = f"{node.name()}: FF POST Affine OFFSET -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10785,12 +10785,12 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             elif self.kwargs["alt"]:
-                current[f3h_affineNames.DEFAULT_A].lock(False)
-                current[f3h_affineNames.DEFAULT_A].deleteAllKeyframes()
-                if current[f3h_affineNames.DEFAULT_A].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A):
+                current[f3h_affineNames.DEFAULT_KEY_A].lock(False)
+                current[f3h_affineNames.DEFAULT_KEY_A].deleteAllKeyframes()
+                if current[f3h_affineNames.DEFAULT_KEY_A].eval() != f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A):
                     check = False
                     # post affine
-                    current[f3h_affineNames.DEFAULT_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A))
+                    current[f3h_affineNames.DEFAULT_KEY_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A))
                     # Print to Houdini's status bar
                     _MSG: str = f"{node.name()}: FF POST Affine ROT Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -10806,10 +10806,10 @@ class flam3h_iterator_utils
                     if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                         check = False
                         # post affine
-                        current[f3h_affineNames.DEFAULT_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AX))
-                        current[f3h_affineNames.DEFAULT_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AY))
-                        current[f3h_affineNames.DEFAULT_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO))
-                        current[f3h_affineNames.DEFAULT_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A))
+                        current[f3h_affineNames.DEFAULT_KEY_AX].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AX))
+                        current[f3h_affineNames.DEFAULT_KEY_AY].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AY))
+                        current[f3h_affineNames.DEFAULT_KEY_AO].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO))
+                        current[f3h_affineNames.DEFAULT_KEY_A].set(f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A))
                         # Print to Houdini's status bar
                         _MSG: str = f"{node.name()}: FF POST Affine ALL -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -11075,15 +11075,15 @@ class flam3h_iterator_utils
             
             # Iterator Affines
             parms_affines_dict: dict[str, hou.Vector2 | float | None] = {   
-                                                                        f"{n.preaffine_x}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AX),
-                                                                        f"{n.preaffine_y}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AY),
-                                                                        f"{n.preaffine_o}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO),
-                                                                        f"{n.preaffine_ang}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A),
+                                                                        f"{n.preaffine_x}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AX),
+                                                                        f"{n.preaffine_y}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AY),
+                                                                        f"{n.preaffine_o}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO),
+                                                                        f"{n.preaffine_ang}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A),
                                                                         f"{n.postaffine_do}_{s_mp_index}": 0,
-                                                                        f"{n.postaffine_x}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AX),
-                                                                        f"{n.postaffine_y}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AY),
-                                                                        f"{n.postaffine_o}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO),
-                                                                        f"{n.postaffine_ang}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A)
+                                                                        f"{n.postaffine_x}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AX),
+                                                                        f"{n.postaffine_y}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AY),
+                                                                        f"{n.postaffine_o}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO),
+                                                                        f"{n.postaffine_ang}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A)
                                                                         }
             
             flam3h_prm_utils.setParms(node, parms_affines_dict)
@@ -11152,15 +11152,15 @@ class flam3h_iterator_utils
             node.parm(f"{f3h_ffPrmPrx.PRM}{prm_name}").set(value)
 
         # FF Affines
-        parms_affines_dict: dict[str, hou.Vector2 | float | None] = {f"{f3h_ffPrmPrx.PRM}{n.preaffine_x}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AX),
-                                                                     f"{f3h_ffPrmPrx.PRM}{n.preaffine_y}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AY),
-                                                                     f"{f3h_ffPrmPrx.PRM}{n.preaffine_o}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO),
-                                                                     f"{f3h_ffPrmPrx.PRM}{n.preaffine_ang}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A),
+        parms_affines_dict: dict[str, hou.Vector2 | float | None] = {f"{f3h_ffPrmPrx.PRM}{n.preaffine_x}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AX),
+                                                                     f"{f3h_ffPrmPrx.PRM}{n.preaffine_y}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AY),
+                                                                     f"{f3h_ffPrmPrx.PRM}{n.preaffine_o}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO),
+                                                                     f"{f3h_ffPrmPrx.PRM}{n.preaffine_ang}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A),
                                                                      f"{f3h_ffPrmPrx.PRM}{n.postaffine_do}": 0,
-                                                                     f"{f3h_ffPrmPrx.PRM}{n.postaffine_x}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AX),
-                                                                     f"{f3h_ffPrmPrx.PRM}{n.postaffine_y}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AY),
-                                                                     f"{f3h_ffPrmPrx.PRM}{n.postaffine_o}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_AO),
-                                                                     f"{f3h_ffPrmPrx.PRM}{n.postaffine_ang}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_A)
+                                                                     f"{f3h_ffPrmPrx.PRM}{n.postaffine_x}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AX),
+                                                                     f"{f3h_ffPrmPrx.PRM}{n.postaffine_y}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AY),
+                                                                     f"{f3h_ffPrmPrx.PRM}{n.postaffine_o}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_AO),
+                                                                     f"{f3h_ffPrmPrx.PRM}{n.postaffine_ang}": f3h_affineDefaults.DEFAULT_DICT.get(f3h_affineNames.DEFAULT_KEY_A)
                                                                     }
         
         flam3h_prm_utils.setParms(node, parms_affines_dict)
