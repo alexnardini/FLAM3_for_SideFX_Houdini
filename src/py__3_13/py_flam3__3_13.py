@@ -97,7 +97,7 @@ from numpy.typing import NDArray
 
     Title:      FLAM3H™ H22.0. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       August 2025, Last revised September 2026 (cloned from: py_flam3__3_11_H21.py)
+    date:       August 2025, Last revised October 2026 (cloned from: py_flam3__3_11_H21.py)
                 Source file start date: August 2025
 
     Name:       PY_FLAM3__3_13 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -10080,6 +10080,8 @@ class flam3h_iterator_utils
                 self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                 self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
         except AttributeError:
+            pass
+        except hou.ObjectWasDeleted:
             pass
 
 
