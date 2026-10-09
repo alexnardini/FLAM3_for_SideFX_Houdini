@@ -53,6 +53,8 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v2.1.02 indie -> H22.0 UP</br>FLAM3H™ v2.0.82 indie -> H21.0</br>FLAM3H™ v2.0.55 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
 
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
+
 **Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
 
 - **New H21, H22 or higher**: Each Palette Recipe HDA definition now has its own Help card. For example, you can easily view one using a Python SOP with the following code (_In case you are not familiar with Python and Houdini HDA definitions_):
