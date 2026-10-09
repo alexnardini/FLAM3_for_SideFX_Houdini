@@ -4871,17 +4871,57 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Whi
 </br>
 </br>
 </br>
+</br>
+</br>
 
 
-# FLAM3H™ DOC image set #
+# FLAM3H™ (and FLAM3H™USD) DOC image set #
 
-The following images are used for illustration purpose inside the HDAs documentations.
+The following images are used for illustration purposes inside the HDAs documentations.
 
 </br>
 
 
 <p align="center">
-  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_camera_sensor_outline.svg" /></p>
+  <img width="640" height="" src="./hda_doc/FLAM3H_DOC_intro.jpg" /></p>
+<b><p align="center">FLAM3H_DOC_intro.svg (H22*)</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>Image</b>
+
+```
+[Image:opdef:.?FLAM3H_DOC_intro.jpg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_intro.jpg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="640" height="" src="./hda_doc/FLAM3HUSD_DOC_intro.jpg" /></p>
+<b><p align="center">FLAM3HUSD_DOC_intro.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>Image</b>
+
+```
+[Image:opdef:.?FLAM3HUSD_DOC_intro.jpg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3HUSD_DOC_intro.jpg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="512" height="" src="./hda_doc/FLAM3H_DOC_camera_sensor_outline.svg" /></p>
 <b><p align="center">FLAM3H_DOC_camera_sensor_outline.svg</p></b>
 <p align="center">......</p>
 <p align="center">
@@ -4900,7 +4940,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_pixel_fill.svg" /></p>
+  <img width="512" height="" src="./hda_doc/FLAM3H_DOC_pixel_fill.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixel_fill.svg</p></b>
 <p align="center">......</p>
 <p align="center">
@@ -4919,7 +4959,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_pixel_view.svg" /></p>
+  <img width="512" height="" src="./hda_doc/FLAM3H_DOC_pixel_view.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
 <p align="center">......</p>
 <p align="center">
@@ -4938,7 +4978,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_pixels_grid.svg" /></p>
+  <img width="512" height="" src="./hda_doc/FLAM3H_DOC_pixels_grid.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
 <p align="center">......</p>
 <p align="center">
@@ -4957,7 +4997,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_point_dimension.svg" /></p>
+  <img width="512" height="" src="./hda_doc/FLAM3H_DOC_point_dimension.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
 <p align="center">......</p>
 <p align="center">
@@ -4976,7 +5016,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_tag.svg" /></p>
+  <img width="512" height="" src="./hda_doc/FLAM3H_DOC_tag.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
 <p align="center">......</p>
 <p align="center">
@@ -4995,7 +5035,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_xaos_pathsSVG.svg" /></p>
+  <img width="512" height="" src="./hda_doc/FLAM3H_DOC_xaos_pathsSVG.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
 <p align="center">......</p>
 <p align="center">
@@ -5014,7 +5054,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="512" height="512" src="./hda_doc/FLAM3H_DOC_xforms_handles.svg" /></p>
+  <img width="512" height="" src="./hda_doc/FLAM3H_DOC_xforms_handles.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
 <p align="center">......</p>
 <p align="center">
