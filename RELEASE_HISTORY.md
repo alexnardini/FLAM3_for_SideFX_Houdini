@@ -77,6 +77,7 @@ _This is a re-release of the same version with some minor improvements that did 
    ```
 
 - **Fix H21, H22 or higher**: Some Recipe names in the Palette Recipe definitions for the Apophysis collections were clashing with each other, while others were missing. It is now fixed.
+- **Fix**: Fixed a a bug causing the select iterator mini-menu to throw an error if another FLAM3H™ node with a marked iterator was being deleted and then trying to switch iterator with the mini-menu on another FLAM3H™ node.
 
 
 
