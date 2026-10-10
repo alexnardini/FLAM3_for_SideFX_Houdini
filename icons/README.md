@@ -5021,7 +5021,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_pixels_grid.svg" /></p>
-<b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
+<b><p align="center">FLAM3H_DOC_pixels_grid.svg</p></b>
 <p align="center">......</p>
 <p align="center">
 
@@ -5040,7 +5040,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_point_dimension.svg" /></p>
-<b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
+<b><p align="center">FLAM3H_DOC_point_dimension.svg</p></b>
 <p align="center">......</p>
 <p align="center">
 
@@ -5059,7 +5059,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_tag.svg" /></p>
-<b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
+<b><p align="center">FLAM3H_DOC_tag.svg</p></b>
 <p align="center">......</p>
 <p align="center">
 
@@ -5078,7 +5078,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_xaos_pathsSVG.svg" /></p>
-<b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
+<b><p align="center">FLAM3H_DOC_xaos_pathsSVG.svg</p></b>
 <p align="center">......</p>
 <p align="center">
 
@@ -5097,7 +5097,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_xforms_handles.svg" /></p>
-<b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
+<b><p align="center">FLAM3H_DOC_xforms_handles.svg</p></b>
 <p align="center">......</p>
 <p align="center">
 
