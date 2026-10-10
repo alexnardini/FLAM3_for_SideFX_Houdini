@@ -1,268 +1,274 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="3072" height="160" viewBox="0 0 3072 160" preserveAspectRatio="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="512" viewBox="0 0 3840 512" preserveAspectRatio="none">
 <metadata>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
            xmlns:dc="http://purl.org/dc/elements/1.1/">
     <rdf:Description rdf:about="">
       <dc:title>F stands for liFe</dc:title>
       <dc:creator>F stands for liFe</dc:creator>
-      <dc:rights>Copyright (c) 2021 F stands for liFe. All rights reserved.</dc:rights>
+      <dc:rights>Copyright (c) 2026 F stands for liFe. All rights reserved.</dc:rights>
     </rdf:Description>
   </rdf:RDF>
 </metadata>
-  <rect x="0" y="0" width="12" height="160" fill="#EA7141"/>
-  <rect x="12" y="0" width="12" height="160" fill="#EBBE74"/>
-  <rect x="24" y="0" width="12" height="160" fill="#BCBAB9"/>
-  <rect x="36" y="0" width="12" height="160" fill="#B0B9AE"/>
-  <rect x="48" y="0" width="12" height="160" fill="#8B937C"/>
-  <rect x="60" y="0" width="12" height="160" fill="#B89B6B"/>
-  <rect x="72" y="0" width="12" height="160" fill="#CC8936"/>
-  <rect x="84" y="0" width="12" height="160" fill="#E27C33"/>
-  <rect x="96" y="0" width="12" height="160" fill="#E67E34"/>
-  <rect x="108" y="0" width="12" height="160" fill="#E47D34"/>
-  <rect x="120" y="0" width="12" height="160" fill="#E47D34"/>
-  <rect x="132" y="0" width="12" height="160" fill="#EF8239"/>
-  <rect x="144" y="0" width="12" height="160" fill="#FAC252"/>
-  <rect x="156" y="0" width="12" height="160" fill="#FFE967"/>
-  <rect x="168" y="0" width="12" height="160" fill="#FFF381"/>
-  <rect x="180" y="0" width="12" height="160" fill="#FFFB77"/>
-  <rect x="192" y="0" width="12" height="160" fill="#FFFB6B"/>
-  <rect x="204" y="0" width="12" height="160" fill="#FFF23C"/>
-  <rect x="216" y="0" width="12" height="160" fill="#FFEF3C"/>
-  <rect x="228" y="0" width="12" height="160" fill="#FFF55D"/>
-  <rect x="240" y="0" width="12" height="160" fill="#FFFD6B"/>
-  <rect x="252" y="0" width="12" height="160" fill="#FFF583"/>
-  <rect x="264" y="0" width="12" height="160" fill="#FFF1A2"/>
-  <rect x="276" y="0" width="12" height="160" fill="#FFF0A3"/>
-  <rect x="288" y="0" width="12" height="160" fill="#FFF8A2"/>
-  <rect x="300" y="0" width="12" height="160" fill="#FFFBA6"/>
-  <rect x="312" y="0" width="12" height="160" fill="#FFF5BA"/>
-  <rect x="324" y="0" width="12" height="160" fill="#FEEECB"/>
-  <rect x="336" y="0" width="12" height="160" fill="#FFF5D7"/>
-  <rect x="348" y="0" width="12" height="160" fill="#FFFBE5"/>
-  <rect x="360" y="0" width="12" height="160" fill="#FFFEF5"/>
-  <rect x="372" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="384" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="396" y="0" width="12" height="160" fill="#FEFFFC"/>
-  <rect x="408" y="0" width="12" height="160" fill="#F9FFF0"/>
-  <rect x="420" y="0" width="12" height="160" fill="#FEFFD7"/>
-  <rect x="432" y="0" width="12" height="160" fill="#FFFEDA"/>
-  <rect x="444" y="0" width="12" height="160" fill="#FFF4D5"/>
-  <rect x="456" y="0" width="12" height="160" fill="#FFF5D4"/>
-  <rect x="468" y="0" width="12" height="160" fill="#FFFDD7"/>
-  <rect x="480" y="0" width="12" height="160" fill="#FCFFD6"/>
-  <rect x="492" y="0" width="12" height="160" fill="#E6EED4"/>
-  <rect x="504" y="0" width="12" height="160" fill="#E0ECCB"/>
-  <rect x="516" y="0" width="12" height="160" fill="#DCE2D3"/>
-  <rect x="528" y="0" width="12" height="160" fill="#E7EBE0"/>
-  <rect x="540" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="552" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="564" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="576" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="588" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="600" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="612" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="624" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="636" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="648" y="0" width="12" height="160" fill="#FDFFFA"/>
-  <rect x="660" y="0" width="12" height="160" fill="#FAFFE2"/>
-  <rect x="672" y="0" width="12" height="160" fill="#FBFFDE"/>
-  <rect x="684" y="0" width="12" height="160" fill="#FBFFD6"/>
-  <rect x="696" y="0" width="12" height="160" fill="#FCFFCC"/>
-  <rect x="708" y="0" width="12" height="160" fill="#FFFDCA"/>
-  <rect x="720" y="0" width="12" height="160" fill="#FFFFCE"/>
-  <rect x="732" y="0" width="12" height="160" fill="#E6EAD2"/>
-  <rect x="744" y="0" width="12" height="160" fill="#D5DCCA"/>
-  <rect x="756" y="0" width="12" height="160" fill="#D4DCCB"/>
-  <rect x="768" y="0" width="12" height="160" fill="#D2DCC6"/>
-  <rect x="780" y="0" width="12" height="160" fill="#D1DAC9"/>
-  <rect x="792" y="0" width="12" height="160" fill="#D1DAC6"/>
-  <rect x="804" y="0" width="12" height="160" fill="#D8E2C8"/>
-  <rect x="816" y="0" width="12" height="160" fill="#FEFFB3"/>
-  <rect x="828" y="0" width="12" height="160" fill="#FFF6C0"/>
-  <rect x="840" y="0" width="12" height="160" fill="#D0D3CB"/>
-  <rect x="852" y="0" width="12" height="160" fill="#BAC3B6"/>
-  <rect x="864" y="0" width="12" height="160" fill="#ADB8AC"/>
-  <rect x="876" y="0" width="12" height="160" fill="#A4B2A7"/>
-  <rect x="888" y="0" width="12" height="160" fill="#91A297"/>
-  <rect x="900" y="0" width="12" height="160" fill="#78A19B"/>
-  <rect x="912" y="0" width="12" height="160" fill="#4A9290"/>
-  <rect x="924" y="0" width="12" height="160" fill="#166577"/>
-  <rect x="936" y="0" width="12" height="160" fill="#156174"/>
-  <rect x="948" y="0" width="12" height="160" fill="#135869"/>
-  <rect x="960" y="0" width="12" height="160" fill="#125568"/>
-  <rect x="972" y="0" width="12" height="160" fill="#0F4C5C"/>
-  <rect x="984" y="0" width="12" height="160" fill="#0C4450"/>
-  <rect x="996" y="0" width="12" height="160" fill="#093746"/>
-  <rect x="1008" y="0" width="12" height="160" fill="#0E4B57"/>
-  <rect x="1020" y="0" width="12" height="160" fill="#0E4357"/>
-  <rect x="1032" y="0" width="12" height="160" fill="#135969"/>
-  <rect x="1044" y="0" width="12" height="160" fill="#166577"/>
-  <rect x="1056" y="0" width="12" height="160" fill="#1B7686"/>
-  <rect x="1068" y="0" width="12" height="160" fill="#78A298"/>
-  <rect x="1080" y="0" width="12" height="160" fill="#9CADA1"/>
-  <rect x="1092" y="0" width="12" height="160" fill="#A6B5AA"/>
-  <rect x="1104" y="0" width="12" height="160" fill="#9DACA2"/>
-  <rect x="1116" y="0" width="12" height="160" fill="#84A19A"/>
-  <rect x="1128" y="0" width="12" height="160" fill="#499192"/>
-  <rect x="1140" y="0" width="12" height="160" fill="#1A7482"/>
-  <rect x="1152" y="0" width="12" height="160" fill="#18657B"/>
-  <rect x="1164" y="0" width="12" height="160" fill="#166378"/>
-  <rect x="1176" y="0" width="12" height="160" fill="#166577"/>
-  <rect x="1188" y="0" width="12" height="160" fill="#1B7787"/>
-  <rect x="1200" y="0" width="12" height="160" fill="#55908E"/>
-  <rect x="1212" y="0" width="12" height="160" fill="#8DA9A1"/>
-  <rect x="1224" y="0" width="12" height="160" fill="#B0B5B2"/>
-  <rect x="1236" y="0" width="12" height="160" fill="#B6C1B3"/>
-  <rect x="1248" y="0" width="12" height="160" fill="#CCD0C8"/>
-  <rect x="1260" y="0" width="12" height="160" fill="#D6DCCE"/>
-  <rect x="1272" y="0" width="12" height="160" fill="#C9D4BD"/>
-  <rect x="1284" y="0" width="12" height="160" fill="#BDC8B5"/>
-  <rect x="1296" y="0" width="12" height="160" fill="#BCC1BA"/>
-  <rect x="1308" y="0" width="12" height="160" fill="#B0B9B1"/>
-  <rect x="1320" y="0" width="12" height="160" fill="#8DA9A1"/>
-  <rect x="1332" y="0" width="12" height="160" fill="#74A29C"/>
-  <rect x="1344" y="0" width="12" height="160" fill="#428E96"/>
-  <rect x="1356" y="0" width="12" height="160" fill="#186D7C"/>
-  <rect x="1368" y="0" width="12" height="160" fill="#156373"/>
-  <rect x="1380" y="0" width="12" height="160" fill="#1F7683"/>
-  <rect x="1392" y="0" width="12" height="160" fill="#6A9A94"/>
-  <rect x="1404" y="0" width="12" height="160" fill="#9EACA2"/>
-  <rect x="1416" y="0" width="12" height="160" fill="#B3BDB3"/>
-  <rect x="1428" y="0" width="12" height="160" fill="#B3C0AE"/>
-  <rect x="1440" y="0" width="12" height="160" fill="#C0CCB9"/>
-  <rect x="1452" y="0" width="12" height="160" fill="#C9D4BD"/>
-  <rect x="1464" y="0" width="12" height="160" fill="#CCD5C1"/>
-  <rect x="1476" y="0" width="12" height="160" fill="#C1CBB9"/>
-  <rect x="1488" y="0" width="12" height="160" fill="#B2BEB2"/>
-  <rect x="1500" y="0" width="12" height="160" fill="#9CADA6"/>
-  <rect x="1512" y="0" width="12" height="160" fill="#5D999E"/>
-  <rect x="1524" y="0" width="12" height="160" fill="#196B80"/>
-  <rect x="1536" y="0" width="12" height="160" fill="#166378"/>
-  <rect x="1548" y="0" width="12" height="160" fill="#105060"/>
-  <rect x="1560" y="0" width="12" height="160" fill="#104C5F"/>
-  <rect x="1572" y="0" width="12" height="160" fill="#115564"/>
-  <rect x="1584" y="0" width="12" height="160" fill="#115564"/>
-  <rect x="1596" y="0" width="12" height="160" fill="#135F69"/>
-  <rect x="1608" y="0" width="12" height="160" fill="#514449"/>
-  <rect x="1620" y="0" width="12" height="160" fill="#B08647"/>
-  <rect x="1632" y="0" width="12" height="160" fill="#F2AE39"/>
-  <rect x="1644" y="0" width="12" height="160" fill="#FFCF3C"/>
-  <rect x="1656" y="0" width="12" height="160" fill="#FFDF3C"/>
-  <rect x="1668" y="0" width="12" height="160" fill="#FFEF3C"/>
-  <rect x="1680" y="0" width="12" height="160" fill="#FFE640"/>
-  <rect x="1692" y="0" width="12" height="160" fill="#FFE644"/>
-  <rect x="1704" y="0" width="12" height="160" fill="#FFE669"/>
-  <rect x="1716" y="0" width="12" height="160" fill="#F6C864"/>
-  <rect x="1728" y="0" width="12" height="160" fill="#9E918B"/>
-  <rect x="1740" y="0" width="12" height="160" fill="#6B6B6B"/>
-  <rect x="1752" y="0" width="12" height="160" fill="#539595"/>
-  <rect x="1764" y="0" width="12" height="160" fill="#509595"/>
-  <rect x="1776" y="0" width="12" height="160" fill="#5B9694"/>
-  <rect x="1788" y="0" width="12" height="160" fill="#629995"/>
-  <rect x="1800" y="0" width="12" height="160" fill="#747271"/>
-  <rect x="1812" y="0" width="12" height="160" fill="#8E653D"/>
-  <rect x="1824" y="0" width="12" height="160" fill="#B58C4F"/>
-  <rect x="1836" y="0" width="12" height="160" fill="#BE7F33"/>
-  <rect x="1848" y="0" width="12" height="160" fill="#E67534"/>
-  <rect x="1860" y="0" width="12" height="160" fill="#F4913A"/>
-  <rect x="1872" y="0" width="12" height="160" fill="#F9B33A"/>
-  <rect x="1884" y="0" width="12" height="160" fill="#FBCF3B"/>
-  <rect x="1896" y="0" width="12" height="160" fill="#F19838"/>
-  <rect x="1908" y="0" width="12" height="160" fill="#EA8035"/>
-  <rect x="1920" y="0" width="12" height="160" fill="#EF903C"/>
-  <rect x="1932" y="0" width="12" height="160" fill="#FEBC66"/>
-  <rect x="1944" y="0" width="12" height="160" fill="#FFE778"/>
-  <rect x="1956" y="0" width="12" height="160" fill="#FFF7A7"/>
-  <rect x="1968" y="0" width="12" height="160" fill="#C3D0B6"/>
-  <rect x="1980" y="0" width="12" height="160" fill="#B8C4B4"/>
-  <rect x="1992" y="0" width="12" height="160" fill="#B3BDB3"/>
-  <rect x="2004" y="0" width="12" height="160" fill="#A7B2AE"/>
-  <rect x="2016" y="0" width="12" height="160" fill="#86A7A2"/>
-  <rect x="2028" y="0" width="12" height="160" fill="#7FA49D"/>
-  <rect x="2040" y="0" width="12" height="160" fill="#789E98"/>
-  <rect x="2052" y="0" width="12" height="160" fill="#7F9E94"/>
-  <rect x="2064" y="0" width="12" height="160" fill="#766565"/>
-  <rect x="2076" y="0" width="12" height="160" fill="#B5A195"/>
-  <rect x="2088" y="0" width="12" height="160" fill="#F28C70"/>
-  <rect x="2100" y="0" width="12" height="160" fill="#F67B4E"/>
-  <rect x="2112" y="0" width="12" height="160" fill="#E87135"/>
-  <rect x="2124" y="0" width="12" height="160" fill="#EA6E35"/>
-  <rect x="2136" y="0" width="12" height="160" fill="#EEAC56"/>
-  <rect x="2148" y="0" width="12" height="160" fill="#FAC853"/>
-  <rect x="2160" y="0" width="12" height="160" fill="#FFDE56"/>
-  <rect x="2172" y="0" width="12" height="160" fill="#FFF870"/>
-  <rect x="2184" y="0" width="12" height="160" fill="#FFF68D"/>
-  <rect x="2196" y="0" width="12" height="160" fill="#FAFF8E"/>
-  <rect x="2208" y="0" width="12" height="160" fill="#FEFF9A"/>
-  <rect x="2220" y="0" width="12" height="160" fill="#FCFFA2"/>
-  <rect x="2232" y="0" width="12" height="160" fill="#FEFFB3"/>
-  <rect x="2244" y="0" width="12" height="160" fill="#FFFDB7"/>
-  <rect x="2256" y="0" width="12" height="160" fill="#FCFFC3"/>
-  <rect x="2268" y="0" width="12" height="160" fill="#F8FFCA"/>
-  <rect x="2280" y="0" width="12" height="160" fill="#CFDBBE"/>
-  <rect x="2292" y="0" width="12" height="160" fill="#D0DFBE"/>
-  <rect x="2304" y="0" width="12" height="160" fill="#DAE3CC"/>
-  <rect x="2316" y="0" width="12" height="160" fill="#DBE4CE"/>
-  <rect x="2328" y="0" width="12" height="160" fill="#E8EFDE"/>
-  <rect x="2340" y="0" width="12" height="160" fill="#FDFFF8"/>
-  <rect x="2352" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="2364" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="2376" y="0" width="12" height="160" fill="#FFFFF8"/>
-  <rect x="2388" y="0" width="12" height="160" fill="#FFFEDE"/>
-  <rect x="2400" y="0" width="12" height="160" fill="#DFE2D4"/>
-  <rect x="2412" y="0" width="12" height="160" fill="#D6DBCD"/>
-  <rect x="2424" y="0" width="12" height="160" fill="#CBD4C2"/>
-  <rect x="2436" y="0" width="12" height="160" fill="#C6CBC2"/>
-  <rect x="2448" y="0" width="12" height="160" fill="#C8C8C8"/>
-  <rect x="2460" y="0" width="12" height="160" fill="#BBC0BA"/>
-  <rect x="2472" y="0" width="12" height="160" fill="#B8B8B8"/>
-  <rect x="2484" y="0" width="12" height="160" fill="#B8B8B8"/>
-  <rect x="2496" y="0" width="12" height="160" fill="#B8BCB9"/>
-  <rect x="2508" y="0" width="12" height="160" fill="#ABB5AD"/>
-  <rect x="2520" y="0" width="12" height="160" fill="#AEB4B2"/>
-  <rect x="2532" y="0" width="12" height="160" fill="#A7B0AB"/>
-  <rect x="2544" y="0" width="12" height="160" fill="#A3B0AA"/>
-  <rect x="2556" y="0" width="12" height="160" fill="#A7B0AC"/>
-  <rect x="2568" y="0" width="12" height="160" fill="#B4B9B4"/>
-  <rect x="2580" y="0" width="12" height="160" fill="#B6BEB8"/>
-  <rect x="2592" y="0" width="12" height="160" fill="#BDC4BD"/>
-  <rect x="2604" y="0" width="12" height="160" fill="#B8B8B8"/>
-  <rect x="2616" y="0" width="12" height="160" fill="#D5D2CD"/>
-  <rect x="2628" y="0" width="12" height="160" fill="#F1E2CC"/>
-  <rect x="2640" y="0" width="12" height="160" fill="#E4CEB4"/>
-  <rect x="2652" y="0" width="12" height="160" fill="#DCB783"/>
-  <rect x="2664" y="0" width="12" height="160" fill="#FBC58A"/>
-  <rect x="2676" y="0" width="12" height="160" fill="#FFA48B"/>
-  <rect x="2688" y="0" width="12" height="160" fill="#F1CB95"/>
-  <rect x="2700" y="0" width="12" height="160" fill="#FFEBBE"/>
-  <rect x="2712" y="0" width="12" height="160" fill="#ECE1CB"/>
-  <rect x="2724" y="0" width="12" height="160" fill="#C7C8C4"/>
-  <rect x="2736" y="0" width="12" height="160" fill="#C0C8BD"/>
-  <rect x="2748" y="0" width="12" height="160" fill="#B0BDAB"/>
-  <rect x="2760" y="0" width="12" height="160" fill="#B9C8B2"/>
-  <rect x="2772" y="0" width="12" height="160" fill="#C5CBC0"/>
-  <rect x="2784" y="0" width="12" height="160" fill="#CFD7C5"/>
-  <rect x="2796" y="0" width="12" height="160" fill="#D6E0C6"/>
-  <rect x="2808" y="0" width="12" height="160" fill="#E4ECD2"/>
-  <rect x="2820" y="0" width="12" height="160" fill="#FDFFDA"/>
-  <rect x="2832" y="0" width="12" height="160" fill="#FFF7DC"/>
-  <rect x="2844" y="0" width="12" height="160" fill="#FBF0D9"/>
-  <rect x="2856" y="0" width="12" height="160" fill="#FFF7E8"/>
-  <rect x="2868" y="0" width="12" height="160" fill="#FFFCEF"/>
-  <rect x="2880" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="2892" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="2904" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="2916" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="2928" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="2940" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="2952" y="0" width="12" height="160" fill="#FFFFFF"/>
-  <rect x="2964" y="0" width="12" height="160" fill="#FEFFFC"/>
-  <rect x="2976" y="0" width="12" height="160" fill="#FEFFFC"/>
-  <rect x="2988" y="0" width="12" height="160" fill="#FDFFF8"/>
-  <rect x="3000" y="0" width="12" height="160" fill="#EAF2DB"/>
-  <rect x="3012" y="0" width="12" height="160" fill="#DBE4CE"/>
-  <rect x="3024" y="0" width="12" height="160" fill="#CDD8BE"/>
-  <rect x="3036" y="0" width="12" height="160" fill="#C0C8BC"/>
-  <rect x="3048" y="0" width="12" height="160" fill="#ADB6B0"/>
-  <rect x="3060" y="0" width="12" height="160" fill="#B1C0AD"/>
+
+<defs>
+	<linearGradient id="paletteGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0.0000%" stop-color="#EA7141"/>
+    <stop offset="0.3922%" stop-color="#EBBE74"/>
+    <stop offset="0.7843%" stop-color="#BCBAB9"/>
+    <stop offset="1.1765%" stop-color="#B0B9AE"/>
+    <stop offset="1.5686%" stop-color="#8B937C"/>
+    <stop offset="1.9608%" stop-color="#B89B6B"/>
+    <stop offset="2.3529%" stop-color="#CC8936"/>
+    <stop offset="2.7451%" stop-color="#E27C33"/>
+    <stop offset="3.1373%" stop-color="#E67E34"/>
+    <stop offset="3.5294%" stop-color="#E47D34"/>
+    <stop offset="3.9216%" stop-color="#E47D34"/>
+    <stop offset="4.3137%" stop-color="#EF8239"/>
+    <stop offset="4.7059%" stop-color="#FAC252"/>
+    <stop offset="5.0980%" stop-color="#FFE967"/>
+    <stop offset="5.4902%" stop-color="#FFF381"/>
+    <stop offset="5.8824%" stop-color="#FFFB77"/>
+    <stop offset="6.2745%" stop-color="#FFFB6B"/>
+    <stop offset="6.6667%" stop-color="#FFF23C"/>
+    <stop offset="7.0588%" stop-color="#FFEF3C"/>
+    <stop offset="7.4510%" stop-color="#FFF55D"/>
+    <stop offset="7.8431%" stop-color="#FFFD6B"/>
+    <stop offset="8.2353%" stop-color="#FFF583"/>
+    <stop offset="8.6275%" stop-color="#FFF1A2"/>
+    <stop offset="9.0196%" stop-color="#FFF0A3"/>
+    <stop offset="9.4118%" stop-color="#FFF8A2"/>
+    <stop offset="9.8039%" stop-color="#FFFBA6"/>
+    <stop offset="10.1961%" stop-color="#FFF5BA"/>
+    <stop offset="10.5882%" stop-color="#FEEECB"/>
+    <stop offset="10.9804%" stop-color="#FFF5D7"/>
+    <stop offset="11.3725%" stop-color="#FFFBE5"/>
+    <stop offset="11.7647%" stop-color="#FFFEF5"/>
+    <stop offset="12.1569%" stop-color="#FFFFFF"/>
+    <stop offset="12.5490%" stop-color="#FFFFFF"/>
+    <stop offset="12.9412%" stop-color="#FEFFFC"/>
+    <stop offset="13.3333%" stop-color="#F9FFF0"/>
+    <stop offset="13.7255%" stop-color="#FEFFD7"/>
+    <stop offset="14.1176%" stop-color="#FFFEDA"/>
+    <stop offset="14.5098%" stop-color="#FFF4D5"/>
+    <stop offset="14.9020%" stop-color="#FFF5D4"/>
+    <stop offset="15.2941%" stop-color="#FFFDD7"/>
+    <stop offset="15.6863%" stop-color="#FCFFD6"/>
+    <stop offset="16.0784%" stop-color="#E6EED4"/>
+    <stop offset="16.4706%" stop-color="#E0ECCB"/>
+    <stop offset="16.8627%" stop-color="#DCE2D3"/>
+    <stop offset="17.2549%" stop-color="#E7EBE0"/>
+    <stop offset="17.6471%" stop-color="#FFFFFF"/>
+    <stop offset="18.0392%" stop-color="#FFFFFF"/>
+    <stop offset="18.4314%" stop-color="#FFFFFF"/>
+    <stop offset="18.8235%" stop-color="#FFFFFF"/>
+    <stop offset="19.2157%" stop-color="#FFFFFF"/>
+    <stop offset="19.6078%" stop-color="#FFFFFF"/>
+    <stop offset="20.0000%" stop-color="#FFFFFF"/>
+    <stop offset="20.3922%" stop-color="#FFFFFF"/>
+    <stop offset="20.7843%" stop-color="#FFFFFF"/>
+    <stop offset="21.1765%" stop-color="#FDFFFA"/>
+    <stop offset="21.5686%" stop-color="#FAFFE2"/>
+    <stop offset="21.9608%" stop-color="#FBFFDE"/>
+    <stop offset="22.3529%" stop-color="#FBFFD6"/>
+    <stop offset="22.7451%" stop-color="#FCFFCC"/>
+    <stop offset="23.1373%" stop-color="#FFFDCA"/>
+    <stop offset="23.5294%" stop-color="#FFFFCE"/>
+    <stop offset="23.9216%" stop-color="#E6EAD2"/>
+    <stop offset="24.3137%" stop-color="#D5DCCA"/>
+    <stop offset="24.7059%" stop-color="#D4DCCB"/>
+    <stop offset="25.0980%" stop-color="#D2DCC6"/>
+    <stop offset="25.4902%" stop-color="#D1DAC9"/>
+    <stop offset="25.8824%" stop-color="#D1DAC6"/>
+    <stop offset="26.2745%" stop-color="#D8E2C8"/>
+    <stop offset="26.6667%" stop-color="#FEFFB3"/>
+    <stop offset="27.0588%" stop-color="#FFF6C0"/>
+    <stop offset="27.4510%" stop-color="#D0D3CB"/>
+    <stop offset="27.8431%" stop-color="#BAC3B6"/>
+    <stop offset="28.2353%" stop-color="#ADB8AC"/>
+    <stop offset="28.6275%" stop-color="#A4B2A7"/>
+    <stop offset="29.0196%" stop-color="#91A297"/>
+    <stop offset="29.4118%" stop-color="#78A19B"/>
+    <stop offset="29.8039%" stop-color="#4A9290"/>
+    <stop offset="30.1961%" stop-color="#166577"/>
+    <stop offset="30.5882%" stop-color="#156174"/>
+    <stop offset="30.9804%" stop-color="#135869"/>
+    <stop offset="31.3725%" stop-color="#125568"/>
+    <stop offset="31.7647%" stop-color="#0F4C5C"/>
+    <stop offset="32.1569%" stop-color="#0C4450"/>
+    <stop offset="32.5490%" stop-color="#093746"/>
+    <stop offset="32.9412%" stop-color="#0E4B57"/>
+    <stop offset="33.3333%" stop-color="#0E4357"/>
+    <stop offset="33.7255%" stop-color="#135969"/>
+    <stop offset="34.1176%" stop-color="#166577"/>
+    <stop offset="34.5098%" stop-color="#1B7686"/>
+    <stop offset="34.9020%" stop-color="#78A298"/>
+    <stop offset="35.2941%" stop-color="#9CADA1"/>
+    <stop offset="35.6863%" stop-color="#A6B5AA"/>
+    <stop offset="36.0784%" stop-color="#9DACA2"/>
+    <stop offset="36.4706%" stop-color="#84A19A"/>
+    <stop offset="36.8627%" stop-color="#499192"/>
+    <stop offset="37.2549%" stop-color="#1A7482"/>
+    <stop offset="37.6471%" stop-color="#18657B"/>
+    <stop offset="38.0392%" stop-color="#166378"/>
+    <stop offset="38.4314%" stop-color="#166577"/>
+    <stop offset="38.8235%" stop-color="#1B7787"/>
+    <stop offset="39.2157%" stop-color="#55908E"/>
+    <stop offset="39.6078%" stop-color="#8DA9A1"/>
+    <stop offset="40.0000%" stop-color="#B0B5B2"/>
+    <stop offset="40.3922%" stop-color="#B6C1B3"/>
+    <stop offset="40.7843%" stop-color="#CCD0C8"/>
+    <stop offset="41.1765%" stop-color="#D6DCCE"/>
+    <stop offset="41.5686%" stop-color="#C9D4BD"/>
+    <stop offset="41.9608%" stop-color="#BDC8B5"/>
+    <stop offset="42.3529%" stop-color="#BCC1BA"/>
+    <stop offset="42.7451%" stop-color="#B0B9B1"/>
+    <stop offset="43.1373%" stop-color="#8DA9A1"/>
+    <stop offset="43.5294%" stop-color="#74A29C"/>
+    <stop offset="43.9216%" stop-color="#428E96"/>
+    <stop offset="44.3137%" stop-color="#186D7C"/>
+    <stop offset="44.7059%" stop-color="#156373"/>
+    <stop offset="45.0980%" stop-color="#1F7683"/>
+    <stop offset="45.4902%" stop-color="#6A9A94"/>
+    <stop offset="45.8824%" stop-color="#9EACA2"/>
+    <stop offset="46.2745%" stop-color="#B3BDB3"/>
+    <stop offset="46.6667%" stop-color="#B3C0AE"/>
+    <stop offset="47.0588%" stop-color="#C0CCB9"/>
+    <stop offset="47.4510%" stop-color="#C9D4BD"/>
+    <stop offset="47.8431%" stop-color="#CCD5C1"/>
+    <stop offset="48.2353%" stop-color="#C1CBB9"/>
+    <stop offset="48.6275%" stop-color="#B2BEB2"/>
+    <stop offset="49.0196%" stop-color="#9CADA6"/>
+    <stop offset="49.4118%" stop-color="#5D999E"/>
+    <stop offset="49.8039%" stop-color="#196B80"/>
+    <stop offset="50.1961%" stop-color="#166378"/>
+    <stop offset="50.5882%" stop-color="#105060"/>
+    <stop offset="50.9804%" stop-color="#104C5F"/>
+    <stop offset="51.3725%" stop-color="#115564"/>
+    <stop offset="51.7647%" stop-color="#115564"/>
+    <stop offset="52.1569%" stop-color="#135F69"/>
+    <stop offset="52.5490%" stop-color="#514449"/>
+    <stop offset="52.9412%" stop-color="#B08647"/>
+    <stop offset="53.3333%" stop-color="#F2AE39"/>
+    <stop offset="53.7255%" stop-color="#FFCF3C"/>
+    <stop offset="54.1176%" stop-color="#FFDF3C"/>
+    <stop offset="54.5098%" stop-color="#FFEF3C"/>
+    <stop offset="54.9020%" stop-color="#FFE640"/>
+    <stop offset="55.2941%" stop-color="#FFE644"/>
+    <stop offset="55.6863%" stop-color="#FFE669"/>
+    <stop offset="56.0784%" stop-color="#F6C864"/>
+    <stop offset="56.4706%" stop-color="#9E918B"/>
+    <stop offset="56.8627%" stop-color="#6B6B6B"/>
+    <stop offset="57.2549%" stop-color="#539595"/>
+    <stop offset="57.6471%" stop-color="#509595"/>
+    <stop offset="58.0392%" stop-color="#5B9694"/>
+    <stop offset="58.4314%" stop-color="#629995"/>
+    <stop offset="58.8235%" stop-color="#747271"/>
+    <stop offset="59.2157%" stop-color="#8E653D"/>
+    <stop offset="59.6078%" stop-color="#B58C4F"/>
+    <stop offset="60.0000%" stop-color="#BE7F33"/>
+    <stop offset="60.3922%" stop-color="#E67534"/>
+    <stop offset="60.7843%" stop-color="#F4913A"/>
+    <stop offset="61.1765%" stop-color="#F9B33A"/>
+    <stop offset="61.5686%" stop-color="#FBCF3B"/>
+    <stop offset="61.9608%" stop-color="#F19838"/>
+    <stop offset="62.3529%" stop-color="#EA8035"/>
+    <stop offset="62.7451%" stop-color="#EF903C"/>
+    <stop offset="63.1373%" stop-color="#FEBC66"/>
+    <stop offset="63.5294%" stop-color="#FFE778"/>
+    <stop offset="63.9216%" stop-color="#FFF7A7"/>
+    <stop offset="64.3137%" stop-color="#C3D0B6"/>
+    <stop offset="64.7059%" stop-color="#B8C4B4"/>
+    <stop offset="65.0980%" stop-color="#B3BDB3"/>
+    <stop offset="65.4902%" stop-color="#A7B2AE"/>
+    <stop offset="65.8824%" stop-color="#86A7A2"/>
+    <stop offset="66.2745%" stop-color="#7FA49D"/>
+    <stop offset="66.6667%" stop-color="#789E98"/>
+    <stop offset="67.0588%" stop-color="#7F9E94"/>
+    <stop offset="67.4510%" stop-color="#766565"/>
+    <stop offset="67.8431%" stop-color="#B5A195"/>
+    <stop offset="68.2353%" stop-color="#F28C70"/>
+    <stop offset="68.6275%" stop-color="#F67B4E"/>
+    <stop offset="69.0196%" stop-color="#E87135"/>
+    <stop offset="69.4118%" stop-color="#EA6E35"/>
+    <stop offset="69.8039%" stop-color="#EEAC56"/>
+    <stop offset="70.1961%" stop-color="#FAC853"/>
+    <stop offset="70.5882%" stop-color="#FFDE56"/>
+    <stop offset="70.9804%" stop-color="#FFF870"/>
+    <stop offset="71.3725%" stop-color="#FFF68D"/>
+    <stop offset="71.7647%" stop-color="#FAFF8E"/>
+    <stop offset="72.1569%" stop-color="#FEFF9A"/>
+    <stop offset="72.5490%" stop-color="#FCFFA2"/>
+    <stop offset="72.9412%" stop-color="#FEFFB3"/>
+    <stop offset="73.3333%" stop-color="#FFFDB7"/>
+    <stop offset="73.7255%" stop-color="#FCFFC3"/>
+    <stop offset="74.1176%" stop-color="#F8FFCA"/>
+    <stop offset="74.5098%" stop-color="#CFDBBE"/>
+    <stop offset="74.9020%" stop-color="#D0DFBE"/>
+    <stop offset="75.2941%" stop-color="#DAE3CC"/>
+    <stop offset="75.6863%" stop-color="#DBE4CE"/>
+    <stop offset="76.0784%" stop-color="#E8EFDE"/>
+    <stop offset="76.4706%" stop-color="#FDFFF8"/>
+    <stop offset="76.8627%" stop-color="#FFFFFF"/>
+    <stop offset="77.2549%" stop-color="#FFFFFF"/>
+    <stop offset="77.6471%" stop-color="#FFFFF8"/>
+    <stop offset="78.0392%" stop-color="#FFFEDE"/>
+    <stop offset="78.4314%" stop-color="#DFE2D4"/>
+    <stop offset="78.8235%" stop-color="#D6DBCD"/>
+    <stop offset="79.2157%" stop-color="#CBD4C2"/>
+    <stop offset="79.6078%" stop-color="#C6CBC2"/>
+    <stop offset="80.0000%" stop-color="#C8C8C8"/>
+    <stop offset="80.3922%" stop-color="#BBC0BA"/>
+    <stop offset="80.7843%" stop-color="#B8B8B8"/>
+    <stop offset="81.1765%" stop-color="#B8B8B8"/>
+    <stop offset="81.5686%" stop-color="#B8BCB9"/>
+    <stop offset="81.9608%" stop-color="#ABB5AD"/>
+    <stop offset="82.3529%" stop-color="#AEB4B2"/>
+    <stop offset="82.7451%" stop-color="#A7B0AB"/>
+    <stop offset="83.1373%" stop-color="#A3B0AA"/>
+    <stop offset="83.5294%" stop-color="#A7B0AC"/>
+    <stop offset="83.9216%" stop-color="#B4B9B4"/>
+    <stop offset="84.3137%" stop-color="#B6BEB8"/>
+    <stop offset="84.7059%" stop-color="#BDC4BD"/>
+    <stop offset="85.0980%" stop-color="#B8B8B8"/>
+    <stop offset="85.4902%" stop-color="#D5D2CD"/>
+    <stop offset="85.8824%" stop-color="#F1E2CC"/>
+    <stop offset="86.2745%" stop-color="#E4CEB4"/>
+    <stop offset="86.6667%" stop-color="#DCB783"/>
+    <stop offset="87.0588%" stop-color="#FBC58A"/>
+    <stop offset="87.4510%" stop-color="#FFA48B"/>
+    <stop offset="87.8431%" stop-color="#F1CB95"/>
+    <stop offset="88.2353%" stop-color="#FFEBBE"/>
+    <stop offset="88.6275%" stop-color="#ECE1CB"/>
+    <stop offset="89.0196%" stop-color="#C7C8C4"/>
+    <stop offset="89.4118%" stop-color="#C0C8BD"/>
+    <stop offset="89.8039%" stop-color="#B0BDAB"/>
+    <stop offset="90.1961%" stop-color="#B9C8B2"/>
+    <stop offset="90.5882%" stop-color="#C5CBC0"/>
+    <stop offset="90.9804%" stop-color="#CFD7C5"/>
+    <stop offset="91.3725%" stop-color="#D6E0C6"/>
+    <stop offset="91.7647%" stop-color="#E4ECD2"/>
+    <stop offset="92.1569%" stop-color="#FDFFDA"/>
+    <stop offset="92.5490%" stop-color="#FFF7DC"/>
+    <stop offset="92.9412%" stop-color="#FBF0D9"/>
+    <stop offset="93.3333%" stop-color="#FFF7E8"/>
+    <stop offset="93.7255%" stop-color="#FFFCEF"/>
+    <stop offset="94.1176%" stop-color="#FFFFFF"/>
+    <stop offset="94.5098%" stop-color="#FFFFFF"/>
+    <stop offset="94.9020%" stop-color="#FFFFFF"/>
+    <stop offset="95.2941%" stop-color="#FFFFFF"/>
+    <stop offset="95.6863%" stop-color="#FFFFFF"/>
+    <stop offset="96.0784%" stop-color="#FFFFFF"/>
+    <stop offset="96.4706%" stop-color="#FFFFFF"/>
+    <stop offset="96.8627%" stop-color="#FEFFFC"/>
+    <stop offset="97.2549%" stop-color="#FEFFFC"/>
+    <stop offset="97.6471%" stop-color="#FDFFF8"/>
+    <stop offset="98.0392%" stop-color="#EAF2DB"/>
+    <stop offset="98.4314%" stop-color="#DBE4CE"/>
+    <stop offset="98.8235%" stop-color="#CDD8BE"/>
+    <stop offset="99.2157%" stop-color="#C0C8BC"/>
+    <stop offset="99.6078%" stop-color="#ADB6B0"/>
+    <stop offset="100.0000%" stop-color="#B1C0AD"/>
+	</linearGradient>
+</defs>
+<rect width="3840" height="512" fill="url(#paletteGradient)"/>
 </svg>
