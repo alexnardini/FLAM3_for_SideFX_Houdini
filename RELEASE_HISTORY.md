@@ -108,7 +108,7 @@ They are all available in this Github repository.
 
 
 
-## [<ins>v2.1.02 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.02)  ##
+## [<ins>v2.1.02 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/2.1.02)  ##
 
 #### FLAM3H™ v2.1.02 indie -> H22.0 UP</br>FLAM3H™ v2.0.82 indie -> H21.0</br>FLAM3H™ v2.0.55 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
 
