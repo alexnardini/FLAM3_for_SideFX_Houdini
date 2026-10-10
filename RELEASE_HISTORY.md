@@ -69,7 +69,7 @@ They are all available in this Github repository.
 <br>
 <br>
 
-#### PALETTE Recipes HDAs™ v1.0.15 indie -> H21.0, H22.0 UP</br>
+#### PALETTE Recipes HDAs v1.0.15 indie -> H21.0, H22.0 UP</br>
 
 - **New**: Extra Files Option `/Source` data now all point to the local github repository location. This allow to easily reload and update all the extra files in one click (_Reload All Files_). Such a quality of life improvements considering how many files especially icons and source files are being uploaded into the HDA extra files section.
 - **New**: Palette icon preview SVG file rectangle now has rounded corners
