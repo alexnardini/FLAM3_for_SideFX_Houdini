@@ -49,6 +49,65 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.1.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.10)  ##
+
+#### FLAM3H™ v2.1.10 indie -> H22.0 UP</br>FLAM3H™ v2.0.88 indie -> H21.0</br>FLAM3H™ v2.0.60 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+- **New**: Extra Files Option `/Source` data now all point to the local github repository location. This allow to easily reload and update all the extra files in one click (_Reload All Files_). Such a quality of life improvements considering how many files especially icons and source files are being uploaded into the HDA extra files section.
+- **New**: HDA documentation SVG illustrations are now part of this repository.
+- **Updated GIT documentation**
+
+<br>
+<br>
+
+#### FLAM3H™USD v0.2.75 indie -> H22.0 UP</br>FLAM3H™USD v0.2.71 indie -> H21.0</br>FLAM3H™USD v0.2.67 indie -> H20.5</br>FLAM3H™USD v0.2.51 indie -> H19.0 to H20 ####
+
+- **New**: Extra Files Option `/Source` data now all point to the local github repository location. This allow to easily reload and update all the extra files in one click (_Reload All Files_). Such a quality of life improvements considering how many files especially icons and source files are being uploaded into the HDA extra files section.
+
+<br>
+<br>
+
+#### PALETTE Recipes HDAs™ v1.0.15 indie -> H21.0, H22.0 UP</br>
+
+- **New**: Extra Files Option `/Source` data now all point to the local github repository location. This allow to easily reload and update all the extra files in one click (_Reload All Files_). Such a quality of life improvements considering how many files especially icons and source files are being uploaded into the HDA extra files section.
+- **New**: Palette icon preview SVG file rectangle now has rounded corners
+- **New**: Palette icon preview SVG file rectangle now has its Recipe HDA definition icon/logo overimposed in the bottom-left corner.
+- **New**: Palette icon preview SVG file rectangle now uses a true gradient to represent the palette colors instead of a sequence of boxes for an higher quality representation (_and smaller file size overall_).
+- **Fix**: Some of the Recipes HDA definitions did not have the palette icon preview SVG file properly uploaded into their extra files sections. It is now fixed.
+- **Fix**: Fixed Copyright notice to use the year it has been first released to the public (_2026_).
+- **Updated GIT documentation**: [**Palette presets previews**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/__FLAM3H_palette_libs/README.md#palette-previews)
+
+- **Note**: You can preview their new help card with the following template python code:
+   ```python
+   # The name of the Recipe HDA definition for which you want to display the Help.
+   #
+   # The following definition lives inside: alexnardini__FLAM3H_f3h_palette.hda
+   # so you need that HDA installed into your Houdini's otls directory
+   definition_name: str = "alexnardini::Data/f3h_archviz_hq_set_a_01"
+
+   # Get its node type
+   definition_node_type: hou.OpNodeType = hou.nodeType(definition_name)
+
+   # Display its Documentation
+   hou.ui.displayNodeHelp(definition_node_type)
+
+   # You can also print its internal version number
+   print(definition_node_type.definition().version())
+   ```
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.1.02 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.02)  ##
 
 #### FLAM3H™ v2.1.02 indie -> H22.0 UP</br>FLAM3H™ v2.0.82 indie -> H21.0</br>FLAM3H™ v2.0.55 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
