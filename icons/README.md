@@ -4944,20 +4944,20 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="640" height="" src="./hda_doc/FLAM3HUSD_DOC_intro.jpg" /></p>
-<b><p align="center">FLAM3HUSD_DOC_intro.svg</p></b>
+  <img width="640" height="" src="./hda_doc/FLAM3HUSD_DOC_intro_H190.jpg" /></p>
+<b><p align="center">FLAM3HUSD_DOC_intro_H190.svg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro.jpg</u> one uploaded into the HDA</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
 <b>Image</b>
 
 ```
-[Image:opdef:.?FLAM3HUSD_DOC_intro.jpg]
+[Image:opdef:.?FLAM3HUSD_DOC_intro_H190.jpg]
 ```
 <b>GITHUB</b>
 
 ```
-https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3HUSD_DOC_intro.jpg
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3HUSD_DOC_intro_H190.jpg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
