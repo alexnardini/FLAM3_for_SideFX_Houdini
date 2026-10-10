@@ -382,7 +382,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_cha
 
 <p align="center">
   <img width="160" height="160" src="./icon_cvex_compileSVG.svg" /></p>
-<b><p align="center">icon_cvex_compileSVG.svg</b><br/><i>Copyright (c) Side Effects Software inc. All rights reserved</i>.</p>
+<b><p align="center">icon_cvex_compileSVG.svg</b><br/><i>Cvex logo is Copyright (c) Side Effects Software inc. All rights reserved</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
