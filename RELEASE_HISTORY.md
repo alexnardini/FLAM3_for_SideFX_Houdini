@@ -66,12 +66,16 @@ _This is a re-release of the same version with some minor improvements that did 
 
 #### FLAM3H™USD v0.2.75 indie -> H22.0 UP</br>FLAM3H™USD v0.2.71 indie -> H21.0</br>FLAM3H™USD v0.2.67 indie -> H20.5</br>FLAM3H™USD v0.2.51 indie -> H19.0 to H20 ####
 
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
+
 - **New**: Extra Files Option `/Source` data now all point to the local github repository location. This allow to easily reload and update all the extra files in one click (_Reload All Files_). Such a quality of life improvements considering how many files especially icons and source files are being uploaded into the HDA extra files section.
 
 <br>
 <br>
 
 #### PALETTE Recipes HDAs v1.0.15 indie -> H21.0, H22.0 UP</br>
+
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
 - **New**: Extra Files Option `/Source` data now all point to the local github repository location. This allow to easily reload and update all the extra files in one click (_Reload All Files_). Such a quality of life improvements considering how many files especially icons and source files are being uploaded into the HDA extra files section.
 - **New**: Palette icon preview SVG file rectangle now has rounded corners
