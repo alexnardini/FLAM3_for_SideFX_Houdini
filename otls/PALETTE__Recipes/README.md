@@ -26,7 +26,7 @@ They work with **H21**, **H22** and up.
 </br>
 
 For a visual preview of all the palette presets included: 
-[**`Palette library previews`**](../../__FLAM3H_palette_libs/README.md)</br>
+[**`Palette library previews`**](../../__FLAM3H_palette_libs/README.md#palette-previews)</br>
 
 <br/>
 <br/>
