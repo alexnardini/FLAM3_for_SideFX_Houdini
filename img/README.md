@@ -8,8 +8,6 @@ Those images are used throughout this repository for illustration purposes.</br>
 
 # Contents
 
-The following images are used for illustration purposes inside the HDAs documentations.
-
 </br>
 </br>
 </br>
@@ -129,20 +127,6 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="512" height="" src="./FLAM3H_Hviewport_01_H19.jpg" /></p>
-<b><p align="center">FLAM3H_Hviewport_01_H19.svg</b>
-<p align="center">......</p>
-<p align="center">
-
-<b>GITHUB</b>
-
-```
-https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_Hviewport_01_H19.jpg
-```
-<p align="center">...</p></br/></br/></br/></br/>
-
-
-<p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_01_Karma.jpg" /></p>
 <b><p align="center">FLAM3H_Hviewport_01_Karma.svg</b>
 <p align="center">......</p>
@@ -166,6 +150,20 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_Hviewport_02_Karma.jpg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="512" height="" src="./FLAM3H_Hviewport_01_H19.jpg" /></p>
+<b><p align="center">FLAM3H_Hviewport_01_H19.svg</b>
+<p align="center">......</p>
+<p align="center">
+
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_Hviewport_01_H19.jpg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
