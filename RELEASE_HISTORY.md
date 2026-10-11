@@ -16,6 +16,7 @@
 
 ## License
 - Software: [GNU GPL v3.0](LICENSE)
+- Software: [GNU GPL v3.0 Addon](LICENSE.addon)
 - Documentation: [CC BY-SA 4.0](LICENSE.docs)
 
 ## Platforms
