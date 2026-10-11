@@ -1,6 +1,7 @@
 ## Github repo miscellaneous images ###
 
 Those images are used throughout this repository for illustration purposes.</br>
+( _Mainly inside the Github repo README.md file_ ).
 
 </br>
 </br>
