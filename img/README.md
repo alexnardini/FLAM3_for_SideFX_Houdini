@@ -199,7 +199,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="512" height="" src="./FLAM3H_knotCluster_HQ_iter_6.jpg" /></p>
+  <img width="" height="512" src="./FLAM3H_knotCluster_HQ_iter_6.jpg" /></p>
 <b><p align="center">FLAM3H_knotCluster_HQ_iter_6.svg</b>
 <p align="center">......</p>
 <p align="center">
@@ -213,7 +213,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="512" height="" src="./FLAM3H_OTL_documentation.jpg" /></p>
+  <img width="" height="512" src="./FLAM3H_OTL_documentation.jpg" /></p>
 <b><p align="center">FLAM3H_OTL_documentation.svg</b>
 <p align="center">......</p>
 <p align="center">
@@ -227,7 +227,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="512" height="" src="./FLAM3HUSD_OTL_documentation.jpg" /></p>
+  <img width="" height="512" src="./FLAM3HUSD_OTL_documentation.jpg" /></p>
 <b><p align="center">FLAM3HUSD_OTL_documentation.svg</b>
 <p align="center">......</p>
 <p align="center">
