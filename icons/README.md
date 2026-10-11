@@ -2722,7 +2722,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_pythonSVG.svg" /></p>
-<b><p align="center">icon_pythonSVG.svg</b> (<i>used only for DOC purposes</i>)<br/>Copyright (c) Python Software Foundation (PFS). All rights reserved</i>.</p>
+<b><p align="center">icon_pythonSVG.svg</b> (<i>used only for DOC purposes</i>)<br/><i>Copyright (c) Python Software Foundation (PFS). All rights reserved</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
