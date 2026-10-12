@@ -5,7 +5,7 @@
     <rdf:Description rdf:about="">
       <dc:title>Instagram</dc:title>
       <dc:creator>F stands for liFe</dc:creator>
-      <dc:rights>This is a replica of the official Instagram icon as the one provided by Meta is really to big of a file size to be used as a button icon to open the FLAM3H™ or FLAM3H™USD instagram accounts web pages.</dc:rights>
+      <dc:rights>The Instagram logo is a simplified reproduction created by the project author. The reproduction was created for practical implementation reasons, as the publicly available original asset was not suitable for use as a lightweight interface icon due to its file size.</dc:rights>
     </rdf:Description>
   </rdf:RDF>
 </metadata>
