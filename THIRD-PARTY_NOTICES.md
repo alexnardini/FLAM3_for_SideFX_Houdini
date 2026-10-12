@@ -121,7 +121,7 @@ Third-party logos remain the property of their respective owners. Nothing in thi
 
 ## 9. Independence and Non-Affiliation
 
-This project is independent and is not affiliated with, endorsed by, or sponsored by Google LLC, GitHub, Inc., the Python Software Foundation, Atlassian Pty Ltd, Side Effects Software Inc. or Meta Platforms, Inc.
+This project is independent and is not affiliated with, endorsed by, or sponsored by Side Effects Software Inc., Apple Inc., The Khronos Group Inc., Google LLC, GitHub, Inc., the Python Software Foundation, Atlassian Pty Ltd, or Meta Platforms, Inc.
 
 Third-party names and logos are used solely to identify the relevant services, technologies, or destinations, subject to the applicable permissions and usage guidelines.
 
