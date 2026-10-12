@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="8.4 14.39 2481.29 2231.21" style="enable-background:new 8.4 14.39 2481.29 2231.21" xml:space="preserve">
+<svg width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg">
 <metadata>
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
            xmlns:dc="http://purl.org/dc/elements/1.1/">
     <rdf:Description rdf:about="">
-      <dc:title>F stands for liFe</dc:title>
-      <dc:creator>F stands for liFe</dc:creator>
+      <dc:title>BitBucket</dc:title>
+      <dc:creator>Atlassian</dc:creator>
       <dc:rights>Copyright (c) Atlassian. All rights reserved.</dc:rights>
     </rdf:Description>
   </rdf:RDF>
 </metadata>
-<path d="M989.97 1493.09h518.05l125.04-730.04H852.22l137.75 730.04z" style="fill:none"/><path d="M88.92 14.4c-43.9-.57-79.95 34.56-80.51 78.46-.06 4.61.28 9.22 1.02 13.77l337.48 2048.72c8.68 51.75 53.26 89.8 105.74 90.24h1619.03c39.38.5 73.19-27.9 79.49-66.78l337.49-2071.78c7.03-43.34-22.41-84.17-65.75-91.2-4.55-.74-9.15-1.08-13.76-1.02L88.92 14.4zm1421.07 1480.69H993.24l-139.92-731h781.89l-125.22 731z" style="fill:#2684ff"/><linearGradient id="a" gradientUnits="userSpaceOnUse" x1="945.109" y1="1524.839" x2="944.492" y2="1524.189" gradientTransform="matrix(1996.6343 0 0 -1480.3047 -1884485.625 2258195)"><stop offset=".18" style="stop-color:#0052cc"/><stop offset="1" style="stop-color:#2684ff"/></linearGradient><path d="M2379.27 763.06h-745.5l-125.12 730.42H992.31l-609.67 723.67a107.6 107.6 0 0 0 69.5 26.21h1618.13c39.35.51 73.14-27.88 79.44-66.72l229.56-1413.58z" style="fill:url(#a)"/></svg>
+<path d="M0 12C0 5.373 5.373 0 12 0h24c6.627 0 12 5.373 12 12v24c0 6.627-5.373 12-12 12H12C5.373 48 0 42.627 0 36z" fill="#94c748"/><path d="m35.685 23.527-1.972 12.048c-.129.729-.643 1.157-1.372 1.157H15.62c-.73 0-1.244-.428-1.372-1.157l-3.473-21.48c-.13-.73.257-1.201.943-1.201h24.525c.686 0 1.072.471.943 1.2l-.943 5.66c-.13.814-.6 1.157-1.372 1.157H20.12c-.214 0-.343.129-.3.386l1.158 7.118c.043.171.171.3.343.3h5.317c.171 0 .3-.129.343-.3l.814-5.146c.086-.643.515-.9 1.115-.9h5.788c.858 0 1.115.429.986 1.158" fill="#101214"/></svg>

@@ -3659,7 +3659,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Git
 
 <p align="center">
   <img width="160" height="160" src="./icon_InstagramSVG.svg" /></p>
-<b><p align="center">icon_InstagramSVG.svg</b><br/><i>Copyright (c) Meta / Instagram. All rights reserved</i>.</p>
+<b><p align="center">icon_InstagramSVG.svg</b><br/><i>This is a replica of the official Instagram icon as the one provided by Meta is really to big of a file size to be used as a button icon to open the FLAM3H™ or FLAM3H™USD instagram accounts web pages.</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
