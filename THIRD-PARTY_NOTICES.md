@@ -127,12 +127,13 @@ Third-party names and logos are used solely to identify the relevant services, t
 
 ## 10. Official References
 
+- **SideFX / Houdini:** https://www.sidefx.com/company/press/
+- **SideFX Logo Usage Guidelines:** https://media.sidefx.com/uploads/company/press/logos/
+- **OpenCL Official Trademark and Logo Guidelines:** https://www.khronos.org/legal/trademarks/
 - **YouTube:** https://developers.google.com/youtube/terms/branding-guidelines
 - **GitHub:** https://docs.github.com/en/site-policy/other-site-policies/github-logo-policy
 - **Python:** https://www.python.org/psf/trademarks/
-- **Bitbucket / Atlassian:** https://www.atlassian.com/legal/trademark
-- **SideFX / Houdini:** https://www.sidefx.com/company/press/
-- **SideFX Logo Usage Guidelines:** https://media.sidefx.com/uploads/company/press/logos/sidefx_logo_usage_guidelines_may2024.pdf
+- **Bitbucket / Atlassian:** https://www.atlassian.com/legal/trademarksidefx_logo_usage_guidelines_may2024.pdf
 - **Instagram Brand Resources and Guidelines:** https://www.meta.com/brand/resources/instagram/instagram-brand/
 
 Brand policies and asset licenses may change. Users redistributing third-party assets should consult the current official guidelines and the applicable license or permission for each specific file.
