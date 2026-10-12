@@ -226,7 +226,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Add
 
 <p align="center">
   <img width="160" height="160" src="./icon_bitbucketLogoSVG.svg" /></p>
-<b><p align="center">icon_bitbucketLogoSVG.svg</b> (<i>unused</i>)<br/><i>Copyright (c) Atlassian. All rights reserved</i>.</p>
+<b><p align="center">icon_bitbucketLogoSVG.svg</b> (<i>unused</i>)<br/><i>Copyright (c) Atlassian. All rights reserved. The Bitbucket logo is used to identify a link to Bitbucket, such as a repository or project page</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -382,7 +382,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_cha
 
 <p align="center">
   <img width="160" height="160" src="./icon_cvex_compileSVG.svg" /></p>
-<b><p align="center">icon_cvex_compileSVG.svg</b><br/><i>Cvex logo is Copyright (c) Side Effects Software inc. All rights reserved</i>.</p>
+<b><p align="center">icon_cvex_compileSVG.svg</b><br/><i>Cvex logo is Copyright (c) Side Effects Software inc. All rights reserved. The CVEX-related logo or graphic, if included, is intended to identify the technology used by this project and its relationship to the Houdini environment. Its inclusion does not imply that SideFX develops, endorses, sponsors, or officially supports this project</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -421,7 +421,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_cve
 
 <p align="center">
   <img width="160" height="160" src="./icon_cvex_headerSVG.svg" /></p>
-<b><p align="center">icon_cvex_headerSVG.svg</b> (<i>used only for DOC purposes</i>)<br/><i>Cvex logo is Copyright (c) Side Effects Software inc. All rights reserved</i>.</p>
+<b><p align="center">icon_cvex_headerSVG.svg</b> (<i>used only for DOC purposes</i>)<br/><i>Cvex logo is Copyright (c) Side Effects Software inc. All rights reserved. The CVEX-related logo or graphic, if included, is intended to identify the technology used by this project and its relationship to the Houdini environment. Its inclusion does not imply that SideFX develops, endorses, sponsors, or officially supports this project</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -1785,7 +1785,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionOCLSVG.svg" /></p>
-<b><p align="center">icon_optionOCLSVG.svg</b><br/><i>Copyright (c) Kronos Group. All rights reserved</i>.</p>
+<b><p align="center">icon_optionOCLSVG.svg</b><br/><i>Copyright (c) Apple Inc. (OpenCL name and logo); The Khronos Group Inc. (OpenCL specification and related technologies)</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -1824,7 +1824,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionToolOCLSVG.svg" /></p>
-<b><p align="center">icon_optionToolOCLSVG.svg</b><br/><i>Copyright (c) Kronos Group. All rights reserved</i>.</p>
+<b><p align="center">icon_optionToolOCLSVG.svg</b><br/><i>Copyright (c) Apple Inc. (OpenCL name and logo); The Khronos Group Inc. (OpenCL specification and related technologies)</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -2722,7 +2722,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_pythonSVG.svg" /></p>
-<b><p align="center">icon_pythonSVG.svg</b> (<i>used only for DOC purposes</i>)<br/><i>Copyright (c) Python Software Foundation (PFS). All rights reserved</i>.</p>
+<b><p align="center">icon_pythonSVG.svg</b> (<i>used only for DOC purposes</i>)<br/><i>Copyright (c) Python Software Foundation (PFS). All rights reserved. The Python logo is used to refer to the Python programming language or identify a link to a relevant Python resource</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -3503,7 +3503,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_xfH
 
 <p align="center">
   <img width="160" height="160" src="./icon_youtube_red_play.svg" /></p>
-<b><p align="center">icon_youtube_red_play.svg</b><br/><i>Copyright (c) Google LLC / Alphabet Inc. All rights reserved</i>.</p>
+<b><p align="center">icon_youtube_red_play.svg</b><br/><i>Copyright (c) Google LLC / Alphabet Inc. All rights reserved. The YouTube logo or icon is used to identify a link to YouTube or relevant YouTube content.</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -3542,7 +3542,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_you
 
 <p align="center">
   <img width="160" height="160" src="./icon_GithubBlackSVG.svg" /></p>
-<b><p align="center">icon_GithubBlackSVG.svg</b><br/><i>Copyright (c) Microsoft / Github. All rights reserved</i>.</p>
+<b><p align="center">icon_GithubBlackSVG.svg</b><br/><i>Copyright (c) Microsoft / Github. All rights reserved. The GitHub logo or Invertocat icon is used to identify a link to a GitHub profile, repository, or project</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -3581,7 +3581,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Git
 
 <p align="center">
   <img width="160" height="160" src="./icon_GithubBlueSVG.svg" /></p>
-<b><p align="center">icon_GithubBlueSVG.svg</b><br/><i>Copyright (c) Microsoft / Github. All rights reserved</i>.</p>
+<b><p align="center">icon_GithubBlueSVG.svg</b><br/><i>Copyright (c) Microsoft / Github. All rights reserved. The GitHub logo or Invertocat icon is used to identify a link to a GitHub profile, repository, or project</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -3620,7 +3620,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Git
 
 <p align="center">
   <img width="160" height="160" src="./icon_GithubWhiteSVG.svg" /></p>
-<b><p align="center">icon_GithubWhiteSVG.svg</b><br/><i>Copyright (c) Microsoft / Github. All rights reserved</i>.</p>
+<b><p align="center">icon_GithubWhiteSVG.svg</b><br/><i>Copyright (c) Microsoft / Github. All rights reserved. The GitHub logo or Invertocat icon is used to identify a link to a GitHub profile, repository, or project</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -3659,7 +3659,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Git
 
 <p align="center">
   <img width="160" height="160" src="./icon_InstagramSVG.svg" /></p>
-<b><p align="center">icon_InstagramSVG.svg</b><br/><i>This is a replica of the official Instagram icon as the one provided by Meta is really to big of a file size to be used as a button icon to open the FLAM3H™ or FLAM3H™USD instagram accounts web pages.</i>.</p>
+<b><p align="center">icon_InstagramSVG.svg</b><br/><i>The Instagram logo is a simplified reproduction created by the project author. The reproduction was created for practical implementation reasons, as the publicly available original asset was not suitable for use as a lightweight interface icon due to its file size</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -4557,7 +4557,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_tag
 
 <p align="center">
   <img width="160" height="160" src="./icon_tag_oclSVG.svg" /></p>
-<b><p align="center">icon_tag_oclSVG.svg</b> (<i>used only for DOC purposes</i>)<br/><i>Copyright (c) Kronos Group. All rights reserved</i>.</p>
+<b><p align="center">icon_tag_oclSVG.svg</b> (<i>used only for DOC purposes</i>)<br/><i>Copyright (c) Apple Inc. (OpenCL name and logo); The Khronos Group Inc. (OpenCL specification and related technologies)</i>.</p>
 <p align="center">......</p>
 <p align="center">
 

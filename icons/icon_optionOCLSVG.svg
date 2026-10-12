@@ -3,9 +3,9 @@
   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
            xmlns:dc="http://purl.org/dc/elements/1.1/">
     <rdf:Description rdf:about="">
-      <dc:title>F stands for liFe</dc:title>
-      <dc:creator>F stands for liFe</dc:creator>
-      <dc:rights>Copyright Kronos Group. All rights reserved.</dc:rights>
+      <dc:title>OpenCL</dc:title>
+      <dc:creator>Apple Inc. (OpenCL name and logo)</dc:creator>
+      <dc:rights>Copyright (c) Apple Inc. (OpenCL name and logo); The Khronos Group Inc. (OpenCL specification and related technologies).</dc:rights>
     </rdf:Description>
   </rdf:RDF>
 </metadata>
