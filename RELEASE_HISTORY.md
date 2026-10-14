@@ -51,6 +51,44 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.1.12 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.12)  ##
+
+#### FLAM3H™ v2.1.12 indie -> H22.0 UP</br>FLAM3H™ v2.0.90 indie -> H21.0</br>FLAM3H™ v2.0.62 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **OpenCL code updates**: OpenCL RNG now initialize consecutive 32-bit RNG states (non-overlapping).
+- **Python code improvements**: Updated hou.session attributes names to all start with "F3H_*" for FLAM3H™.
+- **Updated GIT documentation**
+
+<br>
+<br>
+
+#### FLAM3H™USD v0.2.76 indie -> H22.0 UP</br>FLAM3H™USD v0.2.72 indie -> H21.0</br>FLAM3H™USD v0.2.68 indie -> H20.5</br>FLAM3H™USD v0.2.51 indie -> H19.0 to H20 ####
+
+- **Python code improvements**: Updated hou.session attributes names to all start with "F3HUSD_*" for FLAM3H™USD.
+
+<br>
+<br>
+
+#### PALETTE Recipes HDAs v1.0.16 indie -> H21.0, H22.0 UP</br>
+
+- **Fix**: Removed a duplicate preset data from the Apophysis palette library.
+- **Updated GIT documentation**: [**Palette presets previews**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/__FLAM3H_palette_libs/README.md#palette-previews) now include a permalink to their **f3h_hex** json data.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.1.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.10)  ##
 
 #### FLAM3H™ v2.1.10 indie -> H22.0 UP</br>FLAM3H™ v2.0.88 indie -> H21.0</br>FLAM3H™ v2.0.60 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
