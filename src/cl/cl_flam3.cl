@@ -235,17 +235,19 @@ static inline uint splitmix32(uint seed)
 #if USE_RNG_X128
     static inline void x_rng_init(rng_state_t* restrict state, uint gid) 
     {
-        state->s0 = splitmix32(gid);
-        state->s1 = splitmix32(gid + 1u);
-        state->s2 = splitmix32(gid + 2u);
-        state->s3 = splitmix32(gid + 3u);
+        uint id = gid << 2;
+        state->s0 = splitmix32(id);
+        state->s1 = splitmix32(id + 1u);
+        state->s2 = splitmix32(id + 2u);
+        state->s3 = splitmix32(id + 3u);
     }
 #else
     #define MWC_A 4294883355U
     static inline void x_rng_init(rng_state_t* restrict state, uint gid) 
     {
-        state->s0 = splitmix32(gid);
-        state->s1 = splitmix32(gid + 1u);
+        uint id = gid << 1;
+        state->s0 = splitmix32(id);
+        state->s1 = splitmix32(id + 1u);
         
         if(state->s1 >= MWC_A) state->s1 -= MWC_A;
     }
