@@ -1357,7 +1357,7 @@ class flam3husd_scripts
             
             # Delete the Houdini update mode data if needed
             try:
-                del hou.session.HUSD_CS_STASH_DICT # type: ignore
+                del hou.session.F3HUSD_CS_STASH_DICT # type: ignore
             except AttributeError:
                 pass
 
@@ -1715,7 +1715,7 @@ class flam3husd_general_utils
         """  
         # Check if the required data exist already
         try:
-            hou.session.HUSD_CS_STASH_DICT # type: ignore
+            hou.session.F3HUSD_CS_STASH_DICT # type: ignore
             _EXIST: bool = True
         except:
             _EXIST: bool = False
@@ -1738,15 +1738,15 @@ class flam3husd_general_utils
             new: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
             if _EXIST:
                 # Check if it needs an update
-                if new != hou.session.HUSD_CS_STASH_DICT: #type: ignore
-                    __old_to_update: dict[str, hou.viewportColorScheme] = hou.session.HUSD_CS_STASH_DICT.copy() #type: ignore
+                if new != hou.session.F3HUSD_CS_STASH_DICT: #type: ignore
+                    __old_to_update: dict[str, hou.viewportColorScheme] = hou.session.F3HUSD_CS_STASH_DICT.copy() #type: ignore
                     for key, value in new.items():
                         if value != hou.viewportColorScheme.Dark: # type: ignore
                             if key not in __old_to_update.keys(): __old_to_update[key] = value
-                    hou.session.HUSD_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = __old_to_update #type: ignore
+                    hou.session.F3HUSD_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = __old_to_update #type: ignore
             else:
                 # otherwise create
-                hou.session.HUSD_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = new # type: ignore
+                hou.session.F3HUSD_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = new # type: ignore
 
 
     # CLASS: PROPERTIES
@@ -2062,7 +2062,7 @@ class flam3husd_general_utils
                         views_keys.append(v.name())
             
             # Always store and update this data
-            hou.session.HUSD_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
+            hou.session.F3HUSD_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
 
 
     def colorSchemeDark(self, update_others: bool = True) -> None:
@@ -2123,7 +2123,7 @@ class flam3husd_general_utils
                     
             else:
                 
-                try: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = hou.session.HUSD_CS_STASH_DICT # type: ignore
+                try: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = hou.session.F3HUSD_CS_STASH_DICT # type: ignore
                 except: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = None
                 
                 dark = False
@@ -2154,7 +2154,7 @@ class flam3husd_general_utils
                     
                     try:
                         
-                        if hou.session.HUSD_CS_STASH_DICT: # type: ignore
+                        if hou.session.F3HUSD_CS_STASH_DICT: # type: ignore
                             
                             if lop_viewers is False:
                                 flam3husd_prm_utils.set(node, prm, 1)

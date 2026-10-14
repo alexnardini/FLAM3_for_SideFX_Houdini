@@ -1501,7 +1501,7 @@ class flam3husd_scripts
             
             # Delete the Houdini update mode data if needed
             try:
-                del hou.session.HUSD_CS_STASH_DICT # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+                del hou.session.F3HUSD_CS_STASH_DICT # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
             except AttributeError:
                 pass
 
@@ -1897,7 +1897,7 @@ class flam3husd_general_utils
         """  
         # Check if the required data exist already
         try:
-            hou.session.HUSD_CS_STASH_DICT # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
+            hou.session.F3HUSD_CS_STASH_DICT # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
             _EXIST: bool = True
         except AttributeError:
             _EXIST: bool = False
@@ -1920,15 +1920,15 @@ class flam3husd_general_utils
             new: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # pyright: ignore[reportAssignmentType]  # Houdini HOM API
             if _EXIST:
                 # Check if it needs an update
-                if new != hou.session.HUSD_CS_STASH_DICT: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
-                    __old_to_update: dict[str, hou.viewportColorScheme] = hou.session.HUSD_CS_STASH_DICT.copy() # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
+                if new != hou.session.F3HUSD_CS_STASH_DICT: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
+                    __old_to_update: dict[str, hou.viewportColorScheme] = hou.session.F3HUSD_CS_STASH_DICT.copy() # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                     for key, value in new.items():
                         if value != hou.viewportColorScheme.Dark: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                             if key not in __old_to_update.keys(): __old_to_update[key] = value
-                    hou.session.HUSD_CS_STASH_DICT = cast(dict[str, hou.viewportColorScheme], __old_to_update) # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
+                    hou.session.F3HUSD_CS_STASH_DICT = cast(dict[str, hou.viewportColorScheme], __old_to_update) # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
             else:
                 # otherwise create
-                hou.session.HUSD_CS_STASH_DICT = cast(dict[str, hou.viewportColorScheme], new) # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
+                hou.session.F3HUSD_CS_STASH_DICT = cast(dict[str, hou.viewportColorScheme], new) # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
 
 
     # CLASS: PROPERTIES
@@ -2246,7 +2246,7 @@ class flam3husd_general_utils
                         views_keys.append(v.name())
             
             # Always store and update this data
-            hou.session.HUSD_CS_STASH_DICT = cast(dict[str, hou.EnumValue], dict(zip(views_keys, views_scheme))) # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
+            hou.session.F3HUSD_CS_STASH_DICT = cast(dict[str, hou.EnumValue], dict(zip(views_keys, views_scheme))) # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
 
 
     def colorSchemeDark(self, update_others: bool = True) -> None:
@@ -2307,7 +2307,7 @@ class flam3husd_general_utils
                     
             else:
                 
-                try: _STASH_DICT: dict[str, hou.EnumValue] | None = hou.session.HUSD_CS_STASH_DICT # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
+                try: _STASH_DICT: dict[str, hou.EnumValue] | None = hou.session.F3HUSD_CS_STASH_DICT # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                 except AttributeError: _STASH_DICT: dict[str, hou.EnumValue] | None = None
                 
                 dark = False
@@ -2338,7 +2338,7 @@ class flam3husd_general_utils
                     
                     try:
                         
-                        if hou.session.HUSD_CS_STASH_DICT: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
+                        if hou.session.F3HUSD_CS_STASH_DICT: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                             
                             if lop_viewers is False:
                                 flam3husd_prm_utils.set(node, prm, 1)

@@ -147,9 +147,9 @@ from inspect import cleandoc as i_cleandoc
                     hou.session.F3H_SENSOR_CAM_STASH_COUNT
                     hou.session.F3H_SENSOR_CAM_STASH_DICT
                     hou.session.F3H_SENSOR_CAM_STASH_TYPE_DICT
-                    hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT
-                    hou.session.H_VIEWPORT_WIRE_WIDTH
-                    hou.session.H_CS_STASH_DICT
+                    hou.session.F3H_H_XF_VIZ_WIRE_WIDTH_STASH_DICT
+                    hou.session.F3H_H_VIEWPORT_WIRE_WIDTH
+                    hou.session.F3H_H_CS_STASH_DICT
                     hou.session.F3H_H_VERSION_ALLOWED
 
 
@@ -3082,12 +3082,12 @@ class flam3h_scripts
             (None):
         """
         if flam3h_general_utils(self.kwargs).util_other_xf_viz() is False:
-            hou.session.H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
+            hou.session.F3H_H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
         else:
             try:
-                hou.session.H_VIEWPORT_WIRE_WIDTH # type: ignore
+                hou.session.F3H_H_VIEWPORT_WIRE_WIDTH # type: ignore
             except AttributeError:
-                hou.session.H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
+                hou.session.F3H_H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
     
     
     def flam3h_presets_cache_filepath_on_load(self) -> None:
@@ -4241,7 +4241,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """
-        try: del hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
+        try: del hou.session.F3H_H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
         except AttributeError: pass
     
     
@@ -4258,7 +4258,7 @@ class flam3h_general_utils
         
         # This stashed dict is already without any Lop viewers. They have been filtered inside:
         #   * flam3h_general_utils.util_store_all_viewers_xf_viz(self) -> None:
-        try: _STASH_DICT: dict[str, float] | None = hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
+        try: _STASH_DICT: dict[str, float] | None = hou.session.F3H_H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
         except AttributeError: _STASH_DICT: dict[str, float] | None = None
         
         if _STASH_DICT is not None:
@@ -4309,7 +4309,7 @@ class flam3h_general_utils
         """  
         # Check if the required data exist already
         try:
-            hou.session.H_CS_STASH_DICT # type: ignore
+            hou.session.F3H_H_CS_STASH_DICT # type: ignore
             
         except AttributeError:
             _EXIST: bool = False
@@ -4338,15 +4338,15 @@ class flam3h_general_utils
             new: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
             if _EXIST:
                 # Check if it needs an update
-                if new != hou.session.H_CS_STASH_DICT: #type: ignore
-                    __old_to_update: dict[str, hou.viewportColorScheme] = hou.session.H_CS_STASH_DICT.copy() #type: ignore
+                if new != hou.session.F3H_H_CS_STASH_DICT: #type: ignore
+                    __old_to_update: dict[str, hou.viewportColorScheme] = hou.session.F3H_H_CS_STASH_DICT.copy() #type: ignore
                     for key, value in new.items():
                         if value != hou.viewportColorScheme.Dark: # type: ignore
                             if key not in __old_to_update.keys(): __old_to_update[key] = value
-                    hou.session.H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = __old_to_update #type: ignore
+                    hou.session.F3H_H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = __old_to_update #type: ignore
             else:
                 # otherwise create
-                hou.session.H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = new # type: ignore
+                hou.session.F3H_H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = new # type: ignore
                 
                 
     @staticmethod
@@ -4879,9 +4879,9 @@ class flam3h_general_utils
             # Store everything into the hou.session so we can retrieve them later but keep them if they exist already
             # as it mean another FLAM3H™ node had already its viewport xforms handles VIZ ON and we likely want to restore what was already stored.
             try:
-                hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
+                hou.session.F3H_H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
             except AttributeError:
-                hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT: dict[str, float] = dict(zip(views_keys, views_widths)) # type: ignore
+                hou.session.F3H_H_XF_VIZ_WIRE_WIDTH_STASH_DICT: dict[str, float] = dict(zip(views_keys, views_widths)) # type: ignore
             
     
     def util_other_xf_viz(self) -> bool:
@@ -5095,7 +5095,7 @@ class flam3h_general_utils
                     
                 # Retrieve the value we shoud be set to
                 try:
-                    w: float | None = hou.session.H_VIEWPORT_WIRE_WIDTH # type: ignore
+                    w: float | None = hou.session.F3H_H_VIEWPORT_WIRE_WIDTH # type: ignore
                 except AttributeError:
                     w: float | None = None
                     
@@ -5854,7 +5854,7 @@ class flam3h_general_utils
                         views_keys.append(v.name())
             
             # Always store and update this data
-            hou.session.H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
+            hou.session.F3H_H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
 
 
     def colorSchemeDark(self, update_others: bool = True) -> None:
@@ -5917,7 +5917,7 @@ class flam3h_general_utils
             else:
                 
                 try:
-                    _STASH_DICT: dict[str, hou.EnumValue] | None = hou.session.H_CS_STASH_DICT # type: ignore
+                    _STASH_DICT: dict[str, hou.EnumValue] | None = hou.session.F3H_H_CS_STASH_DICT # type: ignore
                 except AttributeError:
                     _STASH_DICT: dict[str, hou.EnumValue] | None = None
                     
@@ -5949,7 +5949,7 @@ class flam3h_general_utils
                     
                     try:
                         
-                        if hou.session.H_CS_STASH_DICT: # type: ignore
+                        if hou.session.F3H_H_CS_STASH_DICT: # type: ignore
                            
                             if allowed_viewers is False:
                                 
@@ -6201,7 +6201,7 @@ class flam3h_general_utils
         if allowed_viewers:
             
             # Updated FLAM3H™ wire width custom value
-            hou.session.H_VIEWPORT_WIRE_WIDTH: float = width # type: ignore
+            hou.session.F3H_H_VIEWPORT_WIRE_WIDTH: float = width # type: ignore
             
             for f3h in all_f3h:
                 # PREFS_VIEWPORT_WIRE_WIDTH
