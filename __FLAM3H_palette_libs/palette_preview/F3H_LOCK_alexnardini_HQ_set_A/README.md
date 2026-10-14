@@ -37,32 +37,32 @@
 
 - # <img width="48" height="48" src="../../../icons/icon_optionCPSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_alexnardini_HQ_set_A.json`**](../../F3H_LOCK_alexnardini_HQ_set_A.json)</br>_color keys_: **512**
-    1. - `a women in pink and cyan hairs`</br><img width="512" height="" src="./a women in pink and cyan hairs.svg" /> 
-    2. - `Shiny cyborg enjoying the moment`</br><img width="512" height="" src="./Shiny cyborg enjoying the moment.svg" /> 
-    3. - `Under the Northern Lights`</br><img width="512" height="" src="./Under the Northern Lights.svg" /> 
-    4. - `Teckno kid facing the green gem`</br><img width="512" height="" src="./Teckno kid facing the green gem.svg" /> 
-    5. - `Mazinga Zeta fashion style`</br><img width="512" height="" src="./Mazinga Zeta fashion style.svg" /> 
-    6. - `Cow in a grass field enjoying the day`</br><img width="512" height="" src="./Cow in a grass field enjoying the day.svg" /> 
-    7. - `Gems and burgers for the Queen`</br><img width="512" height="" src="./Gems and burgers for the Queen.svg" /> 
-    8. - `Hot spas with salty walls`</br><img width="512" height="" src="./Hot spas with salty walls.svg" /> 
-    9. - `Picasso women looking at you`</br><img width="512" height="" src="./Picasso women looking at you.svg" /> 
-    10. - `Waxed cyborg thoughts`</br><img width="512" height="" src="./Waxed cyborg thoughts.svg" /> 
-    11. - `Portrait like the old one`</br><img width="512" height="" src="./Portrait like the old one.svg" /> 
-    12. - `Samurai in a pose`</br><img width="512" height="" src="./Samurai in a pose.svg" /> 
-    13. - `At the barber shop`</br><img width="512" height="" src="./At the barber shop.svg" /> 
-    14. - `Metro in Iceland on a clear day`</br><img width="512" height="" src="./Metro in Iceland on a clear day.svg" /> 
-    15. - `River cactusses on sunset`</br><img width="512" height="" src="./River cactusses on sunset.svg" /> 
-    16. - `Midnight fever in HongKong`</br><img width="512" height="" src="./Midnight fever in HongKong.svg" /> 
-    17. - `Dusty helmet on explorer sunset`</br><img width="512" height="" src="./Dusty helmet on explorer sunset.svg" /> 
-    18. - `Tree of life and lonely`</br><img width="512" height="" src="./Tree of life and lonely.svg" /> 
-    19. - `Little Canadian house in the wood`</br><img width="512" height="" src="./Little Canadian house in the wood.svg" /> 
-    20. - `Dark punk clown trying to smile`</br><img width="512" height="" src="./Dark punk clown trying to smile.svg" /> 
-    21. - `The path to pandora is beautiful`</br><img width="512" height="" src="./The path to pandora is beautiful.svg" /> 
-    22. - `Warrior and his armour`</br><img width="512" height="" src="./Warrior and his armour.svg" /> 
-    23. - `Ninja cat with furry cloths`</br><img width="512" height="" src="./Ninja cat with furry cloths.svg" /> 
-    24. - `The Hobbyt house on a cloudy day`</br><img width="512" height="" src="./The Hobbyt house on a cloudy day.svg" /> 
-    25. - `SciFi in the 50s was great`</br><img width="512" height="" src="./SciFi in the 50s was great.svg" /> 
-    26. - `Fancy women at a pub in violet`</br><img width="512" height="" src="./Fancy women at a pub in violet.svg" /> 
+    1. - `a women in pink and cyan hairs`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L2-L4)</br><img width="512" height="" src="./a women in pink and cyan hairs.svg" /> 
+    2. - `Shiny cyborg enjoying the moment`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L5-L7)</br><img width="512" height="" src="./Shiny cyborg enjoying the moment.svg" /> 
+    3. - `Under the Northern Lights`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L8-L10)</br><img width="512" height="" src="./Under the Northern Lights.svg" /> 
+    4. - `Teckno kid facing the green gem`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L11-L13)</br><img width="512" height="" src="./Teckno kid facing the green gem.svg" /> 
+    5. - `Mazinga Zeta fashion style`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L14-L16)</br><img width="512" height="" src="./Mazinga Zeta fashion style.svg" /> 
+    6. - `Cow in a grass field enjoying the day`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L17-L19)</br><img width="512" height="" src="./Cow in a grass field enjoying the day.svg" /> 
+    7. - `Gems and burgers for the Queen`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L20-L22)</br><img width="512" height="" src="./Gems and burgers for the Queen.svg" /> 
+    8. - `Hot spas with salty walls`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L23-L25)</br><img width="512" height="" src="./Hot spas with salty walls.svg" /> 
+    9. - `Picasso women looking at you`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L26-L28)</br><img width="512" height="" src="./Picasso women looking at you.svg" /> 
+    10. - `Waxed cyborg thoughts`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L29-L31)</br><img width="512" height="" src="./Waxed cyborg thoughts.svg" /> 
+    11. - `Portrait like the old one`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L32-L34)</br><img width="512" height="" src="./Portrait like the old one.svg" /> 
+    12. - `Samurai in a pose`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L35-L37)</br><img width="512" height="" src="./Samurai in a pose.svg" /> 
+    13. - `At the barber shop`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L38-L40)</br><img width="512" height="" src="./At the barber shop.svg" /> 
+    14. - `Metro in Iceland on a clear day`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L41-L43)</br><img width="512" height="" src="./Metro in Iceland on a clear day.svg" /> 
+    15. - `River cactusses on sunset`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L44-L46)</br><img width="512" height="" src="./River cactusses on sunset.svg" /> 
+    16. - `Midnight fever in HongKong`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L47-L49)</br><img width="512" height="" src="./Midnight fever in HongKong.svg" /> 
+    17. - `Dusty helmet on explorer sunset`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L50-L52)</br><img width="512" height="" src="./Dusty helmet on explorer sunset.svg" /> 
+    18. - `Tree of life and lonely`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L53-L55)</br><img width="512" height="" src="./Tree of life and lonely.svg" /> 
+    19. - `Little Canadian house in the wood`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L56-L58)</br><img width="512" height="" src="./Little Canadian house in the wood.svg" /> 
+    20. - `Dark punk clown trying to smile`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L59-L61)</br><img width="512" height="" src="./Dark punk clown trying to smile.svg" /> 
+    21. - `The path to pandora is beautiful`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L62-L64)</br><img width="512" height="" src="./The path to pandora is beautiful.svg" /> 
+    22. - `Warrior and his armour`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L65-L67)</br><img width="512" height="" src="./Warrior and his armour.svg" /> 
+    23. - `Ninja cat with furry cloths`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L68-L70)</br><img width="512" height="" src="./Ninja cat with furry cloths.svg" /> 
+    24. - `The Hobbyt house on a cloudy day`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L71-L73)</br><img width="512" height="" src="./The Hobbyt house on a cloudy day.svg" /> 
+    25. - `SciFi in the 50s was great`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L74-L76)</br><img width="512" height="" src="./SciFi in the 50s was great.svg" /> 
+    26. - `Fancy women at a pub in violet`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L77-L79)</br><img width="512" height="" src="./Fancy women at a pub in violet.svg" />
 
 <br/>
 <br/>

@@ -37,22 +37,23 @@
 
 - # <img width="48" height="48" src="../../../icons/icon_optionCPSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_tatasz_pack_02_warmer.json`**](../../F3H_LOCK_tatasz_pack_02_warmer.json)</br>_color keys_: **256**
-    1. - `tatasz_pack_02_warmer_16`</br><img width="512" height="" src="./tatasz_pack_02_warmer_16.svg" /> 
-    2. - `tatasz_pack_02_warmer_18`</br><img width="512" height="" src="./tatasz_pack_02_warmer_18.svg" /> 
-    3. - `tatasz_pack_02_warmer_20`</br><img width="512" height="" src="./tatasz_pack_02_warmer_20.svg" /> 
-    4. - `tatasz_pack_02_warmer_22`</br><img width="512" height="" src="./tatasz_pack_02_warmer_22.svg" /> 
-    5. - `tatasz_pack_02_warmer_24`</br><img width="512" height="" src="./tatasz_pack_02_warmer_24.svg" /> 
-    6. - `tatasz_pack_02_warmer_25`</br><img width="512" height="" src="./tatasz_pack_02_warmer_25.svg" /> 
-    7. - `tatasz_pack_02_warmer_28`</br><img width="512" height="" src="./tatasz_pack_02_warmer_28.svg" /> 
-    8. - `tatasz_pack_02_warmer_03`</br><img width="512" height="" src="./tatasz_pack_02_warmer_03.svg" /> 
-    9. - `tatasz_pack_02_warmer_32`</br><img width="512" height="" src="./tatasz_pack_02_warmer_32.svg" /> 
-    11. - `tatasz_pack_02_warmer_36`</br><img width="512" height="" src="./tatasz_pack_02_warmer_36.svg" /> 
-    12. - `tatasz_pack_02_warmer_04`</br><img width="512" height="" src="./tatasz_pack_02_warmer_04.svg" /> 
-    13. - `tatasz_pack_02_warmer_43`</br><img width="512" height="" src="./tatasz_pack_02_warmer_43.svg" /> 
-    14. - `tatasz_pack_02_warmer_44`</br><img width="512" height="" src="./tatasz_pack_02_warmer_44.svg" /> 
-    15. - `tatasz_pack_02_warmer_46`</br><img width="512" height="" src="./tatasz_pack_02_warmer_46.svg" /> 
-    16. - `tatasz_pack_02_warmer_50`</br><img width="512" height="" src="./tatasz_pack_02_warmer_50.svg" /> 
-    17. - `tatasz_pack_02_warmer_07`</br><img width="512" height="" src="./tatasz_pack_02_warmer_07.svg" /> 
+    1. - `tatasz_pack_02_warmer_16`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L2-L4)</br><img width="512" height="" src="./tatasz_pack_02_warmer_16.svg" /> 
+    2. - `tatasz_pack_02_warmer_18`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L5-L7)</br><img width="512" height="" src="./tatasz_pack_02_warmer_18.svg" /> 
+    3. - `tatasz_pack_02_warmer_20`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L8-L10)</br><img width="512" height="" src="./tatasz_pack_02_warmer_20.svg" /> 
+    4. - `tatasz_pack_02_warmer_22`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L11-L13)</br><img width="512" height="" src="./tatasz_pack_02_warmer_22.svg" /> 
+    5. - `tatasz_pack_02_warmer_24`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L14-L16)</br><img width="512" height="" src="./tatasz_pack_02_warmer_24.svg" /> 
+    6. - `tatasz_pack_02_warmer_25`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L17-L19)</br><img width="512" height="" src="./tatasz_pack_02_warmer_25.svg" /> 
+    7. - `tatasz_pack_02_warmer_28`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L20-L22)</br><img width="512" height="" src="./tatasz_pack_02_warmer_28.svg" /> 
+    8. - `tatasz_pack_02_warmer_03`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L23-L25)</br><img width="512" height="" src="./tatasz_pack_02_warmer_03.svg" /> 
+    9. - `tatasz_pack_02_warmer_32`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L26-L28)</br><img width="512" height="" src="./tatasz_pack_02_warmer_32.svg" /> 
+    10. - `tatasz_pack_02_warmer_33`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L29-L31)</br><img width="512" height="" src="./tatasz_pack_02_warmer_33.svg" /> 
+    11. - `tatasz_pack_02_warmer_36`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L32-L34)</br><img width="512" height="" src="./tatasz_pack_02_warmer_36.svg" /> 
+    12. - `tatasz_pack_02_warmer_04`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L35-L37)</br><img width="512" height="" src="./tatasz_pack_02_warmer_04.svg" /> 
+    13. - `tatasz_pack_02_warmer_43`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L38-L40)</br><img width="512" height="" src="./tatasz_pack_02_warmer_43.svg" /> 
+    14. - `tatasz_pack_02_warmer_44`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L41-L43)</br><img width="512" height="" src="./tatasz_pack_02_warmer_44.svg" /> 
+    15. - `tatasz_pack_02_warmer_46`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L44-L46)</br><img width="512" height="" src="./tatasz_pack_02_warmer_46.svg" /> 
+    16. - `tatasz_pack_02_warmer_50`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L47-L49)</br><img width="512" height="" src="./tatasz_pack_02_warmer_50.svg" /> 
+    17. - `tatasz_pack_02_warmer_07`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L50-L52)</br><img width="512" height="" src="./tatasz_pack_02_warmer_07.svg" /> 
 
 <br/>
 <br/>
