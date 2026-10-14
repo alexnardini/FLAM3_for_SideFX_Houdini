@@ -18,7 +18,7 @@
 - Software: [GNU GPL v3.0](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini?tab=GPL-3.0-1-ov-file)
 - Software: [GNU GPL v3.0 Addon](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini?tab=License-2-ov-file)
 - Documentation: [CC BY-SA 4.0](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini?tab=License-3-ov-file)
-- Third-Party Notices: [THIRD-PARTY_NOTICES](./THIRD-PARTY_NOTICES.md)
+- [Third-Party Notices](./THIRD-PARTY_NOTICES.md)
 
 ## Platforms
 _One code base, multiple platforms._
