@@ -18,7 +18,7 @@
 
   </br>
 
-  - [**FULL ICON set**](../icons/README.md)
+  - [**FULL ICON SET**](../icons/README.md)
 
   </br>
 
