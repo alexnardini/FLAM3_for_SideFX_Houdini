@@ -215,12 +215,17 @@ Third-party names and logos are used solely to identify the relevant services, t
 ## 10. Official References
 
 - **SideFX / Houdini:** https://www.sidefx.com/company/press/
-- **SideFX Logo Usage Guidelines:** https://media.sidefx.com/uploads/company/press/logos/
-- **OpenCL Official Trademark and Logo Guidelines:** https://www.khronos.org/legal/trademarks/
+- **SideFX Logo Usage Guidelines:** https://media.sidefx.com/uploads/company/press/logos/sidefx_logo_usage_guidelines_may2024.pdf
+- **SideFX License Agreement:** https://www.sidefx.com/legal/license-agreement/
+- **OpenCL Trademark and Logo Guidelines:** https://www.khronos.org/legal/trademarks/
+- **OpenCL Registry:** https://registry.khronos.org/OpenCL/
 - **YouTube:** https://developers.google.com/youtube/terms/branding-guidelines
-- **GitHub:** https://docs.github.com/en/site-policy/other-site-policies/github-logo-policy
-- **Python:** https://www.python.org/psf/trademarks/
-- **Bitbucket / Atlassian:** https://www.atlassian.com/legal/trademarksidefx_logo_usage_guidelines_may2024.pdf
+- **GitHub Logo Policy:** https://docs.github.com/en/site-policy/other-site-policies/github-logo-policy
+- **GitHub Brand Toolkit:** https://brand.github.com/
+- **Python Trademark Usage Policy:** https://www.python.org/psf/trademarks/
+- **Python Logo Resources:** https://www.python.org/community/logos/
+- **Bitbucket / Atlassian Logo Guidelines:** https://atlassian.design/resources/logo-library
+- **Bitbucket / Atlassian Trademark Guidelines:** https://www.atlassian.com/legal/trademark
 - **Instagram Brand Resources and Guidelines:** https://www.meta.com/brand/resources/instagram/instagram-brand/
 
 </br>
