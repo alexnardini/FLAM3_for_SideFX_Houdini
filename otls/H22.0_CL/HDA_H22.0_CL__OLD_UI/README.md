@@ -11,6 +11,8 @@ You need to copy those files inside: `$HOME/houdini‹X›.‹Y›/otls/` (where
 ---
 <u>**The UIs of these HDAs have been reverted to the old Houdini 22 UI skin instead of the new one**.</u>
 
+- _Note that the UI layout, tooltips, and other visual features differ, so only use this HDA files if you intend to use Houdini 22 in Old UI mode._
+
 - _These old UI HDAs files may not always be updated at the same time as the new UI HDAs files so always check their version numbers after creating the corresponding nodes in Houdini_.
 
 ---
