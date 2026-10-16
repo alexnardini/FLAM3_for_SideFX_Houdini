@@ -7,6 +7,8 @@ This project is free and open-source software. Third-party logos are intended to
 </br>
 </br>
 
+<a id="sidefx"></a>
+
 ## 1. SideFX Houdini and CVEX
 
 - **Company:** Side Effects Software Inc. (SideFX)
@@ -37,6 +39,8 @@ The copyright license and redistribution permission for the specific CVEX logo o
 </br>
 </br>
 
+<a id="opencl"></a>
+
 ## 2. OpenCL
 
 - **Trademark owners:** Apple Inc. (OpenCL name and logo); The Khronos Group Inc. (OpenCL specification and related technologies).
@@ -62,6 +66,8 @@ OpenCL is referenced to identify the technology used by this project. No claim o
 </br>
 </br>
 
+<a id="youtube"></a>
+
 ## 3. YouTube
 
 - **Trademark owner:** Google LLC
@@ -85,6 +91,8 @@ The copyright license for the specific SVG artwork used in this project has not 
 
 </br>
 </br>
+
+<a id="github"></a>
 
 ## 4. GitHub
 
@@ -110,6 +118,8 @@ The copyright license for the specific SVG artwork used in this project has not 
 
 </br>
 </br>
+
+<a id="python"></a>
 
 ## 5. Python
 
@@ -137,6 +147,8 @@ The copyright license for the specific SVG artwork used in this project has not 
 </br>
 </br>
 
+<a id="bitbucket"></a>
+
 ## 6. Bitbucket
 
 - **Trademark owner:** Atlassian Pty Ltd and/or its applicable affiliates
@@ -161,6 +173,8 @@ The copyright license for the specific SVG artwork used in this project has not 
 
 </br>
 </br>
+
+<a id="instagram"></a>
 
 ## 7. Instagram
 
