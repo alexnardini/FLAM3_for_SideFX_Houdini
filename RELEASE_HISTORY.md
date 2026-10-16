@@ -51,6 +51,35 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.1.14 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.14)  ##
+
+#### FLAM3H™ v2.1.14 indie -> H22.0 UP</br>FLAM3H™ v2.0.90 indie -> H21.0</br>FLAM3H™ v2.0.62 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+- **New H22 ONLY**: Added a version of the HDA that uses the old Houdini 22.0 UI skin instead.
+
+   - _Note that the UI layout, tooltips, and other visual features differ,</br>so only use this HDA file if you intend to use Houdini in Old UI mode_.
+
+<br>
+<br>
+
+#### FLAM3H™USD v0.2.78 indie -> H22.0 UP</br>FLAM3H™USD v0.2.72 indie -> H21.0</br>FLAM3H™USD v0.2.68 indie -> H20.5</br>FLAM3H™USD v0.2.51 indie -> H19.0 to H20 ####
+
+- **New H22 ONLY**: Added a version of the HDA that uses the old Houdini 22.0 UI skin instead.
+
+   - _Note that the UI layout, tooltips, and other visual features differ,</br>so only use this HDA file if you intend to use Houdini in Old UI mode_.
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.1.12 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.12)  ##
 
 #### FLAM3H™ v2.1.12 indie -> H22.0 UP</br>FLAM3H™ v2.0.90 indie -> H21.0</br>FLAM3H™ v2.0.62 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
