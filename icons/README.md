@@ -3503,7 +3503,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_xfH
 
 <p align="center">
   <img width="160" height="160" src="./icon_youtube_red_play.svg" /></p>
-<b><p align="center">icon_youtube_red_play.svg</b><br/><i>Copyright (c) Google LLC / Alphabet Inc. for usage details. All rights reserved.</br>See <a href="../THIRD-PARTY_NOTICES.md#3-youtube">Third-Party Notices</a> for usage details.</br>The YouTube logo or icon is used to identify a link to YouTube or relevant YouTube content.</i></p>
+<b><p align="center">icon_youtube_red_play.svg</b><br/><i>Copyright (c) Google LLC / Alphabet Inc. All rights reserved.</br>See <a href="../THIRD-PARTY_NOTICES.md#3-youtube">Third-Party Notices</a> for usage details.</br>The YouTube logo or icon is used to identify a link to YouTube or relevant YouTube content.</i></p>
 <p align="center">......</p>
 <p align="center">
 
