@@ -59,7 +59,7 @@ They are all available in this Github repository.
 
 - **New H22 ONLY**: Added a version of the HDA that uses the old Houdini 22.0 UI skin instead.
 
-   - _Note that the UI layout, tooltips, and other visual features differ,</br>so only use this HDA file if you intend to use Houdini in Old UI mode_.
+   - _Note that the UI layout, tooltips, and other visual features differ,</br>so only use this HDA file if you intend to use Houdini 22 in Old UI mode_.
 
 <br>
 <br>
@@ -68,7 +68,7 @@ They are all available in this Github repository.
 
 - **New H22 ONLY**: Added a version of the HDA that uses the old Houdini 22.0 UI skin instead.
 
-   - _Note that the UI layout, tooltips, and other visual features differ,</br>so only use this HDA file if you intend to use Houdini in Old UI mode_.
+   - _Note that the UI layout, tooltips, and other visual features differ,</br>so only use this HDA file if you intend to use Houdini 22 in Old UI mode_.
 
 
 <br>
