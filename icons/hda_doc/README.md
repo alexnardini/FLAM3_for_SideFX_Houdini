@@ -40,6 +40,7 @@ The following images are used for illustration purposes inside the HDAs document
 </br>
 
 
+<p align="center"><i>Escher Teal - Author: Plangkye</i></p>
 <p align="center">
   <img width="640" height="" src="./FLAM3H_DOC_intro_H220.jpg" /></p>
 <b><p align="center">FLAM3H_DOC_intro_H220.svg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
@@ -59,6 +60,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Cool EDisc - Author: Pillemaster</i></p>
 <p align="center">
   <img width="640" height="" src="./FLAM3H_DOC_intro_H205.jpg" /></p>
 <b><p align="center">FLAM3H_DOC_intro_H205.svg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
@@ -78,6 +80,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Worlds - Author: Alessandro Nardini</i></p>
 <p align="center">
   <img width="640" height="" src="./FLAM3H_DOC_intro_H190.jpg" /></p>
 <b><p align="center">FLAM3H_DOC_intro_H190.svg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
@@ -97,9 +100,10 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Frozen - Author: Alessandro Nardini</i></p>
 <p align="center">
   <img width="640" height="" src="./FLAM3HUSD_DOC_intro_H190.jpg" /></p>
-<b><p align="center">FLAM3HUSD_DOC_intro_H190.svg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
+<b><p align="center">FLAM3HUSD_DOC_intro_H190.svg</b><br/><i>Renamed as <u>FLAM3HUSD_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
