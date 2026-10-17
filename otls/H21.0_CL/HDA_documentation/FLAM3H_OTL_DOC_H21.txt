@@ -2208,6 +2208,8 @@ Reload preset [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #display: rounded white
     
     == CP: Presets libraries == (CPPRESETSLIBS)
+
+    [Image:opdef:.?FLAM3H_DOC_banner_palette_libs.svg]
         
 Json libraries:
     #id: PALETTELIBS

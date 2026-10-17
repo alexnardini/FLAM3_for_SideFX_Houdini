@@ -4963,6 +4963,25 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
+  <img width="640" height="" src="./hda_doc/FLAM3H_DOC_banner_palette_libs.svg" /></p>
+<b><p align="center">FLAM3H_DOC_banner_palette_libs.svg</b></br>(<i><b>H21.0</b>, <b>H22.0</b> and up</i>)</p>
+<p align="center">......</p>
+<p align="center">
+
+<b>Image</b>
+
+```
+[Image:opdef:.?FLAM3H_DOC_banner_palette_libs.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_banner_palette_libs.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_camera_sensor_outline.svg" /></p>
 <b><p align="center">FLAM3H_DOC_camera_sensor_outline.svg</p></b>
 <p align="center">......</p>

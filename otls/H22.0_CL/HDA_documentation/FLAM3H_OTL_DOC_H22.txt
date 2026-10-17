@@ -2203,6 +2203,8 @@ Reload preset [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #display: rounded white
     
     == CP: Presets libraries == (CPPRESETSLIBS)
+
+    [Image:opdef:.?FLAM3H_DOC_banner_palette_libs.svg]
         
 Json libraries:
     #id: PALETTELIBS
@@ -2242,6 +2244,8 @@ Recipes libraries:
         When loading a palette Recipe,<br />
         it wont trigger any FLAM3H(tm) related callback script like the JSON presets do, but just load the color ramp.
 
+    <br />
+
 Palette previews:
     #id: PALETTELIBS
 
@@ -2249,7 +2253,6 @@ Palette previews:
     _[Palette presets previews|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/__FLAM3H_palette_libs/README.md#palette-previews]_
 
     <br />
-
 
 
 :box:
