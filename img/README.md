@@ -225,7 +225,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="" height="512" src="./FLAM3HUSD_OTL_documentation.jpg" /></p>
+  <img width="" height="380" src="./FLAM3HUSD_OTL_documentation.jpg" /></p>
 <b><p align="center">FLAM3HUSD_OTL_documentation.svg</b>
 <p align="center">......</p>
 <p align="center">
@@ -309,7 +309,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 
 <p align="center">
-  <img width="512" height="" src="./LOGO_F_github.svg" /></p>
+  <img width="256" height="" src="./LOGO_F_github.svg" /></p>
 <b><p align="center">LOGO_F_github.svg</b>
 <p align="center">......</p>
 <p align="center">
