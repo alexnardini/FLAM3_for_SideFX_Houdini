@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H(tm)
-#version: 1.9.88 - Production
+#version: 1.9.89 - Production
 
 """The Fractal Flame Algorithm: FLAM3 - Create fractal art in Houdini"""
 
@@ -974,7 +974,7 @@ copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When an iterator is marked for being copied, a node note with the marked iterator number is being displayed in the network editor.<br />
     - When copy/paste post affines, they will be automatically turned *`Off`* if they are default values to save on computation.
-    - A custom user data is added to the FLAM3H(tm) node with the iterator number being marked; the data name is: *`Marked iterator`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being marked.
+    - A custom user data is added to the FLAM3H(tm) node with the iterator number being marked; the data name is: *`f3h::marked_iterator`*.<br /><br />This is handy because you can review the user data from the node *info window* ( ((MMB)) _on the node_ ) and quickly find out which one is being marked.
     
 Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FLAME
@@ -1010,7 +1010,7 @@ xform VIZ SOLO [Icon:DATATYPES/boolean]:
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
-    - Every time you activate the xform handle VIZ SOLO mode for an iterator, a custom user data is added to the FLAM3H(tm) node with the iterator number being in SOLO mode; the data name is: *`XF VIZ`*.<br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being displayed (_in case you do not remember or when many iterators have been created_).
+    - Every time you activate the xform handle VIZ SOLO mode for an iterator, a custom user data is added to the FLAM3H(tm) node with the iterator number being in SOLO mode; the data name is: *`f3h::xf_viz_solo`*.<br />This is handy because you can review the user data from the node *info window* ( ((MMB)) _on the node_ ) and quickly find out which one is being displayed (_in case you do not remember or when many iterators have been created_).
     - The FF(_finalXform_) viewport handle will always be displayed if Active (_it will always be of color grey/white_).
     - The viewport handles will be automatically disabled if the FLAM3H(tm) density value is raised above *`5M`*(_millions_) points.
     - The viewport handles will be automatically disabled when FLAM3H(tm) is in camera sensor VIZ mode.
@@ -1607,7 +1607,7 @@ FF: copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When the FF is marked for being copied, a node note with the text "*FF*" is being displayed in the network editor.<br />
     - When copy/paste post affines, they will be automatically turned *`Off`* if they are default values to save on computation.
-    - A custom user data is added to the FLAM3H(tm) node signaling the FF being marked; the data name is: *`Marked FF`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out if the FF is being marked.
+    - A custom user data is added to the FLAM3H(tm) node signaling the FF being marked; the data name is: *`f3h::marked_ff`*.<br /><br />This is handy because you can review the user data from the node *info window* ( ((MMB)) _on the node_ ) and quickly find out if the FF is being marked.
     
     
 :box:
@@ -2824,7 +2824,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.9.88" ... >
+          <flame version="FLAM3H-WIN-1.9.89" ... >
               ...
         }}}
         
@@ -2833,7 +2833,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.9.88" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.9.89" ... >
               ...
         }}}
         
@@ -3182,7 +3182,7 @@ _The following is an example of what the default Sierpiński triangle preset loo
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.9.88" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.9.89" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.5" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.28867513 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.28867513 0" opacity="1" linear="1"/>
@@ -3242,7 +3242,7 @@ _In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle:
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.9.88" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.9.89" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     ...
   </flame>
 </flames>
@@ -3255,7 +3255,7 @@ _Under the [Icon:TOP/xmlinput] *`flame`* preset XML key lives all its data: [Ico
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.9.88" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.9.89" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
@@ -3273,7 +3273,7 @@ _When the FF_(_finalXform_) _is *`On`*/Active, its data will be included in the 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.9.88" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.9.89" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>

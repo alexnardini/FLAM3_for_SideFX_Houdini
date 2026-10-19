@@ -499,14 +499,18 @@ class f3h_userData:
     FLAM3H™ User data keys used for storing custom information on nodes.</br>
     
     '''
+    
+    PRX: Final = 'f3h::'
+    
     # Node user data (nodeinfo)
-    PRX: Final = 'nodeinfo'
-    MARKED_ITER: Final = 'Marked iterator'
-    MARKED_ITER_LABEL: Final = 'Marked label'
-    MARKED_FF: Final = 'Marked FF'
-    XFVIZ_SOLO: Final = 'XF VIZ'
-    # Node user data
-    XML_LAST: Final = 'XML_last_loaded'
+    MARKED_ITER: Final = f"{PRX}marked_iterator"
+    MARKED_ITER_LABEL: Final = f"{PRX}marked_label"
+    MARKED_FF: Final = f"{PRX}marked_ff"
+    XF_VIZ_SOLO: Final = f"{PRX}xf_viz_solo"
+    LAST_XML: Final = f"{PRX}last_loaded_xml"
+    
+    # Houdini Recipes
+    H_LAST_INVOKED_RECIPES: Final = "__last_invoked_recipes__"
     
     
 class f3h_cachedUserData:
@@ -514,31 +518,33 @@ class f3h_cachedUserData:
     FLAM3H™ cached user data keys used for storing custom information on nodes.</br>
     
     '''
-    iter_sel: Final = 'iter_sel'
-    iter_sel_mpmem: Final = 'iter_sel_mpmem'
-    iter_sel_n: Final = 'iter_sel_n'
-    iter_sel_a: Final = 'iter_sel_a'
-    iter_sel_w: Final = 'iter_sel_w'
-    iter_sel_o: Final = 'iter_sel_o'
-    iter_sel_id: Final = 'iter_sel_id'
-    sys_sensor: Final = 'sys_sensor'
-    iter_xfviz_solo_idx: Final = 'iter_xfviz_solo_idx'
-    iter_xfviz_out_sensor: Final = 'iter_xfviz_out_sensor'
-    mem_id: Final = 'mem_id'
-    edge_case_01: Final = 'edge_case_01'
-    cp_presets_menu: Final = 'cp_presets_menu'
-    cp_presets_menu_idx: Final = 'cp_presets_menu_idx'
-    cp_presets_menu_off: Final = 'cp_presets_menu_off'
-    cp_presets_menu_off_idx: Final = 'cp_presets_menu_off_idx'
-    cp_presets_filepath: Final = 'cp_presets_filepath'
-    in_presets_menu: Final = 'in_presets_menu'
-    in_presets_menu_idx: Final = 'in_presets_menu_idx'
-    in_presets_menu_off: Final = 'in_presets_menu_off'
-    in_presets_menu_off_idx: Final = 'in_presets_menu_off_idx'
-    in_presets_filepath: Final = 'in_presets_filepath'
-    out_presets_menu: Final = 'out_presets_menu'
-    out_presets_filepath: Final = 'out_presets_filepath'
-    vars_menu_all_simple: Final = 'vars_menu_all_simple'
+    PRX: Final = 'f3h::'
+    
+    iter_sel: Final = f"{PRX}iter_sel"
+    iter_sel_mpmem: Final = f"{PRX}iter_sel_mpmem"
+    iter_sel_n: Final = f"{PRX}iter_sel_n"
+    iter_sel_a: Final = f"{PRX}iter_sel_a"
+    iter_sel_w: Final = f"{PRX}iter_sel_w"
+    iter_sel_o: Final = f"{PRX}iter_sel_o"
+    iter_sel_id: Final = f"{PRX}iter_sel_id"
+    sys_sensor: Final = f"{PRX}sys_sensor"
+    iter_xfviz_solo_idx: Final = f"{PRX}iter_xfviz_solo_idx"
+    iter_xfviz_out_sensor: Final = f"{PRX}iter_xfviz_out_sensor"
+    mem_mp_idx: Final = f"{PRX}mem_mp_idx"
+    edge_case_01: Final = f"{PRX}edge_case_01"
+    cp_presets_menu: Final = f"{PRX}cp_presets_menu"
+    cp_presets_menu_idx: Final = f"{PRX}cp_presets_menu_idx"
+    cp_presets_menu_off: Final = f"{PRX}cp_presets_menu_off"
+    cp_presets_menu_off_idx: Final = f"{PRX}cp_presets_menu_off_idx"
+    cp_presets_filepath: Final = f"{PRX}cp_presets_filepath"
+    in_presets_menu: Final = f"{PRX}in_presets_menu"
+    in_presets_menu_idx: Final = f"{PRX}in_presets_menu_idx"
+    in_presets_menu_off: Final = f"{PRX}in_presets_menu_off"
+    in_presets_menu_off_idx: Final = f"{PRX}in_presets_menu_off_idx"
+    in_presets_filepath: Final = f"{PRX}in_presets_filepath"
+    out_presets_menu: Final = f"{PRX}out_presets_menu"
+    out_presets_filepath: Final = f"{PRX}out_presets_filepath"
+    vars_menu_all_simple: Final = f"{PRX}vars_menu_all_simple"
 
 
 class f3h_affineDefaults:
@@ -3265,7 +3271,7 @@ class flam3h_scripts
             flam3h_iterator_utils.del_comment_and_user_data_iterator(node, f3h_userData.MARKED_FF)
             # This is already destroyed inside: flam3h_iterator_utils(self.kwargs).flam3h_default()
             # But I keep it for now in case a make some changes later on
-            flam3h_iterator_utils.destroy_userData(node, f3h_userData.XML_LAST)
+            flam3h_iterator_utils.destroy_userData(node, f3h_userData.LAST_XML)
             
             # OUT render curves reset and set
             out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
@@ -5293,7 +5299,7 @@ class flam3h_general_utils
             
             flam3h_prm_utils.private_prm_set(node, prm_xfviz_solo, 0) # Turn Off iterator xf viz solo mode
             flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
-            flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}")
+            flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.XF_VIZ_SOLO}")
             
             _MSG: str = f"{node.name()}: {str(prm_xfviz_solo.name()).upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
@@ -5324,7 +5330,7 @@ class flam3h_general_utils
         if prm_FF.eval():
             flam3h_prm_utils.private_prm_set(node, prm_FF, 0) # Turn Off FF xf viz solo mode
             flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
-            flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}")
+            flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.XF_VIZ_SOLO}")
             
             _MSG: str = f"{node.name()}: {str(prm_FF.name()).upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
@@ -5354,7 +5360,7 @@ class flam3h_general_utils
         s_mp_index: int = self.kwargs['script_multiparm_index']
         prm_mp = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{s_mp_index}")
         
-        data_name: str = f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}"
+        data_name: str = f"{f3h_userData.XF_VIZ_SOLO}"
         
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
@@ -5428,7 +5434,7 @@ class flam3h_general_utils
                 flam3h_prm_utils.set(node, prm_mp, 1)
                 
                 # Update data accordingly
-                data_name: str = f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}"
+                data_name: str = f"{f3h_userData.XF_VIZ_SOLO}"
                 flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX, int(mp_idx))
                 node.setUserData(f"{data_name}", mp_idx)
                 # message
@@ -5464,7 +5470,7 @@ class flam3h_general_utils
         
         # s_mp_index: int = self.kwargs['script_multiparm_index']
         prm_mp = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_FF_VIZ_SOLO)
-        data_name: str = f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}"
+        data_name: str = f"{f3h_userData.XF_VIZ_SOLO}"
         
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
@@ -5632,7 +5638,7 @@ class flam3h_general_utils
             
             if node.parm(f3h_tabs.PREFS.PVT_PRM_XF_FF_VIZ_SOLO).eval():
                 flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_FF_VIZ_SOLO, 0)
-                data_name: str = f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}"
+                data_name: str = f"{f3h_userData.XF_VIZ_SOLO}"
                 flam3h_iterator_utils.destroy_userData(node, f"{data_name}")
                 
             _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: OFF"
@@ -6534,7 +6540,7 @@ class flam3h_general_utils
         flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
         flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_FF_VIZ_SOLO, 0) # Turn Off iterator FF xf viz solo mode
         flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
-        flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}")
+        flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.XF_VIZ_SOLO}")
         
         if mode:
             flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_F3C, 1)
@@ -6942,7 +6948,7 @@ class flam3h_iterator_utils
             (int | bool): Return the requested user data or False if it does not exist.
         """   
         
-        if nodeinfo: name: str = f"{f3h_userData.PRX}_{data_name}"
+        if nodeinfo: name: str = f"{data_name}"
         else: name: str = f"{data_name}"
         data: str | None = node.userData(f"{name}")
         if data is not None:
@@ -6963,7 +6969,7 @@ class flam3h_iterator_utils
         Returns:
             (bool): Return True if the requested user data exist or False if it does not.
         """   
-        if nodeinfo: name: str = f"{f3h_userData.PRX}_{data_name}"
+        if nodeinfo: name: str = f"{data_name}"
         else: name: str = f"{data_name}"
         if node.userData(f"{name}") is None:
             return False
@@ -6984,9 +6990,9 @@ class flam3h_iterator_utils
             (None):
         """   
         
-        data_name: str = f"{f3h_userData.PRX}_{data}"
-        data_iter_name: str = f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER}"
-        data_FF_name: str = f"{f3h_userData.PRX}_{f3h_userData.MARKED_FF}"
+        data_name: str = f"{data}"
+        data_iter_name: str = f"{f3h_userData.MARKED_ITER}"
+        data_FF_name: str = f"{f3h_userData.MARKED_FF}"
         
         if data_name == data_iter_name:
             
@@ -7033,9 +7039,9 @@ class flam3h_iterator_utils
             (None):
         """   
 
-        data_name: str = f"{f3h_userData.PRX}_{data}"
-        data_iter_name: str = f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER}"
-        data_FF_name: str = f"{f3h_userData.PRX}_{f3h_userData.MARKED_FF}"
+        data_name: str = f"{data}"
+        data_iter_name: str = f"{f3h_userData.MARKED_ITER}"
+        data_FF_name: str = f"{f3h_userData.MARKED_FF}"
 
         if data_name == data_iter_name:
             if node.userData(f"{data_FF_name}") is None:
@@ -7769,7 +7775,32 @@ class flam3h_iterator_utils
         
         So far the cached user data names being used are inside:</br>
         
-        * class <b>f3h_cachedUserData</b>
+        * class <b>f3h_cachedUserData</b>:
+            * f3h::iter_sel
+            * f3h::iter_sel_mpmem
+            * f3h::iter_sel_n
+            * f3h::iter_sel_a
+            * f3h::iter_sel_w
+            * f3h::iter_sel_o
+            * f3h::iter_sel_id
+            * f3h::sys_sensor
+            * f3h::iter_xfviz_solo_idx
+            * f3h::iter_xfviz_out_sensor
+            * f3h::mem_mp_idx
+            * f3h::edge_case_01
+            * f3h::cp_presets_menu
+            * f3h::cp_presets_menu_idx
+            * f3h::cp_presets_menu_off
+            * f3h::cp_presets_menu_off_idx
+            * f3h::cp_presets_filepath
+            * f3h::in_presets_menu
+            * f3h::in_presets_menu_idx
+            * f3h::in_presets_menu_off
+            * f3h::in_presets_menu_off_idx
+            * f3h::in_presets_filepath
+            * f3h::out_presets_menu
+            * f3h::out_presets_filepath
+            * f3h::vars_menu_all_simple
             
         Args:
             node(hou.SopNode): FLAM3H™ node
@@ -7811,10 +7842,11 @@ class flam3h_iterator_utils
         
         So far the user data names being used are:
         
-        * nodeinfo_Marked iterator -> f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER}
-        * nodeinfo_Marked FF -> f"{f3h_userData.PRX}_{f3h_userData.MARKED_FF}
-        * nodeinfo_XF VIZ -> f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}
-        * XML_last_loaded -> f"{f3h_userData.XML_LAST}"
+        * f3h::marked_iterator -> f"{f3h_userData.MARKED_ITER}
+        * f3h::marked_label -> f"{f3h_userData.MARKED_ITER_LABEL}
+        * f3h::marked_ff -> f"{f3h_userData.MARKED_FF}
+        * f3h::xf_viz_solo -> f"{f3h_userData.XF_VIZ_SOLO}
+        * f3h::last_loaded_xml -> f"{f3h_userData.LAST_XML}"
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
@@ -8125,7 +8157,7 @@ class flam3h_iterator_utils
             apo_data: in_flame_iter_data = in_flame_iter_data(node, xml, preset_id)
             if apo_data.isvalidtree:
                 
-                old_data: str | None = node.userData(f3h_userData.XML_LAST)
+                old_data: str | None = node.userData(f3h_userData.LAST_XML)
                 now_data: str = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")
                 now_data_isvalid = _xml_tree(now_data).isvalidtree
                 if old_data is not None and old_data != now_data and now_data_isvalid:
@@ -8140,7 +8172,7 @@ class flam3h_iterator_utils
                             self.destroy_cachedUserData(node, f3h_cachedUserData.out_presets_menu)
                 
                     # Update user data
-                    node.setUserData(f3h_userData.XML_LAST, now_data)
+                    node.setUserData(f3h_userData.LAST_XML, now_data)
                     # Update flame stats                    
                     parms_dict: dict = {f3h_tabs.IN.MSG_PRM_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True), 
                                         f3h_tabs.IN.MSG_PRM_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data, True), 
@@ -8611,14 +8643,15 @@ class flam3h_iterator_utils
         """Build a menu of iterators using their states as bookmark icon.</br>
         
         The args <b>data_cached</b> and <b>data_now</b> are composed as follow:
-        * 0: iter_sel_mpmem</br><b>list[str]</b></br>iterators mpmem</br></br>
-        * 1: iter_sel_n</br><b>list[str]</b></br>iterators names</br></br>
-        * 2: iter_sel_a</br><b>list[int]</b></br>iterators active</br></br>
-        * 3: iter_sel_w</br><b>list[float]</b></br>iterators Weights</br></br>
-        * 4: iter_sel_o</br><b>list[float]</b></br>iterators shader's opacity</br></br>
-        * 5: iter_xfviz_solo_idx</br><b>int</b></br>xform handle SOLO mode iterator mp idx</br></br>
-        * 6: iter_xfviz_out_sensor</br><b>int</b></br>camera sensor toggle parameter</br></br>
-        * 7: mem_id</br><b>int</b></br>The marked iterator number, Zero for no iterators being marked</br>
+        
+        * f3h::iter_sel_mpmem</br><b>list[str]</b></br>iterators mpmem</br></br>
+        * f3h::iter_sel_n</br><b>list[str]</b></br>iterators names</br></br>
+        * f3h::iter_sel_a</br><b>list[int]</b></br>iterators active</br></br>
+        * f3h::iter_sel_w</br><b>list[float]</b></br>iterators Weights</br></br>
+        * f3h::iter_sel_o</br><b>list[float]</b></br>iterators shader's opacity</br></br>
+        * f3h::iter_xfviz_solo_idx</br><b>int</b></br>xform handle SOLO mode iterator mp idx</br></br>
+        * f3h::iter_xfviz_out_sensor</br><b>int</b></br>camera sensor toggle parameter</br></br>
+        * f3h::mem_mp_idx</br><b>int</b></br>The marked iterator number, Zero for no iterators being marked</br>
 
         Args:
             (self):
@@ -8669,7 +8702,7 @@ class flam3h_iterator_utils
                             flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO, 1)
                             flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX, mp_idx)
                             
-                            data_name: str = f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}"
+                            data_name: str = f"{f3h_userData.XF_VIZ_SOLO}"
                             node.setUserData(f"{data_name}", str(mp_idx))
                             
                             break
@@ -8680,7 +8713,7 @@ class flam3h_iterator_utils
                         data: str = str(self.get_user_data(node, f3h_userData.MARKED_ITER_LABEL))
                     else:
                         data: str = str(self.get_user_data(node))
-                    node.setUserData(f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}", data)
+                    node.setUserData(f"{f3h_userData.MARKED_ITER_LABEL}", data)
                     marked_idx: int = mpmem.index(data)
                     prm_marked_data_mpidx: hou.Parm = node.parm(f3h_tabs.PREFS.PVT_PRM_DATA_PRM_MPIDX)
                     flam3h_prm_utils.private_prm_set(node, prm_marked_data_mpidx, marked_idx + 1)
@@ -8772,7 +8805,7 @@ class flam3h_iterator_utils
                                             f3h_cachedUserData.iter_sel_o, 
                                             f3h_cachedUserData.iter_xfviz_solo_idx, 
                                             f3h_cachedUserData.iter_xfviz_out_sensor, 
-                                            f3h_cachedUserData.mem_id
+                                            f3h_cachedUserData.mem_mp_idx
                                             ) # The order matter, they are the cached user data names being used
             
             data_cached: tuple[list[Any] | Any, ...] = tuple(node.cachedUserData(name) for name in data_names)
@@ -8976,7 +9009,7 @@ class flam3h_iterator_utils
             # Remove any comment and user data from the node
             self.del_comment_and_user_data_iterator(node)
             self.del_comment_and_user_data_iterator(node, f3h_userData.MARKED_FF)
-            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
+            self.destroy_userData(node, f"{f3h_userData.MARKED_ITER_LABEL}")
     
     
     def menu_global_density(self) -> TA_Menu:
@@ -9677,7 +9710,7 @@ class flam3h_iterator_utils
             if from_FLAM3H_NODE is not None:
                 self.iterator_mpidx_mem_set(from_FLAM3H_NODE, 0)
                 self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
-                self.destroy_userData(from_FLAM3H_NODE, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
+                self.destroy_userData(from_FLAM3H_NODE, f"{f3h_userData.MARKED_ITER_LABEL}")
                 
             _MSG: str = f"{self.node.name()}: iterator MARKED:  {hou.session.F3H_MARKED_ITERATOR_MP_IDX}" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -9719,7 +9752,7 @@ class flam3h_iterator_utils
             with hou.undos.group(f"FLAM3H™ unmark iterator SHIFT {s_mp_index}"): # type: ignore
                 self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
                 if flam3h_iterator_utils.exist_user_data(node):
-                    self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
+                    self.destroy_userData(node, f"{f3h_userData.MARKED_ITER_LABEL}")
                     for mp_id in range(1, iter_num + 1):
                         prm_mpmem = node.parm(f"{mpmem_name}_{mp_id}")
                         flam3h_prm_utils.set(node, prm_mpmem, str(mp_id))
@@ -9735,7 +9768,7 @@ class flam3h_iterator_utils
                 with hou.undos.group(f"FLAM3H™ unmark iterator CLICK {s_mp_index}"): # type: ignore
                     self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
                     if flam3h_iterator_utils.exist_user_data(node):
-                        self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
+                        self.destroy_userData(node, f"{f3h_userData.MARKED_ITER_LABEL}")
                         for mp_id in range(1, iter_num + 1):
                             prm_mpmem = node.parm(f"{mpmem_name}_{mp_id}")
                             flam3h_prm_utils.set(node, prm_mpmem, str(mp_id))
@@ -9746,7 +9779,7 @@ class flam3h_iterator_utils
                 with hou.undos.group(f"FLAM3H™ mark iterator CLICK {s_mp_index}"): # type: ignore
                     self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
                     if flam3h_iterator_utils.exist_user_data(node):
-                        self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
+                        self.destroy_userData(node, f"{f3h_userData.MARKED_ITER_LABEL}")
                         for mp_id in range(1, iter_num + 1):
                             prm_mpmem = node.parm(f"{mpmem_name}_{mp_id}")
                             flam3h_prm_utils.set(node, prm_mpmem, str(mp_id))
@@ -9754,7 +9787,7 @@ class flam3h_iterator_utils
                     if not self.exist_user_data(node, f3h_userData.MARKED_ITER_LABEL):
                         this_label: str = node.parm(f"{mpmem_name}_{s_mp_index}").eval()
                         if this_label != str(s_mp_index):
-                            node.setUserData(f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}", this_label)
+                            node.setUserData(f"{f3h_userData.MARKED_ITER_LABEL}", this_label)
                         
                     self.prm_paste_CLICK(s_mp_index)
                     
@@ -10844,7 +10877,7 @@ class flam3h_iterator_utils
         flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
         
         # Destroy data
-        flam3h_iterator_utils.destroy_userData(node, f3h_userData.XML_LAST)
+        flam3h_iterator_utils.destroy_userData(node, f3h_userData.LAST_XML)
         
         # Print if the node has its display flag ON
         if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
@@ -11028,7 +11061,7 @@ class flam3h_iterator_utils
             prm.deleteAllKeyframes()
         
         # XF VIZ data name
-        data_name: str = f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}"
+        data_name: str = f"{f3h_userData.XF_VIZ_SOLO}"
         
         # init indexes
         idx_del_inbetween: int | None = None
@@ -11116,7 +11149,7 @@ class flam3h_iterator_utils
                             prm_mpidx.set(-1)
                             self.del_comment_and_user_data_iterator(node)
                             # becasue we are re-ordering mpmem values later on
-                            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
+                            self.destroy_userData(node, f"{f3h_userData.MARKED_ITER_LABEL}")
                             # Let us know
                             _ITER_DEL = True
                         
@@ -11202,7 +11235,7 @@ class flam3h_iterator_utils
                             prm_mpidx.set(-1)
                             self.del_comment_and_user_data_iterator(node)
                             # becasue we are re-ordering mpmem values later on
-                            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
+                            self.destroy_userData(node, f"{f3h_userData.MARKED_ITER_LABEL}")
                             # Let us know
                             _MSG: str = f"{node.name()}: The iterator you just removed was marked for being copied -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -11265,7 +11298,7 @@ class flam3h_iterator_utils
                             self.del_comment_and_user_data_iterator(node)
                             self.set_comment_and_user_data_iterator(node, str(idx_new))
                             # becasue we are re-ordering mpmem values later on
-                            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
+                            self.destroy_userData(node, f"{f3h_userData.MARKED_ITER_LABEL}")
 
                         elif (idx_del_inbetween + 1) == flam3h_node_mp_id:
                             
@@ -11344,7 +11377,7 @@ class flam3h_iterator_utils
                             self.del_comment_and_user_data_iterator(node)
                             self.set_comment_and_user_data_iterator(node, str(idx_new))
                             # becasue we are re-ordering mpmem values later on
-                            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
+                            self.destroy_userData(node, f"{f3h_userData.MARKED_ITER_LABEL}")
                         
                 # XF VIZ
                 if prm_xfviz.eval() and prm_xfviz_solo.eval():
@@ -11362,7 +11395,7 @@ class flam3h_iterator_utils
             # update parameterUserData: flam3h_xaos_iterators_prev
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
             # becasue we are re-ordering mpmem values later on
-            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
+            self.destroy_userData(node, f"{f3h_userData.MARKED_ITER_LABEL}")
         
         # set all multi parms xaos strings parms
         _join: Callable[[Iterable[str]], str] = div_weight.join
@@ -11536,8 +11569,8 @@ class flam3h_iterator_utils
         self.flam3h_paste_reset_hou_session_data()
         
         # Destroy UserData - They may or may not exist but just in case
-        self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}")
-        self.destroy_userData(node, f3h_userData.XML_LAST)
+        self.destroy_userData(node, f"{f3h_userData.XF_VIZ_SOLO}")
+        self.destroy_userData(node, f3h_userData.LAST_XML)
         
         # Updated the OUT flame name if any
         out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
@@ -18056,7 +18089,7 @@ class in_flame_utils
             # Check and Update this data
             flam3h_iterator_utils(kwargs).update_xml_last_loaded()
             # Otherwise just use the stored data
-            data: str | None = node.userData(f3h_userData.XML_LAST)
+            data: str | None = node.userData(f3h_userData.LAST_XML)
             if data is not None: f3r: in_flame_iter_data | None = in_flame_iter_data(node, data) # ELSE load from the stored data instead
             else: f3r = None
         # We are checking only for the XML Flame preset validity
@@ -18137,7 +18170,7 @@ class in_flame_utils
             # If not loading from the Clipboard, Check and Update this data
             if not clipboard: flam3h_iterator_utils(kwargs).update_xml_last_loaded()
             
-            data: str | None = node.userData(f3h_userData.XML_LAST)
+            data: str | None = node.userData(f3h_userData.LAST_XML)
             if data is not None:
                 f3r: in_flame_iter_data | None = in_flame_iter_data(node, data)
             
@@ -18199,7 +18232,7 @@ class in_flame_utils
             # If not loading from the Clipboard, Check and Update this data
             if not clipboard: flam3h_iterator_utils(kwargs).update_xml_last_loaded()
             
-            data: str | None = node.userData(f3h_userData.XML_LAST)
+            data: str | None = node.userData(f3h_userData.LAST_XML)
             if data is not None:
                 f3r:in_flame_iter_data | None = in_flame_iter_data(node, data) # ELSE load from the stored data instead
             
@@ -18267,7 +18300,7 @@ class in_flame_utils
         # because the a Flame preset has been loaded already and we want to make sure it is still valid
         if inisvalidpreset or clipboard:
             
-            data: str | None = node.userData(f3h_userData.XML_LAST)
+            data: str | None = node.userData(f3h_userData.LAST_XML)
             if data is not None:
                 f3r:in_flame_iter_data | None = in_flame_iter_data(node, data)
             
@@ -19430,7 +19463,7 @@ class in_flame_utils
         if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
             if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE):
                 flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
-                flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
+                flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.MARKED_ITER_LABEL}")
                 hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
         
         # Reset mp idx FLAM3H™ mem parameter
@@ -20102,7 +20135,7 @@ class in_flame_utils
                 
                 assert apo_data.flame is not None
                 # Store into the FLAM3H™ node data storage
-                node.setUserData(f3h_userData.XML_LAST, lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode"))
+                node.setUserData(f3h_userData.LAST_XML, lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode"))
                 # Transfer the data from the stored XML into FLAM3H™
                 self.in_to_flam3h_resets(node, _FLAM3H_INIT_DATA)
                 self.in_to_flam3h_set_iterators(node, apo_data, _FLAM3H_INIT_DATA)
@@ -20129,14 +20162,14 @@ class in_flame_utils
                 flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
                 flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
                 flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_FF_VIZ_SOLO, 0) # Turn Off FF xf viz solo mode
-                flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}")
+                flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.XF_VIZ_SOLO}")
                 # BUILD XFVIZ if needed
                 flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
                 
                 # As a backup plan. Most likely not needed by why not
-                data: str | None = node.userData(f3h_userData.XML_LAST)
+                data: str | None = node.userData(f3h_userData.LAST_XML)
                 if data is None or not _xml_tree(data).isvalidtree:
-                    out_flame_utils(self.kwargs).out_userData_XML_last_loaded(f3h_userData.XML_LAST, apo_data.name[preset_id])
+                    out_flame_utils(self.kwargs).out_userData__last_loaded_xml(f3h_userData.LAST_XML, apo_data.name[preset_id])
                 
             else:
                 if attempt_from_clipboard: _MSG: str = "Flame IN Clipboard: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
@@ -20368,7 +20401,7 @@ class out_flame_utils
                             BLUR_PRE: bool = False) -> list[str]:
 * out_build_XML(self, flame: lxmlET._Element, msg: bool = True) -> bool:
 * out_XML_to_var(self, msg: bool = True) -> tuple[str, bool]:
-* out_userData_XML_last_loaded(self, data_name: str = f3h_userData.XML_LAST, flame_name: str | None = None) -> None:
+* out_userData__last_loaded_xml(self, data_name: str = f3h_userData.LAST_XML, flame_name: str | None = None) -> None:
 * out_new_XML(self, outpath: str) -> None:
 * out_preset_XML_clipboard(self) -> None
 * out_append_XML(self, root: lxmlET._Element, out_path: str) -> None:
@@ -22439,7 +22472,7 @@ class out_flame_utils
                     self.out_auto_change_iter_num_to_prm()
                     
             elif inisvalidpreset and clipboard:
-                data: str | None = node.userData(f3h_userData.XML_LAST)
+                data: str | None = node.userData(f3h_userData.LAST_XML)
                 if data is not None:
                     apo_data: in_flame_iter_data = in_flame_iter_data(node, data, 0)
                     if apo_data.isvalidtree:
@@ -22884,7 +22917,7 @@ class out_flame_utils
         return 'ZERO ITERATORS', False
             
 
-    def out_userData_XML_last_loaded(self, data_name: str = f3h_userData.XML_LAST, flame_name: str | None = None) -> None:
+    def out_userData__last_loaded_xml(self, data_name: str = f3h_userData.LAST_XML, flame_name: str | None = None) -> None:
         """Store the loaded Flame preset into the FLAM3H™ node data storage.</br>
         This definition run a full save out preset(a snapshot of the curernt status of the FLAM3H™ parameters).</br>
         
@@ -22897,7 +22930,7 @@ class out_flame_utils
 
         Args:
             (self):
-            data_name(str): Default to: f3h_userData.XML_LAST</br>The name of the node user data to store the flame preset into.
+            data_name(str): Default to: f3h_userData.LAST_XML</br>The name of the node user data to store the flame preset into.
             flame_name(str | None): Default to: None</br>If a flame name is provided it will use it, </br>otherwise it will either use the one set into the OUT flame name parameter or if this last is empty it will generate one based on today'sdate and time.
             
         Returns:
