@@ -7,8 +7,15 @@ They are already embedded inside each HDA respectively and here only for easy re
 <br/>
 
 ---
-<u>**FLAM3H™ and FLAM3H™USD HDAs UI have been built for the new Houdini 22 UI Skin**</br>
-**and not for the deprectad old UI**.</u>
+<u>**The UIs of FLAM3H™ and FLAM3H™USD HDAs have been designed for the new Houdini 22 UI skin,**</br>
+**and not for the deprectad old UI**.</u></br>
+- There are also H22.0 HDAs that uses the **old UI**:</br>
+
+    - _They can be found inside the_ [**`./otls/H22.0_CL/HDA_H22.0_CL__OLD_UI`**](../HDA_H22.0_CL__OLD_UI/) _directory of this repository_.
+
+    - _Note that the UI layout, tooltips, and other visual features differ, so only use this HDA files if you intend to use Houdini 22 in Old UI mode._
+
+    - _These old UI HDAs files may not always be updated at the same time as the new UI HDAs files so always check their version numbers after creating the corresponding nodes in Houdini_.
 
 ---
 
