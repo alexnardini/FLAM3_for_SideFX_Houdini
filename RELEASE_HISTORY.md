@@ -51,6 +51,26 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.1.18 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.18)  ##
+
+#### FLAM3H™ v2.1.18 indie -> H22.0 UP</br>FLAM3H™ v2.0.94 indie -> H21.0</br>FLAM3H™ v2.0.64 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+- **New**: All the FLAM3H™ node’s user and cached data has been renamed. The names are now prefixed with "**f3h::**", and some data items have slightly different names. Sorry for the inconvenience, but this change will make things better moving forward.
+- **Small fixes/improvements as part of an ongoing polishing pass**
+- **Updated HDA documentation**
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.1.15 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.15)  ##
 
 #### FLAM3H™ v2.1.15 indie -> H22.0 UP</br>FLAM3H™ v2.0.91 indie -> H21.0</br>FLAM3H™ v2.0.62 indie -> H20.5</br>FLAM3H™ v1.9.88 indie -> H19.0 to H20 ####
