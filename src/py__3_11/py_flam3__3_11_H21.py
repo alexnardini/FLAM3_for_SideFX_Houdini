@@ -8709,6 +8709,29 @@ class flam3h_iterator_utils
                         
                 # update copy/paste data
                 if self.exist_user_data(node):
+                    
+                    # New code
+                    #
+                    data_label_exist: bool = self.exist_user_data(node, f3h_userData.MARKED_ITER_LABEL)
+                    if data_label_exist:
+                        data: str = str(self.get_user_data(node, f3h_userData.MARKED_ITER_LABEL))
+                    else:
+                        data: str = str(self.get_user_data(node))
+                    
+                    marked_idx: str = str(mpmem.index(data) + 1)
+                    if marked_idx == data:
+                        if data_label_exist: self.destroy_userData(node, f"{f3h_userData.MARKED_ITER_LABEL}")
+                    else:
+                        node.setUserData(f"{f3h_userData.MARKED_ITER_LABEL}", data)
+                        
+                    prm_marked_data_mpidx: hou.Parm = node.parm(f3h_tabs.PREFS.PVT_PRM_DATA_PRM_MPIDX)
+                    flam3h_prm_utils.private_prm_set(node, prm_marked_data_mpidx, int(marked_idx))
+                    self.del_comment_and_user_data_iterator(node)
+                    self.set_comment_and_user_data_iterator(node, marked_idx)
+                    
+                    # Leave the old code here for now just in case
+                    #
+                    '''
                     if self.exist_user_data(node, f3h_userData.MARKED_ITER_LABEL):
                         data: str = str(self.get_user_data(node, f3h_userData.MARKED_ITER_LABEL))
                     else:
@@ -8719,6 +8742,7 @@ class flam3h_iterator_utils
                     flam3h_prm_utils.private_prm_set(node, prm_marked_data_mpidx, marked_idx + 1)
                     self.del_comment_and_user_data_iterator(node)
                     self.set_comment_and_user_data_iterator(node, str(marked_idx + 1))
+                    '''
                 
                 # Update Xaos strings based on the new iterators' order if needed (if Xaos is On/Active)
                 # Since this is run once Houdini trigger the menu and after the reorder is complete (after the user move an iterator in a new position)
