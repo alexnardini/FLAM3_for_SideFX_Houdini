@@ -8712,17 +8712,18 @@ class flam3h_iterator_utils
                     
                     # New code
                     #
-                    data_label_exist: bool = self.exist_user_data(node, f3h_userData.MARKED_ITER_LABEL)
+                    marked_label_data_name: str = f3h_userData.MARKED_ITER_LABEL
+                    data_label_exist: bool = self.exist_user_data(node, marked_label_data_name)
                     if data_label_exist:
-                        data: str = str(self.get_user_data(node, f3h_userData.MARKED_ITER_LABEL))
+                        data: str = str(self.get_user_data(node, marked_label_data_name))
                     else:
                         data: str = str(self.get_user_data(node))
                     
                     marked_idx: str = str(mpmem.index(data) + 1)
                     if marked_idx == data:
-                        if data_label_exist: self.destroy_userData(node, f"{f3h_userData.MARKED_ITER_LABEL}")
+                        if data_label_exist: self.destroy_userData(node, f"{marked_label_data_name}")
                     else:
-                        node.setUserData(f"{f3h_userData.MARKED_ITER_LABEL}", data)
+                        node.setUserData(f"{marked_label_data_name}", data)
                         
                     prm_marked_data_mpidx: hou.Parm = node.parm(f3h_tabs.PREFS.PVT_PRM_DATA_PRM_MPIDX)
                     flam3h_prm_utils.private_prm_set(node, prm_marked_data_mpidx, int(marked_idx))
