@@ -259,7 +259,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg
 | **PREFS** | `pxsamples_cpu` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg
@@ -274,7 +274,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg
 | **PREFS** | `pxsamples_xpu` | `from H21` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg
@@ -289,7 +289,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg
 | **PREFS** | `use_f3h_shader` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg
@@ -376,7 +376,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?iconSVGB.svg
 | **ABOUT** | `flam3github` | `from H19` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_GithubBlackSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_GithubBlackSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#4-github">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubBlackSVG.svg
@@ -391,7 +391,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubBlackSVG.svg
 | **ABOUT** | `flam3insta` | `from H19` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_InstagramSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_InstagramSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#7-instagram">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_InstagramSVG.svg
@@ -406,7 +406,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_InstagramSVG.svg
 | **ABOUT** | `flam3youtube` | `from H19` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_youtube_red_play.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_youtube_red_play.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#3-youtube">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_youtube_red_play.svg
@@ -451,7 +451,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_WhiteSVG.svg
 | **ABOUT** | `tffa_flam3github` | `from H19` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_GithubWhiteSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_GithubWhiteSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#4-github">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubWhiteSVG.svg
@@ -466,7 +466,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubWhiteSVG.svg
 | **ABOUT** | `fract_git` | `from H19` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_GithubBlueSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_GithubBlueSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#4-github">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubBlueSVG.svg

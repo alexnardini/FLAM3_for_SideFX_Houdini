@@ -2665,7 +2665,7 @@ opdef:/alexnardini::Sop/FLAM3H?iconSVG.svg
 | **ABOUT** | `flam3github` | `from H19 to H20` | `v1.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_GithubBlackSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_GithubBlackSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#4-github">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlackSVG.svg
@@ -2680,7 +2680,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlackSVG.svg
 | **ABOUT** | `flam3insta` | `from H19 to H20` | `v1.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_InstagramSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_InstagramSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#7-instagram">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_InstagramSVG.svg
@@ -2695,7 +2695,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_InstagramSVG.svg
 | **ABOUT** | `flam3youtube` | `from H19 to H20` | `v1.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_youtube_red_play.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_youtube_red_play.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#3-youtube">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_youtube_red_play.svg
@@ -2740,7 +2740,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
 | **ABOUT** | `tffa_flam3github` | `from H19 to H20` | `v1.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_GithubWhiteSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_GithubWhiteSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#4-github">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_GithubWhiteSVG.svg
@@ -2755,7 +2755,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubWhiteSVG.svg
 | **ABOUT** | `fract_git` | `from H19 to H20` | `v1.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_GithubBlueSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_GithubBlueSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#4-github">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlueSVG.svg
