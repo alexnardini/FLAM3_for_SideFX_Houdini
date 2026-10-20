@@ -487,14 +487,15 @@ class f3h_userData:
     
     '''
     
+    NODEINFO: Final = "nodeinfo"
     PRX: Final = 'f3h::'
     
     # Node user data (nodeinfo)
-    MARKED_ITER: Final = f"{PRX}marked_iterator"
-    MARKED_ITER_LABEL: Final = f"{PRX}marked_label"
-    MARKED_FF: Final = f"{PRX}marked_ff"
-    XF_VIZ_SOLO: Final = f"{PRX}xf_viz_solo"
-    LAST_XML: Final = f"{PRX}last_loaded_xml"
+    MARKED_ITER: Final = f"{NODEINFO}_{PRX}marked_iterator"
+    MARKED_ITER_LABEL: Final = f"{NODEINFO}_{PRX}marked_label"
+    MARKED_FF: Final = f"{NODEINFO}_{PRX}marked_ff"
+    XF_VIZ_SOLO: Final = f"{NODEINFO}_{PRX}xf_viz_solo"
+    LAST_XML: Final = f"{NODEINFO}_{PRX}last_loaded_xml"
     
     # Houdini Recipes
     H_LAST_INVOKED_RECIPES: Final = "__last_invoked_recipes__"
