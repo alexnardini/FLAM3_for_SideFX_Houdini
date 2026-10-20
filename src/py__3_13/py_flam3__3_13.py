@@ -7713,6 +7713,9 @@ class flam3h_iterator_utils
             (None):
         """
         
+        # prm name
+        mpmem_x_name: str = n.main_mpmem_x
+        
         # xaos_node: hou.SopNode = hou.node(flam3h_general_utils({'node': node}).get_node_path(f3h_nodeNames.DEFAULT_TFFA_XAOS))
         xaos_node: hou.SopNode = hou.node(f"./{f3h_nodeNames.DEFAULT_TFFA_XAOS}")
         XS: int = xaos_node.geometry().attribValue('XS')
@@ -7728,18 +7731,12 @@ class flam3h_iterator_utils
                     node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS).set(1)
             
             mpmem_x: list[int] = [] # This is used as index lookup
-            mpmem_x_name: str = n.main_mpmem_x
             _mpmem_x_append: Callable[[int], None] = mpmem_x.append
             for mp_idx in range(1, iter_count + 1): _mpmem_x_append(node.parm(f"{mpmem_x_name}_{mp_idx}").eval() - 1)
             
             xaos_collect: TA_XAOS_Collect = out_flame_utils.out_xaos_collect(node, iter_count, n.xaos)
             fill_all_xaos: list[list[float]] = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in xaos_collect] # this probably not needed here but just to be sure
             fill_all_xaos_swap: list[list[float]] = [[this_xaos[mpmem_x[idx]] for idx in range(len(this_xaos))] for this_xaos in fill_all_xaos]
-            
-            # reset mpmem_x
-            for mp_idx in range(1, iter_count + 1):
-                prm = node.parm(f"{mpmem_x_name}_{(mp_idx)}")
-                flam3h_prm_utils.set(node, prm, mp_idx)
             
             # AUTO DIV XAOS strings
             div_xaos, div_weight = flam3h_iterator_utils.auto_set_xaos_div_str(node)
@@ -7758,6 +7755,12 @@ class flam3h_iterator_utils
             
             # Update xaos prev
             flam3h_iterator_utils.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
+            
+        
+        # reset iterator's mpmem_x parms
+        for mp_idx in range(1, iter_count + 1):
+            prm = node.parm(f"{mpmem_x_name}_{(mp_idx)}")
+            flam3h_prm_utils.set(node, prm, mp_idx)
 
 
     @staticmethod
@@ -8818,6 +8821,7 @@ class flam3h_iterator_utils
             
             if _len_check and mpmem != mpmem_cached:
                 
+                
                 n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
                 iter_num: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
                 
@@ -8862,20 +8866,6 @@ class flam3h_iterator_utils
                     self.del_comment_and_user_data_iterator(node)
                     self.set_comment_and_user_data_iterator(node, marked_idx)
                     
-                    # Leave the old code here for now just in case
-                    #
-                    '''
-                    if self.exist_user_data(node, f3h_userData.MARKED_ITER_LABEL):
-                        data: str = str(self.get_user_data(node, f3h_userData.MARKED_ITER_LABEL))
-                    else:
-                        data: str = str(self.get_user_data(node))
-                    node.setUserData(f"{f3h_userData.MARKED_ITER_LABEL}", data)
-                    marked_idx: int = mpmem.index(data)
-                    prm_marked_data_mpidx: hou.Parm = node.parm(f3h_tabs.PREFS.PVT_PRM_DATA_PRM_MPIDX)
-                    flam3h_prm_utils.private_prm_set(node, prm_marked_data_mpidx, marked_idx + 1)
-                    self.del_comment_and_user_data_iterator(node)
-                    self.set_comment_and_user_data_iterator(node, str(marked_idx + 1))
-                    '''
                 
                 # Update Xaos strings based on the new iterators' order if needed (if Xaos is On/Active)
                 # Since this is run once Houdini trigger the menu and after the reorder is complete (after the user move an iterator in a new position)
@@ -11262,10 +11252,10 @@ class flam3h_iterator_utils
         mpmem_hou_get: list[int] = []
         xaos_str_hou_get: list[list[str]] = []
         
-        # get mpmem parms now
-        mp_mem_name: str = n.main_mpmem
+        # get mpmem_x parms now
+        mp_mem_name_x: str = n.main_mpmem_x
         _mpmem_append: Callable[[int], None] = mpmem.append
-        for mp_idx in range(1, iter_count + 1): _mpmem_append(int(node.parm(f"{mp_mem_name}_{mp_idx}").eval()))
+        for mp_idx in range(1, iter_count + 1): _mpmem_append(int(node.parm(f"{mp_mem_name_x}_{mp_idx}").eval()))
         
         # get mpmem from CachedUserData
         __mpmem_hou_get: list[int] | None = self.auto_set_xaos_data_get_MP_MEM(node)
@@ -11599,11 +11589,11 @@ class flam3h_iterator_utils
         for mp_idx, xaos in enumerate(xaos_str_round_floats): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").set(div_xaos + xaos)
         
         # reset iterator's mpmem and mpmem_x parms
-        mp_mem_x_name: str = n.main_mpmem_x
+        mp_mem_name: str = n.main_mpmem
         for mp_idx in range(1, iter_count + 1):
             prm = node.parm(f"{mp_mem_name}_{(mp_idx)}")
             flam3h_prm_utils.set(node, prm, str(mp_idx))
-            prm = node.parm(f"{mp_mem_x_name}_{(mp_idx)}")
+            prm = node.parm(f"{mp_mem_name_x}_{(mp_idx)}")
             flam3h_prm_utils.set(node, prm, mp_idx)
         
         # update flam3h_xaos_mpmem
