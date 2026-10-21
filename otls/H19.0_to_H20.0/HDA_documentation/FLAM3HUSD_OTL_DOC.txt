@@ -331,7 +331,7 @@ CPU samples:
 
 Reset pixel samples [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: PREFS
-    [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
+    [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg] [Third-Party Notices|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex]
     
     _Usage_:
     - ((LMB)) to reset the pixel samples to a default of *`128`*.
@@ -361,7 +361,7 @@ Use Shader [Icon:DATATYPES/boolean]:
 
 Reset Shader parms [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: PREFS
-    [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
+    [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg] [Third-Party Notices|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex]
     
     _Usage_:
     - ((LMB)) to reset the FLAM3H(tm) Shader to its default values.
@@ -444,19 +444,22 @@ Web links [Icon:opdef:.?icon_actionButtonSVG.svg]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) web links*<br />
     _The following are web links related to FLAM3H(tm). _<br /><br />
     
-    [Largeicon:opdef:.?iconSVGB.svg] 
+    [Largeicon:opdef:.?iconSVG.svg] 
     - ((LMB)) to open a web browser to the FLAM3H(tm) website.
     
     <br />
-    [Largeicon:opdef:.?icon_GithubBlackSVG.svg] 
+    [Largeicon:opdef:.?icon_GithubBlackSVG.svg]
+    [Third-Party Notices|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/THIRD-PARTY_NOTICES.md#4-github]
     - ((LMB)) to open a web browser to the FLAM3H(tm) github repository.
      
     <br />
-    [Largeicon:opdef:.?icon_InstagramSVG.svg] 
+    [Largeicon:opdef:.?icon_InstagramSVG.svg]
+    [Third-Party Notices|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/THIRD-PARTY_NOTICES.md#7-instagram]
     - ((LMB)) to open a web browser to the FLAM3H(tm) instagram account. 
 
     <br />
-    [Largeicon:opdef:.?icon_youtube_red_play.svg] 
+    [Largeicon:opdef:.?icon_youtube_red_play.svg]
+    [Third-Party Notices|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/THIRD-PARTY_NOTICES.md#3-youtube]
     - ((LMB)) to open a web browser to the FLAM3H(tm) youtube video tutorials.<br /><br /><br />
      
     <br />
@@ -467,11 +470,13 @@ Web links [Icon:opdef:.?icon_actionButtonSVG.svg]:
     - ((LMB)) to open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) publication's PDF. 
      
     <br />
-    [Largeicon:opdef:.?icon_GithubWhiteSVG.svg] 
+    [Largeicon:opdef:.?icon_GithubWhiteSVG.svg]
+    [Third-Party Notices|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/THIRD-PARTY_NOTICES.md#4-github]
     - ((LMB)) to open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) github repository. 
 
     <br />
-    [Largeicon:opdef:.?icon_GithubBlueSVG.svg] 
+    [Largeicon:opdef:.?icon_GithubBlueSVG.svg]
+    [Third-Party Notices|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/THIRD-PARTY_NOTICES.md#4-github]
     - ((LMB)) to open a web browser to the Fractorium github repository.
 
     <br />
