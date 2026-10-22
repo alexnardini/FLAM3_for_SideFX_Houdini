@@ -956,9 +956,9 @@ static float2 CL_V_POPCORN(
     )
 {
 #if USE_NATIVE
-    return w * in + (float2)(c, f) * native_sin(native_tan(3.0f * in.yx));
+    return w * (in + (float2)(c, f) * native_sin(native_tan(3.0f * in.yx)));
 #else
-    return w * in + (float2)(c, f) * sin(tan(3.0f * in.yx));
+    return w * (in + (float2)(c, f) * sin(tan(3.0f * in.yx)));
 #endif
 }
 // ----------------------------
