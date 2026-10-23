@@ -388,7 +388,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<br/>[Icon:NETWORKS/sop] [<b>LMB</b>] to enable viewport <b>TAG</b>.<br/><br/>[Icon:NETWORKS/sop] [<b>SHIFT+LMB</b>] to enter the Camera SENSOR VIZ mode.<br/><i>Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire</i>.<br/><br/><b>TAG</b> allow you to review your fractal Flame construction infos in one compact viewport string.<br/><br/><i>The <b>TAG</b> functionality has a cost and the default behavior is for it to be <b>OFF</b></i>.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
+            help    "<br/>[Icon:NETWORKS/sop] [<b>LMB</b>] to enable viewport <b>TAG</b>.<br/><br/>[Icon:NETWORKS/sop] [<b>SHIFT+LMB</b>] to enter the Camera SENSOR VIZ mode.<br/><br/><i>Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire</i>.<br/><br/><b>TAG</b> allow you to review your fractal Flame construction infos in one compact viewport string.<br/><br/><i>The <b>TAG</b> functionality has a cost and the default behavior is for it to be <b>OFF</b></i>.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
             disablewhen "{ outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { tag == 1 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueToolSVG_disabled.svg" }
@@ -402,7 +402,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<br/>[Icon:NETWORKS/sop] [<b>LMB</b>] to disable viewport <b>TAG</b>.<br/><br/>[Icon:NETWORKS/sop] [<b>SHIFT+LMB</b>] to enter the Camera SENSOR VIZ mode.<br/><i>Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire</i>.<br/><br/>Next to this icon on the right side there is a menu to choose different tag sizes. <b>TAG</b> allow you to review your fractal Flame construction infos in one compact viewport string.<br/><br/><i>The <b>TAG</b> functionality has a cost and the default behavior is for it to be <b>OFF</b></i>.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
+            help    "<br/>[Icon:NETWORKS/sop] [<b>LMB</b>] to disable viewport <b>TAG</b>.<br/><br/>[Icon:NETWORKS/sop] [<b>SHIFT+LMB</b>] to enter the Camera SENSOR VIZ mode.<br/><br/><i>Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire</i>.<br/><br/>Next to this icon on the right side there is a menu to choose different tag sizes. <b>TAG</b> allow you to review your fractal Flame construction infos in one compact viewport string.<br/><br/><i>The <b>TAG</b> functionality has a cost and the default behavior is for it to be <b>OFF</b></i>.<br/><br/><b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)"
             disablewhen "{ outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { tag == 0 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueToolSVG.svg" }
