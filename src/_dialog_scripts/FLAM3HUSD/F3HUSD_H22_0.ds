@@ -178,11 +178,11 @@
                 label   "renderer"
                 type    ordinal
                 default { "0" }
-                help    "<h3>[Icon:NETWORKS/lop] Types of Viewport renderer to use</h3>At the moment the choices are:<br/><br/>[Icon:COMMON/vulkan] [<b>Houdini</b>]<br/>This is using the Vulkan viewport.<br/><br/><br/>[Icon:MISC/karma] [Icon:BUTTONS/cpu] [<b>Karma CPU</b>]<br/>This is the recommended choice.<br/><br/><br/>[Icon:MISC/karma] [Icon:BUTTONS/cpu] [Icon:PARTS/gpu] [<b>Karma XPU</b>]<br/>This is being added just for completeness.<br/>It uses both the <b>CPU</b> and the <b>GPU</b>.<br/>"
+                help    "<h3>[Icon:NETWORKS/lop] Types of Viewport renderer to use</h3>At the moment the choices are:<br/><br/>[Icon:COMMON/vulkan] [<b>Vulkan</b>]<br/>This is using the Vulkan viewport.<br/><br/><br/>[Icon:MISC/karma] [Icon:BUTTONS/cpu] [<b>Karma CPU</b>]<br/>This is the recommended choice.<br/><br/><br/>[Icon:MISC/karma] [Icon:BUTTONS/cpu] [Icon:PARTS/gpu] [<b>Karma XPU</b>]<br/>This is being added just for completeness.<br/>It uses both the <b>CPU</b> and the <b>GPU</b>.<br/>"
                 menu {
-                    "0" "![COMMON_vulkan] Houdini"
-                    "1" "![MISC_karma] Karma CPU     "
-                    "2" "![MISC_karma] Karma XPU"
+                    "0" "Vulkan"
+                    "1" "Karma CPU     "
+                    "2" "Karma XPU"
                 }
                 parmtag { "script_action" "node = kwargs['node']\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer()\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
                 parmtag { "script_action_help" "If you manually changed the viewport renderer, clicking this icon will set all viewers to this renderer." }
