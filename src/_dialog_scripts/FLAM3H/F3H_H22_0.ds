@@ -59,7 +59,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<h2>[Icon:TOP/xmlinput] [Icon:DATATYPES/vex] CPU(<i>Cvex</i>) mode</h2>[<b>LMB</b>] to switch to the GPU mode.<br/><br/>The iterations number to use to resolve this fractal Flame.<br/><br/>You must experiment with the number of iterations<br/>and always go as low as possible to save on execution time.<br/>You went too low when the fractal Flame start to turn blocky,<br/>which happens when it crosses its own minimum.<br/><br/>It is advised that occasionally you bump up this number a little<br/>to see if there is anything you are overlooking.<br/><br/>For instance,<br/>certain Flames can seem completely different with higher number of iterations."
+            help    "<h2>[Icon:TOP/xmlinput] [Icon:DATATYPES/vex] CPU(<i>Cvex</i>) mode</h2><br/>((LMB)) to switch to the GPU( [Icon:PARTS/gpu] ) mode.<br/><br/>The iterations number to use to resolve this fractal Flame.<br/><br/>You must experiment with the number of iterations<br/>and always go as low as possible to save on execution time.<br/>You went too low when the fractal Flame start to turn blocky,<br/>which happens when it crosses its own minimum.<br/><br/>It is advised that occasionally you bump up this number a little<br/>to see if there is anything you are overlooking.<br/><br/>For instance,<br/>certain Flames can seem completely different with higher number of iterations."
             hidewhen "{ flamefunc == 0 } { gpu == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).cpu_switch_to_gpu()" }
