@@ -990,28 +990,30 @@ palette 256+ ON [Icon:TOP/xmlinput]:
     #display: rounded white
     
     == Number of iterators ( Add/Remove ) ==
-    
+
+
 number of iterators [Icon:TOP/xmlinput]:
     #id: FLAME
     
-    Number of iterators (_aka: xforms or transforms_) to use.<br />
-
-    <br />
 
     :box:
         #display: rounded raised gray
 
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
 
-        Xforms have the most effect over the look of the final output image. Discussing every possible technique for using them is beyond the scope of this project. For such information, you should follow the numerous Apophysis tutorials that are available on Deviant Art and elsewhere. This article is limited to some basic performance considerations when using xforms.
+        Iterators (_aka: xforms or transforms_) have the most effect over the look of the final output image. Discussing every possible technique for using them is beyond the scope of this project. For such information, you should follow the numerous Apophysis tutorials that are available on Deviant Art and elsewhere. This article is limited to some basic performance considerations when using xforms.
 
         The number of xforms does not affect performance because only one is chosen to be applied on each iteration. Choosing a random xform among 5 takes the same amount of time as choosing among 50. However, the number of variations in each xform does affect performance.
 
         Adding a post affine transform to an xform will also affect performance since it’s an additional affine that must be applied each time the xform is selected. Applying an affine is very simple so the performance impact shouldn’t be too noticeable.
-        <br />
 
     <br />
+
+iterators:
+    #id: FLAME
     
+    <h2>[Icon:TOP/xmlinput] Number of iterators to use</h2>
+
     Every iterator acts as a container for functions, the algorithm will mix or shuffle iterators based on your logic.
 
     However,<br />
@@ -1036,9 +1038,9 @@ number of iterators [Icon:TOP/xmlinput]:
     - [Largeicon:BUTTONS/minus] to reduce the number of iterators by *`1`*(one). It will remove one from the end.
     - *CLEAR* button -> to remove all the iterators in one go.
 
-    Adding and Deleting iterators from here will also update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.
-
     <br />
+
+    Adding and Deleting iterators from here will also update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.
 
     NOTE:
         #display: raised
@@ -1049,11 +1051,57 @@ number of iterators [Icon:TOP/xmlinput]:
 
         For this reason, it is suggested to create them one after the other, sequentially.
 
+        <br />
     
 :box:
     #display: rounded white
     
     == Iterator == (FLAMEITER)
+
+Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: FLAME
+    *`On`* by default.
+
+    <br />
+    
+    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] This iterator is *`On`*/Active (_Default_).
+    
+    Enable/Disable this iterator.
+    <br /><br />
+
+    TIP:
+        #display: orange
+
+        If an iterator is disabled, it won't be included when saving the Flame out into a Flame file.
+        In case you still want to include the inactive iterator in the file, set its Weight to *`0`*(Zero) instead.
+
+    <br />
+    
+    
+xform VIZ SOLO [Icon:DATATYPES/boolean]:
+    #id: FLAME
+    *`Off`* by default.
+
+    When the SYS -> viewport xforms handles VIZ is *`On`* this icon will become available.
+
+    <br />
+
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] to enter into SOLO mode and display only this iterator xform handle VIZ in the viewport (_Default_).
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
+
+    When any iterator has its xform handle in SOLO mode already ([Icon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]),<br />
+    it causes the iterator that is picked from the SYS tab's select iterator mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] to be automatically configured to be in SOLO mode.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
+    - Every time you activate the xform handle VIZ SOLO mode for an iterator, a custom user data is added to the FLAM3H(tm) node with the iterator number being in SOLO mode; the data name is: *`f3h::xf_viz_solo`*.<br /><br />This is handy because you can review the user data from the node *info window* ( ((MMB)) _on the node_ ) and quickly find out which one is being displayed (_in case you do not remember or when many iterators have been created_).
+    - The FF(_finalXform_) viewport handle will always be displayed if Active (_it will always be of color grey/white_).
+    - The viewport handles will be automatically disabled if the FLAM3H(tm) density value is raised above *`5M`*(_millions_) points.
+    - The viewport handles will be automatically disabled when FLAM3H(tm) is in camera sensor VIZ mode.
+    - The viewport handles will be automatically disabled when FLAM3H(tm) is run from whithin the Solaris/Lop context.
+
+    <br />
 
 Add/Del iterators [Icon:TOP/xmlinput]:
     #id: FLAMEADDDEL
@@ -1144,55 +1192,10 @@ copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
     and/or its nearby mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] to copy only individual sections of an iterator.
 
     <br />
-
-Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
-    #id: FLAME
-    *`On`* by default.
-
-    <br />
-    
-    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is *`Off`*/Disabled.
-    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] This iterator is *`On`*/Active (_Default_).
-    
-    Enable/Disable this iterator.
-    <br /><br />
-
-    TIP:
-        #display: orange
-
-        If an iterator is disabled, it won't be included when saving the Flame out into a Flame file.
-        In case you still want to include the inactive iterator in the file, set its Weight to *`0`*(Zero) instead.
-
-    <br />
-    
-    
-xform VIZ SOLO [Icon:DATATYPES/boolean]:
-    #id: FLAME
-    *`Off`* by default.
-
-    When the SYS -> viewport xforms handles VIZ is *`On`* this icon will become available.
-
-    <br />
-
-    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] to enter into SOLO mode and display only this iterator xform handle VIZ in the viewport (_Default_).
-    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
-
-    When any iterator has its xform handle in SOLO mode already ([Icon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]),<br />
-    it causes the iterator that is picked from the SYS tab's select iterator mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] to be automatically configured to be in SOLO mode.
-
-    <br />
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
-    - Every time you activate the xform handle VIZ SOLO mode for an iterator, a custom user data is added to the FLAM3H(tm) node with the iterator number being in SOLO mode; the data name is: *`f3h::xf_viz_solo`*.<br /><br />This is handy because you can review the user data from the node *info window* ( ((MMB)) _on the node_ ) and quickly find out which one is being displayed (_in case you do not remember or when many iterators have been created_).
-    - The FF(_finalXform_) viewport handle will always be displayed if Active (_it will always be of color grey/white_).
-    - The viewport handles will be automatically disabled if the FLAM3H(tm) density value is raised above *`5M`*(_millions_) points.
-    - The viewport handles will be automatically disabled when FLAM3H(tm) is in camera sensor VIZ mode.
-    - The viewport handles will be automatically disabled when FLAM3H(tm) is run from whithin the Solaris/Lop context.
-
-    <br />
     
 W [Icon:TOP/xmlinput]:
     #id: FLAME
-    The Weight of this iterator.<br />
+    <h2>[Icon:TOP/xmlinput] The Weight of this iterator</h2>
     
     Calculate the likelihood that this iterator will be selected during the [Chaos game|Wp:Chaos_game]. You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator Weight is higher than the others.
 
