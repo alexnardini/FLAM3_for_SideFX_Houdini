@@ -187,9 +187,9 @@
                 label   "renderer"
                 type    ordinal
                 default { "0" }
-                help    "Types of Viewport renderer to use.\\n\\nAt the moment the choices are:\\n\\n- Houdini\\nThis can be either OpenGL or Vulkan\\ndepending on your Houdini version and preferences settings.\\n\\n- Karma CPU\\nThis is the recommended choice.\\n\\n- Karma XPU\\nThis is being added just for completeness."
+                help    "Types of Viewport renderer to use.\\n\\nAt the moment the choices are:\\n\\n- Vulkan\\nThis can be either OpenGL or Vulkan\\ndepending on your Houdini version and preferences settings.\\n\\n- Karma CPU\\nThis is the recommended choice.\\n\\n- Karma XPU\\nThis is being added just for completeness."
                 menu {
-                    "0" "Houdini"
+                    "0" "Vulkan"
                     "1" "Karma CPU     "
                     "2" "Karma XPU"
                 }
