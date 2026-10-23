@@ -1162,6 +1162,8 @@ Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
         If an iterator is disabled, it won't be included when saving the Flame out into a Flame file.
         In case you still want to include the inactive iterator in the file, set its Weight to *`0`*(Zero) instead.
+
+    <br />
     
     
 xform VIZ SOLO [Icon:DATATYPES/boolean]:
@@ -1185,6 +1187,8 @@ xform VIZ SOLO [Icon:DATATYPES/boolean]:
     - The viewport handles will be automatically disabled if the FLAM3H(tm) density value is raised above *`5M`*(_millions_) points.
     - The viewport handles will be automatically disabled when FLAM3H(tm) is in camera sensor VIZ mode.
     - The viewport handles will be automatically disabled when FLAM3H(tm) is run from whithin the Solaris/Lop context.
+
+    <br />
     
 W [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -1332,6 +1336,8 @@ auto space xaos weights / xaos information tips [Icon:DATATYPES/boolean] [Icon:o
 Location [Icon:TOP/xmlinput]:
     #id: FLAME
     The color location in the ramp *{0:1}*.
+
+    <br />
     
 Speed [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -1339,6 +1345,8 @@ Speed [Icon:TOP/xmlinput]:
     Values above *`0`*(Zero) attract the selected color while values below *`0`*(Zero) will repel it.
 
     The correct ranges for this value should always be between *`-1`* and *`1`*.
+
+    <br />
     
 Opacity [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -1410,6 +1418,8 @@ menu Pre_Blur [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
         When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3H(tm)
         remeber that the variation *`pre_gaussian_blur`* will be remapped to *`Pre_Blur`* on Flame load by default if it is the first one in the list of applied *`PRE`* variations.
 
+    <br />
+
 
 menu PRE [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: FLAMEPRE
@@ -1450,6 +1460,8 @@ swap PRE vars [Icon:opdef:.?icon_actionButtonSVG.svg]:
     
     - ((LMB)) to swap the order of the *`PRE`* Variations and their weights. 
     - ((CTRL)) + ((LMB)) to swap only the variation names.
+
+    <br />
     
     
 menu VAR [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
@@ -1468,6 +1480,8 @@ menu VAR [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     
         Laying down a new FLAM3H(tm) node and activating the finalXform (*FF*) with the default Sierpiński triangle will allow you to experiment with the variations inside the FF tab and see what happens while using the Sierpiński triangle coming from the FLAME tab as a base playground.
         Don't forget to play around with the pre-affine coefficients a bit to see what you can obtain.
+
+    <br />
 
 menu POST [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: FLAME
@@ -1557,6 +1571,8 @@ copy post affine values [Icon:opdef:.?icon_actionButtonSVG.svg]:
     - ((CTRL)) + ((LMB)) to copy only the affine *`O`* value.
     - ((ALT)) + ((LMB)) to copy only the affine *`Rotation angle`* value.
 
+    <br />
+
 
 pre affine [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -1616,6 +1632,8 @@ pre affine [Icon:TOP/xmlinput]:
     # Use *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ for everything (_translation, rotation and scale/shear_).
     
     # Use the Rotation parameter in combination with the Scale parameter and the *`X`*.`xy` and *`Y`*.`xy` for tweaks on shear and *`O`*._`xy`_ for translation.
+
+    <br />
 
 pre affine Rot [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -1734,6 +1752,8 @@ FF xform VIZ [Icon:DATATYPES/boolean]:
     - The viewport handles will be automatically disabled if the FLAM3H(tm) density value is raised above *`5M`*(_millions_) points.
     - The viewport handles will be automatically disabled when FLAM3H(tm) is in camera sensor VIZ mode.
     - The viewport handles will be automatically disabled when FLAM3H(tm) is run from whithin the Solaris/Lop context.
+
+    <br />
         
 FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FF
@@ -1825,6 +1845,8 @@ menu FF VAR [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     
     * When using parametric variations, their parameters will populate the *FF: VARS* tab.
 
+    <br />
+
 menu FF POST [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: FF
     *`POST`* Variations for the FF iterator.
@@ -1850,6 +1872,8 @@ swap FF POST vars [Icon:opdef:.?icon_actionButtonSVG.svg]:
     
     - ((LMB)) to swap the order of the *`POST`* Variations and their weights. 
     - ((CTRL)) + ((LMB)) to swap only the variation names.
+
+    <br />
 
     
 FF: w [Icon:TOP/xmlinput]:
@@ -1878,6 +1902,8 @@ FF: pre affine [Icon:TOP/xmlinput]:
 
     *See the iterator(_xform_) [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
 
+    <br />
+
 FF: post affine [Icon:TOP/xmlinput]:
     #id: FF
     
@@ -1905,10 +1931,14 @@ FF: post affine [Icon:TOP/xmlinput]:
 FF: VARS tab [Icon:TOP/xmlinput]:
     #id: FF
     If a *`VAR`* parametric variation is selected, its parameters will populate this tab.
+
+    <br />
     
 FF: PP VARS tab [Icon:TOP/xmlinput]:
     #id: FF
     If a *`PRE`* or *`POST`* parametric variation is selected, its parameters will populate this tab.
+
+    <br />
     
 
 
@@ -3102,12 +3132,16 @@ FPS (CPU) [Icon:TOP/xmlinput]:
     Desired Frames per second.
 
     Frames per second ( [FPS|Wp:Frame_rate] ) significantly impacts the appearance of motion blur in video, with lower frame rates like 24 or 30 FPS naturally exhibiting more motion blur.
+
+    <br />
     
 Samples (CPU) [Icon:TOP/xmlinput]:
     #id: MB
     Motion blur samples.
 
     Higher values increase the quality and produce a smoother blur.
+
+    <br />
     
 Shutter time (CPU) [Icon:TOP/xmlinput]:
     #id: MB
@@ -3186,6 +3220,8 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
         - *`2`*(two) *`VAR`*
         - *`2`*(two) *`POST`*
         - For a total of *`5`*(five) variations for the finalXform(_FF_). If it finds more on load, the excess ones will be discarded.
+
+    <br />
     
 menu IN file contents [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: IN
@@ -3354,6 +3390,8 @@ Reload preset with "F3H affine style" changes [Icon:opdef:.?icon_actionButtonSVG
     
     - ((LMB)) to switch *`On`*/*`Off`* this toggle and reload the currenlty selected IN preset right after using the new settings.
     - ((ALT)) + ((LMB)) to perform the same operation as above but loading a Flame from the Clipboard instead.
+
+    <br />
 
     
 Copy render properties on Load [Icon:DATATYPES/boolean]:
@@ -3947,10 +3985,14 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
     [Icon:NETWORKS/sop] *Context aware*<br />
     - Camera sensor viz is context aware, and you will be able to activate it only if a Sop viewer is available.
 
+    <br />
+
 
 Resolution [Icon:TOP/xmlinput]:
     #id: OUT
     The sensor resolution: [Icon:TOP/xmlinput] *`size`*
+
+    <br />
     
     
 mini-menu Resolution presets [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
@@ -4528,6 +4570,8 @@ Density :
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
     - This is the only place where you are allowed to animate the density value.
 
+    <br />
+
 Reset density [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: prefs
     [Largeicon:opdef:.?icon_optionStarWhiteToolSVG.svg]
@@ -4562,10 +4606,14 @@ Camera cull [Icon:DATATYPES/boolean]:
     *`Off`* by default.
 
     Enable [culling|Wp:Viewing_frustum] based on camera view.
+
+    <br />
     
 cam:
     #id: prefs
     Pick a camera to use for either the handle or the culling.
+
+    <br />
     
 amount:
     #id: prefs
@@ -4590,6 +4638,8 @@ Dark [Icon:DATATYPES/boolean]:
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.
     
+    <br />
+
 menu type [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: prefs
     Set the viewport particle display mode to either *`points`* or *`pixels`*.
@@ -4604,6 +4654,8 @@ menu type [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.<br />
 
+    <br />
+
 Size:
     #id: prefs
     When viewport particle display is set to *`points`*, this parameter will control their size in the viewport.
@@ -4611,6 +4663,8 @@ Size:
     <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.<br />
+
+    <br />
 
 Reset size [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: prefs
@@ -4621,6 +4675,8 @@ Reset size [Icon:opdef:.?icon_actionButtonSVG.svg]:
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.<br />
 
+    <br />
+
 Wire width:
     #id: prefs
     When the SYS -> "xforms handles VIZ" is *`On`*/Active, this parameter will set the wire curves thickness for the viewport display. A value of *`3`*(three) is generally good.
@@ -4628,6 +4684,8 @@ Wire width:
     <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.<br />
+
+    <br />
 
 Reset wire width [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: prefs
@@ -4637,6 +4695,7 @@ Reset wire width [Icon:opdef:.?icon_actionButtonSVG.svg]:
     <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.<br />
+    
         
 :box:
     #display: rounded white
@@ -4654,9 +4713,13 @@ About:
     Display informations about FLAM3H(tm).<br /><br />
     Author, code languages used, version number, code references and much more can be found inside here.
 
+    <br />
+
 Plugins:
     #id: about
     List of plugins/variations shipped with FLAM3H(tm).
+
+    <br />
     
 Web links [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: about
