@@ -4733,7 +4733,7 @@
                 type    vector
                 size    3
                 default { "1" "1" "1" }
-                help    "[Icon:TOP/xmlinput] [Icon:TOP/jsoninput] <b>H</b>ue, <b>S</b>aturation and <b>V</b>alue of the palette's colors.<br/><br/><b>HSV</b> values are exported into the palette preset on save<br/>and also into the XML on Flame save when they are used.<br/>"
+                help    "<br/>[Icon:TOP/xmlinput] [Icon:TOP/jsoninput] <b>H</b>ue, <b>S</b>aturation and <b>V</b>alue of the palette's colors.<br/><br/><b>HSV</b> values are exported into the palette preset on save<br/>and also into the XML on Flame save when they are used.<br/>"
                 range   { 0! 1 }
                 parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(2)" }
                 parmtag { "script_action_help" "[LMB] to reset the HSV parameters to their default values." }
@@ -4746,7 +4746,7 @@
                 label   "keep on Load"
                 type    toggle
                 default { "0" }
-                help    "When loading a JSON palette, FLAM3H™ will either set the <b>HSV</b> values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.<br/><br/>Toggle this option <b>ON</b> to keep the current <b>HSV</b> values untouched after loading a palette preset.<br/>"
+                help    "<br/>When loading a JSON palette, FLAM3H™ will either set the <b>HSV</b> values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.<br/><br/>Toggle this option <b>ON</b> to keep the current <b>HSV</b> values untouched after loading a palette preset.<br/>"
                 parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
             }
@@ -5576,7 +5576,7 @@
                     label   "scale"
                     type    float
                     default { "400" }
-                    help    "<h3>[Icon:TOP/xmlinput] Size of the lens</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/><br/><b>NOTE</b>:<br/>Because the quality won't be raised once loaded into third-party programs such as <b>Fractorium</b> or <b>Apophysis</b>, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] Size of the lens</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Because the quality won't be raised once loaded into third-party programs such as <b>Fractorium</b> or <b>Apophysis</b>, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.<br/>"
                     disablewhen "{ outedit == 0 }"
                     range   { 16! 2048 }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)" }
