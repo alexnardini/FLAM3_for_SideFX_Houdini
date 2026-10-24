@@ -761,6 +761,18 @@ node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_cycle_import()
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 
+parm = kwargs["parmtuple"]
+path = parm.evalAsStrings()[0]
+node = hou.node(path)
+
+F3H_NODE_TYPE_NAME_CATEGORY: str = 'alexnardini::Sop/FLAM3H'
+nodetype: hou.SopNodeType = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
+newpath = hou.ui.selectNode(initial_node=node, node_type_filter=nodetype)
+
+try:
+    parm.set( (newpath, ) )
+except TypeError:
+    pass
 ```
 
 </br>
