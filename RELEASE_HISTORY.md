@@ -51,6 +51,29 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.1.24 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.24)  ##
+
+#### FLAM3H™ v2.1.24 indie -> H22.0 UP</br>FLAM3H™ v2.0.95 indie -> H21.0</br>FLAM3H™ v2.0.64 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+- **New H22 NEW UI ONLY**: All parametric variations parameter tooltips have been revamped with more informative icons.
+- **Updated HDA documentation**
+
+#### FLAM3H™USD v0.2.82 indie -> H22.0 UP</br>FLAM3H™USD v0.2.73 indie -> H21.0</br>FLAM3H™USD v0.2.69 indie -> H20.5</br>FLAM3H™USD v0.2.52 indie -> H19.0 to H20 ####
+
+- **New**: Operator path parameter now properly filter FLAM3H™ asset node type.
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.1.22 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.22)  ##
 
 #### FLAM3H™ v2.1.22 indie -> H22.0 UP</br>FLAM3H™ v2.0.95 indie -> H21.0</br>FLAM3H™ v2.0.64 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
@@ -59,7 +82,7 @@ They are all available in this Github repository.
 
 - **New H22 NEW UI ONLY**: All parameter tooltips have been revamped with more informative icons and improved formatting.
 
-#### FLAM3H™USD v0.2.81 indie -> H22.0 UP</br>FLAM3H™USD v0.2.71 indie -> H21.0</br>FLAM3H™USD v0.2.67 indie -> H20.5</br>FLAM3H™USD v0.2.51 indie -> H19.0 to H20 ####
+#### FLAM3H™USD v0.2.81 indie -> H22.0 UP</br>FLAM3H™USD v0.2.72 indie -> H21.0</br>FLAM3H™USD v0.2.68 indie -> H20.5</br>FLAM3H™USD v0.2.51 indie -> H19.0 to H20 ####
 
 - **New H22 NEW UI ONLY**: All parameter tooltips have been revamped with more informative icons and improved formatting.
 
