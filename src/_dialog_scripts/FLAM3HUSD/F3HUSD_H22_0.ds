@@ -664,7 +664,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "<h2>[Icon:BUTTONS/info] Informations about:<ul><li>FLAM3H™USD</li></ul></h2><br/>((LMB)) to display an about box panel."
+                    help    "Informations about FLAM3H™USD.\\n\\n[LMB] to display an about box panel."
                     hidewhen "{ h_valid == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWarningToolSVG.svg" }
                     parmtag { "script_callback" "hou.phm().flam3usd.flam3husd_about_utils.flam3husd_about_show_info_panel(kwargs['node'])" }
@@ -739,7 +739,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "<h3>[Icon:BUTTONS/info] [Icon:BUTTONS/internet] List of web links about FLAM3H™</h3>"
+                    help    "List of web links about FLAM3H™"
                     disablewhen "{ aboutdisable == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -852,7 +852,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "<h3>[Icon:BUTTONS/info] [Icon:BUTTONS/internet] List of web links about:<ul><li>the original The Fractal Flame Algorithm (flam3)</li><li>the Fractorium app</li></ul></h3>"
+                    help    "List of web links about the original: The Fractal Flame Algorithm (flam3) and the Fractorium app."
                     disablewhen "{ aboutdisable == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg" }
                     parmtag { "script_callback" "" }
