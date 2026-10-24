@@ -767,7 +767,10 @@ node = hou.node(path)
 
 F3H_NODE_TYPE_NAME_CATEGORY: str = 'alexnardini::Sop/FLAM3H'
 nodetype: hou.SopNodeType = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
-newpath = hou.ui.selectNode(initial_node=node, node_type_filter=nodetype)
+try:
+    newpath = hou.ui.selectNode(initial_node=node, node_type_filter=nodetype)
+except TypeError:
+    newpath = path
 
 try:
     parm.set( (newpath, ) )
