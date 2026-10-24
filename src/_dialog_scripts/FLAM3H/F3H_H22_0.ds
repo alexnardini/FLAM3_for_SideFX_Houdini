@@ -5441,7 +5441,7 @@
                 label   "add iterations to Flame name"
                 type    toggle
                 default { "1" }
-                help    "<h2>[Icon:TOP/xmlinput] CPU(<i>Cvex</i>) mode only</h2>It will automatically append the iteration number to the Flame name you enter. Once you type in a Flame name, changing the iteration number will update the Flame name too.<br/><br/><i>It will also autocorrect the flame name string based on internally defined rules</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This option is not needed when in GPU mode.<br/>"
+                help    "<h2>[Icon:TOP/xmlinput] CPU( [Icon:DATATYPES/vex] <i>Cvex</i> ) mode only</h2>It will automatically append the iteration number to the Flame name you enter. Once you type in a Flame name, changing the iteration number will update the Flame name too.<br/><br/><i>It will also autocorrect the flame name string based on internally defined rules</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This option is not needed when in GPU mode.<br/>"
                 disablewhen "{ gpu == 1 }"
                 parmtag { "script_callback" "hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
