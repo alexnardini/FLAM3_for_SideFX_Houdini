@@ -212,14 +212,14 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Golden Dragon - Author: meckie</i></p>
 <p align="center">
   <img width="" height="512" src="https://user-images.githubusercontent.com/42110232/237032379-56571708-d00a-4b93-ab2b-ea773700dce5.jpg" /></p>
-<b><p align="center">FLAM3H_knotCluster_HQ_iter_6.svg</b>
+<b><p align="center">237032379-56571708-d00a-4b93-ab2b-ea773700dce5.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
 <b>GITHUB</b>
 
 ```
-https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_knotCluster_HQ_iter_6.jpg
+https://user-images.githubusercontent.com/42110232/237032379-56571708-d00a-4b93-ab2b-ea773700dce5.jpg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
