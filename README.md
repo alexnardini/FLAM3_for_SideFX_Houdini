@@ -383,15 +383,12 @@ Some require thousands of iterations to show you the proper results; some of the
 
 * _The following screenshots show FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right_.
 
-* _They were all computed using the CPU mode because, at the time, the GPU mode was not yet ready. Therefore, the number of iterations listed below represents the minimum number required to compute the Flame properly_.
-
 <br/>
 
 ### Lets start with this gnarl preset:
 
 <br/>
 
-_Iterations needed in FLAM3H™ to resolve_: **1280**</br>
 `Ieddaka Gnarl. Author: zuek`
 ![Chaotica to FLAM3HOUDINI 00](./img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
@@ -401,7 +398,6 @@ _Iterations needed in FLAM3H™ to resolve_: **1280**</br>
 
 <br/>
 
-_Iterations needed in FLAM3H™ to resolve_: **512**</br>
 `Blue Modulus. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 01](./img/ChaoticaToFLAM3HOUDINI_01.jpg)
 
@@ -414,7 +410,6 @@ _Iterations needed in FLAM3H™ to resolve_: **512**</br>
 
 <br/>
 
-_Iterations needed in FLAM3H™ to resolve_: **64**</br>
 `Majestic. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 03](./img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
@@ -424,7 +419,6 @@ _Iterations needed in FLAM3H™ to resolve_: **64**</br>
 
 <br/>
 
-_Iterations needed in FLAM3H™ to resolve_: **32**</br>
 `Blurry Splits. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 04](./img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
@@ -434,7 +428,6 @@ The following is another preset Chaotica software ship with I truly loved ported
 
 <br/>
 
-_Iterations needed in FLAM3H™ to resolve_: **64**</br>
 `Golden Dragon - Author: meckie`
 ![goldenDragon_RENDER_2K_portrait](https://user-images.githubusercontent.com/42110232/237032379-56571708-d00a-4b93-ab2b-ea773700dce5.jpg)
 
