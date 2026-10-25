@@ -89,7 +89,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
-<p align="center"><i>Morning Reflections - Author: Fratorium</i></p>
+<p align="center"><i>Morning Reflections - Author: Fractorium</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_camera_sensor_to_Fractorium_01.jpg" /></p>
 <b><p align="center">FLAM3H_camera_sensor_to_Fractorium_01.svg</b>
@@ -134,7 +134,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
-<p align="center"><i>Worldds - Author: Alessandro Nardini</i></p>
+<p align="center"><i>Worlds - Author: Alessandro Nardini</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_01_Karma.jpg" /></p>
 <b><p align="center">FLAM3H_Hviewport_01_Karma.svg</b>
@@ -149,7 +149,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
-<p align="center"><i>Its Pink - Author: Plangkye</i></p>
+<p align="center"><i>It's Pink - Author: Plangkye</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_02_Karma.jpg" /></p>
 <b><p align="center">FLAM3H_Hviewport_02_Karma.svg</b>
