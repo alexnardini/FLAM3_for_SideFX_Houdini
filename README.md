@@ -230,7 +230,7 @@ Fully available only with FLAM3H™USD HDA versions for Houdini H20.5 and up.
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_01_Karma.jpg)
 
 `Karma interactive`<br/>
-`Its Pink - Author: Plangkye`
+`It's Pink - Author: Plangkye`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_02_Karma.jpg)
 
 <br/>
