@@ -119,7 +119,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
-<p align="center"><i>Spgere Sugar Dragon - Author: Pillemaster</i></p>
+<p align="center"><i>Sphere Sugar Dragon - Author: Pillemaster</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_00_Karma.jpg" /></p>
 <b><p align="center">FLAM3H_Hviewport_00_Karma.svg</b>
