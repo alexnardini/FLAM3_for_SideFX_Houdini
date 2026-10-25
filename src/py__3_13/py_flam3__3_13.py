@@ -8304,8 +8304,15 @@ class flam3h_iterator_utils
             if apo_data.isvalidtree:
                 
                 old_data: str | None = node.userData(f3h_userData.LAST_XML)
-                now_data: str = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")
-                now_data_isvalid = _xml_tree(now_data).isvalidtree
+                
+                # TO CHECK - index out of range
+                try:
+                    now_data: str | bool = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")
+                    now_data_isvalid: bool = _xml_tree(cast(str, now_data)).isvalidtree
+                except IndexError:
+                    now_data: str | bool = False
+                    now_data_isvalid: bool = False
+                    
                 if old_data is not None and old_data != now_data and now_data_isvalid:
                     
                     if menu_update:
@@ -8319,10 +8326,14 @@ class flam3h_iterator_utils
                 
                     # Update user data
                     node.setUserData(f3h_userData.LAST_XML, now_data)
+                    
                     # Update flame stats                    
-                    parms_dict: dict = {f3h_tabs.IN.MSG_PRM_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True), 
-                                        f3h_tabs.IN.MSG_PRM_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data, True), 
-                                        f3h_tabs.IN.MSG_PRM_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data, True)}
+                    parms_dict: dict[str, str] = {
+                        f3h_tabs.IN.MSG_PRM_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True), 
+                        f3h_tabs.IN.MSG_PRM_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data, True), 
+                        f3h_tabs.IN.MSG_PRM_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data, True)
+                        }
+                    
                     flam3h_prm_utils.setParms(node, parms_dict)
 
                     _MSG_ALL = f"\"last_loaded_xml\" user data: Updated\n\nThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk. Reload the preset to update.\n\n-> Meanwhile,\nthe IN flame preset infos have been updated\nas well as its render properties infos."
@@ -8344,9 +8355,16 @@ class flam3h_iterator_utils
                     if old_data is None:
                         _MSG: str = f"\"last_loaded_xml\" user data: Corrupted"
                         print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
+                        
                     elif not now_data_isvalid:
-                        _MSG: str = f"\"XML loaded preset\" data: Corrupted"
-                        print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
+                        
+                        if now_data is False:
+                            _MSG: str = f"\"XML loaded preset\" data: Failed to update"
+                            print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
+                            
+                        else:
+                            _MSG: str = f"\"XML loaded preset\" data: Corrupted"
+                            print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
             
             else:
                 # Fire messages
