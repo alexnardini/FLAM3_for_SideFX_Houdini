@@ -735,7 +735,7 @@
                 type    string
                 joinnext
                 default { "iterator_#" }
-                help    "<h2>This iterator name</h2>Give this iterator a name or a short descriptive note.<br/><br/>The text you write here will be shown inside the SYS tab select iterator mini menu entries.<br/><br/><b>NOTE</b>:<br/>It will also be stored with the Flame preset file on Save and shown inside third-party applications like <b>Apophysis</b> and <b>Fractorium</b> as the iterator's name."
+                help    "<h2>[Icon:TOP/xmlinput] This iterator name</h2>Give this iterator a name or a short descriptive note.<br/><br/>The text you write here will be shown inside the SYS tab select iterator mini menu entries.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>It will also be stored with the Flame preset file on Save and shown inside third-party applications like <b>Apophysis</b> and <b>Fractorium</b> as the iterator's name."
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).destroy_data_note(), kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
             }
