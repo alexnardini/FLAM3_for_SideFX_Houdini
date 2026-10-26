@@ -78,7 +78,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 
 <p align="center">
   <img width="720" height="" src="./bgeo_preview/geo_FLAM3H_logoWhite_geo.jpg" /></p>
-<b><p align="center">geo_FLAM3H_logoWhite_geo.jpg</b> (<i>Not used</i>)
+<b><p align="center">geo_FLAM3H_logoWhite_geo.jpg</b> (<i>unused</i>)
 <p align="center">......</p>
 <p align="center">
 
