@@ -385,18 +385,8 @@ Some require thousands of iterations to show you the proper results; some of the
 
 <br/>
 
-### Lets start with this gnarl preset:
-
-<br/>
-
 `Ieddaka Gnarl. Author: zuek`
 ![Chaotica to FLAM3HOUDINI 00](./img/ChaoticaToFLAM3HOUDINI_00.jpg)
-
-<br/>
-
-### The next two are a bit more speedy:
-
-<br/>
 
 `Blue Modulus. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 01](./img/ChaoticaToFLAM3HOUDINI_01.jpg)
@@ -404,20 +394,8 @@ Some require thousands of iterations to show you the proper results; some of the
 `Lazyswirls. Author: meckie`
 ![Chaotica to FLAM3HOUDINI 02](./img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
-<br/>
-
-### This one is quick and beautiful:
-
-<br/>
-
 `Majestic. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 03](./img/ChaoticaToFLAM3HOUDINI_03.jpg)
-
-<br/>
-
-### And the last one:
-
-<br/>
 
 `Blurry Splits. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 04](./img/ChaoticaToFLAM3HOUDINI_04.jpg)
