@@ -1012,7 +1012,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] PRE 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the <b>VARS</b> tab.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] PRE 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the [Icon:BUTTONS/tabs] <b>VARS</b> tab.<br/>"
                     range   { 0! 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1138,7 +1138,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] PRE 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the <b>VARS</b> tab.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] PRE 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the [Icon:BUTTONS/tabs] <b>VARS</b> tab.<br/>"
                     range   { 0! 1 }
                     parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_iter_pre_vars()" }
                     parmtag { "script_action_help" "[LMB] to swap the order of the PRE Variations and their weights. [CTRL+LMB] to swap the variation's names only." }
@@ -1275,7 +1275,7 @@
                     label   "   w"
                     type    float
                     default { "1" }
-                    help    "<h2>[Icon:TOP/xmlinput] VAR 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the <b>VARS</b> tab.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] VAR 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the [Icon:BUTTONS/tabs] <b>VARS</b> tab.<br/>"
                     range   { 0 1 }
                     parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
@@ -1402,7 +1402,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] VAR 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the <b>VARS</b> tab.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] VAR 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the [Icon:BUTTONS/tabs] <b>VARS</b> tab.<br/>"
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1528,7 +1528,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] VAR 03 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the <b>VARS</b> tab.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] VAR 03 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the [Icon:BUTTONS/tabs] <b>VARS</b> tab.<br/>"
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1654,7 +1654,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] VAR 04 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the <b>VARS</b> tab.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] VAR 04 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the [Icon:BUTTONS/tabs] <b>VARS</b> tab.<br/>"
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1788,7 +1788,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] POST 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the <b>VARS</b> tab.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] POST 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the [Icon:BUTTONS/tabs] <b>VARS</b> tab.<br/>"
                     range   { 0! 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1826,7 +1826,7 @@
                         label   "Scale"
                         type    float
                         default { "1" }
-                        help    "<br/>Scale <u><b>pre affine</b></u> values (<i><b>X</b> and <b>Y</b></i>) by an amount,<br/>with a value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>) being the default.<br/><br/><b>The are two ways to use this parameter</b>:<ol><li>Input a value into the numeric field.<br/>For example if you type: <b>1.2</b> it will scale the affine up by <b>20%</b>.<br/></li><li>((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up or down.<br/></li></ol><b>When using the mouse wheel (<i><b>2</b></i>)</b>:<ul><li>((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.1</b><br/></li><li>[<b>SHIFT</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.01</b><br/></li><li>[<b>CTRL</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 1</b><br/></li></ul><i>Additionally</i>:<br/><i>The parameter's slider ranges are between <b>0.975</b> and <b>1.025</b> to allow for precise and very small value changes when dragged left or right</i>.<br/><br/><u><b>This parameter can not be animated</b></u>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Every time you either input a value, drag the slider or use the mouse wheel to increment the value, it will revert back to the default value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>).<br/>"
+                        help    "<br/>[Icon:TOOLS/scale] Scale <u><b>pre affine</b></u> values (<i><b>X</b> and <b>Y</b></i>) by an amount,<br/>with a value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>) being the default.<br/><br/><b>The are two ways to use this parameter</b>:<ol><li>Input a value into the numeric field.<br/>For example if you type: <b>1.2</b> it will scale the affine up by <b>20%</b>.<br/></li><li>((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up or down.<br/></li></ol><b>When using the mouse wheel (<i><b>2</b></i>)</b>:<ul><li>((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.1</b><br/></li><li>[<b>SHIFT</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.01</b><br/></li><li>[<b>CTRL</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 1</b><br/></li></ul><i>Additionally</i>:<br/><i>The parameter's slider ranges are between <b>0.975</b> and <b>1.025</b> to allow for precise and very small value changes when dragged left or right</i>.<br/><br/><u><b>This parameter can not be animated</b></u>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Every time you either input a value, drag the slider or use the mouse wheel to increment the value, it will revert back to the default value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>).<br/>"
                         range   { 0.975 1.025 }
                         parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pre_affine()" }
                         parmtag { "script_action_help" "[LMB] to copy the values from the POST Affine into here, the PRE Affine. It will copy: X, Y, O and Rot. Additionally: [SHIFT+LMB] to copy only the X and Y values. [CTRL+LMB] to copy only the O value. [ALT+LMB] to copy only the Rotation angle value." }
@@ -1840,7 +1840,7 @@
                         type    vector2
                         size    2
                         default { "1" "0" }
-                        help    "<h2>[Icon:TOP/xmlinput] <u><b>pre affine</b></u>: <b>X</b>.<i>x</i>, <b>X</b>.<i>y</i> ( [<b>A</b>], [<b>D</b>] )</h2>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> <b>B</b>, <b>C</b>, <b>E</b>, <b>F</b></h2></li><li><h2>Popcorn* -> <b>C</b>, <b>F</b></h2></li><li><h2>Rings* -> <b>C</b></h2></li><li><h2>Fan* -> <b>C</b>, <b>F</b></h2></li></ul><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i><br/>"
+                        help    "<h2>[Icon:TOP/xmlinput] <u><b>pre affine</b></u>: <b>X</b>.<i>x</i>, <b>X</b>.<i>y</i> ( [<b>A</b>], [<b>D</b>] )</h2>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>[Icon:BUTTONS/parameters] Waves* -> <b>B</b>, <b>C</b>, <b>E</b>, <b>F</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Popcorn* -> <b>C</b>, <b>F</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Rings* -> <b>C</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Fan* -> <b>C</b>, <b>F</b></h2></li></ul><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i><br/>"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -1851,7 +1851,7 @@
                         type    vector2
                         size    2
                         default { "0" "1" }
-                        help    "<h2>[Icon:TOP/xmlinput] <u><b>pre affine</b></u>: <b>Y</b>.<i>x</i>, <b>Y</b>.<i>y</i> ( [<b>B</b>], [<b>E</b>] )</h2>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> <b>B</b>, <b>C</b>, <b>E</b>, <b>F</b></h2></li><li><h2>Popcorn* -> <b>C</b>, <b>F</b></h2></li><li><h2>Rings* -> <b>C</b></h2></li><li><h2>Fan* -> <b>C</b>, <b>F</b></h2></li></ul><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i><br/>"
+                        help    "<h2>[Icon:TOP/xmlinput] <u><b>pre affine</b></u>: <b>Y</b>.<i>x</i>, <b>Y</b>.<i>y</i> ( [<b>B</b>], [<b>E</b>] )</h2>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>[Icon:BUTTONS/parameters] Waves* -> <b>B</b>, <b>C</b>, <b>E</b>, <b>F</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Popcorn* -> <b>C</b>, <b>F</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Rings* -> <b>C</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Fan* -> <b>C</b>, <b>F</b></h2></li></ul><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i><br/>"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -1862,7 +1862,7 @@
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "<h2>[Icon:TOP/xmlinput] <u><b>pre affine</b></u> (<b>O</b><i>ffset</i>): <b>O</b>.<i>x</i>, <b>O</b>.<i>y</i> ( [<b>C</b>], [<b>F</b>] )</h2>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> <b>B</b>, <b>C</b>, <b>E</b>, <b>F</b></h2></li><li><h2>Popcorn* -> <b>C</b>, <b>F</b></h2></li><li><h2>Rings* -> <b>C</b></h2></li><li><h2>Fan* -> <b>C</b>, <b>F</b></h2></li></ul><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i><br/>"
+                        help    "<h2>[Icon:TOP/xmlinput] <u><b>pre affine</b></u> (<b>O</b><i>ffset</i>): <b>O</b>.<i>x</i>, <b>O</b>.<i>y</i> ( [<b>C</b>], [<b>F</b>] )</h2>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>[Icon:BUTTONS/parameters] Waves* -> <b>B</b>, <b>C</b>, <b>E</b>, <b>F</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Popcorn* -> <b>C</b>, <b>F</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Rings* -> <b>C</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Fan* -> <b>C</b>, <b>F</b></h2></li></ul><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i><br/>"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
                     }
@@ -1871,7 +1871,7 @@
                         label   "Rot"
                         type    float
                         default { "0" }
-                        help    "<h2>[Icon:TOP/xmlinput] Rotate <u><b>pre affine</b></u> in angle degrees</h2>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.<br/>"
+                        help    "<h2>[Icon:TOP/xmlinput] Rotate <u><b>pre affine</b></u> in angle degrees</h2>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a [Icon:TOOLS/rotate] rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.<br/>"
                         range   { -90 90 }
                         parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine()" }
                         parmtag { "script_action_help" "[LMB] to reset all affine values. [SHIFT+LMB] to reset only the affine X and Y values. [CTRL+LMB] to reset only the affine O value. [ALT+LMB] to reset only the affine Rotation angle value." }
@@ -1897,7 +1897,7 @@
                         label   "Scale"
                         type    float
                         default { "1" }
-                        help    "<br/>Scale <u><b>post affine</b></u> values (<i><b>X</b> and <b>Y</b></i>) by an amount,<br/>with a value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>) being the default.<br/><br/><b>The are two ways to use this parameter</b>:<ol><li>Input a value into the numeric field.<br/>For example if you type: <b>1.2</b> it will scale the affine up by <b>20%</b>.<br/></li><li>((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up or down.<br/></li></ol><b>When using the mouse wheel (<i><b>2</b></i>)</b>:<ul><li>((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.1</b><br/></li><li>[<b>SHIFT</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.01</b><br/></li><li>[<b>CTRL</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 1</b><br/></li></ul><i>Additionally</i>:<br/><i>The parameter's slider ranges are between <b>0.975</b> and <b>1.025</b> to allow for precise and very small value changes when dragged left or right</i>.<br/><br/><u><b>This parameter can not be animated</b></u>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Every time you either input a value, drag the slider or use the mouse wheel to increment the value, it will revert back to the default value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>).<br/>"
+                        help    "<br/>[Icon:TOOLS/scale] Scale <u><b>post affine</b></u> values (<i><b>X</b> and <b>Y</b></i>) by an amount,<br/>with a value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>) being the default.<br/><br/><b>The are two ways to use this parameter</b>:<ol><li>Input a value into the numeric field.<br/>For example if you type: <b>1.2</b> it will scale the affine up by <b>20%</b>.<br/></li><li>((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up or down.<br/></li></ol><b>When using the mouse wheel (<i><b>2</b></i>)</b>:<ul><li>((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.1</b><br/></li><li>[<b>SHIFT</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.01</b><br/></li><li>[<b>CTRL</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 1</b><br/></li></ul><i>Additionally</i>:<br/><i>The parameter's slider ranges are between <b>0.975</b> and <b>1.025</b> to allow for precise and very small value changes when dragged left or right</i>.<br/><br/><u><b>This parameter can not be animated</b></u>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Every time you either input a value, drag the slider or use the mouse wheel to increment the value, it will revert back to the default value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>).<br/>"
                         range   { 0.975 1.025 }
                         parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_affine()" }
                         parmtag { "script_action_help" "[LMB] to copy the values from the PRE Affine into here, the POST Affine. It will copy: X, Y, O and Rot. Additionally: [SHIFT+LMB] to copy only the X and Y values. [CTRL+LMB] to copy only the O value. [ALT+LMB] to copy only the Rotation angle value." }
@@ -1942,7 +1942,7 @@
                         label   "Rot"
                         type    float
                         default { "0" }
-                        help    "<h2>[Icon:TOP/xmlinput] Rotate <u><b>post affine</b></u> in angle degrees</h2>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.<br/>"
+                        help    "<h2>[Icon:TOP/xmlinput] Rotate <u><b>post affine</b></u> in angle degrees</h2>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a [Icon:TOOLS/rotate] rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.<br/>"
                         range   { -90 90 }
                         parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine()" }
                         parmtag { "script_action_help" "[LMB] to reset all affine values. [SHIFT+LMB] to reset only the affine X and Y values. [CTRL+LMB] to reset only the affine O value. [ALT+LMB] to reset only the affine Rotation angle value." }
@@ -2791,7 +2791,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "<h2>[Icon:TOP/xmlinput] PRE 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the <b>FF: PP VARS</b> tab.<br/>"
+                help    "<h2>[Icon:TOP/xmlinput] PRE 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the [Icon:BUTTONS/tabs] <b>FF: PP VARS</b> tab.<br/>"
                 range   { 0! 1 }
                 parmtag { "script_callback_language" "python" }
             }
@@ -2925,7 +2925,7 @@
                 label   "   w"
                 type    float
                 default { "1" }
-                help    "<h2>[Icon:TOP/xmlinput] VAR 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the <b>FF: VARS</b> tab.<br/>"
+                help    "<h2>[Icon:TOP/xmlinput] VAR 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the [Icon:BUTTONS/tabs] <b>FF: VARS</b> tab.<br/>"
                 range   { 0 1 }
                 parmtag { "script_callback" "" }
                 parmtag { "script_callback_language" "python" }
@@ -3052,7 +3052,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "<h2>[Icon:TOP/xmlinput] VAR 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the <b>FF: VARS</b> tab.<br/>"
+                help    "<h2>[Icon:TOP/xmlinput] VAR 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too.<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the [Icon:BUTTONS/tabs] <b>FF: VARS</b> tab.<br/>"
                 range   { 0 1 }
                 parmtag { "script_callback_language" "python" }
             }
@@ -3186,7 +3186,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "<h2>[Icon:TOP/xmlinput] POST 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the <b>FF: PP VARS</b> tab.<br/>"
+                help    "<h2>[Icon:TOP/xmlinput] POST 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the [Icon:BUTTONS/tabs] <b>FF: PP VARS</b> tab.<br/>"
                 range   { 0! 1 }
                 parmtag { "script_callback_language" "python" }
             }
@@ -3312,7 +3312,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "<h2>[Icon:TOP/xmlinput] POST 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the <b>FF: PP VARS</b> tab.<br/>"
+                help    "<h2>[Icon:TOP/xmlinput] POST 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><i>Variation names that end with an asterisk(<b>*</b>) are dependent, while those that end with three dots(<b>...</b>) are parametric</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When using parametric(<b>...</b>) variations,<br/>their parameters will populate the [Icon:BUTTONS/tabs] <b>FF: PP VARS</b> tab.<br/>"
                 range   { 0! 1 }
                 parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_FF_post_vars()\n" }
                 parmtag { "script_action_help" "[LMB] to swap the order of the POST Variations and their weights. [CTRL+LMB] to swap the variation's names only." }
@@ -3353,7 +3353,7 @@
                     label   "Scale"
                     type    float
                     default { "1" }
-                    help    "<br/>Scale <u><b>FF pre affine</b></u> values (<i><b>X</b> and <b>Y</b></i>) by an amount,<br/>with a value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>) being the default.<br/><br/><b>The are two ways to use this parameter</b>:<ol><li>Input a value into the numeric field.<br/>For example if you type: <b>1.2</b> it will scale the affine up by <b>20%</b>.<br/></li><li>((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up or down.<br/></li></ol><b>When using the mouse wheel (<i><b>2</b></i>)</b>:<ul><li>((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.1</b><br/></li><li>[<b>SHIFT</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.01</b><br/></li><li>[<b>CTRL</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 1</b><br/></li></ul><i>Additionally</i>:<br/><i>The parameter's slider ranges are between <b>0.975</b> and <b>1.025</b> to allow for precise and very small value changes when dragged left or right</i>.<br/><br/><u><b>This parameter can not be animated</b></u>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Every time you either input a value, drag the slider or use the mouse wheel to increment the value, it will revert back to the default value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>).<br/>"
+                    help    "<br/>[Icon:TOOLS/scale] Scale <u><b>FF pre affine</b></u> values (<i><b>X</b> and <b>Y</b></i>) by an amount,<br/>with a value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>) being the default.<br/><br/><b>The are two ways to use this parameter</b>:<ol><li>Input a value into the numeric field.<br/>For example if you type: <b>1.2</b> it will scale the affine up by <b>20%</b>.<br/></li><li>((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up or down.<br/></li></ol><b>When using the mouse wheel (<i><b>2</b></i>)</b>:<ul><li>((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.1</b><br/></li><li>[<b>SHIFT</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.01</b><br/></li><li>[<b>CTRL</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 1</b><br/></li></ul><i>Additionally</i>:<br/><i>The parameter's slider ranges are between <b>0.975</b> and <b>1.025</b> to allow for precise and very small value changes when dragged left or right</i>.<br/><br/><u><b>This parameter can not be animated</b></u>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Every time you either input a value, drag the slider or use the mouse wheel to increment the value, it will revert back to the default value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>).<br/>"
                     range   { 0.975 1.025 }
                     parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pre_affine_FF()" }
                     parmtag { "script_action_help" "[LMB] to copy the values from the FF POST Affine into here, the FF PRE Affine. It will copy: X, Y, O and Rot. Additionally: [SHIFT+LMB] to copy only the X and Y values. [CTRL+LMB] to copy only the O value. [ALT+LMB] to copy only the Rotation angle value." }
@@ -3367,7 +3367,7 @@
                     type    vector2
                     size    2
                     default { "1" "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] <u><b>FF pre affine</b></u>: <b>X</b>.<i>x</i>, <b>X</b>.<i>y</i> ( [<b>A</b>], [<b>D</b>] )</h2>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> <b>B</b>, <b>C</b>, <b>E</b>, <b>F</b></h2></li><li><h2>Popcorn* -> <b>C</b>, <b>F</b></h2></li><li><h2>Rings* -> <b>C</b></h2></li><li><h2>Fan* -> <b>C</b>, <b>F</b></h2></li></ul><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i><br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] <u><b>FF pre affine</b></u>: <b>X</b>.<i>x</i>, <b>X</b>.<i>y</i> ( [<b>A</b>], [<b>D</b>] )</h2>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>[Icon:BUTTONS/parameters] Waves* -> <b>B</b>, <b>C</b>, <b>E</b>, <b>F</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Popcorn* -> <b>C</b>, <b>F</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Rings* -> <b>C</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Fan* -> <b>C</b>, <b>F</b></h2></li></ul><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i><br/>"
                     range   { -1 1 }
                     parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
@@ -3378,7 +3378,7 @@
                     type    vector2
                     size    2
                     default { "0" "1" }
-                    help    "<h2>[Icon:TOP/xmlinput] <u><b>FF pre affine</b></u>: <b>Y</b>.<i>x</i>, <b>Y</b>.<i>y</i> ( [<b>B</b>], [<b>E</b>] )</h2>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> <b>B</b>, <b>C</b>, <b>E</b>, <b>F</b></h2></li><li><h2>Popcorn* -> <b>C</b>, <b>F</b></h2></li><li><h2>Rings* -> <b>C</b></h2></li><li><h2>Fan* -> <b>C</b>, <b>F</b></h2></li></ul><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i><br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] <u><b>FF pre affine</b></u>: <b>Y</b>.<i>x</i>, <b>Y</b>.<i>y</i> ( [<b>B</b>], [<b>E</b>] )</h2>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>[Icon:BUTTONS/parameters] Waves* -> <b>B</b>, <b>C</b>, <b>E</b>, <b>F</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Popcorn* -> <b>C</b>, <b>F</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Rings* -> <b>C</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Fan* -> <b>C</b>, <b>F</b></h2></li></ul><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i><br/>"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -3388,7 +3388,7 @@
                     type    vector2
                     size    2
                     default { "0" "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] <u><b>FF pre affine</b></u> (<b>O</b><i>ffset</i>): <b>O</b>.<i>x</i>, <b>O</b>.<i>y</i> ( [<b>C</b>], [<b>F</b>] )</h2>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>Waves* -> <b>B</b>, <b>C</b>, <b>E</b>, <b>F</b></h2></li><li><h2>Popcorn* -> <b>C</b>, <b>F</b></h2></li><li><h2>Rings* -> <b>C</b></h2></li><li><h2>Fan* -> <b>C</b>, <b>F</b></h2></li></ul><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i><br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] <u><b>FF pre affine</b></u> (<b>O</b><i>ffset</i>): <b>O</b>.<i>x</i>, <b>O</b>.<i>y</i> ( [<b>C</b>], [<b>F</b>] )</h2>Some of the variations uses some of the pre affine coefficients to determine their behavior rather than additional parameters.<br/><br/>These are call: <b>dependent</b> variations.<br/><br/>The <b>dependent</b> variations and the affine coefficients they employ are listed below:<ul><li><h2>[Icon:BUTTONS/parameters] Waves* -> <b>B</b>, <b>C</b>, <b>E</b>, <b>F</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Popcorn* -> <b>C</b>, <b>F</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Rings* -> <b>C</b></h2></li><li><h2>[Icon:BUTTONS/parameters] Fan* -> <b>C</b>, <b>F</b></h2></li></ul><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Please, read the FLAM3H™ documentation to find out more.</i><br/>"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -3397,7 +3397,7 @@
                     label   "Rot"
                     type    float
                     default { "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] Rotate <u><b>FF pre affine</b></u> in angle degrees</h2>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] Rotate <u><b>FF pre affine</b></u> in angle degrees</h2>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a [Icon:TOOLS/rotate] rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.<br/>"
                     range   { -90 90 }
                     parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine_FF()" }
                     parmtag { "script_action_help" "[LMB] to reset all affine values. [SHIFT+LMB] to reset only the affine X and Y values. [CTRL+LMB] to reset only the affine O value. [ALT+LMB] to reset only the affine Rotation angle value." }
@@ -3423,7 +3423,7 @@
                     label   "Scale"
                     type    float
                     default { "1" }
-                    help    "<br/>Scale <u><b>FF post affine</b></u> values (<i><b>X</b> and <b>Y</b></i>) by an amount,<br/>with a value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>) being the default.<br/><br/><b>The are two ways to use this parameter</b>:<ol><li>Input a value into the numeric field.<br/>For example if you type: <b>1.2</b> it will scale the affine up by <b>20%</b>.<br/></li><li>((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up or down.<br/></li></ol><b>When using the mouse wheel (<i><b>2</b></i>)</b>:<ul><li>((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.1</b><br/></li><li>[<b>SHIFT</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.01</b><br/></li><li>[<b>CTRL</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 1</b><br/></li></ul><i>Additionally</i>:<br/><i>The parameter's slider ranges are between <b>0.975</b> and <b>1.025</b> to allow for precise and very small value changes when dragged left or right</i>.<br/><br/><u><b>This parameter can not be animated</b></u>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Every time you either input a value, drag the slider or use the mouse wheel to increment the value, it will revert back to the default value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>).<br/>"
+                    help    "<br/>[Icon:TOOLS/scale] Scale <u><b>FF post affine</b></u> values (<i><b>X</b> and <b>Y</b></i>) by an amount,<br/>with a value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>) being the default.<br/><br/><b>The are two ways to use this parameter</b>:<ol><li>Input a value into the numeric field.<br/>For example if you type: <b>1.2</b> it will scale the affine up by <b>20%</b>.<br/></li><li>((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up or down.<br/></li></ol><b>When using the mouse wheel (<i><b>2</b></i>)</b>:<ul><li>((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.1</b><br/></li><li>[<b>SHIFT</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 0.01</b><br/></li><li>[<b>CTRL</b>] + ((mouse_wheel))<br/>will scale the value by an increment of: <b>+/- 1</b><br/></li></ul><i>Additionally</i>:<br/><i>The parameter's slider ranges are between <b>0.975</b> and <b>1.025</b> to allow for precise and very small value changes when dragged left or right</i>.<br/><br/><u><b>This parameter can not be animated</b></u>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Every time you either input a value, drag the slider or use the mouse wheel to increment the value, it will revert back to the default value of <b>1</b>(<i>one</i>) (<i>100% -> no scale</i>).<br/>"
                     range   { 0.975 1.025 }
                     parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_affine_FF()" }
                     parmtag { "script_action_help" "[LMB] to copy the values from the FF PRE Affine into here, the FF POST Affine. It will copy: X, Y, O and Rot. Additionally: [SHIFT+LMB] to copy only the X and Y values. [CTRL+LMB] to copy only the O value. [ALT+LMB] to copy only the Rotation angle value." }
@@ -3467,7 +3467,7 @@
                     label   "Rot"
                     type    float
                     default { "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] Rotate <u><b>FF post affine</b></u> in angle degrees</h2>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] Rotate <u><b>FF post affine</b></u> in angle degrees</h2>The rotation will take the values of <b>X</b>, <b>Y</b>, <b>O</b> and apply a [Icon:TOOLS/rotate] rotation<br/>(<i>with <b>O</b> being the pivot</i>).<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.<br/>"
                     range   { -90 90 }
                     parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine_FF()" }
                     parmtag { "script_action_help" "[LMB] to reset all affine values. [SHIFT+LMB] to reset only the affine X and Y values. [CTRL+LMB] to reset only the affine O value. [ALT+LMB] to reset only the affine Rotation angle value." }
