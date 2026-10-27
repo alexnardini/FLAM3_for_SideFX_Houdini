@@ -6017,7 +6017,7 @@
                     label   "iterative color attribute"
                     type    toggle
                     default { "0" }
-                    help    "<h3>Output the iterative color float point attribute <u><b>@clr</b></u></h3>This attribute is used internally by FLAM3H™ to map the palette colors to the points<br/><br/>The attribute values are computed inside the chaos game<br/>and can be usefull to post process the output point cloud in many ways.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>It is dependent of each iterator shader location and speed parameters values along with the number of iterations being used</i>.<br/>"
+                    help    "<h3>Output the iterative color float point attribute [Icon:BUTTONS/attribute] <u><b>@clr</b></u></h3>This attribute is used internally by FLAM3H™ to map the palette colors to the points<br/><br/>The attribute values are computed inside the chaos game<br/>and can be usefull to post process the output point cloud in many ways.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>It is dependent of each iterator shader location and speed parameters values along with the number of iterations being used</i>.<br/>"
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
