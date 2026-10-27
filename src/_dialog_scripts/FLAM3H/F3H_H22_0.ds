@@ -477,7 +477,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<br/>((LMB)) to re-frame the camera sensor VIZ.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+            help    "<h2>Re-frame camera sensor</h2><br/>((LMB)) to re-frame the camera sensor VIZ.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
             hidewhen "{ outsensor == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwargs['parm'].deleteAllKeyframes()" }
