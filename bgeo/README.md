@@ -26,7 +26,12 @@ They include a node info window (_left panel_) for all related details/informati
 <p align="center">......</p>
 <p align="center">
 
-<b>GITHUB</b>
+<b>GITHUB bgeo geometry file</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/geo_FLAM3H_logoNoIter_geo.bgeo.sc
+```
+<b>GITHUB image</b>
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_preview/geo_FLAM3H_logoNoIter_geo.jpg
@@ -40,7 +45,12 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">......</p>
 <p align="center">
 
-<b>GITHUB</b>
+<b>GITHUB bgeo geometry file</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/geo_FLAM3H_logoRed_geo.bgeo.sc
+```
+<b>GITHUB image</b>
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_preview/geo_FLAM3H_logoRed_geo.jpg
@@ -54,7 +64,12 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">......</p>
 <p align="center">
 
-<b>GITHUB</b>
+<b>GITHUB bgeo geometry file</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/geo_FLAM3H_logoRedStarBlack_geo.bgeo.sc
+```
+<b>GITHUB image</b>
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_preview/geo_FLAM3H_logoRedStarBlack_geo.jpg
@@ -68,7 +83,12 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">......</p>
 <p align="center">
 
-<b>GITHUB</b>
+<b>GITHUB bgeo geometry file</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/geo_FLAM3H_logoRedStarWhite_geo.bgeo.sc
+```
+<b>GITHUB image</b>
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_preview/geo_FLAM3H_logoRedStarWhite_geo.jpg
@@ -82,7 +102,12 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">......</p>
 <p align="center">
 
-<b>GITHUB</b>
+<b>GITHUB bgeo geometry file</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/geo_FLAM3H_logoWhite_geo.bgeo.sc
+```
+<b>GITHUB image</b>
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_preview/geo_FLAM3H_logoWhite_geo.jpg
@@ -96,7 +121,12 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">......</p>
 <p align="center">
 
-<b>GITHUB</b>
+<b>GITHUB bgeo geometry file</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/geo_TFFA_camhandles_geo.bgeo.sc
+```
+<b>GITHUB image</b>
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_preview/geo_TFFA_camhandles_geo.jpg
@@ -110,7 +140,12 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">......</p>
 <p align="center">
 
-<b>GITHUB</b>
+<b>GITHUB bgeo geometry file</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/geo_TFFA_xform_handle.bgeo.sc
+```
+<b>GITHUB image</b>
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_preview/geo_TFFA_xform_handle.jpg
@@ -124,7 +159,12 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">......</p>
 <p align="center">
 
-<b>GITHUB</b>
+<b>GITHUB bgeo geometry file</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/geo_TFFA_xform_handle_axis.bgeo.sc
+```
+<b>GITHUB image</b>
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_preview/geo_TFFA_xform_handle_axis.jpg
@@ -139,6 +179,11 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">
 
 <b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/geo_TFFA_xform_handle_knot.bgeo.sc
+```
+<b>GITHUB image</b>
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_preview/geo_TFFA_xform_handle_knot.jpg
