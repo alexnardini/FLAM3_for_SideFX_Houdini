@@ -264,11 +264,11 @@ FLAM3H™ generate a live point cloud of the fractal Flame you are working on.
 </br>
 
 `Dancing Stars - Author: Alessandro Nardini`
-![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H19.jpg)
+![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H.jpg)
 `Cool EDisc - Author: Pillemaster`
-![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_04_H19.jpg)
+![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_02_H.jpg)
 `Crystal Eggs - Author: Alessandro Nardini`
-![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H19.jpg)
+![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H.jpg)
 
 <br/>
 <br/>
