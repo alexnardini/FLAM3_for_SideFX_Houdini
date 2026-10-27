@@ -5459,7 +5459,7 @@
                 label   "edit render properties"
                 type    toggle
                 default { "0" }
-                help    "<h3>Allow the editing of the Flame render properties</h3>These properties will be stored into the preset file when you save this Flame out from FLAM3H™.<br/><br/><i>They will control how the saved fractal Flame will render inside other applications like <b>Fractorium</b> and <b>Apophysis</b>. They are their renderer settings, and they will be exported into the <b>XML</b> file</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+                help    "<h3>[Icon:BUTTONS/render] Allow the editing of the Flame render properties</h3>These properties will be stored into the preset file when you save this Flame out from FLAM3H™.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>They will control how the saved fractal Flame will render inside other applications like <b>Fractorium</b> and <b>Apophysis</b>. They are their renderer settings, and they will be exported into the <b>XML</b> file</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
                 parmtag { "script_action" "kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).reset_OUT_kwargs()" }
                 parmtag { "script_action_help" "[LMB] to reset all the OUT Render properties. [SHIFT+LMB] to reset only the OUT Camera SENSOR properties. [CTRL+LMB] to reset only the OUT RENDER settings properties. Additionally: [ALT+LMB] to copy all the render properties of a Flame preset from the Clipboard into here (SENSOR, RENDER and CC CURVES settings)." }
                 parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg" }
@@ -5512,7 +5512,7 @@
                     joinnext
                     size    2
                     default { "1024" "1024" }
-                    help    "<h3>[Icon:TOP/xmlinput] The image resolution</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] The image resolution</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outedit == 0 }"
                     range   { 256! 4096 }
                     parmtag { "cook_dependent" "1" }
@@ -5554,7 +5554,7 @@
                     type    vector2
                     size    2
                     default { "0" "0" }
-                    help    "<h3>[Icon:TOP/xmlinput] The center of the frame<br/>Offsets the camera in fractal space (<i>panning</i>)</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] The center of the frame<br/>Offsets the camera in fractal space (<i>panning</i>)</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outedit == 0 }"
                     range   { -5 5 }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)" }
@@ -5565,7 +5565,7 @@
                     label   "rotate"
                     type    float
                     default { "0" }
-                    help    "<h3>[Icon:TOP/xmlinput] The camera rotation</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] The camera rotation</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outedit == 0 }"
                     range   { -360 360 }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)" }
@@ -5576,7 +5576,7 @@
                     label   "scale"
                     type    float
                     default { "400" }
-                    help    "<h3>[Icon:TOP/xmlinput] Size of the lens</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Because the quality won't be raised once loaded into third-party programs such as <b>Fractorium</b> or <b>Apophysis</b>, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] Size of the lens</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Because the quality won't be raised once loaded into third-party programs such as <b>Fractorium</b> or <b>Apophysis</b>, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.<br/>"
                     disablewhen "{ outedit == 0 }"
                     range   { 16! 2048 }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)" }
@@ -5605,7 +5605,7 @@
                     label   "quality"
                     type    integer
                     default { "1000" }
-                    help    "<h3>[Icon:TOP/xmlinput] The render quality is the same as \"density\" in FLAM3H™</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] The render quality is the same as \"density\" in FLAM3H™</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outedit == 0 }"
                     range   { 64! 2048 }
                     parmtag { "script_action_help" "The render quality. Think of this as how many points are used inside Fractorium to render the final image. The more the more cleaner the final image." }
@@ -5616,7 +5616,7 @@
                     label   "brightness"
                     type    float
                     default { "3" }
-                    help    "<h3>[Icon:TOP/xmlinput] Shifts the overall lightness or darkness of the image</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] Shifts the overall lightness or darkness of the image</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outedit == 0 }"
                     range   { 1! 16 }
                     parmtag { "script_callback_language" "python" }
@@ -5626,7 +5626,7 @@
                     label   "gamma"
                     type    float
                     default { "2.5" }
-                    help    "<h3>[Icon:TOP/xmlinput] Adjusts midtones without heavily changing black or white</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] Adjusts midtones without heavily changing black or white</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outedit == 0 }"
                     range   { 1! 10 }
                     parmtag { "script_callback_language" "python" }
@@ -5636,7 +5636,7 @@
                     label   "highlight power"
                     type    float
                     default { "5" }
-                    help    "<h3>[Icon:TOP/xmlinput] Controls how intense the brightest areas appear</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] Controls how intense the brightest areas appear</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outedit == 0 }"
                     range   { 0! 5 }
                     parmtag { "script_callback_language" "python" }
@@ -5646,7 +5646,7 @@
                     label   "logscale K2"
                     type    float
                     default { "0" }
-                    help    "<h3>[Icon:TOP/xmlinput] Uses a logarithmic curve to compress or expand midrange values</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] Uses a logarithmic curve to compress or expand midrange values</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outedit == 0 }"
                     range   { 0! 1 }
                     parmtag { "script_callback_language" "python" }
@@ -5656,7 +5656,7 @@
                     label   "vibrancy"
                     type    float
                     default { "0.3333" }
-                    help    "<h3>[Icon:TOP/xmlinput] Boosts muted colors while keeping vivid tones natural</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] Boosts muted colors while keeping vivid tones natural</h3><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outedit == 0 }"
                     range   { 0! 1 }
                     parmtag { "script_callback_language" "python" }
@@ -5763,7 +5763,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] [Icon:IMAGE/components_all] CC: OVERALL (<i>Luminance</i>)</h2>This is data coming from <b>Fractorium's</b> color correction curves when the loaded Flame preset uses it.<br/><br/>If not used or found, default values (<i>no color correction</i>) will be used instead.<br/><br/><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] [Icon:IMAGE/components_all] CC: OVERALL (<i>Luminance</i>)</h2>This is data coming from <b>Fractorium's</b> color correction curves when the loaded Flame preset uses it.<br/><br/>If not used or found, default values (<i>no color correction</i>) will be used instead.<br/><br/><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outdisable == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -5793,7 +5793,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] [Icon:IMAGE/components_red] CC: RED</h2>This is data coming from <b>Fractorium's</b> color correction curves when the loaded Flame preset uses it.<br/><br/>If not used or found, default values (<i>no color correction</i>) will be used instead.<br/><br/><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] [Icon:IMAGE/components_red] CC: RED</h2>This is data coming from <b>Fractorium's</b> color correction curves when the loaded Flame preset uses it.<br/><br/>If not used or found, default values (<i>no color correction</i>) will be used instead.<br/><br/><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outdisable == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -5815,7 +5815,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] [Icon:IMAGE/components_green] CC: GREEN</h2>This is data coming from <b>Fractorium's</b> color correction curves when the loaded Flame preset uses it.<br/><br/>If not used or found, default values (<i>no color correction</i>) will be used instead.<br/><br/><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] [Icon:IMAGE/components_green] CC: GREEN</h2>This is data coming from <b>Fractorium's</b> color correction curves when the loaded Flame preset uses it.<br/><br/>If not used or found, default values (<i>no color correction</i>) will be used instead.<br/><br/><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outdisable == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
                     parmtag { "script_callback" "" }
@@ -5837,7 +5837,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "<h2>[Icon:TOP/xmlinput] [Icon:IMAGE/components_blue] CC: BLUE</h2>This is data coming from <b>Fractorium's</b> color correction curves when the loaded Flame preset uses it.<br/><br/>If not used or found, default values (<i>no color correction</i>) will be used instead.<br/><br/><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
+                    help    "<h2>[Icon:TOP/xmlinput] [Icon:BUTTONS/render] [Icon:IMAGE/components_blue] CC: BLUE</h2>This is data coming from <b>Fractorium's</b> color correction curves when the loaded Flame preset uses it.<br/><br/>If not used or found, default values (<i>no color correction</i>) will be used instead.<br/><br/><i>This parameter's value will be saved into the Flame file and used by a third-party application renderer. <b>Fractorium</b> being the preferred one followed by <b>Apophysis</b> and others</i>.<br/>"
                     disablewhen "{ outdisable == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
                     parmtag { "script_callback" "" }
