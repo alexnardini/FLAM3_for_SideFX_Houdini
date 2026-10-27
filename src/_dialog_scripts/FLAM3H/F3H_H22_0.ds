@@ -2603,7 +2603,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "<h2>Enable SOLO mode</h2><br/>((LMB)) to enable the FF xform handle VIZ only (<i>SOLO mode</i>).<br/><br/>When the SYS -> \"xforms handles VIZ\" is <b>ON</b> this icon will become available.<br/><br/>The viewport handles will be automatically disabled<br/>if the FLAM3H™ density value is raised above 5M(<i>millions</i>) points.<br/>or when the OUT camera sensor VIZ mode is <b>ON</b>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+                help    "<h2>Enable SOLO mode</h2><br/>((LMB)) to enable the FF xform handle VIZ only (<i>SOLO mode</i>).<br/><br/>When the SYS -> \"xforms handles VIZ\" is <b>ON</b> this icon will become available.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>The viewport handles will be automatically disabled:<ul><li>if the FLAM3H™ density value is raised above <b>5M</b>(<i>millions</i>) points</li><li>when the OUT camera sensor VIZ mode is <b>ON</b>.</li></ul></i><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
                 disablewhen "{ vizhandles == 0 } { doff == 0 } { outsensor == 1 } { ptcount > 5000000 }"
                 hidewhen "{ vizhandlesff_solo == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg" }
@@ -2617,7 +2617,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "<h2>Disable SOLO mode</h2><br/>((LMB)) to disable the <b>FF</b> xform handle VIZ SOLO mode<br/>and revert to display all xforms handles VIZ together.<br/><br/>The viewport handles will be automatically disabled<br/>if the FLAM3H™ density value is raised above 5M(<i>millions</i>) points.<br/>or when the OUT camera sensor VIZ mode is <b>ON</b>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+                help    "<h2>Disable SOLO mode</h2><br/>((LMB)) to disable the <b>FF</b> xform handle VIZ SOLO mode<br/>and revert to display all xforms handles VIZ together.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>The viewport handles will be automatically disabled:<ul><li>if the FLAM3H™ density value is raised above <b>5M</b>(<i>millions</i>) points</li><li>when the OUT camera sensor VIZ mode is <b>ON</b>.</li></ul></i><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
                 disablewhen "{ vizhandles == 0 } { outsensor == 1 } { ptcount > 5000000 }"
                 hidewhen "{ vizhandlesff_solo == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledSVG.svg" }
