@@ -3956,22 +3956,22 @@ _Documentation for each of them is also provided_.
                 - *Y* -> _`R`_<br />Controls the radial distortion, affecting how the pattern expands or contracts from the center.
                 - *Z* -> _`I`_<br />Controls the angular distortion, changing the twist and rotation of the pattern.
     
-    # [Icon:TOP/xmlinput] *Crop*            ->      _`Left`*,* `Top`*,* `Right`*,* `Bottom`_<br />[Icon:TOP/xmlinput] *Crop*            ->      _`Area`*,* `Zero`_
+    # [Icon:TOP/xmlinput] *Crop*            ->      _`Area`*,* `Zero`_<br />[Icon:TOP/xmlinput] *Crop*            ->      _`Left`*,* `Top`*,* `Right`*,* `Bottom`_
 
         :disclosure:doc
 
             :box:
                 #display: rounded raised gray
+
+                - *X* -> _`Area`_<br />Controls the amount of random repositioning inside the crop area. Higher values create a larger randomized region.
+                - *Y* -> _`Zero`_<br />Controls what happens to points outside the crop area. When enabled, outside points are moved to the center instead.
+
+                <br />
             
                 - *X* -> _`Left`_<br />Sets the left boundary of the crop area.
                 - *Y* -> _`Top`_<br />Sets the top boundary of the crop area.
                 - *Z* -> _`Right`_<br />Sets the right boundary of the crop area.
                 - *W* -> _`Bottom`_<br />Sets the bottom boundary of the crop area.
-
-                <br />
-
-                - *X* -> _`Area`_<br />Controls the amount of random repositioning inside the crop area. Higher values create a larger randomized region.
-                - *Y* -> _`Zero`_<br />Controls what happens to points outside the crop area. When enabled, outside points are moved to the center instead.
     
     # [Icon:TOP/xmlinput] *Curl*            ->      _`C1`*,* `C2`_
 
@@ -3983,20 +3983,20 @@ _Documentation for each of them is also provided_.
                 - *X* -> _`C1 (Curl Strength)`_<br />Controls the overall curl direction and strength. Higher values create a stronger bending effect.
                 - *Y* -> _`C2 (Curl Twist)`_<br />Controls the secondary curl behavior, adding more twisting and variation to the distortion.
     
-    # [Icon:TOP/xmlinput] *Curve*           ->      _`Lenght X`*,* `Lenght Y`_<br />[Icon:TOP/xmlinput] *Curve*           ->      _`Amplitude X`*,* `Amplitude Y`_
+    # [Icon:TOP/xmlinput] *Curve*           ->      _`Amplitude X`*,* `Amplitude Y`_<br />[Icon:TOP/xmlinput] *Curve*           ->      _`Lenght X`*,* `Lenght Y`_
 
         :disclosure:doc
 
             :box:
                 #display: rounded raised gray
-            
-                - *X* -> _`Lenght X`_<br />Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area.
-                - *Y* -> _`Lenght Y`_<br />Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area.
-
-                <br />
 
                 - *X* -> _`Amplitude X`_<br />Controls the strength of the horizontal bend. Higher values create a stronger curve along X.
-                - *Y* -> _`Amplitude Y`_<br />Controls the strength of the vertical bend. Higher values create a stronger curve along Y.            
+                - *Y* -> _`Amplitude Y`_<br />Controls the strength of the vertical bend. Higher values create a stronger curve along Y. 
+
+                <br />
+            
+                - *X* -> _`Lenght X`_<br />Controls the horizontal range of the curve effect. Larger values make the curve spread over a wider area.
+                - *Y* -> _`Lenght Y`_<br />Controls the vertical range of the curve effect. Larger values make the curve spread over a wider area.           
     
     # [Icon:TOP/xmlinput] *Disc2*           ->      _`Rotation`*,* `Twist`_
 
@@ -4213,19 +4213,19 @@ _Documentation for each of them is also provided_.
                 - *X* -> _`Scale X`_<br />Adds a horizontal offset to the result.
                 - *Y* -> _`Scale Y`_<br />Adds a vertical offset to the result.
 
-    # [Icon:TOP/xmlinput] *Popcorn2*        ->      _`X`*,* `Y`_<br />[Icon:TOP/xmlinput] *Popcorn2*        ->      _`C`_
+    # [Icon:TOP/xmlinput] *Popcorn2*        ->      _`C`_<br />[Icon:TOP/xmlinput] *Popcorn2*        ->      _`X`*,* `Y`_
 
         :disclosure:doc
 
             :box:
                 #display: rounded raised gray
+
+                - *C* -> _`Detail`_<br />Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns.
+
+                <br />
             
                 - *X* -> _`Horizontal`_<br />Controls the strength of the effect along the X (horizontal) direction.
                 - *Y* -> _`Vertical`_<br />Controls the strength of the effect along the Y (vertical) direction.
-
-                <br />
-
-                - *C* -> _`Detail`_<br />Controls the frequency of the popcorn ripples. Higher values create finer, more intricate patterns.
 
     # [Icon:TOP/xmlinput] *Radial Blur*     ->      _`Angle`_
 
