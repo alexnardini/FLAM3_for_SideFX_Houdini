@@ -250,7 +250,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<h3>[Icon:TOP/xmlinput] <b>F3C</b>: Unchecked -> Chaotica behavior</h3><br/>((LMB)) to enable <b>F3C</b>.<br/><br/>The behavior of the:<br/><b>Cos</b>, <b>Cosh</b> <b>Cot</b>, <b>Coth</b>, <b>Csc</b>, <b>Csch</b>, <b>Sec</b>, <b>Sech</b>, <b>Sin</b>, <b>Sinh</b>, <b>Tan</b>, <b>Tanh</b>, <b>Cross</b>, <b>Curve</b>, <b>Edisc</b>, <b>Escher</b>, <b>Fan2</b><br/>variations are different in flam3/Apophysis versus Chaotica.<h2>Checked</h2>Use the Apophysis behavior.<h2>Unchecked</h2>Use the Chaotica behavior.<br/><br/>The behavior of the:<br/><b>Bipolar</b>, <b>Glynnia</b>, <b>Julia</b>, <b>JuliaN</b>, <b>JuliaScope</b><br/>variations are also different in Flam3/Apophysis versus Chaotica<br/>and FLAM3H™ do not implement these Chaotica variants just yet (<i>Fractorium does</i>).<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+            help    "<h2>[Icon:TOP/xmlinput] <b>F3C</b>: Unchecked<br/>-> Chaotica behavior</h2><br/>((LMB)) to enable <b>F3C</b>.<br/><br/>The behavior of the:<br/><b>Cos</b>, <b>Cosh</b> <b>Cot</b>, <b>Coth</b>, <b>Csc</b>, <b>Csch</b>, <b>Sec</b>, <b>Sech</b>, <b>Sin</b>, <b>Sinh</b>, <b>Tan</b>, <b>Tanh</b>, <b>Cross</b>, <b>Curve</b>, <b>Edisc</b>, <b>Escher</b>, <b>Fan2</b><br/>variations are different in flam3/Apophysis versus Chaotica.<h2>Checked</h2><ul><li>Use the Flam3/Apophysis behavior.</li></ul><h2>Unchecked</h2><ul><li>Use the Chaotica behavior.</li></ul><br/>The behavior of the:<br/><b>Bipolar</b>, <b>Glynnia</b>, <b>Julia</b>, <b>JuliaN</b>, <b>JuliaScope</b><br/>variations are also different in Flam3/Apophysis versus Chaotica<br/>and FLAM3H™ do not implement these Chaotica variants just yet (<i>Fractorium does</i>).<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { f3c == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CDisabledSVG.svg" }
@@ -264,7 +264,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<h3>[Icon:TOP/xmlinput] <b>F3C</b>: Checked -> Flam3/Apophysis behavior</h3><br/>((LMB)) to disable <b>F3C</b>.<br/><br/>The behavior of the:<br/><b>Cos</b>, <b>Cosh</b> <b>Cot</b>, <b>Coth</b>, <b>Csc</b>, <b>Csch</b>, <b>Sec</b>, <b>Sech</b>, <b>Sin</b>, <b>Sinh</b>, <b>Tan</b>, <b>Tanh</b>, <b>Cross</b>, <b>Curve</b>, <b>Edisc</b>, <b>Escher</b>, <b>Fan2</b><br/>variations are different in flam3/Apophysis versus Chaotica.<h2>Checked</h2>Use the Apophysis behavior.<h2>Unchecked</h2>Use the Chaotica behavior.<br/><br/>The behavior of the:<br/><b>Bipolar</b>, <b>Glynnia</b>, <b>Julia</b>, <b>JuliaN</b>, <b>JuliaScope</b><br/>variations are also different in Flam3/Apophysis versus Chaotica<br/>and FLAM3H™ do not implement these Chaotica variants just yet (<i>Fractorium does</i>).<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+            help    "<h2>[Icon:TOP/xmlinput] <b>F3C</b>: Checked<br/>-> Flam3/Apophysis behavior</h2><br/>((LMB)) to disable <b>F3C</b>.<br/><br/>The behavior of the:<br/><b>Cos</b>, <b>Cosh</b> <b>Cot</b>, <b>Coth</b>, <b>Csc</b>, <b>Csch</b>, <b>Sec</b>, <b>Sech</b>, <b>Sin</b>, <b>Sinh</b>, <b>Tan</b>, <b>Tanh</b>, <b>Cross</b>, <b>Curve</b>, <b>Edisc</b>, <b>Escher</b>, <b>Fan2</b><br/>variations are different in flam3/Apophysis versus Chaotica.<h2>Checked</h2><ul><li>Use the Flam3/Apophysis behavior.</li></ul><h2>Unchecked</h2><ul><li>Use the Chaotica behavior.</li></ul><br/>The behavior of the:<br/><b>Bipolar</b>, <b>Glynnia</b>, <b>Julia</b>, <b>JuliaN</b>, <b>JuliaScope</b><br/>variations are also different in Flam3/Apophysis versus Chaotica<br/>and FLAM3H™ do not implement these Chaotica variants just yet (<i>Fractorium does</i>).<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { f3c == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CEnabledSVG.svg" }
@@ -292,7 +292,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<h2>[Icon:NETWORKS/sop] Enable handles VIZ</h2><br/>((LMB)) to enable the xforms handles VIZ in the viewport.<br/><br/>These handles are not editable, but only for visualization purpose.<br/>They will be helpful to better grasp how the affine values (<i><b>PRE</b> and <b>POST</b> affine</i>) are acting over each iterator of the fractal Flame.<br/><br/>You can adjust their wire curve thickness in the preferences tab<br/>using the prefs viewport -> \"<b>wire width</b>\" parameter.<br/><br/>The viewport handles will be automatically disabled<br/>if the FLAM3H™ density value is raised above 5M(<i>millions</i>) points<br/>or when the OUT camera sensor VIZ mode is <b>ON</b>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/><br/>[Icon:DIALOG/warning] <b>WARNING</b>:<br/>Turn this <b>OFF</b> when rendering.<br/>"
+            help    "<h2>[Icon:NETWORKS/sop] Enable handles VIZ</h2><br/>((LMB)) to enable the xforms handles VIZ in the viewport.<br/><br/>These handles are not editable, but only for visualization purpose.<br/>They will be helpful to better grasp how the affine values (<i><b>PRE</b> and <b>POST</b> affine</i>) are acting over each iterator of the fractal Flame.<br/><br/>You can adjust their wire curve thickness in the preferences tab<br/>using the prefs viewport -> [Icon:SOP/wire] \"<b>wire width</b>\" parameter.<br/><br/>The viewport handles will be automatically disabled<br/>if the FLAM3H™ density value is raised above 5M(<i>millions</i>) points<br/>or when the OUT camera sensor VIZ mode is <b>ON</b>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/><br/>[Icon:DIALOG/warning] <b>WARNING</b>:<br/>Turn this <b>OFF</b> when rendering.<br/>"
             disablewhen "{ flamefunc == 0 } { ptcount > 5000000 }"
             hidewhen "{ flamefunc == 0 } { vizhandles == 1 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg" }
@@ -306,7 +306,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<h2>[Icon:NETWORKS/sop] Disable handles VIZ</h2><br/>((LMB)) to disable the xforms handles VIZ in the viewport.<br/><br/>These handles are not editable, but only for visualization purpose.<br/>They will be helpful to better grasp how the affine values (<i><b>PRE</b> and <b>POST</b> affine</i>) are acting over each iterator of the fractal Flame.<br/><br/>You can adjust their wire curve thickness in the preferences tab<br/>using the prefs viewport -> \"<b>wire width</b>\" parameter.<br/><br/>The viewport handles will be automatically disabled<br/>if the FLAM3H™ density value is raised above 5M(<i>millions</i>) points<br/>or when the OUT camera sensor VIZ mode is <b>ON</b>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/><br/>[Icon:DIALOG/warning] <b>WARNING</b>:<br/>Turn this <b>OFF</b> when rendering.<br/>"
+            help    "<h2>[Icon:NETWORKS/sop] Disable handles VIZ</h2><br/>((LMB)) to disable the xforms handles VIZ in the viewport.<br/><br/>These handles are not editable, but only for visualization purpose.<br/>They will be helpful to better grasp how the affine values (<i><b>PRE</b> and <b>POST</b> affine</i>) are acting over each iterator of the fractal Flame.<br/><br/>You can adjust their wire curve thickness in the preferences tab<br/>using the prefs viewport -> [Icon:SOP/wire] \"<b>wire width</b>\" parameter.<br/><br/>The viewport handles will be automatically disabled<br/>if the FLAM3H™ density value is raised above 5M(<i>millions</i>) points<br/>or when the OUT camera sensor VIZ mode is <b>ON</b>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/><br/>[Icon:DIALOG/warning] <b>WARNING</b>:<br/>Turn this <b>OFF</b> when rendering.<br/>"
             disablewhen "{ flamefunc == 0 } { ptcount > 5000000 }"
             hidewhen "{ flamefunc == 0 } { vizhandles == 0 } { vizhandles_solo == 1 vizhandlesff_solo == 1 } { vizhandles_solo == 1 } { vizhandlesff_solo == 1 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledSVG.svg" }
@@ -388,7 +388,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<h2>[Icon:NETWORKS/sop] Enable TAG visualizer</h2><br/>((LMB)) to enable viewport <b>TAG</b>.<br/><br/>[<b>SHIFT</b>] + ((LMB)) to enter the Camera sensor VIZ mode.<br/><br/><i>Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire</i>.<br/><br/><b>TAG</b> allow you to review your fractal Flame construction infos in one compact viewport string.<br/><br/><i>The <b>TAG</b> functionality has a cost and the default behavior is for it to be <b>OFF</b></i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+            help    "<h2>[Icon:NETWORKS/sop] [Icon:BUTTONS/tag_add] Enable TAG visualizer</h2><br/>((LMB)) to enable viewport <b>TAG</b>.<br/><br/>[<b>SHIFT</b>] + ((LMB)) to enter the Camera sensor VIZ mode.<br/><br/><i>Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire</i>.<br/><br/><b>TAG</b> allow you to review your fractal Flame construction infos in one compact viewport string.<br/><br/><i>The <b>TAG</b> functionality has a cost and the default behavior is for it to be <b>OFF</b></i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
             disablewhen "{ outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { tag == 1 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueToolSVG_disabled.svg" }
@@ -402,7 +402,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<h2>[Icon:NETWORKS/sop] Disable TAG visualizer</h2><br/>((LMB)) to disable viewport <b>TAG</b>.<br/><br/>[<b>SHIFT</b>] + ((LMB)) to enter the Camera sensor VIZ mode.<br/><br/><i>Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire</i>.<br/><br/>Next to this icon on the right side there is a menu to choose different tag sizes. <b>TAG</b> allow you to review your fractal Flame construction infos in one compact viewport string.<br/><br/><i>The <b>TAG</b> functionality has a cost and the default behavior is for it to be <b>OFF</b></i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+            help    "<h2>[Icon:NETWORKS/sop] [Icon:BUTTONS/tag_delete] Disable TAG visualizer</h2><br/>((LMB)) to disable viewport <b>TAG</b>.<br/><br/>[<b>SHIFT</b>] + ((LMB)) to enter the Camera sensor VIZ mode.<br/><br/><i>Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire</i>.<br/><br/>Next to this icon on the right side there is a menu to choose different tag sizes. <b>TAG</b> allow you to review your fractal Flame construction infos in one compact viewport string.<br/><br/><i>The <b>TAG</b> functionality has a cost and the default behavior is for it to be <b>OFF</b></i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
             disablewhen "{ outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { tag == 0 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueToolSVG.svg" }
@@ -4828,7 +4828,7 @@
                 label   "palette"
                 type    ramp_rgb
                 default { "5" }
-                help    "<h3>[Icon:TOP/xmlinput] [Icon:TOP/jsoninput] [Icon:DATATYPES/ramp] The source palette</h3>"
+                help    "<h3>[Icon:TOP/xmlinput] [Icon:TOP/jsoninput] [Icon:DATATYPES/ramp] The source palette</h3>The actual color palette being used by the Flame you are working on.<br/>"
                 range   { 1! 10 }
                 parmtag { "rampcolordefault" "1pos ( 0 ) 1c ( 0.20000000298023224 0.05000000074505806 1 ) 1interp ( linear ) 2pos ( 0.25 ) 2c ( 0.10000000149011612 0.85000002384185791 1 ) 2interp ( linear ) 3pos ( 0.5 ) 3c ( 0.05000000074505806 1 0.10000000149011612 ) 3interp ( linear ) 4pos ( 0.75 ) 4c ( 0.94999998807907104 1 0.10000000149011612 ) 4interp ( linear ) 5pos ( 1 ) 5c ( 1 0.05000000074505806 0.05000000074505806 ) 5interp ( linear )" }
                 parmtag { "rampshowcontrolsdefault" "0" }
@@ -4870,7 +4870,7 @@
                 label   "JSON file"
                 type    file
                 default { "" }
-                help    "<h3>Load an already created FLAM3H™ <b>json</b> palette library file<br/>or choose the path and name of a new one to create</h3>"
+                help    "<h3>Load an already created FLAM3H™ <b>json</b> palette library file<br/>or choose the path and name of a new one to create</h3><br/>"
                 parmtag { "filechooser_pattern" "*.json" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS(), kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
@@ -6033,7 +6033,7 @@
                     label   "enumerate presets menus"
                     type    toggle
                     default { "1" }
-                    help    "<h3>Enumerate presets menus inside the <b>CP</b>, <b>IN</b> and <b>OUT</b> tabs</h3>This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.<br/><br/>Turn this <b>OFF</b> to only display the raw preset names.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+                    help    "<h3>[Icon:SOP/enumerate] Enumerate presets menus inside the <b>CP</b>, <b>IN</b> and <b>OUT</b> tabs</h3>This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.<br/><br/>Turn this <b>OFF</b> to only display the raw preset names.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6071,7 +6071,7 @@
                     label   "mode"
                     type    ordinal
                     default { "0" }
-                    help    "<h3>Set the XAOS mode to use</h3>Once changed, FLAM3H™ will reset all iterators' xaos weights to reflect the new mode.<br/><br/>When saving out Flame files, <b>xaos FROM</b> mode will internally be converted into xaos TO on save and reloaded as <b>xaos TO</b>.<h2>xaos TO (<i>default</i>)</h2><i>Specifies how likely an iterator/xform is to be chosen based on the previous iterator/xform that was chosen</i>.<h2>xaos FROM</h2><i>Specifies the probability modifier of the next chosen iterator/xform based on the currently chosen one</i>.<br/>"
+                    help    "<h3>Set the XAOS mode to use</h3>Once changed, FLAM3H™ will reset all iterators' xaos weights to reflect the new mode.<br/><br/>When saving out Flame files, <b>xaos FROM</b> mode will internally be converted into xaos TO on save and reloaded as <b>xaos TO</b>.<h2>xaos TO (<i>default</i>)</h2><ul><li><i>Specifies how likely an iterator/xform is to be chosen based on the previous iterator/xform that was chosen</i>.</li></ul><h2>xaos FROM</h2><ul><li><i>Specifies the probability modifier of the next chosen iterator/xform based on the currently chosen one</i>.</li></ul><br/>"
                     menu usetokenvalue {
                         "0" "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]xaos TO       "
                         "1" "xaos FROM"
@@ -6112,7 +6112,7 @@
                     label   "handle"
                     type    toggle
                     default { "0" }
-                    help    "<h3>Display the viewport camera handle to help frame/center your fractal flame</h3>Turn this <b>OFF</b> when rendering.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>The handles are properly scaled and visible only when looking through a perspective type of camera, not when looking through an orthogonal type of camera.<br/>"
+                    help    "<h3>[Icon:BUTTONS/handle_active] Display the viewport camera handle</h3>It will be helpfull to frame/center your fractal flame.<br/><br/>Turn this <b>OFF</b> when rendering.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>The handles are properly scaled and visible only when looking through a perspective type of camera, not when looking through an orthogonal type of camera.<br/>"
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6121,7 +6121,7 @@
                     label   "camera cull"
                     type    toggle
                     default { "0" }
-                    help    "<h3>Enable culling based on camera view</h3>"
+                    help    "<h3>[Icon:TOOLS/select_mask_cam] Enable culling based on camera view</h3>Remove all samples/points outside the camera frustrum.<br/>"
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6130,7 +6130,7 @@
                     label   "cam"
                     type    oppath
                     default { "" }
-                    help    "<h3>Camera to use for either the handles or the culling</h3>"
+                    help    "<h3>[Icon:BUTTONS/camera] Camera to use for either the handles or the culling</h3>"
                     disablewhen "{ camcull == 0 camhandle == 0 }"
                     parmtag { "opfilter" "!!OBJ/CAMERA!!" }
                     parmtag { "oprelative" "." }
@@ -6164,7 +6164,7 @@
                     label   "dark"
                     type    toggle
                     default { "0" }
-                    help    "<h3>[Icon:NETWORKS/sop] Set dark viewport color scheme</h3>If it isn’t already, change the viewport’s color scheme to dark.<br/><br/>If unchecked, it will remember the color scheme for every viewport and fall back on it.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Checking this box has no effect<br/>if the color scheme in a viewport is already dark</i>.<br/>"
+                    help    "<h3>[Icon:NETWORKS/sop] [Icon:BUTTONS/theme_dark] Set dark viewport color scheme</h3>If it isn’t already, change the viewport’s color scheme to dark.<br/><br/>If unchecked, it will remember the color scheme for every viewport and fall back on it.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Checking this box has no effect<br/>if the color scheme in a viewport is already dark</i>.<br/>"
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6186,7 +6186,7 @@
                         label   "display"
                         type    ordinal
                         default { "0" }
-                        help    "<h3>[Icon:NETWORKS/sop] Viewport Point display types</h3>You can choose between <b>Pixels</b> and <b>Points</b> (_default_).<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i><b>Pixels</b> are faster to display, but <b>Points</b> give you more control on their viewport size representation in Houdini</i>.<br/>"
+                        help    "<h3>[Icon:NETWORKS/sop] Viewport Point display types</h3>You can choose between [Icon:COP2/pixel] <b>Pixels</b> and [Icon:PRIMITIVES/points] <b>Points</b> (_default_).<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i><b>Pixels</b> are faster to display, but <b>Points</b> give you more control on their viewport size representation in Houdini</i>.<br/>"
                         menu {
                             "0" "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]Points          "
                             "1" "Pixels"
@@ -6199,7 +6199,7 @@
                         label   "size"
                         type    float
                         default { "1" }
-                        help    "<h3>[Icon:NETWORKS/sop] Points size in the viewport</h3>If display type is set to <b>Points</b>,<br/>this parameter will set their size in the viewport.<br/>"
+                        help    "<h3>[Icon:NETWORKS/sop] Points size in the viewport</h3>If display type is set to [Icon:PRIMITIVES/points] <b>Points</b>,<br/>this parameter will set their size in the viewport.<br/>"
                         disablewhen "{ vptype == 1 }"
                         range   { 0.1! 2 }
                         parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize(1.0)" }
@@ -6228,7 +6228,7 @@
                         label   "wire width"
                         type    float
                         default { "3" }
-                        help    "<h3>[Icon:NETWORKS/sop] Xforms handles VIZ wire width</h3>When the SYS tab <u><b>xforms handles VIZ</b></u> is <b>ON</b>, this parameter will set the wire curves thickness for the viewport display.<br/><br/>A value of <b>3.0</b> is generally good.<br/>"
+                        help    "<h3>[Icon:NETWORKS/sop] [Icon:SOP/wire] Xforms handles VIZ wire width</h3>When the SYS tab <u><b>xforms handles VIZ</b></u> is <b>ON</b>, this parameter will set the wire curves thickness for the viewport display.<br/><br/>A value of <b>3.0</b> is generally good.<br/>"
                         disablewhen "{ vizhandles == 0 } { outsensor == 1 } { ptcount > 5000000 }"
                         range   { 0.1! 5! }
                         parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(3.0)" }

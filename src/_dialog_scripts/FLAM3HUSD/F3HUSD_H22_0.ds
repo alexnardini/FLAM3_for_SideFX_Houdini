@@ -8,7 +8,7 @@
 
         parm {
             name    "sys_help"
-            label   "FLAM3HUSD Documentation"
+            label   "FLAM3H™USD Documentation"
             type    button
             nolabel
             joinnext
@@ -74,7 +74,7 @@
             help    "Select a FLAM3H™ node to import"
             parmtag { "autoscope" "0000000000000000" }
             parmtag { "oprelative" "." }
-            parmtag { "script_action" "node = kwargs['node']\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_cycle_import()\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)\n\nparm = kwargs[\"parmtuple\"]\npath = parm.evalAsStrings()[0]\nnode = hou.node(path)\n\nF3H_NODE_TYPE_NAME_CATEGORY: str = 'alexnardini::Sop/FLAM3H'\nnodetype: hou.SopNodeType = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)\nnewpath = hou.ui.selectNode(initial_node=node, node_type_filter=nodetype)\n\ntry:\n    parm.set( (newpath, ) )\nexcept TypeError:\n    pass" }
+            parmtag { "script_action" "node = kwargs['node']\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_cycle_import()\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)\n\nparm = kwargs[\"parmtuple\"]\npath = parm.evalAsStrings()[0]\nnode = hou.node(path)\n\nF3H_NODE_TYPE_NAME_CATEGORY: str = 'alexnardini::Sop/FLAM3H'\nnodetype: hou.SopNodeType = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)\ntry:\n    newpath = hou.ui.selectNode(initial_node=node, node_type_filter=nodetype)\nexcept TypeError:\n    newpath = path\n\ntry:\n    parm.set( (newpath, ) )\nexcept TypeError:\n    pass" }
             parmtag { "script_action_help" "[LMB] to import a FLAM3H node or to import the next FLAM3H node instance. [SHIFT+LMB] to import a FLAM3H node or to import the preview FLAM3H node instance. If nothing has been imported yet, it will import the FLAM3H node that has not been imported already by others FLAM3USD nodes if any, otherwise it will import the first one to start with. See the HDA documentation for more infos." }
             parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionFlameINEntrieToolSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam3h_node(), kwargs['parm'].deleteAllKeyframes()" }
@@ -168,7 +168,7 @@
                 label   "dark"
                 type    toggle
                 default { "0" }
-                help    "<h3>[Icon:NETWORKS/lop] Set dark viewport color scheme</h3>If it isn’t already, change the viewport’s color scheme to dark.<br/><br/>If unchecked, it will remember the color scheme for every viewport and fall back on it.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Checking this box has no effect<br/>if the color scheme in a viewport is already dark</i>.<br/>"
+                help    "<h3>[Icon:NETWORKS/lop] [Icon:BUTTONS/theme_dark] Set dark viewport color scheme</h3>If it isn’t already, change the viewport’s color scheme to dark.<br/><br/>If unchecked, it will remember the color scheme for every viewport and fall back on it.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Checking this box has no effect<br/>if the color scheme in a viewport is already dark</i>.<br/>"
                 parmtag { "script_callback" "hou.phm().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes(), hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
                 parmtag { "script_callback_language" "python" }
             }
@@ -210,7 +210,7 @@
                 label   "display"
                 type    ordinal
                 default { "0" }
-                help    "<h3>[Icon:NETWORKS/lop] Viewport Point display types</h3>You can choose between <b>Pixels</b> and <b>Points</b> (_default_).<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i><b>Pixels</b> are faster to display, but <b>Points</b> give you more control on their viewport size representation in Houdini</i>.<br/>"
+                help    "<h3>[Icon:NETWORKS/lop] Viewport Point display types</h3>You can choose between [Icon:COP2/pixel] <b>Pixels</b> and [Icon:PRIMITIVES/points] <b>Points</b> (_default_).<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i><b>Pixels</b> are faster to display, but <b>Points</b> give you more control on their viewport size representation in Houdini</i>.<br/>"
                 menu {
                     "0" "![opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg]Points      "
                     "1" "Pixels"
@@ -223,7 +223,7 @@
                 label   "size"
                 type    float
                 default { "1" }
-                help    "<h3>[Icon:NETWORKS/lop] Points size in the viewport</h3>If display type is set to <b>Points</b>,<br/>this parameter will set their size in the viewport.<br/>"
+                help    "<h3>[Icon:NETWORKS/lop] Points size in the viewport</h3>If display type is set to [Icon:PRIMITIVES/points] <b>Points</b>,<br/>this parameter will set their size in the viewport.<br/>"
                 disablewhen "{ rndtype != 0 }"
                 hidewhen "{ vptype == 1 }"
                 range   { 0.1! 2 }
@@ -260,7 +260,7 @@
                     label   "widths"
                     type    float
                     default { "1" }
-                    help    "<h3>The size of the fractal Flame's points</h3>As a general rule,<br/>the more points you generate and the smaller this value should be.<br/><br/>The point attribute <b>@pscale</b> will become <b>@widths</b> when importing FLAM3H™ into Stage/Solaris.<br/><br/>This option, which is a multiplier,<br/>enables rapid adjustments while Karma is rendering interactively.<br/>"
+                    help    "<h3>[Icon:PRIMITIVES/points] The size of the fractal Flame's points</h3>As a general rule,<br/>the more points you generate and the smaller this value should be.<br/><br/>The point attribute <b>@pscale</b> will become <b>@widths</b> when importing FLAM3H™ into Stage/Solaris.<br/><br/>This option, which is a multiplier,<br/>enables rapid adjustments while Karma is rendering interactively.<br/>"
                     disablewhen "{ rndtype == 0 }"
                     range   { 0 1 }
                     parmtag { "autoscope" "0000000000000000" }
@@ -303,7 +303,7 @@
                     label   "widths"
                     type    float
                     default { "2" }
-                    help    "<h2>[Icon:BUTTONS/cpu] Only available with Karma CPU</h2>Adjust the thickness of the FLAM3H™ xforms handles VIZ.<br/><br/>This option, which is a multiplier, enables rapid adjustments while Karma is rendering interactively.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Only available with Karma CPU.<br/>"
+                    help    "<h2>[Icon:BUTTONS/cpu] Only available with Karma CPU</h2>Adjust the [Icon:SOP/wire] thickness of the FLAM3H™ xforms handles VIZ.<br/><br/>This option, which is a multiplier, enables rapid adjustments while Karma is rendering interactively.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Only available with Karma CPU.<br/>"
                     disablewhen "{ xfviz == 0 }"
                     hidewhen "{ h_19_0 == 1 }"
                     range   { 0! 5 }
