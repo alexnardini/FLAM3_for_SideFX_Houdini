@@ -836,7 +836,7 @@
                     label   "location"
                     type    float
                     default { "0" }
-                    help    "<h3>[Icon:TOP/xmlinput] The color location in the ramp <b>{0:1}</b></h3>"
+                    help    "<h3>[Icon:TOP/xmlinput] The color location in the ramp [Icon:DATATYPES/ramp] <b>{0:1}</b></h3>"
                     range   { 0! 1! }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -5896,7 +5896,7 @@
                     label   "iterations"
                     type    ordinal
                     default { "1024" }
-                    help    "<h3>When [Icon:PARTS/gpu] [Icon:COMMON/opencl] GPU is <b>ON</b>/<b>Active</b>,<br/>run the algorithm with this number of iterations</h3>The default value is: <b>1024</b> (<i>hence the bookmark icon</i>),<br/>and it should be good for almost all cases;<br/>however you can change this value to be lower and/or higher if you desire.<br/>"
+                    help    "<h3>When [Icon:PARTS/gpu] GPU ([Icon:COMMON/opencl] _OpenCL_) mode is <b>ON</b>/<b>Active</b>,<br/>run the algorithm with this number of iterations</h3>The default value is: <b>1024</b> (<i>hence the bookmark icon</i>),<br/>and it should be good for almost all cases;<br/>however you can change this value to be lower and/or higher if you desire.<br/>"
                     disablewhen "{ gpu == 0 }"
                     menu usetokenvalue {
                         "128"   "128                          "
@@ -5999,7 +5999,7 @@
                     label   "SOLO follow"
                     type    toggle
                     default { "1" }
-                    help    "<h3>Keep the selected iterator in SOLO mode</h3>When any iterator has its xform handle in SOLO mode already, it causes the iterator that is selected or picked from the SYS tab's select iterator mini-menu to be automatically configured to be in SOLO mode<br/><br/>This enables you to swiftly go over each one automatically.<br/><br/>To prevent the selected iterator from being in SOLO mode while being selected, turn this <b>OFF</b>.<br/>"
+                    help    "<h3>Keep the selected iterator in SOLO mode</h3>When any iterator has its xform handle in SOLO mode already, it causes the iterator that is selected or picked from the SYS tab's select iterator mini-menu to be automatically configured to be in SOLO mode.<br/><br/>This enables you to swiftly go over each one automatically.<br/><br/>To prevent the selected iterator from being in SOLO mode while being selected, turn this <b>OFF</b>.<br/>"
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6008,7 +6008,7 @@
                     label   "flash messages"
                     type    toggle
                     default { "1" }
-                    help    "<h3>Use Flash messages</h3>Causes a message to appear briefly in the upper left corner of the network editor, then fade away<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Copy/Paste <b>iterators</b> and <b>FF</b> data uses flash messages,<br/>as well as some other features</i>.<br/>"
+                    help    "<h3>Use Flash messages</h3>Causes a message to appear briefly in the upper left corner of the network editor, then fade away.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Copy/Paste <b>iterators</b> and <b>FF</b> data uses flash messages,<br/>as well as some other features</i>.<br/>"
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6017,7 +6017,7 @@
                     label   "iterative color attribute"
                     type    toggle
                     default { "0" }
-                    help    "<h3>Output the iterative color float point attribute [Icon:BUTTONS/attribute] <u><b>@clr</b></u></h3>This attribute is used internally by FLAM3H™ to map the palette colors to the points<br/><br/>The attribute values are computed inside the chaos game<br/>and can be usefull to post process the output point cloud in many ways.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>It is dependent of each iterator shader location and speed parameters values along with the number of iterations being used</i>.<br/>"
+                    help    "<h3>Output the iterative color float point attribute [Icon:BUTTONS/attribute] <u><b>@clr</b></u></h3>This attribute is used internally by FLAM3H™ to map the palette colors to the points.<br/><br/>The attribute values are computed inside the chaos game<br/>and can be usefull to post process the output point cloud in many ways.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>It is dependent of each iterator shader location and speed parameters values along with the number of iterations being used</i>.<br/>"
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
