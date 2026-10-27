@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3H™USD. SideFX Houdini FLAM3USD: PYTHON MAP PRM Definitions
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       March 2025, Last revised September 2026
+#   date:       March 2025, Last revised October 2026
 #   License:    GPL
 #   Copyright:  2023, © F stands for liFe ( made in Italy )
 #
@@ -95,7 +95,7 @@ import toolutils
 
 # Set some HDA infos
 __v__ = 0
-__version__ = "0.2.82"
+__version__ = "0.2.85"
 __status__ = "Prototype"
 # Note:
 # The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:

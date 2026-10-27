@@ -51,6 +51,31 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.1.30 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.30)  ##
+
+#### FLAM3H™ v2.1.30 indie -> H22.0 UP</br>FLAM3H™ v2.0.96 indie -> H21.0</br>FLAM3H™ v2.0.65 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+- **Fix H22 NEW UI ONLY**: Improved parameters tooltips ( _more icons from the Houdini's **`hicon:/..`** catalog being used and better formatting where needed_ ).
+- **New H22 NEW UI ONLY**: Internal File nodes now offer the same UI interface and functionalities as the one provided already by the internal compiled Cvex and OpenCL C nodes.
+- **Updated GIT documentation**: Fixed some images filenames and brought back some infos previewsly removed.
+
+#### FLAM3H™USD v0.2.85 indie -> H22.0 UP</br>FLAM3H™USD v0.2.73 indie -> H21.0</br>FLAM3H™USD v0.2.69 indie -> H20.5</br>FLAM3H™USD v0.2.52 indie -> H19.0 to H20 ####
+
+- **Fix H22 NEW UI ONLY**: Improved parameters tooltips.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.1.25 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.25)  ##
 
 #### FLAM3H™ v2.1.25 indie -> H22.0 UP</br>FLAM3H™ v2.0.96 indie -> H21.0</br>FLAM3H™ v2.0.65 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####

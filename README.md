@@ -221,14 +221,17 @@ Fully available only with FLAM3H™USD HDA versions for Houdini H20.5 and up.
 
 <br/>
 
+_CPU (Cvex) iterations needed_: **72**<br />
 `Karma interactive`<br/>
 `Sphere Sugar Dragon - Author: Pillemaster`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_00_Karma.jpg)
 
+_CPU (Cvex) iterations needed_: **48**<br />
 `Karma interactive`<br/>
 `Worlds - Author: Alessandro Nardini`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_01_Karma.jpg)
 
+_CPU (Cvex) iterations needed_: **64**<br />
 `Karma interactive`<br/>
 `It's Pink - Author: Plangkye`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_02_Karma.jpg)
@@ -263,11 +266,16 @@ FLAM3H™ generate a live point cloud of the fractal Flame you are working on.
 
 </br>
 
+_CPU (Cvex) iterations needed_: **12**<br />
 `Dancing Stars - Author: Alessandro Nardini`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H.jpg)
-`Cool EDisc - Author: Pillemaster`
-![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_02_H.jpg)
+
+_CPU (Cvex) iterations needed_: **48**<br />
 `Crystal Eggs - Author: Alessandro Nardini`
+![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_02_H.jpg)
+
+_CPU (Cvex) iterations needed_: **256**<br />
+`Cool EDisc - Author: Pillemaster`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H.jpg)
 
 <br/>
@@ -285,8 +293,11 @@ Once framed, you can save the Flame and be sure it will be framed the same in al
 
 </br>
 
+_CPU (Cvex) iterations needed_: **16**<br />
 `Camera sensor: FLAM3H™ to Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
+
+_CPU (Cvex) iterations needed_: **64**<br />
 `Camera sensor: FLAM3H™ to Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
 
@@ -301,12 +312,19 @@ FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the sa
 
 </br>
 
+_CPU (Cvex) iterations needed_: **72**<br />
 `Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](./img/FractoriumToFLAM3HOUDINI_03.jpg)
+
+_CPU (Cvex) iterations needed_: **24**<br />
 `Mountain by tatasz. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](./img/FractoriumToFLAM3HOUDINI_01.jpg)
+
+_CPU (Cvex) iterations needed_: **64**<br />
 `Bipolar by tatasz. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 02](./img/FractoriumToFLAM3HOUDINI_02.jpg)
+
+_CPU (Cvex) iterations needed_: **24**<br />
 `Flipped Disk. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 03](./img/FractoriumToFLAM3HOUDINI_00.jpg)
 
@@ -383,20 +401,27 @@ Some require thousands of iterations to show you the proper results; some of the
 
 * _The following screenshots show FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right_.
 
+* _The CPU (Cvex) iterations needed number are the least amount of iterations needed when FLAM3H™ run in CPU (Cvex) mode to resolve the fractal Flame before it start to turn blocky, which happen when the Flame crosses its own minimun_.
+
 <br/>
 
+_CPU (Cvex) iterations needed_: **1280**<br />
 `Ieddaka Gnarl. Author: zuek`
 ![Chaotica to FLAM3HOUDINI 00](./img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
+_CPU (Cvex) iterations needed_: **512**<br />
 `Blue Modulus. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 01](./img/ChaoticaToFLAM3HOUDINI_01.jpg)
 
+_CPU (Cvex) iterations needed_: **512**<br />
 `Lazyswirls. Author: meckie`
 ![Chaotica to FLAM3HOUDINI 02](./img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
+_CPU (Cvex) iterations needed_: **64**<br />
 `Majestic. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 03](./img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
+_CPU (Cvex) iterations needed_: **32**<br />
 `Blurry Splits. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 04](./img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
@@ -406,6 +431,7 @@ The following is another preset Chaotica software ship with I truly loved ported
 
 <br/>
 
+_CPU (Cvex) iterations needed_: **64**<br />
 `Golden Dragon - Author: meckie`
 ![goldenDragon_RENDER_2K_portrait](https://user-images.githubusercontent.com/42110232/237032379-56571708-d00a-4b93-ab2b-ea773700dce5.jpg)
 
@@ -418,7 +444,7 @@ However, from all my tests, between 10 and 96 iterations will get you covered fo
 
 <br/>
 
-_Iterations needed in FLAM3H™ to resolve_: **6**</br>
+_CPU (Cvex) iterations needed_: **6**<br />
 `Knot Clusters - Author: Alessandro Nardini`
 ![Chaotica to FLAM3HOUDINI 04](./img/FLAM3H_knotCluster_HQ_iter_6.jpg)
 

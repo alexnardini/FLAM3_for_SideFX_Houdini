@@ -703,7 +703,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "<h2>[Icon:TOP/xmlinput] Quickly Add and/or Delete iterators</h2><br/>((LMB)) to insert an iterator Before.<br/><br/>[<b>SHIFT</b>] + ((LMB)) to insert an iterator After.<br/><br/>[<b>CTRL</b>] + ((LMB)) to delete this iterator.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This icon is what you must use to Add and Delete iterators since it is updating all the FLAM3H™ internal data and each iterators' xaos string accordingly.<br/>"
+                help    "<h2>[Icon:TOP/xmlinput] Quickly Add and/or Delete iterators</h2><br/>((LMB)) to insert an iterator Before.<br/><br/>[<b>SHIFT</b>] + ((LMB)) to insert an iterator After.<br/><br/>[<b>CTRL</b>] + ((LMB)) to delete this iterator.<br/><br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This icon is what you must use to Add and Delete iterators since it is updating all the FLAM3H™ internal data and each iterators' xaos string accordingly.<br/>"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_AddDelIteratorSVG.svg" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).add_iterator()" }
                 parmtag { "script_callback_language" "python" }
