@@ -166,7 +166,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<h2>[Icon:TOP/xmlinput] Enable the <b>FF</b> (<i>finalXform</i>)</h2>For example this <b>FF</b> is now Disabled. ((LMB)) to Enable it.<br/><br/>Iterators like Final Flame (<b>FF</b>) or finalXform function like camera lenses.<br/>It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+            help    "<h2>[Icon:TOP/xmlinput] Enable the <b>FF</b> (<i>finalXform</i>)</h2>For example this <b>FF</b> is now Disabled. ((LMB)) to Enable it.<br/><br/>Iterators like Final Flame (<b>FF</b>) or finalXform function like camera lenses.<br/>It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the [Icon:BUTTONS/tabs] <b>FLAME</b> tab and applying further modifications to that result.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { doff == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg" }
@@ -180,7 +180,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<h2>[Icon:TOP/xmlinput] Disable the <b>FF</b> (<i>finalXform</i>)</h2>For example this <b>FF</b> is now Enabled. ((LMB)) to Disable it.<br/><br/>Iterators like Final Flame (<b>FF</b>) or finalXform function like camera lenses.<br/>It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+            help    "<h2>[Icon:TOP/xmlinput] Disable the <b>FF</b> (<i>finalXform</i>)</h2>For example this <b>FF</b> is now Enabled. ((LMB)) to Disable it.<br/><br/>Iterators like Final Flame (<b>FF</b>) or finalXform function like camera lenses.<br/>It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the [Icon:BUTTONS/tabs] <b>FLAME</b> tab and applying further modifications to that result.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { doff == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg" }
@@ -2575,7 +2575,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "<h2>[Icon:TOP/xmlinput] Enable the <b>FF</b> (<i>finalXform</i>)</h2>For example this <b>FF</b> is now Disabled. ((LMB)) to Enable it.<br/><br/>Iterators like Final Flame (<b>FF</b>) or finalXform function like camera lenses.<br/>It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+                help    "<h2>[Icon:TOP/xmlinput] Enable the <b>FF</b> (<i>finalXform</i>)</h2>For example this <b>FF</b> is now Disabled. ((LMB)) to Enable it.<br/><br/>Iterators like Final Flame (<b>FF</b>) or finalXform function like camera lenses.<br/>It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the [Icon:BUTTONS/tabs] <b>FLAME</b> tab and applying further modifications to that result.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
                 disablewhen "{ flamefunc == 0 }"
                 hidewhen "{ flamefunc == 0 } { doff == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg" }
@@ -2589,7 +2589,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "<h2>[Icon:TOP/xmlinput] Disable the <b>FF</b> (<i>finalXform</i>)</h2>For example this <b>FF</b> is now Enabled. ((LMB)) to Disable it.<br/><br/>Iterators like Final Flame (<b>FF</b>) or finalXform function like camera lenses.<br/>It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+                help    "<h2>[Icon:TOP/xmlinput] Disable the <b>FF</b> (<i>finalXform</i>)</h2>For example this <b>FF</b> is now Enabled. ((LMB)) to Disable it.<br/><br/>Iterators like Final Flame (<b>FF</b>) or finalXform function like camera lenses.<br/>It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the [Icon:BUTTONS/tabs] <b>FLAME</b> tab and applying further modifications to that result.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
                 disablewhen "{ flamefunc == 0 }"
                 hidewhen "{ flamefunc == 0 } { doff == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg" }
