@@ -72,7 +72,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<h2>[Icon:PARTS/gpu] GPU( [Icon:COMMON/opencl] <i>OpenCL</i> ) mode</h2><br/>((LMB))<br/>To cycle through the available GPU iterations presets.<br/>Presets are: <b>128</b>, <b>256</b>, <b>512</b>, <b>1024</b>, <b>2048</b>, <b>4096</b>.<br/>It will cycle backward.<br/><br/>[<b>SHIFT</b>] + ((LMB)) <br/>It will cycle forward.<br/><br/>[<b>CTRL</b>] + ((LMB)) <br/>It will switch to the CPU( [Icon:DATATYPES/vex] <i>Cvex</i> ) mode.<br/><br/>When switching to CPU ( [Icon:DATATYPES/vex] <i>Cvex</i> ) mode for the very first time,<br/>Houdini will compile all the FLAM3H™ CPU ( [Icon:DATATYPES/vex] <i>Cvex</i> ) nodes.<br/>Depending on your PC configuration it can take up to <b>1</b>(<i>one</i>) minute.<br/>It is a one time compile process.<br/><br/><i>Additionally</i>,<br/><i>you can change the number of iterations being used by the GPU in the preferences tab under the GPU section</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Everytime you either:<ul><li>Load a Flame preset</li><li>Reset FLAM3H™ to the Sierpiński triangle</li><li>Set its iterator's count to <b>0</b>(<i>Zero</i>)</li></ul>the GPU iterations will be reset to its default value of: <b>1024</b><br/>"
+            help    "<h2>[Icon:PARTS/gpu] GPU( [Icon:COMMON/opencl] <i>OpenCL</i> ) mode</h2><br/>((LMB))<br/>To cycle through the available GPU iterations presets.<br/>Presets are: <b>128</b>, <b>256</b>, <b>512</b>, <b>1024</b>, <b>2048</b>, <b>4096</b>.<br/>It will cycle backward.<br/><br/>[<b>SHIFT</b>] + ((LMB)) <br/>It will cycle forward.<br/><br/>[<b>CTRL</b>] + ((LMB)) <br/>It will switch to the CPU( [Icon:DATATYPES/vex] <i>Cvex</i> ) mode.<br/><br/>When switching to CPU mode for the very first time,<br/>Houdini will compile all the FLAM3H™ CPU nodes.<br/>Depending on your PC configuration it can take up to <b>1</b>(<i>one</i>) minute.<br/>It is a one time compile process.<br/><br/><i>Additionally</i>,<br/><i>you can change the number of iterations being used by the GPU in the preferences tab under the GPU section</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Everytime you either:<ul><li>Load a Flame preset</li><li>Reset FLAM3H™ to the Sierpiński triangle</li><li>Set its iterator's count to <b>0</b>(<i>Zero</i>)</li></ul>the GPU iterations will be reset to its default value of: <b>1024</b><br/>"
             hidewhen "{ flamefunc == 0 } { gpu == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).gpu_iterations_cycle()" }
@@ -5887,7 +5887,7 @@
                     label   "GPU"
                     type    toggle
                     default { "1" }
-                    help    "<h2>[Icon:PARTS/gpu] GPU( [Icon:COMMON/opencl] <i>OpenCL</i> ) mode</h2>This can be hundreds of times faster compared to the CPU( [Icon:DATATYPES/vex] <i>Cvex</i> ) implementation depending on the system' GPU device being used.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When switching this toggle <b>OFF</b> for the very first time,<br/>Houdini will compile all the FLAM3H™ CPU ( [Icon:DATATYPES/vex] <i>Cvex</i> ) nodes.<br/>Depending on your PC configuration it can take up to <b>1</b>(<i>one</i>) minute.<br/>It is a one time compile process.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIPS</b>:<br/><i>When in GPU mode, having the SYS Tab <b>RIP</b>(<i><b>R</b>emove <b>I</b>nvalid <b>P</b>oints</i>) toggle <b>ON</b> will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.<br/><br/>Keep the <b>RIP</b>(<i><b>R</b>emove <b>I</b>nvalid <b>P</b>oints</i>) toggle <b>OFF</b> while editing your fractal Flames in GPU mode to go full speed and Activate it only if/when needed</i>:<br/>(<i>e.g. before any rendering or to check the final result from time to time if any iterators' opacity is <b>0</b>(Zero) or <b>NaN</b> values are present</i>).<br/>"
+                    help    "<h2>[Icon:PARTS/gpu] GPU( [Icon:COMMON/opencl] <i>OpenCL</i> ) mode</h2>This can be hundreds of times faster compared to the CPU( [Icon:DATATYPES/vex] <i>Cvex</i> ) implementation depending on the system' GPU device being used.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When switching this toggle <b>OFF</b> for the very first time,<br/>Houdini will compile all the FLAM3H™ CPU nodes.<br/>Depending on your PC configuration it can take up to <b>1</b>(<i>one</i>) minute.<br/>It is a one time compile process.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIPS</b>:<br/><i>When in GPU mode, having the SYS Tab <b>RIP</b>(<i><b>R</b>emove <b>I</b>nvalid <b>P</b>oints</i>) toggle <b>ON</b> will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.<br/><br/>Keep the <b>RIP</b>(<i><b>R</b>emove <b>I</b>nvalid <b>P</b>oints</i>) toggle <b>OFF</b> while editing your fractal Flames in GPU mode to go full speed and Activate it only if/when needed</i>:<br/>(<i>e.g. before any rendering or to check the final result from time to time if any iterators' opacity is <b>0</b>(Zero) or <b>NaN</b> values are present</i>).<br/>"
                     parmtag { "script_callback" "hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -5926,7 +5926,7 @@
                     label   "cl fast relaxed math"
                     type    toggle
                     default { "1" }
-                    help    "<h2>Enable fast relaxed floating-point math</h2>Allows more aggressive compiler optimizations, including relaxed precision rules and faster math transformations. May improve performance but can change numerical results."
+                    help    "<h2>[Icon:COMMON/opencl] Enable fast relaxed floating-point math</h2>Allows more aggressive compiler optimizations, including relaxed precision rules and faster math transformations. May improve performance but can change numerical results.<br/>"
                     disablewhen "{ gpu == 0 }"
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
@@ -5936,7 +5936,7 @@
                     label   "fma"
                     type    toggle
                     default { "1" }
-                    help    "<h2>Allow FMA optimizations</h2>Permits use of fused multiply-add instructions for faster and potentially more accurate floating-point calculations. Results may differ slightly due to different rounding behavior."
+                    help    "<h2>[Icon:COMMON/opencl] Allow FMA optimizations</h2>Permits use of fused multiply-add instructions for faster and potentially more accurate floating-point calculations. Results may differ slightly due to different rounding behavior.<br/>"
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -5945,7 +5945,7 @@
                     label   "native math"
                     type    toggle
                     default { "1" }
-                    help    "<h2>Enable native math functions</h2>Uses device-specific approximations for math operations to maximize speed. Accuracy and behavior may vary between GPUs."
+                    help    "<h2>[Icon:COMMON/opencl] Enable native math functions</h2>Uses device-specific approximations for math operations to maximize speed. Accuracy and behavior may vary between GPUs.<br/>"
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -5962,7 +5962,7 @@
                     label   "rng xoshiro128+"
                     type    toggle
                     default { "1" }
-                    help    "Enable <b>xoshiro128+ RNG</b> (<i><b>R</b>andom <b>N</b>umber <b>G</b>enerator</i>).<br/><br/>High quality RNG with excellent statistical properties, a very large period, and good parallel performance. Recommended default for reliable GPU random number generation.<br/><br/>When <b>OFF</b> it will use the older <b>MWC64X</b> -> <i>Lightweight, fast RNG optimized for GPU throughput. Uses less state and can be faster in some workloads, but has weaker statistical properties compared with xoshiro128+</i>.<br/><br/><b>NOTE</b>:<br/>Differences in statistical quality may become more noticeable in very large workloads involving millions to hundreds of millions of generated samples (<i>points</i>)."
+                    help    "<h2>[Icon:COMMON/opencl] Enable <b>xoshiro128+ RNG</b><br/>(<i><b>R</b>andom <b>N</b>umber <b>G</b>enerator</i>)</h2>High quality RNG with excellent statistical properties, a very large period, and good parallel performance. Recommended default for reliable GPU random number generation.<br/><br/>When <b>OFF</b> it will use the older <b>MWC64X</b> -> <i>Lightweight, fast RNG optimized for GPU throughput. Uses less state and can be faster in some workloads, but has weaker statistical properties compared with xoshiro128+</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>Differences in statistical quality may become more noticeable in very large workloads involving millions to hundreds of millions of generated samples (<i>points</i>).<br/>"
                     parmtag { "export_disable" "1" }
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
@@ -5990,7 +5990,7 @@
                     label   "palette 256+"
                     type    toggle
                     default { "1" }
-                    help    "<h3>[Icon:TOP/xmlinput] Allow Palette with more than 256 color keys</h3>It will allow the OUT Flame to be saved with more than <b>256</b> color keys assuming you created a Palette with this many colors otherwise it will always save the Flame using the standard <b>256</b> color keys.<br/><br/>If the Palette color keys are less than <b>256</b>, it will always sample the Palette at <b>256</b> when saving out the Flame preset.<br/><br/>The maximun Palette color keys you can use are <b>1024</b>, if you create a Palette with more, it will be sampled at <b>1024</b> colors.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>If you are planning to load the saved Flame inside <b>Apophysis</b>, remember that it will fail if the Flame preset you are trying to load posses a Palette with more than <b>256</b> color keys.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] Allow Palette with more than 256 color keys</h3>It will allow the OUT Flame to be saved with more than <b>256</b> color keys assuming you created a Palette with this many colors otherwise it will always save the Flame using the standard <b>256</b> color keys.<br/><br/>If the Palette color keys are less than <b>256</b>, it will always sample the Palette at <b>256</b> when saving out the Flame preset.<br/><br/>The maximun Palette color keys you can use are <b>1024</b>, if you create a Palette with more, it will be sampled at <b>1024</b> colors.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>If you are planning to load the saved Flame inside <b>Apophysis</b>, remember that it will fail if the Flame preset you are trying to load posses a Palette with more than <b>256</b> color keys and you should toggle this <b>OFF</b> before saving the Flame out.<br/>"
                     parmtag { "script_callback" "hou.phm().flam3.out_flame_utils(kwargs).out_palette_256_plus_check(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6050,7 +6050,7 @@
                     label   "modes"
                     type    string
                     default { "32" }
-                    help    "Switch between the default Single Precision (<i><b>32-bit</b></i>) or Double Precision (<i><b>64-bit</b></i>).<br/><br/><b>64-bit</b> double precision will be really, really slow. I repeat: really, really slow.<br/><br/>Always use the default <b>32-bit</b> unless you notice some major artifacts and you truly love the fractal flame you are working on.<br/><br/>When switching to Double Precision (<i><b>64-bit</b></i>) for the first time, it will Re-Compile all FLAM3H CVEX nodes. Depending on your PC configuration it can take up to <b>1</b> minute.<br/><br/>It is a one time compile process."
+                    help    "<h2>[Icon:DATATYPES/vex] [Icon:DATATYPES/float_32] [Icon:DATATYPES/float_64] Cvex precision</h2>Switch between the default Single Precision (<i><b>32-bit</b></i>)<br/>or Double Precision (<i><b>64-bit</b></i>).<br/><br/><b>64-bit</b> Double Precision will be really, really slow.<br/>I repeat: <b>really, really slow</b>.<br/><br/>Always use the default <b>32-bit</b> unless you notice some major artifacts and you truly love the fractal Flame you are working on.<br/><br/>When switching to Double Precision (<i><b>64-bit</b></i>) for the very first time,<br/>it will Re-Compile all FLAM3H™ Cvex nodes. Depending on your PC configuration it can take up to <b>1</b>(<i>one</i>) minute.<br/><br/>It is a one time compile process.<br/>"
                     menu {
                         "32"    "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]32-bit (SP)       "
                         "64"    "64-bit (DP)"
