@@ -59,7 +59,7 @@ They are all available in this Github repository.
 
 - **Fix H22 NEW UI ONLY**: Improved parameters tooltips ( _more icons from the Houdini's **`hicon:/..`** catalog being used and better formatting where needed_ ).
 - **New H22 NEW UI ONLY**: Internal File nodes now offer the same UI interface and functionalities as the one provided already by the internal compiled Cvex and OpenCL C nodes.
-- **Updated GIT documentation**: Fixed some images filenames and brought back some infos previewsly removed.
+- **Updated GIT documentation**: Fixed some images filenames and brought back some infos previously removed.
 
 #### FLAM3H™USD v0.2.85 indie -> H22.0 UP</br>FLAM3H™USD v0.2.73 indie -> H21.0</br>FLAM3H™USD v0.2.69 indie -> H20.5</br>FLAM3H™USD v0.2.52 indie -> H19.0 to H20 ####
 
