@@ -219,6 +219,8 @@ a new custom materialX Shader has been introduced to the FLAM3H™USD HDA to all
 This custom shader will match the visual quality of the fractal Flames rendered with Apophysis, Fractorium and others.
 Fully available only with FLAM3H™USD HDA versions for Houdini H20.5 and up.
 
+* _Following are some screenshots showing it for a few different Flame presets_.
+
 * _The CPU (Cvex) iterations needed number are the least amount of iterations needed when FLAM3H™ run in CPU (Cvex) mode to resolve the fractal Flame before it start to turn blocky, which happen when the Flame crosses its own minimun_.
 
 <br/>
@@ -294,6 +296,8 @@ A portion of the render parameters deal with the camera and how the fractal Flam
 The FLAM3H™ camera sensor will precisely display the image framing.
 
 Once framed, you can save the Flame and be sure it will be framed the same in all other applications.
+
+* _Following are some screenshots showing it for a few different Flame presets_.
 
 * _The CPU (Cvex) iterations needed number are the least amount of iterations needed when FLAM3H™ run in CPU (Cvex) mode to resolve the fractal Flame before it start to turn blocky, which happen when the Flame crosses its own minimun_.
 
