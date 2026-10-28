@@ -55,6 +55,8 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v2.1.30 indie -> H22.0 UP</br>FLAM3H™ v2.0.96 indie -> H21.0</br>FLAM3H™ v2.0.65 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
 
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
+
 **Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
 
 - **Fix H22 NEW UI ONLY**: Improved parameters tooltips ( _more icons from the Houdini's **`hicon:/..`** catalog being used and better formatting where needed_ ).
