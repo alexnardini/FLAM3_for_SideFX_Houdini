@@ -219,6 +219,8 @@ a new custom materialX Shader has been introduced to the FLAM3H™USD HDA to all
 This custom shader will match the visual quality of the fractal Flames rendered with Apophysis, Fractorium and others.
 Fully available only with FLAM3H™USD HDA versions for Houdini H20.5 and up.
 
+* _The CPU (Cvex) iterations needed number are the least amount of iterations needed when FLAM3H™ run in CPU (Cvex) mode to resolve the fractal Flame before it start to turn blocky, which happen when the Flame crosses its own minimun_.
+
 <br/>
 
 _CPU (Cvex) iterations needed_: **72**<br />
@@ -264,6 +266,8 @@ FLAM3H™ generate a live point cloud of the fractal Flame you are working on.
 
 * _Following are some screenshots showing it for a few different Flame presets_.
 
+* _The CPU (Cvex) iterations needed number are the least amount of iterations needed when FLAM3H™ run in CPU (Cvex) mode to resolve the fractal Flame before it start to turn blocky, which happen when the Flame crosses its own minimun_.
+
 </br>
 
 _CPU (Cvex) iterations needed_: **12**<br />
@@ -291,6 +295,8 @@ The FLAM3H™ camera sensor will precisely display the image framing.
 
 Once framed, you can save the Flame and be sure it will be framed the same in all other applications.
 
+* _The CPU (Cvex) iterations needed number are the least amount of iterations needed when FLAM3H™ run in CPU (Cvex) mode to resolve the fractal Flame before it start to turn blocky, which happen when the Flame crosses its own minimun_.
+
 </br>
 
 _CPU (Cvex) iterations needed_: **16**<br />
@@ -307,8 +313,11 @@ _CPU (Cvex) iterations needed_: **64**<br />
 ## <img width="24" height="24" src="./icons/icon_optionStarBlueSVG.svg" /> Load Flames files authored with Apophysis, Fractorium, etc.
 
 Following are some images showing FLAM3H™ rendering some of the Fractorium's example Flame files.
-Some have been modified to fit within the available variations. The screenshots show
-FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right.
+Some have been modified to fit within the available variations.
+
+* _The following screenshots show FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right_.
+
+* _The CPU (Cvex) iterations needed number are the least amount of iterations needed when FLAM3H™ run in CPU (Cvex) mode to resolve the fractal Flame before it start to turn blocky, which happen when the Flame crosses its own minimun_.
 
 </br>
 
