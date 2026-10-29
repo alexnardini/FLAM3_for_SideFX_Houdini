@@ -388,7 +388,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<h2>[Icon:NETWORKS/sop] [Icon:BUTTONS/tag_add] Enable TAG visualizer</h2><br/>((LMB)) to enable viewport <b>TAG</b>.<br/><br/>[<b>SHIFT</b>] + ((LMB)) to enter the Camera sensor VIZ mode.<br/><br/><i>Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire</i>.<br/><br/><b>TAG</b> allow you to review your fractal Flame construction infos in one compact viewport string.<br/><br/><i>The <b>TAG</b> functionality has a cost and the default behavior is for it to be <b>OFF</b></i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+            help    "<h2>[Icon:NETWORKS/sop] [Icon:BUTTONS/tag_add] Enable TAG visualizer</h2><br/>((LMB))<br/>Enable viewport <b>TAG</b>.<br/><br/>[<b>SHIFT</b>] + ((LMB))<br/>Enter the Camera sensor VIZ mode.<br/><br/><i>Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire</i>.<br/><br/><b>TAG</b> allow you to review your fractal Flame construction infos in one compact viewport string.<br/><br/><i>The <b>TAG</b> functionality has a cost and the default behavior is for it to be <b>OFF</b></i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
             disablewhen "{ outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { tag == 1 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueToolSVG_disabled.svg" }
@@ -402,7 +402,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<h2>[Icon:NETWORKS/sop] [Icon:BUTTONS/tag_delete] Disable TAG visualizer</h2><br/>((LMB)) to disable viewport <b>TAG</b>.<br/><br/>[<b>SHIFT</b>] + ((LMB)) to enter the Camera sensor VIZ mode.<br/><br/><i>Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire</i>.<br/><br/>Next to this icon on the right side there is a menu to choose different tag sizes. <b>TAG</b> allow you to review your fractal Flame construction infos in one compact viewport string.<br/><br/><i>The <b>TAG</b> functionality has a cost and the default behavior is for it to be <b>OFF</b></i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
+            help    "<h2>[Icon:NETWORKS/sop] [Icon:BUTTONS/tag_delete] Disable TAG visualizer</h2><br/>((LMB))<br/>Disable viewport <b>TAG</b>.<br/><br/>[<b>SHIFT</b>] + ((LMB))<br/>Enter the Camera sensor VIZ mode.<br/><br/><i>Once in Camera SENSOR VIZ mode, you can go into the OUT tab to tweak the SENSOR settings if you desire</i>.<br/><br/>Next to this icon on the right side there is a menu to choose different tag sizes. <b>TAG</b> allow you to review your fractal Flame construction infos in one compact viewport string.<br/><br/><i>The <b>TAG</b> functionality has a cost and the default behavior is for it to be <b>OFF</b></i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This has the important property to update and refresh all the Presets menus data (<i><b>CP</b>, <b>IN</b> and <b>OUT</b> presets menus</i>)<br/>"
             disablewhen "{ outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { tag == 0 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueToolSVG.svg" }
@@ -452,7 +452,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "<br/>((LMB)) to reset FLAM3H™ and load the default <b>Sierpiński triangle</b> preset.<br/><br/><i>Additionally</i>:<br/><i>it will also reset the FLAM3H™ UI and options toggles to their defaults including the OUT render properties (<b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b> settings)</i>.<br/><br/>When in GPU mode,<br/>it will also reset the GPU iterations to its default: <b>1024</b><br/>"
+            help    "<h2>[Icon:CHANNELS/set_defaults] Reset FLAM3H™ to its defaults</h2><br/>((LMB)) to reset FLAM3H™ and load the default <b>Sierpiński triangle</b> preset.<br/><br/><i>Additionally</i>:<br/><i>it will also reset the FLAM3H™ UI and options toggles to their defaults including the OUT render properties (<b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b> settings)</i>.<br/><br/>When in GPU mode,<br/>it will also reset the GPU iterations to its default: <b>1024</b><br/>"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_SierpinskyDefSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).flam3h_default()" }
             parmtag { "script_callback_language" "python" }
