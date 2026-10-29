@@ -267,6 +267,7 @@ _cvex_TFFAuicollect(string _bound_VARTYPE[]){
     // BUILD TAG
 
     // iterations
+    if(GPU) ITER = chi("gpu_iter");
     append(T, concat("[", itoa(ITER), "]"));
 
     // XM (xaos mode)
