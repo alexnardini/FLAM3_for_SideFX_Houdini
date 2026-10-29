@@ -514,7 +514,7 @@
                     label   "presets"
                     type    string
                     default { "off" }
-                    help    "<h3>[Icon:COP/tonemap] Select a tone map preset to apply to the rendered image</h3><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This parameter is only availabe in FLAM3H™USD HDA versions for Houdini 20.5 and up.<br/>"
+                    help    "<h2>[Icon:COP/tonemap] Tone map</h2>Select a tone map preset to apply to the rendered image.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>This parameter is only availabe in FLAM3H™USD HDA versions for Houdini 20.5 and up.<br/>"
                     hidewhen "{ h_20_5_up == 0 }"
                     menu {
                         "off"       "-                           "

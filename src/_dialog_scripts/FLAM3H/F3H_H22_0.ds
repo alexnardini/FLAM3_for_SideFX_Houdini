@@ -836,7 +836,7 @@
                     label   "location"
                     type    float
                     default { "0" }
-                    help    "<h3>[Icon:TOP/xmlinput] The color location in the ramp [Icon:DATATYPES/ramp] <b>{0:1}</b></h3>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:MISC/standard_shader_ball] The color location in the ramp [Icon:DATATYPES/ramp] <b>{0:1}</b></h3>"
                     range   { 0! 1! }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -845,7 +845,7 @@
                     label   "speed"
                     type    float
                     default { "0" }
-                    help    "<h3>[Icon:TOP/xmlinput] Speed of color blending between iterations</h3><i>Values above <b>0</b>(<i>Zero</i>) attract the selected color while values below <b>0</b>(<i>Zero</i>) will repel it</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>The correct ranges for this value should always be between <b>-1</b> and <b>1</b>.<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:MISC/standard_shader_ball] Speed of color blending between iterations</h3><i>Values above <b>0</b>(<i>Zero</i>) attract the selected color while values below <b>0</b>(<i>Zero</i>) will repel it</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>The correct ranges for this value should always be between <b>-1</b> and <b>1</b>.<br/>"
                     range   { 0 1! }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -854,7 +854,7 @@
                     label   "opacity"
                     type    float
                     default { "1" }
-                    help    "<h3>[Icon:TOP/xmlinput] Samples/Points opacity for this iterator</h3>It will be fully opaque at opacity <b>1</b>(<i>one</i>) and completely transparent at opacity <b>0</b>(<i>Zero</i>)<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator’s <b>W</b>eight</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When an iterator's opacity is <b>0</b>(<i>Zero</i>), you can activate the SYS Tab RIP option to get rid of those points.<br/>( <i>Since <b>Opacity</b> == <b>@pscale</b> or <b>@widths</b> in Solaris, you don't need them anymore</i> )<br/>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:MISC/standard_shader_ball] Samples/Points opacity for this iterator</h3>It will be fully opaque at opacity <b>1</b>(<i>one</i>) and completely transparent at opacity <b>0</b>(<i>Zero</i>)<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator’s <b>W</b>eight</i>.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When an iterator's opacity is <b>0</b>(<i>Zero</i>), you can activate the SYS Tab RIP option to get rid of those points.<br/>( <i>Since <b>Opacity</b> == <b>@pscale</b> or <b>@widths</b> in Solaris, you don't need them anymore</i> )<br/>"
                     range   { 0! 1! }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils.destroy_cachedUserData(kwargs['node'], 'iter_sel')" }
                     parmtag { "script_callback_language" "python" }
@@ -4870,7 +4870,7 @@
                 label   "JSON file"
                 type    file
                 default { "" }
-                help    "<h3>Load an already created FLAM3H™ <b>json</b> palette library file<br/>or choose the path and name of a new one to create</h3><br/>"
+                help    "<h2>[Icon:BUTTONS/chooser_file] FLAM3H™ palette json file</h2>Load an already created FLAM3H™ <b>json</b> palette library file<br/>or choose the path and name of a new one to create.<br/><br/>Palette files are <b>json</b> files capable of containing multiple presets.<br/><br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>The FLAM3H™ palette <b>json</b> file format does not support animations, <br/>but only static frames, so to speak. If you animated your colors and keys, <br/>save the [Icon:DESKTOP/hip] hip file from Houdini instead.<br/>"
                 parmtag { "filechooser_pattern" "*.json" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS(), kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
@@ -4880,7 +4880,7 @@
                 label   "palette name"
                 type    string
                 default { "" }
-                help    "<h3>[Icon:TOP/jsoninput] Save this palette with this name</h3>If no name is provided, a default name composed of today's date and current time will be used instead.<br/>"
+                help    "<h2>[Icon:TOP/jsoninput] Save this palette with this name</h2>If no name is provided, a default name composed of today's date and current time will be used instead.<br/>"
                 parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).flam3h_ramp_save()" }
                 parmtag { "script_action_help" "[LMB] to save this Palette inside the selected file. If the file doesn't exit yet it will create it. If the file contain already some palette, it will append it. [CTRL+LMB] to erase the content of the file and save only the current Palette in it. [SHIFT+LMB] if not a valid filepath is present already it will open a file chooser, otherwise it will open the file explorer to the file location. If the selected file is not a valid Palette JSON file type, nothing will happen. [ALT+LMB] to save the current palette into the Clipboard as a JSON data." }
                 parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg" }
@@ -4910,7 +4910,7 @@
                 label   "CP file contents"
                 type    string
                 default { "-1" }
-                help    "<h2>Preset loaded</h2>Select a palette preset to load.<br/>As many entries as there are palette in the file you are loading will be added to this preset menu, if any are present.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Once you add a new palette preset to it, this menu will update too.<br/>It will always be set to the last palette's name you saved</i>.<br/>"
+                help    "<h2>[Icon:BUTTONS/presets] Preset loaded</h2>Select a palette preset to load.<br/>As many entries as there are palette in the file you are loading will be added to this preset menu, if any are present.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>Once you add a new palette preset to it, this menu will update too.<br/>It will always be set to the last palette's name you saved</i>.<br/>"
                 hidewhen "{ cpisvalidpreset == 0 }"
                 menu {
                     [ "menu = hou.phm().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()" ]
@@ -5082,7 +5082,7 @@
                 label   "IN flame"
                 type    file
                 default { "" }
-                help    "<br/>Load <i><b>*.flame</b></i> files created with FLAM3H™, Fractorium, Apophysis<br/>and other third-party programs able to save in a Flame file format.<br/><br/>The only restrictions are:<br/>The flames contained in the file must use the same variations included inside FLAM3H™.<br/><br/>Each iterator/xform can have:<ul><li><b>PRE_BLUR</b> plus <b>2 PRE</b></li><li><b>4 VARS</b></li><li><b>1 POST</b></li></ul>variations, for a total of <b>8</b> vars per iterator.<br/><br/>For <b>FF</b> ( <i>FinalXForm</i> ) you have:<ul><li><b>1 PRE</b></li><li><b>2 VARS</b></li><li><b>2 POST</b></li></ul>variations, for a total of <b>5</b> vars in the <b>FF</b>.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>If more variations are used, the excess ones will be discarded</i>.<br/>"
+                help    "<h2>[Icon:BUTTONS/chooser_file] Load Flame files</h2>Load <i><b>*.flame</b></i> files created with FLAM3H™, Fractorium, Apophysis<br/>and other third-party programs able to save in a Flame file format.<br/><br/>The only restrictions are:<br/>The flames contained in the file must use the same variations included inside FLAM3H™.<br/><br/>Each iterator/xform can have:<ul><li><b>PRE_BLUR</b> plus <b>2 PRE</b></li><li><b>4 VARS</b></li><li><b>1 POST</b></li></ul>variations, for a total of <b>8</b> vars per iterator.<br/><br/>For <b>FF</b> ( <i>FinalXForm</i> ) you have:<ul><li><b>1 PRE</b></li><li><b>2 VARS</b></li><li><b>2 POST</b></li></ul>variations, for a total of <b>5</b> vars in the <b>FF</b>.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>If more variations are used, the excess ones will be discarded</i>.<br/>"
                 parmtag { "filechooser_mode" "read" }
                 parmtag { "filechooser_pattern" "*.flame" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_IN_PRESETS(), kwargs['parm'].deleteAllKeyframes()" }
@@ -5111,7 +5111,7 @@
                 label   "IN file contents"
                 type    string
                 default { "-1" }
-                help    "<h2>Preset loaded</h2>As many entries as there are flames in the file you are loading will be added to this preset menu.<br/><br/>Each entry will display the Flame preset' name.<br/>"
+                help    "<h2>[Icon:BUTTONS/presets] Preset loaded</h2>As many entries as there are flames in the file you are loading will be added to this preset menu.<br/><br/>Each entry will display the Flame preset' name.<br/>"
                 hidewhen "{ inisvalidfile == 1 inisvalidpreset == 0 } { inisvalidfile == 0 }"
                 menu {
                     [ "menu = hou.phm().flam3.in_flame_utils(kwargs).menu_in_presets()" ]
@@ -5281,7 +5281,7 @@
                 label   "SENSOR"
                 type    button
                 default { "0" }
-                help    "<h3>Loaded Flame preset <b>SENSOR</b> settings</h3><br/>((LMB)) to copy only the loaded Flame preset <b>SENSOR</b> settings intos the OUT Sensor settings.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>All the render properties of a Flame preset loaded from the Clipboard will be automatically copied into the OUT render properties on load (<i><b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b> settings</i>)."
+                help    "<h3>[Icon:BUTTONS/render] Loaded Flame preset <b>SENSOR</b> settings</h3><br/>((LMB)) to copy only the loaded Flame preset <b>SENSOR</b> settings intos the OUT Sensor settings.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>All the render properties of a Flame preset loaded from the Clipboard will be automatically copied into the OUT render properties on load (<i><b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b> settings</i>)."
                 disablewhen "{ inisvalidpreset == 0 }"
                 hidewhen "{ inisvalidpreset == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg" }
@@ -5301,7 +5301,7 @@
                 label   "RENDER"
                 type    button
                 default { "0" }
-                help    "<h3>Loaded Flame preset <b>RENDER</b> and <b>CC CURVES</b> settings</h3><br/>((LMB)) to copy only the loaded Flame preset <b>RENDER</b> and <b>CC CURVES</b> settings intos the OUT Renderer serttings.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>All the render properties of a Flame preset loaded from the Clipboard will be automatically copied into the OUT render properties on load (<i><b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b> settings</i>)."
+                help    "<h3>[Icon:BUTTONS/render] Loaded Flame preset <b>RENDER</b> and <b>CC CURVES</b> settings</h3><br/>((LMB)) to copy only the loaded Flame preset <b>RENDER</b> and <b>CC CURVES</b> settings intos the OUT Renderer serttings.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>All the render properties of a Flame preset loaded from the Clipboard will be automatically copied into the OUT render properties on load (<i><b>SENSOR</b>, <b>RENDER</b> and <b>CC CURVES</b> settings</i>)."
                 disablewhen "{ inisvalidpreset == 0 }"
                 hidewhen "{ inisvalidpreset == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg" }
@@ -5352,7 +5352,8 @@
                 label   "OUT flame"
                 type    file
                 default { "" }
-                help    "<h3>Select a file name to save your Flame into</h3>If the selected file does not exist, it will be created.<br/>"
+                help    "<h2>[Icon:BUTTONS/chooser_file] Save Flame files</h2>Flame files are <b>xml</b> files capable of containing multiple presets.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i>If the selected file does not exist, it will be created</i>.<br/><br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>The Flame file format does not support animations, <br/>but only static frames, so to speak. If you animated your fractal Flame, <br/>save the [Icon:DESKTOP/hip] hip file from Houdini instead.<br/>"
+                parmtag { "filechooser_mode" "write" }
                 parmtag { "filechooser_pattern" "*.flame" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(), kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }
@@ -5362,7 +5363,7 @@
                 label   "Flame name"
                 type    string
                 default { "" }
-                help    "<h3>[Icon:TOP/xmlinput] Save this Flame with this name</h3>This is the name the Flame will have inside the XML file.<br/><br/>If no name is provided, a default name composed of today's date and current time will be used instead.<br/>"
+                help    "<h2>[Icon:TOP/xmlinput] Save this Flame with this name</h2>This is the name the Flame will have inside the XML file.<br/><br/>If no name is provided, a default name composed of today's date and current time will be used instead.<br/>"
                 parmtag { "script_action" "kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()" }
                 parmtag { "script_action_help" "[LMB] to save this Flame inside the selected OUT file, if any. If the file doesn't exit yet it will create it. If the file contain already some Flames, it will append it. [CTRL+LMB] to erase the content of the file and save only the current Flame in it. [SHIFT+LMB] if not a valid filepath is present already it will open a file chooser, otherwise it will open the file explorer to the file location. [ALT+LMB] to save this Flame into the Clipboard. " }
                 parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg" }
