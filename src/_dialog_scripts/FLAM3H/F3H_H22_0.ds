@@ -836,7 +836,7 @@
                     label   "location"
                     type    float
                     default { "0" }
-                    help    "<h3>[Icon:TOP/xmlinput] [Icon:MISC/standard_shader_ball] The color location in the ramp [Icon:DATATYPES/ramp] <b>{0:1}</b></h3>"
+                    help    "<h3>[Icon:TOP/xmlinput] [Icon:MISC/standard_shader_ball] The color location in the ramp: <b>{0:1}</b></h3>"
                     range   { 0! 1! }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -5209,7 +5209,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "<h3>Display informations about the loaded Flame preset</h3>Those infos include all the Missing variations if any are found in the currently loaded Flame preset.<br/><br/>All of the variations that Fractorium has but FLAM3H™ does not are known as: <b>MISSING</b> variations.<br/><br/>FLAM3H™ was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he possess.<br/><br/>All of the variations that Fractorium lacks will be classified as: <b>UNKNOWN</b> variations."
+                help    "<h3>[Icon:BUTTONS/info] Display informations about the loaded Flame preset</h3>Those infos include all the Missing variations if any are found in the currently loaded Flame preset.<br/><br/>All of the variations that Fractorium has but FLAM3H™ does not are known as: <b>MISSING</b> variations.<br/><br/>FLAM3H™ was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he possess.<br/><br/>All of the variations that Fractorium lacks will be classified as: <b>UNKNOWN</b> variations."
                 disablewhen "{ indisable == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
                 parmtag { "script_callback" "" }
