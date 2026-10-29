@@ -210,7 +210,7 @@
                 label   "display"
                 type    ordinal
                 default { "0" }
-                help    "<h3>[Icon:NETWORKS/lop] Viewport Point display types</h3>You can choose between [Icon:COP2/pixel] <b>Pixels</b> and [Icon:PRIMITIVES/points] <b>Points</b> (_default_).<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i><b>Pixels</b> are faster to display, but <b>Points</b> give you more control on their viewport size representation in Houdini</i>.<br/>"
+                help    "<h3>[Icon:NETWORKS/sop] Viewport Point display types</h3>You can choose between:<ul><li>[Icon:PRIMITIVES/points] <b>Points</b> (_default_)</li></ul><ul><li>[Icon:COP2/pixel] <b>Pixels</b></li></ul><br/>[Icon:SCENEGRAPH/primtype_light]<b>TIP</b>:<br/><i><b>Pixels</b> are faster to display, but <b>Points</b> give you more control on their viewport size representation in Houdini</i>.<br/>"
                 menu {
                     "0" "![opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg]Points      "
                     "1" "Pixels"
@@ -223,7 +223,7 @@
                 label   "size"
                 type    float
                 default { "1" }
-                help    "<h3>[Icon:NETWORKS/lop] Points size in the viewport</h3>If display type is set to [Icon:PRIMITIVES/points] <b>Points</b>,<br/>this parameter will set their size in the viewport.<br/>"
+                help    "<h3>[Icon:NETWORKS/sop] [Icon:PRIMITIVES/points] Points size in the viewport</h3>If display type is set to <b>Points</b>,<br/>this parameter will set their size in the viewport.<br/>"
                 disablewhen "{ rndtype != 0 }"
                 hidewhen "{ vptype == 1 }"
                 range   { 0.1! 2 }

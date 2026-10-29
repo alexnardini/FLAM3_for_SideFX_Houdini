@@ -5887,7 +5887,7 @@
                     label   "GPU"
                     type    toggle
                     default { "1" }
-                    help    "<h2>[Icon:PARTS/gpu] GPU( [Icon:COMMON/opencl] <i>OpenCL</i> ) mode</h2>This can be hundreds of times faster compared to the CPU( [Icon:DATATYPES/vex] <i>Cvex</i> ) implementation depending on the system' GPU device being used.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When switching this toggle <b>OFF</b> for the very first time,<br/>Houdini will compile all the FLAM3H™ CPU nodes.<br/>Depending on your PC configuration it can take up to <b>1</b>(<i>one</i>) minute.<br/>It is a one time compile process.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIPS</b>:<br/><i>When in GPU mode, having the SYS Tab <b>RIP</b>(<i><b>R</b>emove <b>I</b>nvalid <b>P</b>oints</i>) toggle <b>ON</b> will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.<br/><br/>Keep the <b>RIP</b>(<i><b>R</b>emove <b>I</b>nvalid <b>P</b>oints</i>) toggle <b>OFF</b> while editing your fractal Flames in GPU mode to go full speed and Activate it only if/when needed</i>:<br/>(<i>e.g. before any rendering or to check the final result from time to time if any iterators' opacity is <b>0</b>(Zero) or <b>NaN</b> values are present</i>).<br/>"
+                    help    "<h2>[Icon:PARTS/gpu] GPU( [Icon:COMMON/opencl] <i>OpenCL</i> ) mode</h2>Run the algorithm entirely on the GPU device.<br/><br/>This can be hundreds of times faster compared to the CPU( [Icon:DATATYPES/vex] <i>Cvex</i> ) implementation depending on the system' GPU device being used.<br/><br/>[Icon:BUTTONS/info] <b>NOTE</b>:<br/>When switching this toggle <b>OFF</b> for the very first time,<br/>Houdini will compile all the FLAM3H™ CPU nodes.<br/>Depending on your PC configuration it can take up to <b>1</b>(<i>one</i>) minute.<br/>It is a one time compile process.<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIPS</b>:<br/><i>When in GPU mode, having the SYS Tab <b>RIP</b>(<i><b>R</b>emove <b>I</b>nvalid <b>P</b>oints</i>) toggle <b>ON</b> will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.<br/><br/>Keep the <b>RIP</b>(<i><b>R</b>emove <b>I</b>nvalid <b>P</b>oints</i>) toggle <b>OFF</b> while editing your fractal Flames in GPU mode to go full speed and Activate it only if/when needed</i>:<br/>(<i>e.g. before any rendering or to check the final result from time to time if any iterators' opacity is <b>0</b>(Zero) or <b>NaN</b> values are present</i>).<br/>"
                     parmtag { "script_callback" "hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -6186,7 +6186,7 @@
                         label   "display"
                         type    ordinal
                         default { "0" }
-                        help    "<h3>[Icon:NETWORKS/sop] Viewport Point display types</h3>You can choose between [Icon:COP2/pixel] <b>Pixels</b> and [Icon:PRIMITIVES/points] <b>Points</b> (_default_).<br/><br/>[Icon:SCENEGRAPH/primtype_light] <b>TIP</b>:<br/><i><b>Pixels</b> are faster to display, but <b>Points</b> give you more control on their viewport size representation in Houdini</i>.<br/>"
+                        help    "<h3>[Icon:NETWORKS/sop] Viewport Point display types</h3>You can choose between:<ul><li>[Icon:PRIMITIVES/points] <b>Points</b> (_default_)</li></ul><ul><li>[Icon:COP2/pixel] <b>Pixels</b></li></ul><br/>[Icon:SCENEGRAPH/primtype_light]<b>TIP</b>:<br/><i><b>Pixels</b> are faster to display, but <b>Points</b> give you more control on their viewport size representation in Houdini</i>.<br/>"
                         menu {
                             "0" "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]Points          "
                             "1" "Pixels"
@@ -6199,7 +6199,7 @@
                         label   "size"
                         type    float
                         default { "1" }
-                        help    "<h3>[Icon:NETWORKS/sop] Points size in the viewport</h3>If display type is set to [Icon:PRIMITIVES/points] <b>Points</b>,<br/>this parameter will set their size in the viewport.<br/>"
+                        help    "<h3>[Icon:NETWORKS/sop] [Icon:PRIMITIVES/points] Points size in the viewport</h3>If display type is set to <b>Points</b>,<br/>this parameter will set their size in the viewport.<br/>"
                         disablewhen "{ vptype == 1 }"
                         range   { 0.1! 2 }
                         parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize(1.0)" }
@@ -6228,7 +6228,7 @@
                         label   "wire width"
                         type    float
                         default { "3" }
-                        help    "<h3>[Icon:NETWORKS/sop] [Icon:SOP/wire] Xforms handles VIZ wire width</h3>When the SYS tab <u><b>xforms handles VIZ</b></u> is <b>ON</b>, this parameter will set the wire curves thickness for the viewport display.<br/><br/>A value of <b>3.0</b> is generally good.<br/>"
+                        help    "<h3>[Icon:NETWORKS/sop] [Icon:SOP/wire] Xforms handles VIZ wire width</h3>When the SYS tab <u><b>xforms handles VIZ</b></u> is <b>ON</b>, this parameter will set the wire curves thickness for the viewport display.<br/><br/>A value of <b>3.0</b>(_three_) is generally good.<br/>"
                         disablewhen "{ vizhandles == 0 } { outsensor == 1 } { ptcount > 5000000 }"
                         range   { 0.1! 5! }
                         parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(3.0)" }
