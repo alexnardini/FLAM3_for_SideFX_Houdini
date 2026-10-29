@@ -69,7 +69,7 @@ They are subdivided in 2(_two_) main categories:
     - These palette have been created specifically for FLAM3H™.
     - They use **512** (_HQ_) and/or **1024** (_SHQ_) color keys.
 - **APOPHYSIS palette libs**:
-    - These palettes are the original historical palettes used in Apophysis software, and they are at least 20–30 years old.
+    - These palettes are the original historical palettes used in Apophysis software, and they are decades old.
     - They all use **256** color keys (_the standard at the time_).
     - These are the palettes that fractal artists used at the time to create their fractal art.
     - They have been converted and included with FLAM3H™ as a tribute to them!
