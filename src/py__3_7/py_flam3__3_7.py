@@ -2861,6 +2861,9 @@ class flam3h_scripts
             # init xaos
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             
+            # update about tab just in case
+            flam3h_about_utils(self.kwargs).flam3h_about_msg()
+            
             if hou.hipFile.isLoadingHipFile(): #type: ignore
                 
                 # Restore if it is needed
@@ -2891,7 +2894,6 @@ class flam3h_scripts
                 out_flame_utils.out_render_curves_set_defaults_on_load(node)
                 
                 # update about tab just in case
-                flam3h_about_utils(self.kwargs).flam3h_about_msg()
                 flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
                 flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
                 
