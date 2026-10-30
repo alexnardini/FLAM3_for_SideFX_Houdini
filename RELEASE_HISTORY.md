@@ -55,10 +55,17 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v2.1.33 indie -> H22.0 UP</br>FLAM3H™ v2.0.97 indie -> H21.0</br>FLAM3H™ v2.0.66 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
 
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
+
 **Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
 
+- **New H22 ONLY**: FLAM3H™ now run also on H22 Python 3.11 distribution.
 - **Fix H22 NEW UI ONLY**: Improved parameters tooltips (_including some internal nodes UI parameter tooltips_).
 - **Fix**: FLAM3H™ TAG info visualizer was still displaying the CPU iterations number when in GPU mode. It is now fixed.
+
+#### FLAM3H™USD v0.2.86 indie -> H22.0 UP</br>FLAM3H™USD v0.2.73 indie -> H21.0</br>FLAM3H™USD v0.2.69 indie -> H20.5</br>FLAM3H™USD v0.2.52 indie -> H19.0 to H20 ####
+
+- **New H22 ONLY**: FLAM3H™USD now run also on H22 Python 3.11 distribution.
 
 
 
