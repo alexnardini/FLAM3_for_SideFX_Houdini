@@ -491,6 +491,7 @@ class f3h_HDAsections:
     
     '''
     HDA_SECTION_IMG_BANNER: Final = 'FLAM3H_DOC_intro.jpg'
+    HDA_SECTION_IMG_BANNER_OLD_UI: Final = 'FLAM3H_DOC_intro_OLD_UI.jpg'
     HDA_SECTION_SVG_LOGO_BLACK: Final = 'iconSVG.svg'
     HDA_SECTION_SVG_LOGO_WHITE: Final = 'iconSVGW.svg'
     HDA_SECTION_SVG_LOGO_RED: Final = 'iconSVGR.svg'
@@ -24549,9 +24550,12 @@ class pyside_master:
         )
         
         # __v__ 2
-        IMAGE_CREDIT: str = 'Escher Teal - author: Plangkye'
-        if __v__ == 1:
-            IMAGE_CREDIT: str = 'Worlds - author: Alessandro Nardini'
+        h_py_version: str = hou.thirdPartyLibraryVersions()['python']['version']
+        try:
+            _NEW_UI: bool = bool(int(hou.getPreference("general.newui.val")))
+        except ValueError:
+            _NEW_UI: bool = False
+        IMAGE_CREDIT: str = f"[{h_py_version}] [NEW UI]  Stars Splash - author: Alessandro Nardini" if _NEW_UI else f"[{h_py_version}] [OLD UI]  Escher Teal - author: Plangkye"
         
         # milliseconds
         FADE_IN_DURATION_MS: int = 0
@@ -24569,7 +24573,7 @@ class pyside_master:
         BASE_SVG_ICON_WIDTH: int = 64
         
         IMG_PIXMAP: QtGui.QPixmap | None = None
-        IMG_PIXMAP_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_IMG_BANNER
+        IMG_PIXMAP_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_IMG_BANNER if _NEW_UI else f3h_HDAsections.HDA_SECTION_IMG_BANNER_OLD_UI
         
         SVG_ICON: SvgIcon | None = None
         SVG_ICON_B_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_SVG_LOGO_BLACK

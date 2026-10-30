@@ -303,6 +303,7 @@ class f3husd_HDAsections:
     
     '''
     HDA_SECTION_IMG_BANNER: Final = 'FLAM3HUSD_DOC_intro.jpg'
+    HDA_SECTION_IMG_BANNER_OLD_UI: Final = 'FLAM3HUSD_DOC_intro_OLD_UI.jpg'
     HDA_SECTION_SVG_LOGO: Final = 'iconSVG.svg'
     HDA_SECTION_SVG_LOGO_RED: Final = 'iconSVGR.svg'
     
@@ -3041,7 +3042,12 @@ class pyside_master:
             f"v{__version__} indie {flam3husd_scripts.flam3husd_compatible_h_versions_msg(False, True)}, {__license__} - {__copyright__} ( made in Italy )"
         )
         
-        IMAGE_CREDIT: str = 'Frozen - author: Alessandro Nardini'
+        h_py_version: str = hou.thirdPartyLibraryVersions()['python']['version']
+        try:
+            _NEW_UI: bool = bool(int(hou.getPreference("general.newui.val")))
+        except ValueError:
+            _NEW_UI: bool = False
+        IMAGE_CREDIT: str = f"[{h_py_version}] [NEW UI]  Jazz Streams - author: Alessandro Nardini" if _NEW_UI else f"[{h_py_version}] [OLD UI]  Frozen - author: Alessandro Nardini"
         
         # milliseconds
         FADE_IN_DURATION_MS: int = 0
@@ -3059,7 +3065,7 @@ class pyside_master:
         BASE_SVG_ICON_SIZE: int = 96
         
         IMG_PIXMAP: QtGui.QPixmap | None = None
-        IMG_PIXMAP_SECTION_NAME: str = f3husd_HDAsections.HDA_SECTION_IMG_BANNER
+        IMG_PIXMAP_SECTION_NAME: str = f3husd_HDAsections.HDA_SECTION_IMG_BANNER if _NEW_UI else f3husd_HDAsections.HDA_SECTION_IMG_BANNER_OLD_UI
         
         SVG_ICON: SvgIcon | None = None
         SVG_ICON_W_SECTION_NAME: str = f3husd_HDAsections.HDA_SECTION_SVG_LOGO
