@@ -2151,7 +2151,10 @@ class f3h_prm_utils
             if revertToDefaults:
                 prm.revertToDefaults()
                 # since H22
-                prm.setRangeToDefault()
+                try:
+                    prm.setRangeToDefault()
+                except AttributeError:
+                    pass
             else: prm.set(data) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
             
         else:
@@ -2183,7 +2186,10 @@ class f3h_prm_utils
                 if revertToDefaults:
                     prm.revertToDefaults()
                     # since H22
-                    prm.setRangeToDefault()
+                    try:
+                        prm.setRangeToDefault()
+                    except AttributeError:
+                        pass
         
         if prm is not None and not revertToDefaults:
             node.setParms(  # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
@@ -2217,7 +2223,10 @@ class f3h_prm_utils
             if revertToDefaults:
                 prm.revertToDefaults()
                 # since H22
-                prm.setRangeToDefault()
+                try:
+                    prm.setRangeToDefault()
+                except AttributeError:
+                    pass
             else: prm.set(data) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
             prm.lock(True)
             
@@ -8071,7 +8080,10 @@ class flam3h_iterator_utils
         
         # since H22
         scl_prm.revertToDefaults()
-        scl_prm.setRangeToDefault()
+        try:
+            scl_prm.setRangeToDefault()
+        except AttributeError:
+            pass
         
         
     def iterator_post_affine_scale(self) -> None:
@@ -8109,7 +8121,10 @@ class flam3h_iterator_utils
         
         # since H22
         scl_prm.revertToDefaults()
-        scl_prm.setRangeToDefault()
+        try:
+            scl_prm.setRangeToDefault()
+        except AttributeError:
+            pass
         
         
     def iterator_FF_affine_scale(self) -> None:
@@ -8143,7 +8158,10 @@ class flam3h_iterator_utils
         
         # since H22
         scl_prm.revertToDefaults()
-        scl_prm.setRangeToDefault()
+        try:
+            scl_prm.setRangeToDefault()
+        except AttributeError:
+            pass
         
         
     def iterator_FF_post_affine_scale(self) -> None:
@@ -8177,7 +8195,10 @@ class flam3h_iterator_utils
         
         # since H22
         scl_prm.revertToDefaults()
-        scl_prm.setRangeToDefault()
+        try:
+            scl_prm.setRangeToDefault()
+        except AttributeError:
+            pass
 
         
     def destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool = False) -> None:
@@ -11054,13 +11075,19 @@ class flam3h_iterator_utils
             prm.lock(False)
             prm.deleteAllKeyframes()
             # since H22
-            prm.setRangeToDefault()
+            try:
+                prm.setRangeToDefault()
+            except AttributeError:
+                pass
         for prm_name in n.prm_iterator_tuple:
             prm = node.parmTuple(f"{prm_name}_{s_mp_index}")
             prm.lock(False)
             prm.deleteAllKeyframes()
             # since H22
-            prm.setRangeToDefault()
+            try:
+                prm.setRangeToDefault()
+            except AttributeError:
+                pass
         # Delete all keyframes parametrics and revert to defaults
         for prm_name in n.prm_parametrics:
             prm = node.parm(f"{prm_name}_{s_mp_index}")
@@ -11068,14 +11095,20 @@ class flam3h_iterator_utils
             prm.deleteAllKeyframes()
             prm.revertToDefaults()
             # since H22
-            prm.setRangeToDefault()
+            try:
+                prm.setRangeToDefault()
+            except AttributeError:
+                pass
         for prm_name in n.prm_parametrics_tuple:
             prm = node.parmTuple(f"{prm_name}_{s_mp_index}")
             prm.lock(False)
             prm.deleteAllKeyframes()
             prm.revertToDefaults()
             # since H22
-            prm.setRangeToDefault()
+            try:
+                prm.setRangeToDefault()
+            except AttributeError:
+                pass
 
         # since H22
         if set_defaults:
@@ -11142,7 +11175,10 @@ class flam3h_iterator_utils
             prm.deleteAllKeyframes()
             prm.revertToDefaults()
             # since H22
-            prm.setRangeToDefault()
+            try:
+                prm.setRangeToDefault()
+            except AttributeError:
+                pass
             
         for prm_name in n.prm_FF_tuple:
             prm = node.parmTuple(f"{f3h_ffPrmPrx.PRM}{prm_name}")
@@ -11150,7 +11186,10 @@ class flam3h_iterator_utils
             prm.deleteAllKeyframes()
             prm.revertToDefaults()
             # since H22
-            prm.setRangeToDefault()
+            try:
+                prm.setRangeToDefault()
+            except AttributeError:
+                pass
 
         # For parametrics (PRE and POST)
         for prm_name in n.prm_parametrics:
@@ -11160,7 +11199,10 @@ class flam3h_iterator_utils
                 prm.deleteAllKeyframes()
                 prm.revertToDefaults()
                 # since H22
+            try:
                 prm.setRangeToDefault()
+            except AttributeError:
+                pass
                 
         for prm_name in n.prm_parametrics_tuple:
             for prefix in (f3h_ffPrmPrx.PRM, f3h_ffPrmPrx.PRM_PP):
@@ -11169,7 +11211,10 @@ class flam3h_iterator_utils
                 prm.deleteAllKeyframes()
                 prm.revertToDefaults()
                 # since H22
+            try:
                 prm.setRangeToDefault()
+            except AttributeError:
+                pass
 
         # FF note
         node.parm(f"{f3h_ffPrmPrx.PRM}{n.main_note}").set("iterator_FF")
@@ -19752,12 +19797,18 @@ class in_flame_utils
                 p.lock(False)
                 p.deleteAllKeyframes()
                 # since H22
-                p.setRangeToDefault()
+                try:
+                    p.setRangeToDefault()
+                except AttributeError:
+                    pass
                     
             if p.isMultiParmInstance():
                 p.revertToDefaults()
                 # since H22
-                p.setRangeToDefault()
+                try:
+                    p.setRangeToDefault()
+                except AttributeError:
+                    pass
             
         if in_flame_iter_count > flam3h_iter_count:
             flam3h_iter_count_prm.set(in_flame_iter_count)
