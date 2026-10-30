@@ -104,7 +104,7 @@ __status__  = "Production"
 # 190, 195, 200, 205, 210 and so on.
 __h_versions__: tuple = (220,)
 __range_type__: bool = False # True for closed range. False for open range
-__vcc_compiler__ = "22.0.368"
+__vcc_compiler__ = "22.0.453"
 __opencl__ = "1.2"
 
 
@@ -175,9 +175,13 @@ def py_module_vars() -> str:
     if h < 205:
         __module_filename__ = "py_flam3__3_7"
     elif h < 220:
-        __module_filename__ = "py_flam3__3_11_H21"
+        __module_filename__ = "py_flam3__3_11_H22"
     else:
-        __module_filename__ = "py_flam3__3_13"
+        h_py_version: str = hou.thirdPartyLibraryVersions()['python']['version']
+        if h_py_version.startswith('3.11'):
+            __module_filename__ = "py_flam3__3_11_H22"
+        else:
+            __module_filename__ = "py_flam3__3_13"
     
     return __module_filename__
 

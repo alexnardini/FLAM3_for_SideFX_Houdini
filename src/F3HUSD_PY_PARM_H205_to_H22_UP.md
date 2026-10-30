@@ -95,7 +95,7 @@ import toolutils
 
 # Set some HDA infos
 __v__ = 0
-__version__ = "0.2.85"
+__version__ = "0.2.86"
 __status__ = "Prototype"
 # Note:
 # The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
@@ -171,9 +171,13 @@ def py_module_vars() -> str:
     if h < 205:
         __module_filename__ = "py_flam3usd__3_7"
     elif h < 220:
-        __module_filename__ = "py_flam3usd__3_11_H21"
+        __module_filename__ = "py_flam3usd__3_11_H22"
     else:
-        __module_filename__ = "py_flam3usd__3_13"
+        h_py_version: str = hou.thirdPartyLibraryVersions()['python']['version']
+        if h_py_version.startswith('3.11'):
+            __module_filename__ = "py_flam3usd__3_11_H22"
+        else:
+            __module_filename__ = "py_flam3usd__3_13"
     
     return __module_filename__
 
