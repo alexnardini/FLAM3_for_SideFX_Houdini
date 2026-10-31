@@ -101,11 +101,17 @@ Token: 1
 |:---|:---|---:|---:|
 | **GLOBAL** | `icon_iter` | `from H20.5` | `v1.x` `v2.x` |
 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H20.5 to H21.0 Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
+hicon:/SVGIcons.index?NETWORKS_vop.svg
+```
+
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H22.0* Button icon (_v2.x_)
+
+```
+hicon:/SVGIcons.index?NETWORKS_vop.svg
 ```
 
 </br>

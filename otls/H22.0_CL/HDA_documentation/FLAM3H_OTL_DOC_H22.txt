@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H(tm)
-#version: 2.1.33 - Production
+#version: 2.1.36 - Production
 
 """The Fractal Flame Algorithm: FLAM3 - Create fractal art in Houdini"""
 
@@ -41,7 +41,7 @@ These days, FLAM3H(tm) has all the features found in other third-party programs,
 
 Additionally, when combined with Houdini's [procedural|Wp:Procedural_generation] paradigm and toolsets, fractal Flames reach previously unheard-of levels of possibilities.
 
-_Escher Teal - author: Plangkye_
+_Stars Splash - author: Alessandro Nardini_
 [Image:opdef:.?FLAM3H_DOC_intro.jpg]
 _A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
 
@@ -176,7 +176,7 @@ iterations (GPU):
     _Usage_:
     - ((LMB)) to cycle through the available GPU iterations presets.<br />Presets are: *`128`*, *`256`*, *`512`*, *`1024`*, *`2048`*, *`4096`*.<br />It will cycle backward.
     - ((SHIFT)) + ((LMB)) It will cycle forward.
-    - ((CTRL)) + ((LMB)) It will switch to the CPU(_Cvex_) mode ([Smallicon:opdef:.?icon_optionStarBlueSVG.svg]).<br />When switching to CPU(Cvex) mode for the very first time,<br />Houdini will compile all the FLAM3H™ CPU(CVEX) nodes.<br />Depending on your PC configuration it can take up to 1(one) minute.<br />It is a one time compile process.
+    - ((CTRL)) + ((LMB)) It will switch to the CPU(_Cvex_) mode ([Icon:NETWORKS/vop]).<br />When switching to CPU(Cvex) mode for the very first time,<br />Houdini will compile all the FLAM3H™ CPU(CVEX) nodes.<br />Depending on your PC configuration it can take up to 1(one) minute.<br />It is a one time compile process.
     
     _Additionally_,<br />
     _you can change the number of iterations being used by the GPU in the preferences tab under the GPU section_.
@@ -197,9 +197,9 @@ iterations (GPU):
 
 switch to GPU (CPU):
     #id: GLOBAL
-    [Largeicon:opdef:.?icon_optionStarBlueSVG.svg]
+    [Largeicon:NETWORKS/vop]
 
-    When this icon is visible mean FLAM3H™ is running in CPU mode.<br />
+    When this icon is visible mean FLAM3H™ is running in CPU (_Cvex_) mode.<br />
 
     _Usage_:
     - ((LMB)) to switch to the GPU mode ([Smallicon:opdef:.?icon_optionOCLSVG.svg]).
@@ -215,7 +215,7 @@ iterations (CPU) [Icon:TOP/xmlinput]:
     :box:
         #display: rounded raised gray
 
-        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+        [Icon:COMMON/opencl] *FLAM3H(tm) GPU*
 
         _When in GPU mode, you wont need to come down to compromises_,<br />
         _but you can change the iterations number being used in the preferences tab under the GPU section if you desire_.<br />
@@ -444,7 +444,7 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     :box:
         #display: rounded raised gray
 
-        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+        [Icon:COMMON/opencl] *FLAM3H(tm) GPU*
 
         When in GPU mode, having this *`On`*/Active will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.
 
@@ -461,12 +461,12 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
         <br />
         
-        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+        [Icon:COMMON/opencl] *FLAM3H(tm) GPU*
         - When in GPU mode, FLAM3H(tm) will always switch this toggle *`Off`* only when loading Flames presets to keep the GPU at full speed otherwise it will not employ any automation at all, giving the user the option to switch this toggle *`On`* or *`Off`* as he pleases.
 
         <br />
 
-        [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
+        [Icon:NETWORKS/vop] *FLAM3H(tm) CPU*
         <br />
 
         When in CPU mode, if any of the iterators have their shader opacity set to *`0`*(Zero) FLAM3H(tm) will detect this and it will switch this toggle *`On`* when:
@@ -748,7 +748,7 @@ loaddef:
     :box:
         #display: rounded raised gray
 
-        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+        [Icon:COMMON/opencl] *FLAM3H(tm) GPU*
 
         _When in GPU mode, it will also reset the GPU iterations to its default: *`1024`*_<br />
 
@@ -1014,42 +1014,38 @@ iterators:
     
     <h2>[Icon:TOP/xmlinput] Number of iterators to use</h2>
 
-    Every iterator acts as a container for functions, the algorithm will mix or shuffle iterators based on your logic.
+    Every iterator acts as a container for functions, the algorithm will mix or shuffle iterators based on your logic. 
+    However, You can click and drag an iterator manually to reorder them as you like (_Shuffle iterators_).
+    <br />
 
-    However,<br />
-    You can click and drag an iterator manually to reorder them as you like (_Shuffle iterators_).
-
-    :box:
-        #display: rounded raised gray
+    TIP:
+        #display: orange
 
         When a shuffle is performed and Xaos is *`On`*(_Active_),<br />
         FLAM3H(tm) will check the density value and if it is higher than a limit it will revert it to its default value of: *`500k`*(_thousands_).
 
         _The limit vary based on the device FLAM3H(tm) is currently running on_:
 
-        - [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*: The limit is: *`1M`*(_million_)
-        - [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*: The limit is: *`5M`*(_millions_)
-
+        - *FLAM3H(tm) [Icon:NETWORKS/vop] CPU*: The limit is: *`1M`*(_million_)
+        - *FLAM3H(tm) [Icon:COMMON/opencl] GPU*: The limit is: *`5M`*(_millions_)
     <br />
-
     _The following control icons are provided_:
 
-    - [Largeicon:BUTTONS/add] to add a new iterator at the end of the existing set of iterators.
-    - [Largeicon:BUTTONS/minus] to reduce the number of iterators by *`1`*(one). It will remove one from the end.
-    - *CLEAR* button -> to remove all the iterators in one go.
-
+    - [Largeicon:BUTTONS/add] -> add a new iterator at the end.
+    - [Largeicon:BUTTONS/minus] -> remove *`1`*(_one_) iterator from the end.
+    - *CLEAR* button -> remove all the iterators in one go.
     <br />
 
     Adding and Deleting iterators from here will also update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.
+    <br />
 
+    [Icon:BUTTONS/info]
     NOTE:
         #display: raised
 
-        The order of the iterators does not matter at all.
-
-        Based on each iterator's Weight and combined with their xaos settings, the algorithm will select and execute them based on your logic.
-
-        For this reason, it is suggested to create them one after the other, sequentially.
+        The order of the iterators does not matter at all.<br />
+        Based on each iterator's <b>W</b>eight and combined with their xaos settings, the algorithm will select and execute them based on your logic.<br />
+        For this reason, it is suggested to create them one after the other, sequentially.<br />
 
         <br />
     
@@ -1359,7 +1355,7 @@ Opacity [Icon:TOP/xmlinput]:
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When an iterator's opacity is *`0`*(Zero), you can activate the SYS tab *RIP* option to get rid of those points ( _since_ *opacity* == *`@pscale`* (*`@widths`* _in Solaris_ ) _you don't need them anymore_).
-    - [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*<br />When loading hip files with FLAM3H(tm) nodes in it or when cloning FLAM3H(tm) nodes,<br />the SYS tab *RIP* option will be automatically turned *`On`* if any of the iterators have its Opacity value set to *`0`*(Zero).
+    - [Icon:NETWORKS/vop] *FLAM3H(tm) CPU*<br />When loading hip files with FLAM3H(tm) nodes in it or when cloning FLAM3H(tm) nodes,<br />the SYS tab *RIP* option will be automatically turned *`On`* if any of the iterators have its Opacity value set to *`0`*(Zero).
 
 :box:
     #display: rounded white
@@ -3070,7 +3066,7 @@ store the HSV values being used if different from defaults.
 :box:
     #display: rounded raised gray
 
-    [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+    [Icon:COMMON/opencl] *FLAM3H(tm) GPU*
 
     _When in GPU mode, this Tab will be disabled_.
     
@@ -3280,7 +3276,7 @@ Reload [Icon:opdef:.?icon_actionButtonSVG.svg]:
     :box:
         #display: rounded raised gray
 
-        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+        [Icon:COMMON/opencl] *FLAM3H(tm) GPU*
 
         _When in GPU mode, this Tab will be hidden_.
 
@@ -3297,7 +3293,7 @@ Iterations on Load (CPU):
 
         <br />
 
-        [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU(Cvex) only*
+        [Icon:NETWORKS/vop] *FLAM3H(tm) CPU(Cvex) only*
 
         If "add iterations to Flame name" OUT tab option is *`Off`*/Disabled:
     
@@ -3679,7 +3675,7 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
         <br />
 
-        [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU(Cvex) only*
+        [Icon:NETWORKS/vop] *FLAM3H(tm) CPU(Cvex) only*
 
         If "add iterations to Flame name" option is *`Off`*/Disabled:
     
@@ -3843,7 +3839,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-CL-WIN-2.1.33" ... >
+          <flame version="FLAM3H-CL-WIN-2.1.36" ... >
               ...
         }}}
         
@@ -3852,7 +3848,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-CL-WIN-2.1.33" ... >
+          <flame version="EMBER-FLAM3H-CL-WIN-2.1.36" ... >
               ...
         }}}
         
@@ -3872,7 +3868,7 @@ Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     :box:
         #display: rounded raised gray
 
-        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+        [Icon:COMMON/opencl] *FLAM3H(tm) GPU*
 
         _When in GPU mode, this option will be disabled as it is not needed_.
     <br /><br />
@@ -4219,7 +4215,7 @@ _The following is an example of what the default Sierpiński triangle preset loo
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-CL-WIN-2.1.33" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-CL-WIN-2.1.36" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.5" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.28867513 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.28867513 0" opacity="1" linear="1"/>
@@ -4279,7 +4275,7 @@ _In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle:
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-CL-WIN-2.1.33" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-CL-WIN-2.1.36" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     ...
   </flame>
 </flames>
@@ -4292,7 +4288,7 @@ _Under the [Icon:TOP/xmlinput] *`flame`* preset XML key lives all its data: [Ico
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-CL-WIN-2.1.33" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-CL-WIN-2.1.36" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
@@ -4310,7 +4306,7 @@ _When the FF_(_finalXform_) _is *`On`*/Active, its data will be included in the 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-CL-WIN-2.1.33" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-CL-WIN-2.1.36" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
@@ -5564,7 +5560,7 @@ _Documentation for each of them is also provided_.
         
         <br />
 
-        [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
+        [Icon:NETWORKS/vop] *FLAM3H(tm) CPU*
 
         A non-deterministic random number generator ([Mersenne Twister|Wp:Mersenne_Twister]) was used to construct FLAM3H(tm), and it lies at the heart of the algorithm.
         As a result, the points produced by FLAM3H(tm) nodes will always be in a little bit of a different location every time it cook.
@@ -5572,7 +5568,7 @@ _Documentation for each of them is also provided_.
 
         <br />
 
-        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+        [Icon:COMMON/opencl] *FLAM3H(tm) GPU*
 
         The GPU mode introduce temporal coherency.<br />
         It mean that when you animate your fractal Flame, its points/samples wont scramble around<br />
@@ -5705,7 +5701,7 @@ _Documentation for each of them is also provided_.
 :box:
     #display: inverted pink
 
-    [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) OpenCL*
+    [Icon:COMMON/opencl] *FLAM3H(tm) OpenCL*
     
     [OpenCL|Wp:OpenCL] has been used to implement the algorithm so it can fully run on the system GPU device.<br />
 
@@ -5743,7 +5739,7 @@ _Documentation for each of them is also provided_.
 :box:
     #display: inverted pink
 
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) Cvex*
+    [Icon:NETWORKS/vop] *FLAM3H(tm) Cvex*
     
     It is FLAM3H(tm) CPU implementation.<br />
     Cvex stands for "_Callable Vex_". It's essentially a context of Vex designed to run as a function-like kernel.
@@ -5896,7 +5892,7 @@ _Documentation for each of them is also provided_.
 :box:
     #display: rounded gray
     
-    [Icon:opdef:.?icon_optionOCLSVG.svg] *GPU*
+    [Icon:COMMON/opencl] *GPU*
         #id: LimitationsGPU
     
     FLAM3H(tm) GPU allow a maximum of *`20`* active iterators.<br />

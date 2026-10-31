@@ -3,7 +3,7 @@
 #context: lop
 #namespace: alexnardini
 #internal: FLAM3H(tm) USD
-#version: 0.2.86 - Prototype
+#version: 0.2.88 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal Flames in Solaris."""
 
@@ -18,7 +18,7 @@ It has been designed to be user-friendly, simple, and intuitive.
 At the moment, FLAM3H(tm) USD relies solely on Karma CPU for the majority of its operations and features.<br />
 Karma XPU support was initially only included in FLAM3H(tm) USD HDA versions for H21.0 and later, and it was simply included for completeness.
 
-_Frozen - author: Alessandro Nardini_
+_Jazz Streams - author: Alessandro Nardini_
 [Image:opdef:.?FLAM3HUSD_DOC_intro.jpg]
 _A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
 

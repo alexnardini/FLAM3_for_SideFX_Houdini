@@ -51,6 +51,32 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.1.36 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.36)  ##
+
+#### FLAM3H™ v2.1.36 indie -> H22.0 UP</br>FLAM3H™ v2.0.97 indie -> H21.0</br>FLAM3H™ v2.0.66 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+- **New H22 ONLY**: A new intro/about banner image has been added when H22 is running using the new ui (_keeping the preview intro/banner image when H22 is running using the old ui_).
+- **New H22 ONLY**: The about box is now showing the Houdini's `hou.thirdPartyLibraryVersions()['python']['version']`.
+- **Fix**: When copying and pasting FLAM3H™ between different Houdini sessions and versions, the about box infos was not updating. It is now fixed. 
+
+#### FLAM3H™USD v0.2.88 indie -> H22.0 UP</br>FLAM3H™USD v0.2.73 indie -> H21.0</br>FLAM3H™USD v0.2.69 indie -> H20.5</br>FLAM3H™USD v0.2.52 indie -> H19.0 to H20 ####
+
+- **New H22 ONLY**: A new intro/about banner image has been added when H22 is running using the new ui (_keeping the preview intro/banner image when H22 is running using the old ui_).
+- **New H22 ONLY**: The about box is now showing the Houdini's `hou.thirdPartyLibraryVersions()['python']['version']`.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.1.33 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.33)  ##
 
 #### FLAM3H™ v2.1.33 indie -> H22.0 UP</br>FLAM3H™ v2.0.97 indie -> H21.0</br>FLAM3H™ v2.0.66 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
