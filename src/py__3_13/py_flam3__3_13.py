@@ -3691,6 +3691,7 @@ class flam3h_general_utils
 * is_flat_list(x: list) -> bool:
 * is_tuple_of_tuples(x: tuple) -> bool:
 * is_flat_tuple(x: tuple) -> bool:
+* is_new_ui() -> bool:
 * ocl_gpu_nvidia_beast() -> bool:
 * detect_os() -> str:
 * select_file_start_dir(node: hou.SopNode, type: str = f3h_tabs.IN.PRM_PATH) -> str | None:
@@ -3840,6 +3841,31 @@ class flam3h_general_utils
             (bool): True if it is a flat tuple and False if not
         """ 
         return isinstance(x, tuple) and not any(isinstance(el, list | tuple | set) for el in x)
+    
+    
+    @staticmethod
+    def is_new_ui() -> bool:
+        """Check if houdini is running using the new h22 ui.
+        
+        Args:
+            (None):
+            
+        Returns:
+            (bool): True if it is using the new ui and False if not
+        """ 
+        
+        try:
+            _NEW_UI: bool = bool(int(hou.getPreference("general.newui.val")))
+            
+        except ValueError:
+            if flam3h_general_utils.houdini_version(2) > 220:
+                # Note that for houdini versions higher than 220
+                # we always assume it is now the new ui (as the old one is already set to be depracated)
+                _NEW_UI: bool = True
+            else:
+                _NEW_UI: bool = False
+                
+        return _NEW_UI
     
     
     @staticmethod
@@ -24417,6 +24443,8 @@ class pyside_utils:
 class pyside_utils
 
 @STATICMETHODS
+* F3H_panel_banner_image(new_ui: bool) -> str:
+* F3H_panel_banner_image_credit(new_ui: bool) -> str:
 * pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], 
                                     launch_app_name: str = pyside_master_app_names.PS_CLS, 
                                     run: bool = True, 
@@ -24425,6 +24453,36 @@ class pyside_utils
                                     ) -> None:
 
 """
+
+    @staticmethod
+    def F3H_panel_banner_image(new_ui: bool) -> str:
+        """Return the proper pyside panle image credit for the about box.
+        
+        Args:
+            new_ui(bool): is Houdini using the new ui or not.
+            
+        Returns:
+            (str): pyside panle image credit
+        """ 
+        return f3h_HDAsections.HDA_SECTION_IMG_BANNER if new_ui else f3h_HDAsections.HDA_SECTION_IMG_BANNER_OLD_UI
+    
+    
+    @staticmethod
+    def F3H_panel_banner_image_credit(new_ui: bool) -> str:
+        """Return the proper pyside panel image credit for the about box.
+        
+        Args:
+            new_ui(bool): is Houdini using the new ui or not.
+            
+        Returns:
+            (str): pyside panle image credit
+        """ 
+        h_py_version: str = hou.thirdPartyLibraryVersions()['python']['version']
+        ui_new_credit: str = f"[{h_py_version}] [NEW UI]  Stars Splash - author: F stands for liFe"
+        ui_old_credit: str = f"[{h_py_version}] [OLD UI]  Escher Teal - author: Plangkye"
+        
+        return ui_new_credit if new_ui else ui_old_credit
+    
     
     @staticmethod
     def pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], 
@@ -24534,14 +24592,6 @@ class pyside_master:
             f"v{__version__} indie {flam3h_scripts.flam3h_compatible_h_versions_msg(False, True)}, {__license__} - {__copyright__} ( made in Italy )"
         )
         
-        # __v__ 2
-        h_py_version: str = hou.thirdPartyLibraryVersions()['python']['version']
-        try:
-            _NEW_UI: bool = bool(int(hou.getPreference("general.newui.val")))
-        except ValueError:
-            _NEW_UI: bool = False
-        IMAGE_CREDIT: str = f"[{h_py_version}] [NEW UI]  Stars Splash - author: Alessandro Nardini" if _NEW_UI else f"[{h_py_version}] [OLD UI]  Escher Teal - author: Plangkye"
-        
         # milliseconds
         FADE_IN_DURATION_MS: int = 0
         FADE_OUT_DURATION_MS: int = 0
@@ -24557,8 +24607,11 @@ class pyside_master:
         
         BASE_SVG_ICON_WIDTH: int = 64
         
+        # __v__ 2
+        H_NEW_UI: bool = flam3h_general_utils.is_new_ui()
         IMG_PIXMAP: QtGui.QPixmap | None = None
-        IMG_PIXMAP_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_IMG_BANNER if _NEW_UI else f3h_HDAsections.HDA_SECTION_IMG_BANNER_OLD_UI
+        IMG_PIXMAP_SECTION_NAME: str = pyside_utils.F3H_panel_banner_image(H_NEW_UI)
+        IMG_PIXMAP_CREDIT: str = pyside_utils.F3H_panel_banner_image_credit(H_NEW_UI)
         
         SVG_ICON: SvgIcon | None = None
         SVG_ICON_B_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_SVG_LOGO_BLACK
@@ -24788,7 +24841,7 @@ class pyside_master:
             
             # Image credit
             if self.h_valid:
-                self.credit_label = QtWidgets.QLabel(self.IMAGE_CREDIT, self.banner_container)
+                self.credit_label = QtWidgets.QLabel(self.IMG_PIXMAP_CREDIT, self.banner_container)
                 font = QtGui.QFont(self.font_os)
                 font.setPointSize(9)
                 self.credit_label.setFont(font)
