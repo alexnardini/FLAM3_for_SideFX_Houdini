@@ -57,6 +57,7 @@ They are all available in this Github repository.
 
 **Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
 
+- **Fix H22 NEW UI ONLY**: Improved few more parameters tooltips here and there.
 - **New H22 ONLY**: A new intro/about banner image has been added when H22 is running using the new ui (_keeping the preview intro/banner image when H22 is running using the old ui_).
 - **New H22 ONLY**: The about box is now showing the Houdini's `hou.thirdPartyLibraryVersions()['python']['version']`.
 - **Fix**: When copying and pasting FLAM3H™ between different Houdini sessions and versions, the about box infos was not updating. It is now fixed. 
