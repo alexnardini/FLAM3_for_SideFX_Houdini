@@ -235,7 +235,7 @@ _CPU (Cvex) iterations needed_: **72**<br />
 
 _CPU (Cvex) iterations needed_: **48**<br />
 `Karma interactive`<br/>
-`Worlds - Author: Alessandro Nardini`
+`Worlds - Author: F stands for liFe`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_01_Karma.jpg)
 
 _CPU (Cvex) iterations needed_: **64**<br />
@@ -279,11 +279,11 @@ FLAM3H™ generate a live point cloud of the fractal Flame you are working on.
 </br>
 
 _CPU (Cvex) iterations needed_: **12**<br />
-`Dancing Stars - Author: Alessandro Nardini`
+`Dancing Stars - Author: F stands for liFe`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H.jpg)
 
 _CPU (Cvex) iterations needed_: **48**<br />
-`Crystal Eggs - Author: Alessandro Nardini`
+`Crystal Eggs - Author: F stands for liFe`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_02_H.jpg)
 
 _CPU (Cvex) iterations needed_: **256**<br />
@@ -470,7 +470,7 @@ However, from all my tests, between 10 and 96 iterations will get you covered fo
 <br/>
 
 _CPU (Cvex) iterations needed_: **6**<br />
-`Knot Clusters - Author: Alessandro Nardini`
+`Knot Clusters - Author: F stands for liFe`
 ![Chaotica to FLAM3HOUDINI 04](./img/FLAM3H_knotCluster_HQ_iter_6.jpg)
 
 <br/>

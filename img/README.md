@@ -104,7 +104,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
-<p align="center"><i>Genetic Spiral - Author: Alessandro Nardini</i></p>
+<p align="center"><i>Genetic Spiral - Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_camera_sensor_to_Fractorium_02.jpg" /></p>
 <b><p align="center">FLAM3H_camera_sensor_to_Fractorium_02.svg</b>
@@ -134,7 +134,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
-<p align="center"><i>Worlds - Author: Alessandro Nardini</i></p>
+<p align="center"><i>Worlds - Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_01_Karma.jpg" /></p>
 <b><p align="center">FLAM3H_Hviewport_01_Karma.svg</b>
@@ -164,7 +164,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
-<p align="center"><i>Dancing Stars - Author: Alessandro Nardini</i></p>
+<p align="center"><i>Dancing Stars - Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_01_H.jpg" /></p>
 <b><p align="center">FLAM3H_Hviewport_01_H.svg</b>
@@ -179,7 +179,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
-<p align="center"><i>Crystal Eggs - Author: Alessandro Nardini</i></p>
+<p align="center"><i>Crystal Eggs - Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_02_H.jpg" /></p>
 <b><p align="center">FLAM3H_Hviewport_02_H.svg</b>
@@ -224,7 +224,7 @@ https://user-images.githubusercontent.com/42110232/237032379-56571708-d00a-4b93-
 <p align="center">...</p></br/></br/></br/></br/>
 
 
-<p align="center"><i>Knot Clusters - Author: Alessandro Nardini</i></p>
+<p align="center"><i>Knot Clusters - Author: F stands for liFe</i></p>
 <p align="center">
   <img width="" height="512" src="./FLAM3H_knotCluster_HQ_iter_6.jpg" /></p>
 <b><p align="center">FLAM3H_knotCluster_HQ_iter_6.svg</b>
