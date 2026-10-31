@@ -5209,7 +5209,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "<h3>[Icon:BUTTONS/info] Display informations about the loaded Flame preset</h3>Those infos include all the Missing variations if any are found in the currently loaded Flame preset.<br/><br/>All of the variations that Fractorium has but FLAM3H™ does not are known as: <b>MISSING</b> variations.<br/><br/>FLAM3H™ was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he possess.<br/><br/>All of the variations that Fractorium lacks will be classified as: <b>UNKNOWN</b> variations."
+                help    "<h2>[Icon:BUTTONS/info] Loaded preset infos</h2>Display informations about the loaded Flame preset.<br/><br/>Those infos include all the Missing variations if any are found in the currently loaded Flame preset.<br/><br/>FLAM3H™ was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he possess.<br/><ul><li>All of the variations that Fractorium has but FLAM3H™ does not<br/>will be classified as: <b>MISSING</b> variations.</li></ul><ul><li>All of the variations that Fractorium lacks<br/>will be classified as: <b>UNKNOWN</b> variations.</li></ul><br/>"
                 disablewhen "{ indisable == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
                 parmtag { "script_callback" "" }
