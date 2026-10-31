@@ -463,7 +463,7 @@ Web links [Icon:opdef:.?icon_actionButtonSVG.svg]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) web links*<br />
     _The following are web links related to FLAM3H(tm). _<br /><br />
     
-    [Largeicon:opdef:.?iconSVG.svg] 
+    [Largeicon:opdef:.?iconSVGB.svg] 
     - ((LMB)) to open a web browser to the FLAM3H(tm) website.
     
     <br />
