@@ -28,6 +28,8 @@ _(*)_ _Indicate the version allowed to run on future Houdini releases._
 <br/>
 
 # The Fractal Flame Algorithm
+
+`Cool EDisc - author: Pillemaster`
 ![FLAM3 Intro image](./img/GITHUB_intro_img.jpg)
 
 `The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer. Originally rendered at 7k resolution.`
@@ -313,11 +315,13 @@ Once framed, you can save the Flame and be sure it will be framed the same in al
 </br>
 
 _CPU (Cvex) iterations needed_: **16**<br />
-`Camera sensor: FLAM3H™ to Fractorium`
+`Camera sensor: FLAM3H™ to Fractorium`<br />
+`Morning Reflections - author: Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
 
 _CPU (Cvex) iterations needed_: **64**<br />
-`Camera sensor: FLAM3H™ to Fractorium`
+`Camera sensor: FLAM3H™ to Fractorium`<br />
+`Genetic Spiral - author: F stands for liFe`
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
 
 <br/>
