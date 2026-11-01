@@ -20,6 +20,7 @@ They include a node info window (_left panel_) for all related details/informati
 </br>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="720" height="" src="./bgeo_preview/geo_FLAM3H_logoNoIter_geo.jpg" /></p>
 <b><p align="center">geo_FLAM3H_logoNoIter_geo.bgeo.sc</b>
@@ -39,6 +40,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="720" height="" src="./bgeo_preview/geo_FLAM3H_logoRed_geo.jpg" /></p>
 <b><p align="center">geo_FLAM3H_logoRed_geo.bgeo.sc</b>
@@ -58,6 +60,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="720" height="" src="./bgeo_preview/geo_FLAM3H_logoRedStarBlack_geo.jpg" /></p>
 <b><p align="center">geo_FLAM3H_logoRedStarBlack_geo.bgeo.sc</b>
@@ -77,6 +80,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="720" height="" src="./bgeo_preview/geo_FLAM3H_logoRedStarWhite_geo.jpg" /></p>
 <b><p align="center">geo_FLAM3H_logoRedStarWhite_geo.bgeo.sc</b>
@@ -96,6 +100,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="720" height="" src="./bgeo_preview/geo_FLAM3H_logoWhite_geo.jpg" /></p>
 <b><p align="center">geo_FLAM3H_logoWhite_geo.bgeo.sc</b> (<i>unused</i>)
@@ -115,6 +120,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="720" height="" src="./bgeo_preview/geo_TFFA_camhandles_geo.jpg" /></p>
 <b><p align="center">geo_TFFA_camhandles_geo.bgeo.sc</b>
@@ -134,6 +140,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="720" height="" src="./bgeo_preview/geo_TFFA_xform_handle.jpg" /></p>
 <b><p align="center">geo_TFFA_xform_handle.bgeo.sc</b>
@@ -153,6 +160,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="720" height="" src="./bgeo_preview/geo_TFFA_xform_handle_axis.jpg" /></p>
 <b><p align="center">geo_TFFA_xform_handle_axis.bgeo.sc</b>
@@ -172,6 +180,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/bgeo/bgeo_prev
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="720" height="" src="./bgeo_preview/geo_TFFA_xform_handle_knot.jpg" /></p>
 <b><p align="center">geo_TFFA_xform_handle_knot.bgeo.sc</b>

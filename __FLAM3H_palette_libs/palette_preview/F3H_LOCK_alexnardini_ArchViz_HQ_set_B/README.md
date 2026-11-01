@@ -35,7 +35,7 @@
 <br/>
 <br/>
 
-- # <img width="48" height="48" src="../../../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../../../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_alexnardini_ArchViz_HQ_set_B.json`**](../../F3H_LOCK_alexnardini_ArchViz_HQ_set_B.json)</br>_color keys_: **512**
     1. - `ArchViz_HQ_set_B_01`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_ArchViz_HQ_set_B.json#L2-L4)</br><img width="512" height="" src="./ArchViz_HQ_set_B_01.svg" /> 
     2. - `ArchViz_HQ_set_B_02`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_ArchViz_HQ_set_B.json#L5-L7)</br><img width="512" height="" src="./ArchViz_HQ_set_B_02.svg" /> 

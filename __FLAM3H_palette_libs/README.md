@@ -89,7 +89,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_alexnardini_50s_Heros_HQ.json`**](F3H_LOCK_alexnardini_50s_Heros_HQ.json)</br>_color keys_: **512**
     1. - `50s Superman`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_50s_Heros_HQ.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_50s_Heros_HQ/50s Superman.svg" />
     2. - `50s Thor`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_50s_Heros_HQ.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_50s_Heros_HQ/50s Thor.svg" />
@@ -120,7 +120,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_alexnardini_ArchViz_HQ_set_A.json`**](F3H_LOCK_alexnardini_ArchViz_HQ_set_A.json)</br>_color keys_: **512**
     1. - `ArchViz_HQ_set_A_01`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_ArchViz_HQ_set_A.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_ArchViz_HQ_set_A/ArchViz_HQ_set_A_01.svg" /> 
     2. - `ArchViz_HQ_set_A_02`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_ArchViz_HQ_set_A.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_ArchViz_HQ_set_A/ArchViz_HQ_set_A_02.svg" /> 
@@ -152,7 +152,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_alexnardini_ArchViz_HQ_set_B.json`**](F3H_LOCK_alexnardini_ArchViz_HQ_set_B.json)</br>_color keys_: **512**
     1. - `ArchViz_HQ_set_B_01`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_ArchViz_HQ_set_B.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_ArchViz_HQ_set_B/ArchViz_HQ_set_B_01.svg" /> 
     2. - `ArchViz_HQ_set_B_02`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_ArchViz_HQ_set_B.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_ArchViz_HQ_set_B/ArchViz_HQ_set_B_02.svg" /> 
@@ -182,7 +182,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_alexnardini_ArchViz_HQ_set_C.json`**](F3H_LOCK_alexnardini_ArchViz_HQ_set_C.json)</br>_color keys_: **512**
     1. - `ArchViz_HQ_set_C_01`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_ArchViz_HQ_set_C.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_ArchViz_HQ_set_C/ArchViz_HQ_set_C_01.svg" /> 
     2. - `ArchViz_HQ_set_C_02`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_ArchViz_HQ_set_C.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_ArchViz_HQ_set_C/ArchViz_HQ_set_C_02.svg" /> 
@@ -210,7 +210,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_alexnardini_HQ_set_A.json`**](F3H_LOCK_alexnardini_HQ_set_A.json)</br>_color keys_: **512**
     1. - `a women in pink and cyan hairs`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_HQ_set_A/a women in pink and cyan hairs.svg" /> 
     2. - `Shiny cyborg enjoying the moment`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_A.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_HQ_set_A/Shiny cyborg enjoying the moment.svg" /> 
@@ -242,7 +242,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_alexnardini_HQ_set_B.json`**](F3H_LOCK_alexnardini_HQ_set_B.json)</br>_color keys_: **512**
     1. - `Pink hairy punk girls`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_B.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_HQ_set_B/Pink hairy punk girls.svg" /> 
     2. - `Walkmen girls in Japan`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_B.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_HQ_set_B/Walkmen girls in Japan.svg" /> 
@@ -282,7 +282,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_alexnardini_HQ_set_C.json`**](F3H_LOCK_alexnardini_HQ_set_C.json)</br>_color keys_: **512**
     1. - `Golden tree at the pool`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_C.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_HQ_set_C/Golden tree at the pool.svg" /> 
     2. - `Sunset war for the kids`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_C.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_HQ_set_C/Sunset war for the kids.svg" /> 
@@ -321,7 +321,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_alexnardini_HQ_set_D.json`**](F3H_LOCK_alexnardini_HQ_set_D.json)</br>_color keys_: **512**
     1. - `Interior and lemons`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_D.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_HQ_set_D/Interior and lemons.svg" /> 
     2. - `Alone inside fantasy worlds`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_HQ_set_D.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_HQ_set_D/Alone inside fantasy worlds.svg" /> 
@@ -345,7 +345,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_alexnardini_MultiVibrance_SHQ.json`**](F3H_LOCK_alexnardini_MultiVibrance_SHQ.json)</br>_color keys_: **1024**
     1. - `MultiFrame_SHQ_01`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_MultiVibrance_SHQ.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_MultiVibrance_SHQ/MultiFrame_SHQ_01.svg" /> 
     2. - `MultiFrame_SHQ_02`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_MultiVibrance_SHQ.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_MultiVibrance_SHQ/MultiFrame_SHQ_02.svg" /> 
@@ -371,7 +371,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_alexnardini_PORTRAITS_HQ_set_A.json`**](F3H_LOCK_alexnardini_PORTRAITS_HQ_set_A.json)</br>_color keys_: **512**
     1. - `At the Pool`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_PORTRAITS_HQ_set_A.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_PORTRAITS_HQ_set_A/At the Pool.svg" /> 
     2. - `Eiffel on a rainy night`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_alexnardini_PORTRAITS_HQ_set_A.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_alexnardini_PORTRAITS_HQ_set_A/Eiffel on a rainy night.svg" /> 
@@ -416,7 +416,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_boxtail_pack_03_triangle.json`**](F3H_LOCK_boxtail_pack_03_triangle.json)</br>_color keys_: **256**
     1. - `At_corner`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_boxtail_pack_03_triangle.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_boxtail_pack_03_triangle/At_corner.svg" />
     2. - `Beam`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_boxtail_pack_03_triangle.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_boxtail_pack_03_triangle/Beam.svg" /> 
@@ -452,7 +452,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_boxtail_pack_04.json`**](F3H_LOCK_boxtail_pack_04.json)</br>_color keys_: **256**
     1. - `After_hard_day`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_boxtail_pack_04.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_boxtail_pack_04/After_hard_day.svg" /> 
     2. - `Alone_floating_stone`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_boxtail_pack_04.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_boxtail_pack_04/Alone_floating_stone.svg" /> 
@@ -491,7 +491,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_fardareismai_pack_01_A.json`**](F3H_LOCK_fardareismai_pack_01_A.json)</br>_color keys_: **256**
     1. - `a_really_pleasing_red_thing`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_fardareismai_pack_01_A.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_A/a_really_pleasing_red_thing.svg" /> 
     2. - `a_warm_dark_place`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_fardareismai_pack_01_A.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_A/a_warm_dark_place.svg" /> 
@@ -540,7 +540,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_fardareismai_pack_01_B.json`**](F3H_LOCK_fardareismai_pack_01_B.json)</br>_color keys_: **256**
     1. - `grey_and_red_forever`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_fardareismai_pack_01_B.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/grey_and_red_forever.svg" /> 
     2. - `grey_with_orange`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_fardareismai_pack_01_B.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_B/grey_with_orange.svg" /> 
@@ -587,7 +587,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_fardareismai_pack_01_C.json`**](F3H_LOCK_fardareismai_pack_01_C.json)</br>_color keys_: **256**
     1. - `pink_and_blue`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_fardareismai_pack_01_C.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_C/pink_and_blue.svg" /> 
     2. - `pink_and_green`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_fardareismai_pack_01_C.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_fardareismai_pack_01_C/pink_and_green.svg" /> 
@@ -634,7 +634,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_fardareismai_pack_02_A.json`**](F3H_LOCK_fardareismai_pack_02_A.json)</br>_color keys_: **256**
     1. - `agnus_dei`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_fardareismai_pack_02_A.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/agnus_dei.svg" /> 
     2. - `beige_with_colors`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_fardareismai_pack_02_A.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_A/beige_with_colors.svg" /> 
@@ -675,7 +675,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_fardareismai_pack_02_B.json`**](F3H_LOCK_fardareismai_pack_02_B.json)</br>_color keys_: **256**
     1. - `midnight_reflection`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_fardareismai_pack_02_B.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_B/midnight_reflection.svg" /> 
     2. - `morning_reflection`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_fardareismai_pack_02_B.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_fardareismai_pack_02_B/morning_reflection.svg" /> 
@@ -716,7 +716,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_tatasz_pack_01.json`**](F3H_LOCK_tatasz_pack_01.json)</br>_color keys_: **256**
     1. - `tatasz_pack_01_01`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_01.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_01/tatasz_pack_01_01.svg" /> 
     2. - `tatasz_pack_01_02`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_01.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_01/tatasz_pack_01_02.svg" /> 
@@ -742,7 +742,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_tatasz_pack_02_colder.json`**](F3H_LOCK_tatasz_pack_02_colder.json)</br>_color keys_: **256**
     1. - `tatasz_pack_02_colder_01`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_colder.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_02_colder/tatasz_pack_02_colder_01.svg" /> 
     2. - `tatasz_pack_02_colder_10`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_colder.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_02_colder/tatasz_pack_02_colder_10.svg" /> 
@@ -768,7 +768,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_tatasz_pack_02_dark.json`**](F3H_LOCK_tatasz_pack_02_dark.json)</br>_color keys_: **256**
     1. - `tatasz_pack_02_dark_11`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_dark.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_02_dark/tatasz_pack_02_dark_11.svg" /> 
     2. - `tatasz_pack_02_dark_14`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_dark.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_02_dark/tatasz_pack_02_dark_14.svg" /> 
@@ -786,7 +786,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_tatasz_pack_02_warmer.json`**](F3H_LOCK_tatasz_pack_02_warmer.json)</br>_color keys_: **256**
     1. - `tatasz_pack_02_warmer_16`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_02_warmer/tatasz_pack_02_warmer_16.svg" /> 
     2. - `tatasz_pack_02_warmer_18`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_02_warmer.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_02_warmer/tatasz_pack_02_warmer_18.svg" /> 
@@ -809,7 +809,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_tatasz_pack_03.json`**](F3H_LOCK_tatasz_pack_03.json)</br>_color keys_: **256**
     1. - `tatasz_pack_03_01`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_03.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_03/tatasz_pack_03_01.svg" /> 
     2. - `tatasz_pack_03_10`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_03.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_03/tatasz_pack_03_10.svg" /> 
@@ -835,7 +835,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_tatasz_pack_04_A.json`**](F3H_LOCK_tatasz_pack_04_A.json)</br>_color keys_: **256**
     1. - `tatasz_pack_04_01`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_04_A.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_04_A/tatasz_pack_04_01.svg" /> 
     2. - `tatasz_pack_04_02`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_04_A.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_04_A/tatasz_pack_04_02.svg" /> 
@@ -885,7 +885,7 @@ They are subdivided in 2(_two_) main categories:
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_tatasz_pack_04_B.json`**](F3H_LOCK_tatasz_pack_04_B.json)</br>_color keys_: **256**
     1. - `tatasz_pack_04_45`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_04_B.json#L2-L4)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_45.svg" /> 
     2. - `tatasz_pack_04_46`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_tatasz_pack_04_B.json#L5-L7)</br><img width="512" height="" src="./palette_preview/F3H_LOCK_tatasz_pack_04_B/tatasz_pack_04_46.svg" /> 

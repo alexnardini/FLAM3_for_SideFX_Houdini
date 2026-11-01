@@ -35,7 +35,7 @@
 <br/>
 <br/>
 
-- # <img width="48" height="48" src="../../../icons/icon_optionCPSVG.svg" />  json
+- # <img width="48" height="48" src="../../../icons/icon_optionCPRecipeSVG.svg" />  json
 - ## File name: [**`F3H_LOCK_fardareismai_pack_01_B.json`**](../../F3H_LOCK_fardareismai_pack_01_B.json)</br>_color keys_: **256**
     1. - `grey_and_red_forever`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_fardareismai_pack_01_B.json#L2-L4)</br><img width="512" height="" src="./grey_and_red_forever.svg" /> 
     2. - `grey_with_orange`</br>[**`f3h_hex`**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/47b9fd38fcf0def532eba72d02d2eb11118d36c8/__FLAM3H_palette_libs/F3H_LOCK_fardareismai_pack_01_B.json#L5-L7)</br><img width="512" height="" src="./grey_with_orange.svg" /> 
