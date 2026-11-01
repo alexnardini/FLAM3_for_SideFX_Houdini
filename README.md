@@ -230,17 +230,17 @@ Fully available only with FLAM3H™USD HDA versions for Houdini H20.5 and up.
 
 _CPU (Cvex) iterations needed_: **72**<br />
 `Karma interactive`<br/>
-`Sphere Sugar Dragon - Author: Pillemaster`
+`Sphere Sugar Dragon - author: Pillemaster`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_00_Karma.jpg)
 
 _CPU (Cvex) iterations needed_: **48**<br />
 `Karma interactive`<br/>
-`Worlds - Author: F stands for liFe`
+`Worlds - author: F stands for liFe`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_01_Karma.jpg)
 
 _CPU (Cvex) iterations needed_: **64**<br />
 `Karma interactive`<br/>
-`It's Pink - Author: Plangkye`
+`It's Pink - author: Plangkye`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_02_Karma.jpg)
 
 <br/>
@@ -279,15 +279,15 @@ FLAM3H™ generate a live point cloud of the fractal Flame you are working on.
 </br>
 
 _CPU (Cvex) iterations needed_: **12**<br />
-`Dancing Stars - Author: F stands for liFe`
+`Dancing Stars - author: F stands for liFe`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H.jpg)
 
 _CPU (Cvex) iterations needed_: **48**<br />
-`Crystal Eggs - Author: F stands for liFe`
+`Crystal Eggs - author: F stands for liFe`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_02_H.jpg)
 
 _CPU (Cvex) iterations needed_: **256**<br />
-`Cool EDisc - Author: Pillemaster`
+`Cool EDisc - author: Pillemaster`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H.jpg)
 
 <br/>
@@ -431,23 +431,23 @@ Some require thousands of iterations to show you the proper results; some of the
 <br/>
 
 _CPU (Cvex) iterations needed_: **1280**<br />
-`Ieddaka Gnarl. Author: zuek`
+`Ieddaka Gnarl. author: zuek`
 ![Chaotica to FLAM3HOUDINI 00](./img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
 _CPU (Cvex) iterations needed_: **512**<br />
-`Blue Modulus. Author: tatasz`
+`Blue Modulus. author: tatasz`
 ![Chaotica to FLAM3HOUDINI 01](./img/ChaoticaToFLAM3HOUDINI_01.jpg)
 
 _CPU (Cvex) iterations needed_: **512**<br />
-`Lazyswirls. Author: meckie`
+`Lazyswirls. author: meckie`
 ![Chaotica to FLAM3HOUDINI 02](./img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
 _CPU (Cvex) iterations needed_: **64**<br />
-`Majestic. Author: tatasz`
+`Majestic. author: tatasz`
 ![Chaotica to FLAM3HOUDINI 03](./img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
 _CPU (Cvex) iterations needed_: **32**<br />
-`Blurry Splits. Author: tatasz`
+`Blurry Splits. author: tatasz`
 ![Chaotica to FLAM3HOUDINI 04](./img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
 </br>
@@ -457,7 +457,7 @@ The following is another preset Chaotica software ship with I truly loved ported
 <br/>
 
 _CPU (Cvex) iterations needed_: **64**<br />
-`Golden Dragon - Author: meckie`
+`Golden Dragon - author: meckie`
 ![goldenDragon_RENDER_2K_portrait](https://user-images.githubusercontent.com/42110232/237032379-56571708-d00a-4b93-ab2b-ea773700dce5.jpg)
 
 <br/>
@@ -470,7 +470,7 @@ However, from all my tests, between 10 and 96 iterations will get you covered fo
 <br/>
 
 _CPU (Cvex) iterations needed_: **6**<br />
-`Knot Clusters - Author: F stands for liFe`
+`Knot Clusters - author: F stands for liFe`
 ![Chaotica to FLAM3HOUDINI 04](./img/FLAM3H_knotCluster_HQ_iter_6.jpg)
 
 <br/>
