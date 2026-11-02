@@ -2176,7 +2176,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionStarRedHighSVG.svg" /></p>
-<b><p align="center">icon_optionStarRedHighSVG.svg</p></b>
+<b><p align="center">icon_optionStarRedHighSVG.svg</b> (<i>H19 to H21 only</i>)</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -2215,7 +2215,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionStarRedSVG.svg" /></p>
-<b><p align="center">icon_optionStarRedSVG.svg</p></b>
+<b><p align="center">icon_optionStarRedSVG.svg</b> (<i>H19 to H21 only</i>)</p>
 <p align="center">......</p>
 <p align="center">
 

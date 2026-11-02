@@ -2453,11 +2453,18 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 |:---|:---|---:|---:|
 | **OUT** | `icon_f3h_cc_modified_reset` | `from H20.5` | `v1.x` `v2.x` |
 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H19 to H21 Button icon (_v1.x, v2.x_)
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarRedSVG.svg" /></p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg
+```
+
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H22 Button icon (_v2.x_)
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarPinkySVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionPinkyRedSVG.svg
 ```
 
 </br>
