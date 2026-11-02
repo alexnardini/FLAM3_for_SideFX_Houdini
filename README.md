@@ -232,17 +232,20 @@ Fully available only with FLAM3H™USD HDA versions for Houdini H20.5 and up.
 
 _CPU (Cvex) iterations needed_: **72**<br />
 `Karma interactive`<br/>
-`Sphere Sugar Dragon - author: Pillemaster`
+`Sphere Sugar Dragon - author: Pillemaster`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_00_Karma.jpg)
 
 _CPU (Cvex) iterations needed_: **48**<br />
 `Karma interactive`<br/>
-`Worlds - author: F stands for liFe`
+`Worlds - author: F stands for liFe`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_01_Karma.jpg)
 
 _CPU (Cvex) iterations needed_: **64**<br />
 `Karma interactive`<br/>
-`It's Pink - author: Plangkye`
+`It's Pink - author: Plangkye`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_02_Karma.jpg)
 
 <br/>
@@ -281,15 +284,18 @@ FLAM3H™ generate a live point cloud of the fractal Flame you are working on.
 </br>
 
 _CPU (Cvex) iterations needed_: **12**<br />
-`Dancing Stars - author: F stands for liFe`
+`Dancing Stars - author: F stands for liFe`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H.jpg)
 
 _CPU (Cvex) iterations needed_: **48**<br />
-`Crystal Eggs - author: F stands for liFe`
+`Crystal Eggs - author: F stands for liFe`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_02_H.jpg)
 
 _CPU (Cvex) iterations needed_: **256**<br />
-`Cool EDisc - author: Pillemaster`
+`Cool EDisc - author: Pillemaster`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H.jpg)
 
 <br/>
@@ -316,12 +322,14 @@ Once framed, you can save the Flame and be sure it will be framed the same in al
 
 _CPU (Cvex) iterations needed_: **16**<br />
 `Camera sensor: FLAM3H™ to Fractorium`<br />
-`Morning Reflections - author: Fractorium`
+`Morning Reflections - author: Fractorium`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
 
 _CPU (Cvex) iterations needed_: **64**<br />
 `Camera sensor: FLAM3H™ to Fractorium`<br />
-`Genetic Spiral - author: F stands for liFe`
+`Genetic Spiral - author: F stands for liFe`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
 
 <br/>
@@ -342,19 +350,23 @@ Some have been modified to fit within the available variations.
 </br>
 
 _CPU (Cvex) iterations needed_: **72**<br />
-`Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`
+`Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![Fractorium to FLAM3HOUDINI 01](./img/FractoriumToFLAM3HOUDINI_03.jpg)
 
 _CPU (Cvex) iterations needed_: **24**<br />
-`Mountain by tatasz. Source: Fractorium`
+`Mountain by tatasz. Source: Fractorium`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![Fractorium to FLAM3HOUDINI 01](./img/FractoriumToFLAM3HOUDINI_01.jpg)
 
 _CPU (Cvex) iterations needed_: **64**<br />
-`Bipolar by tatasz. Source: Fractorium`
+`Bipolar by tatasz. Source: Fractorium`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![Fractorium to FLAM3HOUDINI 02](./img/FractoriumToFLAM3HOUDINI_02.jpg)
 
 _CPU (Cvex) iterations needed_: **24**<br />
-`Flipped Disk. Source: Fractorium`
+`Flipped Disk. Source: Fractorium`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![Fractorium to FLAM3HOUDINI 03](./img/FractoriumToFLAM3HOUDINI_00.jpg)
 
 <br/>
@@ -435,23 +447,28 @@ Some require thousands of iterations to show you the proper results; some of the
 <br/>
 
 _CPU (Cvex) iterations needed_: **1280**<br />
-`Ieddaka Gnarl. author: zuek`
+`Ieddaka Gnarl. author: zuek`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![Chaotica to FLAM3HOUDINI 00](./img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
 _CPU (Cvex) iterations needed_: **512**<br />
-`Blue Modulus. author: tatasz`
+`Blue Modulus. author: tatasz`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![Chaotica to FLAM3HOUDINI 01](./img/ChaoticaToFLAM3HOUDINI_01.jpg)
 
 _CPU (Cvex) iterations needed_: **512**<br />
-`Lazyswirls. author: meckie`
+`Lazyswirls. author: meckie`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![Chaotica to FLAM3HOUDINI 02](./img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
 _CPU (Cvex) iterations needed_: **64**<br />
-`Majestic. author: tatasz`
+`Majestic. author: tatasz`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![Chaotica to FLAM3HOUDINI 03](./img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
 _CPU (Cvex) iterations needed_: **32**<br />
-`Blurry Splits. author: tatasz`
+`Blurry Splits. author: tatasz`<br />
+_Houdini 22.0 Color Theme: **Polar Bear**_
 ![Chaotica to FLAM3HOUDINI 04](./img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
 </br>
