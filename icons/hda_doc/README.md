@@ -180,6 +180,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_DOC_camera_sensor_outline.svg" /></p>
 <b><p align="center">FLAM3H_DOC_camera_sensor_outline.svg</p></b>
@@ -199,6 +200,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_DOC_pixel_fill.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixel_fill.svg</p></b>
@@ -218,6 +220,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_DOC_pixel_view.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
@@ -237,6 +240,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_DOC_pixels_grid.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixels_grid.svg</p></b>
@@ -256,6 +260,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_DOC_point_dimension.svg" /></p>
 <b><p align="center">FLAM3H_DOC_point_dimension.svg</p></b>
@@ -275,6 +280,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_DOC_tag.svg" /></p>
 <b><p align="center">FLAM3H_DOC_tag.svg</p></b>
@@ -294,6 +300,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_DOC_xaos_pathsSVG.svg" /></p>
 <b><p align="center">FLAM3H_DOC_xaos_pathsSVG.svg</p></b>
@@ -313,6 +320,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_DOC_xforms_handles.svg" /></p>
 <b><p align="center">FLAM3H_DOC_xforms_handles.svg</p></b>

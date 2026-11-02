@@ -2134,6 +2134,45 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center">
+  <img width="160" height="160" src="./icon_optionStarPinkySVG.svg" /></p>
+<b><p align="center">icon_optionStarPinkySVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarPinkySVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarPinkySVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_optionStarPinkySVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_optionStarPinkySVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_optionStarPinkySVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarPinkySVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionStarRedHighSVG.svg" /></p>
@@ -4987,6 +5026,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_camera_sensor_outline.svg" /></p>
 <b><p align="center">FLAM3H_DOC_camera_sensor_outline.svg</p></b>
@@ -5006,6 +5046,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_pixel_fill.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixel_fill.svg</p></b>
@@ -5025,6 +5066,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_pixel_view.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixel_view.svg</p></b>
@@ -5044,6 +5086,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_pixels_grid.svg" /></p>
 <b><p align="center">FLAM3H_DOC_pixels_grid.svg</p></b>
@@ -5063,6 +5106,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_point_dimension.svg" /></p>
 <b><p align="center">FLAM3H_DOC_point_dimension.svg</p></b>
@@ -5082,6 +5126,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_tag.svg" /></p>
 <b><p align="center">FLAM3H_DOC_tag.svg</p></b>
@@ -5101,6 +5146,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_xaos_pathsSVG.svg" /></p>
 <b><p align="center">FLAM3H_DOC_xaos_pathsSVG.svg</p></b>
@@ -5120,6 +5166,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center">...</p></br/></br/></br/></br/>
 
 
+<p align="center"><i>Author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./hda_doc/FLAM3H_DOC_xforms_handles.svg" /></p>
 <b><p align="center">FLAM3H_DOC_xforms_handles.svg</p></b>
