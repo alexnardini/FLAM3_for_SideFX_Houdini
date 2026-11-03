@@ -230,22 +230,22 @@ Fully available only with FLAM3H™USD HDA versions for Houdini H20.5 and up.
 
 <br/>
 
-_CPU (Cvex) iterations needed_: **72**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **72**</i></font><br/>
 `Karma interactive`<br/>
 `Sphere Sugar Dragon - author: Pillemaster`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_00_Karma.jpg)
 
-_CPU (Cvex) iterations needed_: **48**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **48**</i></font><br/>
 `Karma interactive`<br/>
 `Worlds - author: F stands for liFe`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_01_Karma.jpg)
 
-_CPU (Cvex) iterations needed_: **64**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **64**</i></font><br/>
 `Karma interactive`<br/>
 `It's Pink - author: Plangkye`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_02_Karma.jpg)
 
 <br/>
@@ -283,19 +283,19 @@ FLAM3H™ generate a live point cloud of the fractal Flame you are working on.
 
 </br>
 
-_CPU (Cvex) iterations needed_: **12**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **12**</i></font><br/>
 `Dancing Stars - author: F stands for liFe`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H.jpg)
 
-_CPU (Cvex) iterations needed_: **48**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **48**</i></font><br/>
 `Crystal Eggs - author: F stands for liFe`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_02_H.jpg)
 
-_CPU (Cvex) iterations needed_: **256**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **256**</i></font><br/>
 `Cool EDisc - author: Pillemaster`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H.jpg)
 
 <br/>
@@ -320,16 +320,16 @@ Once framed, you can save the Flame and be sure it will be framed the same in al
 
 </br>
 
-_CPU (Cvex) iterations needed_: **16**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **16**</i></font><br/>
 `Camera sensor: FLAM3H™ to Fractorium`<br />
 `Morning Reflections - author: Fractorium`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
 
-_CPU (Cvex) iterations needed_: **64**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **64**</i></font><br/>
 `Camera sensor: FLAM3H™ to Fractorium`<br />
 `Genetic Spiral - author: F stands for liFe`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
 
 <br/>
@@ -349,24 +349,24 @@ Some have been modified to fit within the available variations.
 
 </br>
 
-_CPU (Cvex) iterations needed_: **72**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **72**</i></font><br/>
 `Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![Fractorium to FLAM3HOUDINI 01](./img/FractoriumToFLAM3HOUDINI_03.jpg)
 
-_CPU (Cvex) iterations needed_: **24**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **24**</i></font><br/>
 `Mountain by tatasz. Source: Fractorium`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![Fractorium to FLAM3HOUDINI 01](./img/FractoriumToFLAM3HOUDINI_01.jpg)
 
-_CPU (Cvex) iterations needed_: **64**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **64**</i></font><br/>
 `Bipolar by tatasz. Source: Fractorium`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![Fractorium to FLAM3HOUDINI 02](./img/FractoriumToFLAM3HOUDINI_02.jpg)
 
-_CPU (Cvex) iterations needed_: **24**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **24**</i></font><br/>
 `Flipped Disk. Source: Fractorium`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![Fractorium to FLAM3HOUDINI 03](./img/FractoriumToFLAM3HOUDINI_00.jpg)
 
 <br/>
@@ -446,29 +446,29 @@ Some require thousands of iterations to show you the proper results; some of the
 
 <br/>
 
-_CPU (Cvex) iterations needed_: **1280**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **2048**</i></font><br/>
 `Ieddaka Gnarl. author: zuek`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![Chaotica to FLAM3HOUDINI 00](./img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
-_CPU (Cvex) iterations needed_: **512**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **512**</i></font><br/>
 `Blue Modulus. author: tatasz`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![Chaotica to FLAM3HOUDINI 01](./img/ChaoticaToFLAM3HOUDINI_01.jpg)
 
-_CPU (Cvex) iterations needed_: **512**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **512**</i></font><br/>
 `Lazyswirls. author: meckie`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![Chaotica to FLAM3HOUDINI 02](./img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
-_CPU (Cvex) iterations needed_: **64**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **64**</i></font><br/>
 `Majestic. author: tatasz`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![Chaotica to FLAM3HOUDINI 03](./img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
-_CPU (Cvex) iterations needed_: **32**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **32**</i></font><br/>
 `Blurry Splits. author: tatasz`<br />
-_Houdini 22.0 Color Theme: **Polar Bear**_
+<font size="1"><i>Houdini 22.0 Color Theme: **Polar Bear**</i></font>
 ![Chaotica to FLAM3HOUDINI 04](./img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
 </br>
@@ -477,7 +477,7 @@ The following is another preset Chaotica software ship with I truly loved ported
 
 <br/>
 
-_CPU (Cvex) iterations needed_: **64**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **64**</i></font><br/>
 `Golden Dragon - author: meckie`
 ![goldenDragon_RENDER_2K_portrait](https://user-images.githubusercontent.com/42110232/237032379-56571708-d00a-4b93-ab2b-ea773700dce5.jpg)
 
@@ -490,7 +490,7 @@ However, from all my tests, between 10 and 96 iterations will get you covered fo
 
 <br/>
 
-_CPU (Cvex) iterations needed_: **6**<br />
+<font size="1"><i>CPU (Cvex) iterations needed: **6**</i></font><br/>
 `Knot Clusters - author: F stands for liFe`
 ![Chaotica to FLAM3HOUDINI 04](./img/FLAM3H_knotCluster_HQ_iter_6.jpg)
 

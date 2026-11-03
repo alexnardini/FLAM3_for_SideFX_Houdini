@@ -51,6 +51,37 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.1.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.55)  ##
+
+#### FLAM3H™ v2.1.55 indie -> H22.0 UP</br>FLAM3H™ v2.0.97 indie -> H21.0</br>FLAM3H™ v2.0.66 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+- **New H22 ONLY**: Many improvements on most of the HDA asset UI icons.
+
+   - _While all the UI icon sets have been tested with both dark and light Houdini color themes, they are best suited to light color themes, my favorite being the experimental color theme: **Polar Bear**_.
+
+#### FLAM3H™USD v0.2.95 indie -> H22.0 UP</br>FLAM3H™USD v0.2.73 indie -> H21.0</br>FLAM3H™USD v0.2.69 indie -> H20.5</br>FLAM3H™USD v0.2.52 indie -> H19.0 to H20 ####
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **New H22 ONLY**: Improvements on some of the HDA asset UI icons.
+
+   - _While all the UI icon sets have been tested with both dark and light Houdini color themes, they are best suited to light color themes, my favorite being the experimental color theme: **Polar Bear**_.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.1.46 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.46)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
