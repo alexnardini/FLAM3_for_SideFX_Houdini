@@ -1,0 +1,12 @@
+<svg width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+<metadata>
+  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+           xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <rdf:Description rdf:about="">
+      <dc:title>Side Effects Software Inc.</dc:title>
+      <dc:creator>Side Effects Software Inc.</dc:creator>
+      <dc:rights>Copyright (c) Side Effects Software Inc. All rights reserved.</dc:rights>
+    </rdf:Description>
+  </rdf:RDF>
+</metadata>
+<g transform="translate(10.897 10.897)scale(1.63787)" fill="none" fill-rule="evenodd"><path d="M13.133 3.846q.774 0 1.32.541.547.54.547 1.305v6.462q0 .765-.547 1.305a1.8 1.8 0 0 1-1.32.541H2.867q-.774 0-1.32-.54A1.77 1.77 0 0 1 1 12.153V5.692q0-.764.547-1.305.546-.54 1.32-.54H4.5l.372-.982q.138-.353.507-.609Q5.747 2 6.133 2h3.734q.386 0 .754.256.369.256.507.61l.372.98z" fill="#bfa3f8"/><path d="M8.125 6.25q1.189 0 2.031.844A2.77 2.77 0 0 1 11 9.125a2.77 2.77 0 0 1-.844 2.031A2.77 2.77 0 0 1 8.125 12a2.77 2.77 0 0 1-2.031-.844 2.77 2.77 0 0 1-.844-2.031q0-1.189.844-2.031a2.77 2.77 0 0 1 2.031-.844" fill="#b69fe8"/><path d="M8.125 6.25q1.189 0 2.031.844A2.77 2.77 0 0 1 11 9.125a2.77 2.77 0 0 1-.844 2.031A2.77 2.77 0 0 1 8.125 12a2.77 2.77 0 0 1-2.031-.844 2.77 2.77 0 0 1-.844-2.031q0-1.189.844-2.031a2.77 2.77 0 0 1 2.031-.844" fill="#000"/><path d="M8.125 6.25q1.189 0 2.031.844A2.77 2.77 0 0 1 11 9.125a2.77 2.77 0 0 1-.844 2.031A2.77 2.77 0 0 1 8.125 12a2.77 2.77 0 0 1-2.031-.844 2.77 2.77 0 0 1-.844-2.031q0-1.189.844-2.031a2.77 2.77 0 0 1 2.031-.844"/><circle fill="#fff" cx="7" cy="8" r="1"/></g></svg>

@@ -30,9 +30,30 @@ The CVEX-related logo or graphic, if included, is intended to identify the techn
 
 Houdini and the associated SideFX branding are trademarks of Side Effects Software Inc. CVEX is referenced descriptively in connection with the technology used by this project.
 
-In addition to the CVEX logo, which is the predominant logo used throughout this repository, the project also uses the Karma renderer logo and the Houdini Geometry icon solely as functional button icons in the user interface. These icons identify actions for resetting Karma renderer properties and reloading geometry, respectively. Their use purely functional and does not imply any affiliation with, endorsement by, or official support from SideFX.
+In addition to the CVEX logo, which is the predominant logo used throughout this repository, the project also uses the Karma renderer logo and the Houdini Geometry icon solely as functional button icons in the user interface. These icons identify actions for resetting Karma renderer properties and reloading geometry, respectively. Their use is purely functional and does not imply any affiliation with, endorsement by, or official support from SideFX.
 
-Certain UI icons also incorporate individual graphical elements derived from SideFX icons. These elements have been adapted and integrated into original icon designs rather than reproducing the original icons in their entirety.
+Certain UI icons also incorporate individual graphical elements derived from SideFX icons. These elements are adapted and integrated into originally created icon designs rather than reproducing the original icons in their entirety. They are positioned in the bottom-left or bottom-right corner of the original icon designs to visually indicate that the corresponding button provides additional or multiple functionalities beyond its primary action. Their use is solely functional and intended to communicate the availability of these additional actions within the user interface. This use does not imply any affiliation with, endorsement by, or official support from SideFX.
+
+For transparency, the following list identifies the individual graphical elements derived from SideFX icons and the corresponding original icon designs into which each element has been incorporated:
+
+- **Referenced individual graphical elements**:
+
+    - <img width="48" height="" src="./icons/third_party_individual_elements/sidefx_netview_render_flag.svg" /> Derived from the Netview icons, the render flag element.
+    - <img width="48" height="" src="./icons/third_party_individual_elements/sidefx_network_lop__ball.svg" /> Derived from the Network lop icon, the ball element ( _Originally of colors Red, White and Blue_ )
+    
+    <br/>
+    
+- **FLAM3H™ icons incorporating individual graphical elements**: 
+
+    - <img width="48" height="" src="./icons/icon_FrameBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_FrameRedToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionToolOCLSVG.svg" /><img width="48" height="" src="./icons/icon_optionCPToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWarningToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWhiteKwargsSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWhiteToolSVG.svg" /><img width="48" height="" src="./icons/icon_TagOBlueToolSVG_disabled.svg" /><img width="48" height="" src="./icons/icon_TagOBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_TagOBlueMenuBigToolSVG.svg" /><img width="48" height="" src="./icons/icon_xfHandlesEnabledToolSVG.svg" /><img width="48" height="" src="./icons/icon_ffHandlesEnabledToolSVG.svg" /><img width="48" height="" src="./icons/icon_xfHandlesEnabledMPIDXToolSVG.svg" />
+
+<br/>
+
+- **FLAM3H™USD icons incorporating individual graphical elements**: 
+
+    - <img width="48" height="" src="./icons/icon_rendererMenuSVG.svg" /><img width="48" height="" src="./icons/icon_FrameRedUSDToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionFlameINEntrieToolSVG.svg" />
+
+</br>
 
 SideFX publishes official logo assets and usage guidelines for designated purposes. However, those resources do not, by themselves, establish an unrestricted right to redistribute every SideFX-related graphic in third-party software.
 
