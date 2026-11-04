@@ -30,11 +30,13 @@ The CVEX-related logo or graphic, if included, is intended to identify the techn
 
 Houdini and the associated SideFX branding are trademarks of Side Effects Software Inc. CVEX is referenced descriptively in connection with the technology used by this project.
 
-In addition to the CVEX logo, which is the predominant logo used throughout this repository, the project also uses the Karma renderer logo and the Houdini Geometry icon solely as functional button icons in the user interface. These icons identify actions for resetting Karma renderer properties and reloading geometry, respectively. Their use is purely functional and does not imply any affiliation with, endorsement by, or official support from SideFX.
+In addition to the CVEX logo, which is the predominant logo used throughout this repository, the project also uses the Karma renderer logo and the Houdini Geometry icon solely as functional button icons in the user interface. These icons identify actions for resetting Karma renderer properties and reloading geometry, respectively. Their use purely functional and does not imply any affiliation with, endorsement by, or official support from SideFX.
 
-SideFX publishes official logo assets and usage guidelines for designated purposes. Those resources do not, by themselves, establish an unrestricted right to redistribute every SideFX-related graphic in third-party software.
+Certain UI icons also incorporate individual graphical elements derived from SideFX icons. These elements have been adapted and integrated into original icon designs rather than reproducing the original icons in their entirety.
 
-The copyright license and redistribution permission for the specific CVEX logo or graphic used in this project have not been independently verified. Permission should be obtained from SideFX if required for the particular asset and use.
+SideFX publishes official logo assets and usage guidelines for designated purposes. However, those resources do not, by themselves, establish an unrestricted right to redistribute every SideFX-related graphic in third-party software.
+
+The copyright license and redistribution permissions applicable to the specific CVEX logo or graphic used in this project have not been independently verified. Permission should be obtained from SideFX if required for the particular asset and its intended use.
 
 </br>
 </br>
