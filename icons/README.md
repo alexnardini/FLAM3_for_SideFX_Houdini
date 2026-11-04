@@ -29,6 +29,13 @@
 <br>
 <br>
 
+# SW Credits
+UI icons were designed and/or modified using Inkscape, a free and open-source vector graphics editor.
+
+**Download Inkscape here**: [**Inkscape webpage**](https://www.inkscape.org/)
+
+</br>
+
 # Intro
 
 <br>
@@ -63,6 +70,7 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 
 # Contents
 
+</br>
 </br>
 </br>
 </br>
