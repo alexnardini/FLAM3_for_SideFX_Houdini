@@ -4574,7 +4574,16 @@ Density :
 Reset density [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: prefs
     [Largeicon:opdef:.?icon_optionStarWhiteToolSVG.svg]
-    - ((LMB)) to reset density to a default value of *`500k`*(_thousands_).
+
+    ((LMB)) to reset density to its default: *`500k`*(_thousands_)<br />
+    This is what should be used while editing fractal Flames most of the time.
+
+    <br />
+    _Following are lower tier density presets you can set if you desire:_
+
+    - ((SHIFT)) + ((LMB)) set density to: *`300k`*(_thousands_)
+    - ((CTRL)) + ((LMB)) set density to: *`200k`*(_thousands_)
+    - ((ALT)) + ((LMB)) set density to: *`100k`*(_thousands_)
 
 :box:
     #display: rounded white
