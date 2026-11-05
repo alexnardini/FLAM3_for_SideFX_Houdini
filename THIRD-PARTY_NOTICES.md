@@ -45,13 +45,13 @@ For transparency, the following list identifies the individual graphical element
     
 - **FLAM3H™ icons incorporating individual graphical elements**: 
 
-    - <img width="48" height="" src="./icons/icon_FrameBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_FrameRedToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionToolOCLSVG.svg" /><img width="48" height="" src="./icons/icon_optionCPToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWarningToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWhiteKwargsSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWhiteToolSVG.svg" /><img width="48" height="" src="./icons/icon_TagOBlueToolSVG_disabled.svg" /><img width="48" height="" src="./icons/icon_TagOBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_TagOBlueMenuBigToolSVG.svg" /><img width="48" height="" src="./icons/icon_xfHandlesEnabledToolSVG.svg" /><img width="48" height="" src="./icons/icon_ffHandlesEnabledToolSVG.svg" /><img width="48" height="" src="./icons/icon_xfHandlesEnabledMPIDXToolSVG.svg" />
+    - <img width="48" height="" src="./icons/icon_FrameBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_FrameRedToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionToolOCLSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionCPToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWhiteToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWhiteKwargsSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWarningToolSVG.svg" /><img width="48" height="" src="./icons/icon_TagOBlueToolSVG_disabled.svg" /><img width="48" height="" src="./icons/icon_TagOBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_TagOBlueMenuBigToolSVG.svg" /><img width="48" height="" src="./icons/icon_xfHandlesEnabledToolSVG.svg" /><img width="48" height="" src="./icons/icon_ffHandlesEnabledToolSVG.svg" /><img width="48" height="" src="./icons/icon_xfHandlesEnabledMPIDXToolSVG.svg" />
 
 <br/>
 
 - **FLAM3H™USD icons incorporating individual graphical elements**: 
 
-    - <img width="48" height="" src="./icons/icon_rendererMenuSVG.svg" /><img width="48" height="" src="./icons/icon_FrameRedUSDToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionFlameINEntrieToolSVG.svg" />
+    - <img width="48" height="" src="./icons/icon_rendererMenuSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWhiteToolSVG.svg" /><img width="48" height="" src="./icons/icon_FrameRedUSDToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionFlameINEntrieToolSVG.svg" />
 
 </br>
 
