@@ -3845,7 +3845,7 @@ class flam3h_general_utils
     
     @staticmethod
     def is_new_ui() -> bool:
-        """Check if houdini is running using the new h22 ui.
+        """Check if houdini is running using the new H22 UI.
         
         Args:
             (None):
@@ -13881,7 +13881,8 @@ Praveen Brijwal"""
         host_header: str = 'HOST'
         h_version_str: str = '.'.join(str(x) for x in hou.applicationVersion())
         license_type: str = str(hou.licenseCategory()).split(".")[-1]
-        houdini_v: str = f"SideFX Houdini {h_version_str}, {license_type}"
+        new_ui: str = '[NEW UI]' if flam3h_general_utils.is_new_ui() else '[OLD UI]'
+        houdini_v: str = f"SideFX Houdini {h_version_str}, {license_type} - {new_ui}"
         python_v: str = f"Python: {python_version()}"
         ws: str = f"WS: {hou.machineName()}"
         user: str = f"User: {hou.userName()}"
