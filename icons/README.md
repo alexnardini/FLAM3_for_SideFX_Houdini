@@ -585,7 +585,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_ffH
 
 <p align="center">
   <img width="160" height="160" src="./icon_ffHandlesEnabledToolSVG.svg" /></p>
-<b><p align="center">icon_ffHandlesEnabledToolSVG.svg</p></b>
+<b><p align="center">icon_ffHandlesEnabledToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -780,7 +780,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Fra
 
 <p align="center">
   <img width="160" height="160" src="./icon_FrameBlueToolSVG.svg" /></p>
-<b><p align="center">icon_FrameBlueToolSVG.svg</p></b>
+<b><p align="center">icon_FrameBlueToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -936,7 +936,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Fra
 
 <p align="center">
   <img width="160" height="160" src="./icon_FrameRedToolSVG.svg" /></p>
-<b><p align="center">icon_FrameRedToolSVG.svg</p></b>
+<b><p align="center">icon_FrameRedToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -1014,7 +1014,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Fra
 
 <p align="center">
   <img width="160" height="160" src="./icon_FrameRedUSDToolSVG.svg" /></p>
-<b><p align="center">icon_FrameRedUSDToolSVG.svg</b></p>
+<b><p align="center">icon_FrameRedUSDToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -1131,7 +1131,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionCPToolSVG.svg" /></p>
-<b><p align="center">icon_optionCPToolSVG.svg</p></b>
+<b><p align="center">icon_optionCPToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -1754,7 +1754,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionFlameINEntrieToolSVG.svg" /></p>
-<b><p align="center">icon_optionFlameINEntrieToolSVG.svg</p></b>
+<b><p align="center">icon_optionFlameINEntrieToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -2105,7 +2105,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionStarBlueToolSVG.svg" /></p>
-<b><p align="center">icon_optionStarBlueToolSVG.svg</p></b>
+<b><p align="center">icon_optionStarBlueToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -2301,7 +2301,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionStarWarningToolSVG.svg" /></p>
-<b><p align="center">icon_optionStarWarningToolSVG.svg</p></b>
+<b><p align="center">icon_optionStarWarningToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -2340,7 +2340,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionStarWhiteKwargsSVG.svg" /></p>
-<b><p align="center">icon_optionStarWhiteKwargsSVG.svg</p></b>
+<b><p align="center">icon_optionStarWhiteKwargsSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -2496,7 +2496,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionStarWhiteToolSVG.svg" /></p>
-<b><p align="center">icon_optionStarWhiteToolSVG.svg</p></b>
+<b><p align="center">icon_optionStarWhiteToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -2808,7 +2808,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_ren
 
 <p align="center">
   <img width="160" height="160" src="./icon_rendererMenuSVG.svg" /></p>
-<b><p align="center">icon_rendererMenuSVG.svg</p></b>
+<b><p align="center">icon_rendererMenuSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -2886,7 +2886,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Tag
 
 <p align="center">
   <img width="160" height="160" src="./icon_TagOBlueMenuBigToolSVG.svg" /></p>
-<b><p align="center">icon_TagOBlueMenuBigToolSVG.svg</p></b>
+<b><p align="center">icon_TagOBlueMenuBigToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -3042,7 +3042,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Tag
 
 <p align="center">
   <img width="160" height="160" src="./icon_TagOBlueToolSVG_disabled.svg" /></p>
-<b><p align="center">icon_TagOBlueToolSVG_disabled.svg</p></b>
+<b><p align="center">icon_TagOBlueToolSVG_disabled.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -3120,7 +3120,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Tag
 
 <p align="center">
   <img width="160" height="160" src="./icon_TagOBlueToolSVG.svg" /></p>
-<b><p align="center">icon_TagOBlueToolSVG.svg</p></b>
+<b><p align="center">icon_TagOBlueToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -3394,7 +3394,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_xfH
 
 <p align="center">
   <img width="160" height="160" src="./icon_xfHandlesEnabledToolSVG.svg" /></p>
-<b><p align="center">icon_xfHandlesEnabledToolSVG.svg</p></b>
+<b><p align="center">icon_xfHandlesEnabledToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
@@ -3472,7 +3472,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_xfH
 
 <p align="center">
   <img width="160" height="160" src="./icon_xfHandlesEnabledMPIDXToolSVG.svg" /></p>
-<b><p align="center">icon_xfHandlesEnabledMPIDXToolSVG.svg</p></b>
+<b><p align="center">icon_xfHandlesEnabledMPIDXToolSVG.svg</b><br/>See <a href="../THIRD-PARTY_NOTICES.md#1-sidefx-houdini-and-cvex">Third-Party Notices</a> for usage details.</br>
 <p align="center">......</p>
 <p align="center">
 
