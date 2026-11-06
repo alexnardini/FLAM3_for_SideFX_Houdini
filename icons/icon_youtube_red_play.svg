@@ -1,12 +1,12 @@
 <svg width="48" height="48" xmlns="http://www.w3.org/2000/svg">
-<metadata>
-  <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-           xmlns:dc="http://purl.org/dc/elements/1.1/">
-    <rdf:Description rdf:about="">
-      <dc:title>Youtube Red Play</dc:title>
-      <dc:creator>Google LLC / Alphabet Inc.</dc:creator>
-      <dc:rights>Copyright (c) Google LLC / Alphabet Inc. All rights reserved.</dc:rights>
-    </rdf:Description>
-  </rdf:RDF>
-</metadata>
+  <metadata>
+    <rdf:RDF xmlns:rdf="http://w3.org"
+             xmlns:dc="http://purl.org">
+      <rdf:Description rdf:about="">
+        <dc:title>YouTube Logo Icon</dc:title>
+        <dc:rights>Copyright (c) 2026 Google LLC. All rights reserved.</dc:rights>
+        <dc:description>YouTube trademark asset used for interface linking.</dc:description>
+      </rdf:Description>
+    </rdf:RDF>
+  </metadata>
 <path d="m19.38 30.955 12.015-6.972-12.015-6.938ZM5.91 39.248c-1.998-.542-3.555-2.132-4.13-4.096C.832 31.531.832 23.983.832 23.983s0-7.548.948-11.135a5.92 5.92 0 0 1 4.13-4.096c3.587-.981 18.073-.981 18.073-.981s14.52 0 18.108.981c2.03.542 3.554 2.099 4.095 4.096.982 3.587.982 11.135.982 11.135s0 7.548-.982 11.17c-.541 1.963-2.064 3.553-4.095 4.095-3.588.981-18.108.981-18.108.981s-14.486 0-18.074-.981" fill="#f03"/><path d="m19.38 30.955 12.015-6.972-12.015-6.938Z" fill="#fff"/></svg>
