@@ -17,7 +17,7 @@ Those images are used throughout this repository for illustration purposes.</br>
 <p align="center"><i>Ieddaka Gnarl - author: zuek</i></p>
 <p align="center">
   <img width="512" height="" src="./ChaoticaToFLAM3HOUDINI_00.jpg" /></p>
-<b><p align="center">ChaoticaToFLAM3HOUDINI_00.svg</b>
+<b><p align="center">ChaoticaToFLAM3HOUDINI_00.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -32,7 +32,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Blue Modulus - author: tatasz</i></p>
 <p align="center">
   <img width="512" height="" src="./ChaoticaToFLAM3HOUDINI_01.jpg" /></p>
-<b><p align="center">ChaoticaToFLAM3HOUDINI_01.svg</b>
+<b><p align="center">ChaoticaToFLAM3HOUDINI_01.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -47,7 +47,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Lazyswirls - author: meckie</i></p>
 <p align="center">
   <img width="512" height="" src="./ChaoticaToFLAM3HOUDINI_02.jpg" /></p>
-<b><p align="center">ChaoticaToFLAM3HOUDINI_02.svg</b>
+<b><p align="center">ChaoticaToFLAM3HOUDINI_02.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -62,7 +62,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Majestic - author: tatasz</i></p>
 <p align="center">
   <img width="512" height="" src="./ChaoticaToFLAM3HOUDINI_03.jpg" /></p>
-<b><p align="center">ChaoticaToFLAM3HOUDINI_03.svg</b>
+<b><p align="center">ChaoticaToFLAM3HOUDINI_03.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -77,7 +77,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Blurry Splits - author: tatasz</i></p>
 <p align="center">
   <img width="512" height="" src="./ChaoticaToFLAM3HOUDINI_04.jpg" /></p>
-<b><p align="center">ChaoticaToFLAM3HOUDINI_04.svg</b>
+<b><p align="center">ChaoticaToFLAM3HOUDINI_04.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -92,7 +92,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Morning Reflections - author: Fractorium</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_camera_sensor_to_Fractorium_01.jpg" /></p>
-<b><p align="center">FLAM3H_camera_sensor_to_Fractorium_01.svg</b>
+<b><p align="center">FLAM3H_camera_sensor_to_Fractorium_01.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -107,7 +107,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Genetic Spiral - author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_camera_sensor_to_Fractorium_02.jpg" /></p>
-<b><p align="center">FLAM3H_camera_sensor_to_Fractorium_02.svg</b>
+<b><p align="center">FLAM3H_camera_sensor_to_Fractorium_02.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -122,7 +122,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Sphere Sugar Dragon - author: Pillemaster</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_00_Karma.jpg" /></p>
-<b><p align="center">FLAM3H_Hviewport_00_Karma.svg</b>
+<b><p align="center">FLAM3H_Hviewport_00_Karma.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -137,7 +137,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Worlds - author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_01_Karma.jpg" /></p>
-<b><p align="center">FLAM3H_Hviewport_01_Karma.svg</b>
+<b><p align="center">FLAM3H_Hviewport_01_Karma.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -152,7 +152,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>It's Pink - author: Plangkye</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_02_Karma.jpg" /></p>
-<b><p align="center">FLAM3H_Hviewport_02_Karma.svg</b>
+<b><p align="center">FLAM3H_Hviewport_02_Karma.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -167,7 +167,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Dancing Stars - author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_01_H.jpg" /></p>
-<b><p align="center">FLAM3H_Hviewport_01_H.svg</b>
+<b><p align="center">FLAM3H_Hviewport_01_H.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -182,7 +182,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Crystal Eggs - author: F stands for liFe</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_02_H.jpg" /></p>
-<b><p align="center">FLAM3H_Hviewport_02_H.svg</b>
+<b><p align="center">FLAM3H_Hviewport_02_H.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -197,7 +197,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Cool EDisc - author: Pillemaster</i></p>
 <p align="center">
   <img width="512" height="" src="./FLAM3H_Hviewport_03_H.jpg" /></p>
-<b><p align="center">FLAM3H_Hviewport_03_H.svg</b>
+<b><p align="center">FLAM3H_Hviewport_03_H.jpg</b>
 <p align="center">......</p>
 <p align="center">
 

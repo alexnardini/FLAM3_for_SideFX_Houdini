@@ -4897,7 +4897,7 @@ The following images are used for illustration purposes inside the HDAs document
 <p align="center"><i>Stars Splash - author: F stands for liFe</i></p>
 <p align="center">
   <img width="640" height="" src="./hda_doc/FLAM3H_DOC_intro_H220_NEW_UI.jpg" /></p>
-<b><p align="center">FLAM3H_DOC_intro_H220_NEW_UI.svg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
+<b><p align="center">FLAM3H_DOC_intro_H220_NEW_UI.jpg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -4917,7 +4917,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Escher Teal - author: Plangkye</i></p>
 <p align="center">
   <img width="640" height="" src="./hda_doc/FLAM3H_DOC_intro_H220_OLD_UI.jpg" /></p>
-<b><p align="center">FLAM3H_DOC_intro_H220_OLD_UI.svg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro_OLD_UI.jpg</u> once uploaded into the HDA</i>.</p>
+<b><p align="center">FLAM3H_DOC_intro_H220_OLD_UI.jpg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro_OLD_UI.jpg</u> once uploaded into the HDA</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -4937,7 +4937,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Cool EDisc - author: Pillemaster</i></p>
 <p align="center">
   <img width="640" height="" src="./hda_doc/FLAM3H_DOC_intro_H205.jpg" /></p>
-<b><p align="center">FLAM3H_DOC_intro_H205.svg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
+<b><p align="center">FLAM3H_DOC_intro_H205.jpg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -4957,7 +4957,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Worlds - author: F stands for liFe</i></p>
 <p align="center">
   <img width="640" height="" src="./hda_doc/FLAM3H_DOC_intro_H190.jpg" /></p>
-<b><p align="center">FLAM3H_DOC_intro_H190.svg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
+<b><p align="center">FLAM3H_DOC_intro_H190.jpg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -4977,7 +4977,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Jazz Streams - author: F stands for liFe</i></p>
 <p align="center">
   <img width="640" height="" src="./hda_doc/FLAM3HUSD_DOC_intro_H220_NEW_UI.jpg" /></p>
-<b><p align="center">FLAM3HUSD_DOC_intro_H220_NEW_UI.svg</b><br/><i>Renamed as <u>FLAM3HUSD_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
+<b><p align="center">FLAM3HUSD_DOC_intro_H220_NEW_UI.jpg</b><br/><i>Renamed as <u>FLAM3HUSD_DOC_intro.jpg</u> once uploaded into the HDA</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -4997,7 +4997,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Frozen - author: F stands for liFe</i></p>
 <p align="center">
   <img width="640" height="" src="./hda_doc/FLAM3HUSD_DOC_intro_H190.jpg" /></p>
-<b><p align="center">FLAM3HUSD_DOC_intro_H190.svg</b><br/><i>In H22 it will be renamed as <u>FLAM3HUSD_DOC_intro_OLD_UI.jpg</u> once uploaded into the HDA</i>.</p>
+<b><p align="center">FLAM3HUSD_DOC_intro_H190.jpg</b><br/><i>In H22 it will be renamed as <u>FLAM3HUSD_DOC_intro_OLD_UI.jpg</u> once uploaded into the HDA</i>.</p>
 <p align="center">......</p>
 <p align="center">
 

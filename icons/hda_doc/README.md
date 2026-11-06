@@ -50,12 +50,12 @@ The following images are used for illustration purposes inside the HDAs document
 <b>Image</b>
 
 ```
-[Image:opdef:.?FLAM3H_DOC_icon.jpg]
+[Image:opdef:.?FLAM3H_DOC_icon.svg]
 ```
 <b>GITHUB</b>
 
 ```
-https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_icon.jpg
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_icon.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -70,12 +70,12 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <b>Image</b>
 
 ```
-[Image:opdef:.?FLAM3HUSD_DOC_icon.jpg]
+[Image:opdef:.?FLAM3HUSD_DOC_icon.svg]
 ```
 <b>GITHUB</b>
 
 ```
-https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3HUSD_DOC_icon.jpg
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3HUSD_DOC_icon.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -103,7 +103,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Escher Teal - author: Plangkye</i></p>
 <p align="center">
   <img width="640" height="" src="./FLAM3H_DOC_intro_H220_OLD_UI.jpg" /></p>
-<b><p align="center">FLAM3H_DOC_intro_H220_OLD_UI.svg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro_OLD_UI.jpg</u> once uploaded into the HDA</i>.</p>
+<b><p align="center">FLAM3H_DOC_intro_H220_OLD_UI.jpg</b><br/><i>Renamed as <u>FLAM3H_DOC_intro_OLD_UI.jpg</u> once uploaded into the HDA</i>.</p>
 <p align="center">......</p>
 <p align="center">
 
