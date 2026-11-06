@@ -51,11 +51,11 @@ They are all available in this Github repository.
 <br>
 <br>
 
-## [<ins>v2.1.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.55)  ##
+## [<ins>v2.1.58 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.58)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
-#### FLAM3H™ v2.1.55 indie -> H22.0 UP</br>FLAM3H™ v2.1.02 indie -> H21.0</br>FLAM3H™ v2.0.66 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
+#### FLAM3H™ v2.1.58 indie -> H22.0 UP</br>FLAM3H™ v2.1.04 indie -> H21.0</br>FLAM3H™ v2.0.66 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
@@ -67,8 +67,11 @@ _This update require a restart of Houdini to fully pickup the changes_.
    - _FLAM3H™ for H21.0 inherited most of these new icons_.
 
 - **Fix H22 ONLY**: FLAM3H™ for H22.0 NEW UI had its xform handle viz for the FF ( _finalXForm_ ) broken. It is now fixed ( _a regression from a preview release_ ).
+- **Fix H21 and H22 ONLY**: Improved svg icons metadata.
+- **Updated HDA documentation**
+- **Updated GIT documentation**
 
-#### FLAM3H™USD v0.2.95 indie -> H22.0 UP</br>FLAM3H™USD v0.2.75 indie -> H21.0</br>FLAM3H™USD v0.2.69 indie -> H20.5</br>FLAM3H™USD v0.2.52 indie -> H19.0 to H20 ####
+#### FLAM3H™USD v0.2.97 indie -> H22.0 UP</br>FLAM3H™USD v0.2.77 indie -> H21.0</br>FLAM3H™USD v0.2.69 indie -> H20.5</br>FLAM3H™USD v0.2.52 indie -> H19.0 to H20 ####
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
@@ -76,6 +79,8 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
    - _While all the UI icon sets have been tested with both dark and light Houdini color themes, they are best suited to light color themes, my favorite being the H22.0 experimental light color theme: **Polar Bear**_.
    - _FLAM3H™USD for H21.0 inherited most of these new icons_.
+
+- **Fix H21 and H22 ONLY**: Improved svg icons metadata.
 
 
 
