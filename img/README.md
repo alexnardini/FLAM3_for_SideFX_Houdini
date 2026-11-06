@@ -227,7 +227,7 @@ https://user-images.githubusercontent.com/42110232/237032379-56571708-d00a-4b93-
 <p align="center"><i>Knot Clusters - author: F stands for liFe</i></p>
 <p align="center">
   <img width="" height="512" src="./FLAM3H_knotCluster_HQ_iter_6.jpg" /></p>
-<b><p align="center">FLAM3H_knotCluster_HQ_iter_6.svg</b>
+<b><p align="center">FLAM3H_knotCluster_HQ_iter_6.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -241,7 +241,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 <p align="center">
   <img width="" height="512" src="./FLAM3H_OTL_documentation.jpg" /></p>
-<b><p align="center">FLAM3H_OTL_documentation.svg</b>
+<b><p align="center">FLAM3H_OTL_documentation.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -255,7 +255,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 
 <p align="center">
   <img width="" height="380" src="./FLAM3HUSD_OTL_documentation.jpg" /></p>
-<b><p align="center">FLAM3HUSD_OTL_documentation.svg</b>
+<b><p align="center">FLAM3HUSD_OTL_documentation.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -270,7 +270,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Flipped disc - author: Fractorium</i></p>
 <p align="center">
   <img width="512" height="" src="./FractoriumToFLAM3HOUDINI_00.jpg" /></p>
-<b><p align="center">FractoriumToFLAM3HOUDINI_00.svg</b>
+<b><p align="center">FractoriumToFLAM3HOUDINI_00.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -285,7 +285,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Mountain - author: tatasz</i></p>
 <p align="center">
   <img width="512" height="" src="./FractoriumToFLAM3HOUDINI_01.jpg" /></p>
-<b><p align="center">FractoriumToFLAM3HOUDINI_01.svg</b>
+<b><p align="center">FractoriumToFLAM3HOUDINI_01.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -300,7 +300,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Bipolar - author: tatasz</i></p>
 <p align="center">
   <img width="512" height="" src="./FractoriumToFLAM3HOUDINI_02.jpg" /></p>
-<b><p align="center">FractoriumToFLAM3HOUDINI_02.svg</b>
+<b><p align="center">FractoriumToFLAM3HOUDINI_02.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -314,7 +314,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Chocolate scaffolds in too many dimensions - author: Plangkye</i></p>
 <p align="center">
   <img width="512" height="" src="./FractoriumToFLAM3HOUDINI_03.jpg" /></p>
-<b><p align="center">FractoriumToFLAM3HOUDINI_03.svg</b>
+<b><p align="center">FractoriumToFLAM3HOUDINI_03.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
@@ -329,7 +329,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <p align="center"><i>Cool EDisc - author: Pillemaster</i></p>
 <p align="center">
   <img width="512" height="" src="./GITHUB_intro_img.jpg" /></p>
-<b><p align="center">GITHUB_intro_img.svg</b>
+<b><p align="center">GITHUB_intro_img.jpg</b>
 <p align="center">......</p>
 <p align="center">
 
