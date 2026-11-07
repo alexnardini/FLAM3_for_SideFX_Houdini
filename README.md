@@ -486,7 +486,7 @@ The following is another preset Chaotica software ship with I truly loved ported
 You'll find other scenarios where your iterations number will need to rise up,
 especially when relying heavily on containers and such.
 
-However, from all my tests, between 10 and 96 iterations will get you covered for almost all your needs. And don't forget, you can create some beautiful fractal Flames with just six iterations. Here is one I did:
+However, from all my tests, between 10 and 96 iterations will get you covered for almost all your needs. And don't forget, you can create some beautiful fractal Flames with just few iterations. Here are some low iterations Flames I did:
 
 <br/>
 
