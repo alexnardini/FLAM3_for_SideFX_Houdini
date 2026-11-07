@@ -498,7 +498,7 @@ However, from all my tests, between 10 and 96 iterations will get you covered fo
 
 <font size="1"><i>CPU (Cvex) iterations needed: **6**</i></font><br/>
 `Knot Clusters - author: F stands for liFe`
-![Chaotica to FLAM3HOUDINI 04](./img/FLAM3H_knotCluster_HQ_iter_6.jpg)
+![knot_clusters_iter_12](./img/FLAM3H_knotCluster_HQ_iter_6.jpg)
 
 <br/>
 <br/>
