@@ -490,6 +490,12 @@ However, from all my tests, between 10 and 96 iterations will get you covered fo
 
 <br/>
 
+<font size="1"><i>CPU (Cvex) iterations needed: **12**</i></font><br/>
+`Dancing Stars - author: F stands for liFe`
+![dancing_stars_iter_12](https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/270014121-b68b27d9-ebb7-4580-ad5f-9d114f2585f7.jpg)
+
+<br/>
+
 <font size="1"><i>CPU (Cvex) iterations needed: **6**</i></font><br/>
 `Knot Clusters - author: F stands for liFe`
 ![Chaotica to FLAM3HOUDINI 04](./img/FLAM3H_knotCluster_HQ_iter_6.jpg)
