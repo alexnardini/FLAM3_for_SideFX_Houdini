@@ -42,7 +42,7 @@ The following images are used for illustration purposes inside the HDAs document
 
 <p align="center"><i>FLAM3H™ doc icon - author: F stands for liFe</i></p>
 <p align="center">
-  <img width="160" height="" src="./FLAM3H_DOC_icon.svg" /></p>
+  <img width="160" height="" src="./../FLAM3H_DOC_icon.svg" /></p>
 <b><p align="center">FLAM3H_DOC_icon.svg</b></p>
 <p align="center">......</p>
 <p align="center">
@@ -55,14 +55,14 @@ The following images are used for illustration purposes inside the HDAs document
 <b>GITHUB</b>
 
 ```
-https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3H_DOC_icon.svg
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/FLAM3H_DOC_icon.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
 <p align="center"><i>FLAM3H™USD doc icon - author: F stands for liFe</i></p>
 <p align="center">
-  <img width="160" height="" src="./FLAM3HUSD_DOC_icon.svg" /></p>
+  <img width="160" height="" src="./../FLAM3HUSD_DOC_icon.svg" /></p>
 <b><p align="center">FLAM3HUSD_DOC_icon.svg</b></p>
 <p align="center">......</p>
 <p align="center">
@@ -75,7 +75,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <b>GITHUB</b>
 
 ```
-https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/FLAM3HUSD_DOC_icon.svg
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/FLAM3HUSD_DOC_icon.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
