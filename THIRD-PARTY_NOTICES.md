@@ -57,8 +57,6 @@ For transparency, the following list identifies the individual graphical element
 
 SideFX publishes official logo assets and usage guidelines for designated purposes. However, those resources do not, by themselves, establish an unrestricted right to redistribute every SideFX-related graphic in third-party software.
 
-The copyright license and redistribution permissions applicable to the specific CVEX logo or graphic used in this project have not been independently verified. Permission should be obtained from SideFX if required for the particular asset and its intended use.
-
 </br>
 </br>
 
@@ -78,13 +76,16 @@ The copyright license and redistribution permissions applicable to the specific 
 
 </br>
 
-The OpenCL logo or icon is used in this project to identify the OpenCL technology associated with the software.
+The OpenCL logo is represented in this project by a simplified reproduction created by the project author. The reproduction is used solely as a UI icon to indicate that the software supports and utilizes GPU processing through OpenCL.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc., used by permission by the Khronos Group. Use of the OpenCL name and logo must comply with the applicable trademark and logo usage guidelines. Their inclusion in this project does not imply endorsement, sponsorship, or official affiliation with Apple Inc. or The Khronos Group Inc.
+The reproduction was independently created and visually adapted to match the style, proportions, and color scheme of the other icons used throughout the software interface, ensuring a consistent appearance across the UI.
 
-The copyright license and redistribution permissions for the specific OpenCL logo or icon artwork used in this project have not been independently verified. The inclusion of the artwork in this project does not imply that it is licensed for unrestricted redistribution, modification, or relicensing.
+The reproduced icon is intended only to identify OpenCL as the technology used for GPU processing. It does not imply endorsement, sponsorship, partnership, or affiliation between Apple Inc., the Khronos Group, and this project.
+OpenCL and its associated logo are trademarks of Apple Inc.
 
-OpenCL is referenced to identify the technology used by this project. No claim of official OpenCL conformance or certification is made by the inclusion of the logo alone.
+The icon artwork included in this project was created independently by the project author. Although it is an independently created reproduction, the OpenCL name and associated logo design remain subject to their respective trademark rights. Any use of the reproduced artwork must comply with the applicable brand guidelines of Apple Inc. and the Khronos Group.
+
+OpenCL is referenced solely to identify the technology used by this project for GPU processing. The inclusion of the reproduced logo does not imply or constitute a claim of official OpenCL conformance, certification, or endorsement.
 
 </br>
 </br>
@@ -110,8 +111,6 @@ Use of YouTube branding must comply with Google's official branding guidelines, 
 
 YouTube and the YouTube logo are trademarks of Google LLC.
 
-The copyright license for the specific SVG artwork used in this project has not been independently verified.
-
 </br>
 </br>
 
@@ -136,8 +135,6 @@ The GitHub logo or Invertocat icon is used to identify a link to a GitHub profil
 Use of GitHub branding must comply with GitHub's official logo policy and applicable brand guidelines. The logo must not be modified in ways prohibited by those guidelines or used to imply that GitHub endorses, sponsors, or develops this project.
 
 GitHub and its logos are trademarks of GitHub, Inc.
-
-The copyright license for the specific SVG artwork used in this project has not been independently verified.
 
 </br>
 </br>
@@ -165,8 +162,6 @@ Use of the Python logo must comply with the PSF's trademark policy. The logo mus
 
 Python and the Python logos are trademarks of the Python Software Foundation.
 
-The copyright license for the specific SVG artwork used in this project has not been independently verified.
-
 </br>
 </br>
 
@@ -191,8 +186,6 @@ The Bitbucket logo is used to identify a link to Bitbucket, such as a repository
 Use of Bitbucket branding must comply with Atlassian's applicable trademark and brand guidelines. The logo must not be used in a misleading or deceptive manner or in a way that suggests Atlassian endorses, sponsors, or develops this project.
 
 Bitbucket and its logos are trademarks of Atlassian Pty Ltd and/or its applicable affiliates.
-
-The copyright license for the specific SVG artwork used in this project has not been independently verified.
 
 </br>
 </br>
@@ -220,7 +213,7 @@ The reproduced icon is intended only to identify Instagram as the destination of
 
 Instagram and its logo are trademarks of Meta Platforms, Inc.
 
-The icon artwork included in this project was created by the project author. Although the artwork is an independently created reproduction, the Instagram name and associated logo design remain subject to their respective trademark rights. Use of the reproduction must comply with Meta's applicable brand guidelines.
+The icon artwork included in this project was created independently by the project author. Although it is an independently created reproduction, the Instagram name and associated logo design remain subject to their respective trademark rights. Any use of the reproduced artwork must comply with Meta's applicable brand guidelines.
 
 </br>
 </br>
@@ -231,11 +224,11 @@ This project's open-source license applies to the project's own original materia
 
 Trademark usage guidelines and copyright licenses address different matters. Permission to refer to a product or service by name does not necessarily grant permission to reproduce, redistribute, modify, or relicense its logo artwork.
 
-The applicable copyright license and any attribution requirements for each bundled logo must be determined from the source and terms associated with that particular file.
+The applicable copyright license, trademark rights, and any attribution requirements for each bundled logo or graphic must be determined from the source and terms associated with that particular asset.
 
-No specific copyright license is asserted here for third-party artwork whose original source and licensing terms have not been verified.
+The copyright status, licensing terms, and redistribution permissions applicable to third-party logos, icons, and graphics whose original sources and licensing terms have not been independently verified are not asserted or guaranteed by this project. Where required, permission must be obtained from the relevant rights holders before using or redistributing these assets.
 
-Third-party logos remain the property of their respective owners. Nothing in this notice transfers ownership of those logos to this project or its contributors.
+Third-party logos, trademarks, and associated artwork remain the property of their respective owners. Nothing in this notice transfers ownership of those assets to this project or its contributors, or implies endorsement, sponsorship, or affiliation with their respective owners.
 
 </br>
 </br>
