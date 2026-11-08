@@ -51,6 +51,40 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## [<ins>v2.1.62 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.62)  ##
+
+#### FLAM3H™ v2.1.62 indie -> H22.0 UP</br>FLAM3H™ v2.1.08 indie -> H21.0</br>FLAM3H™ v2.0.74 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+- **Fix**: Updated all metadata.
+- **Fix**: FLAM3H™ for H20.5 inherited most of the new icons.
+- **Updated GIT documentation**
+
+#### FLAM3H™USD v0.3.00 indie -> H22.0 UP</br>FLAM3H™USD v0.2.80 indie -> H21.0</br>FLAM3H™USD v0.2.75 indie -> H20.5</br>FLAM3H™USD v0.2.52 indie -> H19.0 to H20 ####
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **Fix**: Updated all metadata.
+- **Fix**: FLAM3H™USD for H20.5 inherited most of the new icons.
+
+#### PALETTE Recipes HDAs v1.0.26 indie -> H21.0, H22.0 UP</br>
+
+- **Fix**: Updated all metadata.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## [<ins>v2.1.58 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.58)  ##
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
