@@ -1,12 +1,27 @@
 <svg xml:space="preserve" width="256" height="256" xmlns="http://www.w3.org/2000/svg">
   <metadata>
-    <rdf:RDF xmlns:rdf="http://w3.org"
-             xmlns:dc="http://purl.org"
-             xmlns:cc="http://creativecommons.org">
-      <rdf:Description rdf:about="">
-        <dc:title>Instagram Logo Icon</dc:title>
-        <dc:rights>Copyright (c) 2026 Meta Platforms, Inc. All rights reserved.</dc:rights>
-        <dc:description>Instagram trademark asset used for interface linking.</dc:description>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+             xmlns:dc="http://purl.org/dc/elements/1.1/"
+             xmlns:dcterms="http://purl.org/dc/terms/">
+      <rdf:Description rdf:about="" xml:lang="en">
+        <dc:title>
+          Instagram Logo Icon
+        </dc:title>
+        <dc:creator>
+          F stands for liFe (made in Italy)
+        </dc:creator>
+        <dcterms:created>
+          2021
+        </dcterms:created>
+        <dc:rights>
+          Copyright (c) 2026 Meta Platforms, Inc. All rights reserved.
+        </dc:rights>
+        <dcterms:rightsHolder>
+          Meta Platforms, Inc.
+        </dcterms:rightsHolder>
+        <dc:description>
+          Instagram trademark asset used for interface linking.
+        </dc:description>
       </rdf:Description>
     </rdf:RDF>
   </metadata>

@@ -1,13 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 12.7 12.7">
   <metadata>
-    <rdf:RDF xmlns:rdf="http://w3.org"
-             xmlns:dc="http://purl.org">
-      <rdf:Description rdf:about="">
-        <dc:title>F stands for liFe Brand Icon</dc:title>
-        <dc:creator>F stands for liFe</dc:creator>
-        <dc:date>2021</dc:date>
-        <dc:rights>Copyright (c) 2021 F stands for liFe. All rights reserved.</dc:rights>
-        <dc:description>Original proprietary brand asset and interface icon.</dc:description>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+             xmlns:dc="http://purl.org/dc/elements/1.1/"
+             xmlns:dcterms="http://purl.org/dc/terms/">
+      <rdf:Description rdf:about="" xml:lang="en">
+        <dc:title>
+          F stands for liFe Brand Icon
+        </dc:title>
+        <dc:creator>
+          F stands for liFe (made in Italy)
+        </dc:creator>
+        <dcterms:created>
+          2021
+        </dcterms:created>
+        <dc:rights>
+          Copyright (c) 2021 F stands for liFe. All rights reserved.
+        </dc:rights>
+        <dcterms:rightsHolder>
+          F stands for liFe
+        </dcterms:rightsHolder>
+        <dc:description>
+          Original proprietary brand asset and interface icon.
+        </dc:description>
       </rdf:Description>
     </rdf:RDF>
   </metadata>

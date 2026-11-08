@@ -1,11 +1,27 @@
 <svg width="600" height="600" viewBox="0 0 158.75 158.75" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
   <metadata>
-    <rdf:RDF xmlns:rdf="http://w3.org"
-             xmlns:dc="http://purl.org">
-      <rdf:Description rdf:about="">
-        <dc:title>Python Logo Icon</dc:title>
-        <dc:rights>Python and the Python Logo are trademarks of the Python Software Foundation.</dc:rights>
-        <dc:description>Python trademark asset used as a programming language runtime status indicator within the user interface.</dc:description>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+             xmlns:dc="http://purl.org/dc/elements/1.1/"
+             xmlns:dcterms="http://purl.org/dc/terms/">
+      <rdf:Description rdf:about="" xml:lang="en">
+        <dc:title>
+          Python Logo Icon
+        </dc:title>
+        <dc:creator>
+          Python Software Foundation
+        </dc:creator>
+        <dcterms:created>
+          2021
+        </dcterms:created>
+        <dc:rights>
+          Python and the Python Logo are trademarks of the Python Software Foundation.
+        </dc:rights>
+        <dcterms:rightsHolder>
+          Python Software Foundation
+        </dcterms:rightsHolder>
+        <dc:description>
+          Python trademark asset used as a programming language runtime status indicator within the user interface.
+        </dc:description>
       </rdf:Description>
     </rdf:RDF>
   </metadata>

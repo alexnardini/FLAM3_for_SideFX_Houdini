@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><svg width="48" height="48" sodipodi:version=".32" inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)" sodipodi:docname="icon_cvex_compileSVG.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
   <metadata>
-    <rdf:RDF xmlns:rdf="http://w3.org"
-             xmlns:dc="http://purl.org">
-      <rdf:Description rdf:about="">
-        <dc:title>SideFX CVEX Context Logo Icon</dc:title>
-        <dc:rights>Copyright (c) 2026 Side Effects Software Inc. All rights reserved.</dc:rights>
-        <dc:description>SideFX CVEX trademark asset used as a runtime/execution context indicator within the user interface.</dc:description>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+             xmlns:dc="http://purl.org/dc/elements/1.1/"
+             xmlns:dcterms="http://purl.org/dc/terms/">
+      <rdf:Description rdf:about="" xml:lang="en">
+        <dc:title>
+          SideFX CVEX Context Logo Icon
+        </dc:title>
+        <dc:creator>
+          F stands for liFe (made in Italy)
+        </dc:creator>
+        <dcterms:created>
+          2021
+        </dcterms:created>
+        <dc:rights>
+          Copyright (c) 2021 F stands for liFe. All rights reserved. Copyright (c) Side Effects Software Inc. All rights reserved.
+        </dc:rights>
+        <dcterms:rightsHolder>
+          F stands for liFe
+        </dcterms:rightsHolder>
+        <dcterms:rightsHolder>
+          Side Effects Software Inc.
+        </dcterms:rightsHolder>
+        <dc:description>
+          SideFX CVEX trademark asset used as a runtime/execution context indicator within the user interface.
+        </dc:description>
       </rdf:Description>
     </rdf:RDF>
   </metadata>

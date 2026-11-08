@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><svg width="48" height="48" sodipodi:version=".32" inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)" sodipodi:docname="icon_geo_reloadSVG.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg">
   <metadata>
-    <rdf:RDF xmlns:rdf="http://w3.org"
-             xmlns:dc="http://purl.org">
-      <rdf:Description rdf:about="">
-        <dc:title>Houdini Geometry Reload Icon</dc:title>
-        <dc:rights>Copyright (c) 2026 Side Effects Software Inc. All rights reserved.</dc:rights>
-        <dc:description>SideFX Houdini trademark asset used as a functional user interface component to trigger or indicate a geometry reload sequence.</dc:description>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+             xmlns:dc="http://purl.org/dc/elements/1.1/"
+             xmlns:dcterms="http://purl.org/dc/terms/">
+      <rdf:Description rdf:about="" xml:lang="en">
+        <dc:title>
+          Houdini Geometry Reload Icon
+        </dc:title>
+        <dc:creator>
+          Side Effects Software Inc. - F stands for liFe (made in Italy)
+        </dc:creator>
+        <dcterms:created>
+          2021
+        </dcterms:created>
+        <dc:rights>
+          Copyright (c) 2026 Side Effects Software Inc. All rights reserved.
+        </dc:rights>
+        <dcterms:rightsHolder>
+          Side Effects Software Inc.
+        </dcterms:rightsHolder>
+        <dc:description>
+          SideFX Houdini trademark asset used as a functional user interface component to trigger or indicate a geometry reload sequence.
+        </dc:description>
       </rdf:Description>
     </rdf:RDF>
   </metadata>

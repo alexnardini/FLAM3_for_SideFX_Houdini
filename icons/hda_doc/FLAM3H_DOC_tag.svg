@@ -1,13 +1,27 @@
 <svg width="2953" height="180" viewBox="0 0 781.313 47.63" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
   <metadata>
-    <rdf:RDF xmlns:rdf="http://w3.org"
-             xmlns:dc="http://purl.org">
-      <rdf:Description rdf:about="">
-        <dc:title>Software Documentation Illustration</dc:title>
-        <dc:creator>F stands for liFe</dc:creator>
-        <dc:date>2021</dc:date>
-        <dc:rights>Copyright (c) 2021 F stands for liFe. All rights reserved.</dc:rights>
-        <dc:description>Original vector artwork and schematic illustration created for software user documentation.</dc:description>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+             xmlns:dc="http://purl.org/dc/elements/1.1/"
+             xmlns:dcterms="http://purl.org/dc/terms/">
+      <rdf:Description rdf:about="" xml:lang="en">
+        <dc:title>
+          Software Documentation Illustration
+        </dc:title>
+        <dc:creator>
+          F stands for liFe (made in Italy)
+        </dc:creator>
+        <dcterms:created>
+          2021
+        </dcterms:created>
+        <dc:rights>
+          Copyright (c) 2021 F stands for liFe. All rights reserved.
+        </dc:rights>
+        <dcterms:rightsHolder>
+          F stands for liFe
+        </dcterms:rightsHolder>
+        <dc:description>
+          Original vector artwork and schematic illustration created for software user documentation.
+        </dc:description>
       </rdf:Description>
     </rdf:RDF>
   </metadata>

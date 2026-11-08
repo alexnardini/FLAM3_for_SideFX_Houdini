@@ -1,11 +1,27 @@
 <svg width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg">
   <metadata>
-    <rdf:RDF xmlns:rdf="http://w3.org"
-             xmlns:dc="http://purl.org">
-      <rdf:Description rdf:about="">
-        <dc:title>Bitbucket Logo Icon</dc:title>
-        <dc:rights>Copyright (c) 2026 Atlassian Pty Ltd. All rights reserved.</dc:rights>
-        <dc:description>Bitbucket trademark asset used for interface linking.</dc:description>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+             xmlns:dc="http://purl.org/dc/elements/1.1/"
+             xmlns:dcterms="http://purl.org/dc/terms/">
+      <rdf:Description rdf:about="" xml:lang="en">
+        <dc:title>
+          Bitbucket Logo Icon
+        </dc:title>
+        <dc:creator>
+          Atlassian Pty Ltd.
+        </dc:creator>
+        <dcterms:created>
+          2021
+        </dcterms:created>
+        <dc:rights>
+          Copyright (c) 2026 Atlassian Pty Ltd. All rights reserved.
+        </dc:rights>
+        <dcterms:rightsHolder>
+          Atlassian Pty Ltd.
+        </dcterms:rightsHolder>
+        <dc:description>
+          Bitbucket trademark asset used for interface linking.
+        </dc:description>
       </rdf:Description>
     </rdf:RDF>
   </metadata>
