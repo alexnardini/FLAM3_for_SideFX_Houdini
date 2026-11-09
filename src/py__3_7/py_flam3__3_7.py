@@ -21790,7 +21790,7 @@ class pyside_master:
         # __v__ 2
         IMAGE_CREDIT: str = 'Cool EDisc - author: Pillemaster'
         if __v__ == 1:
-            IMAGE_CREDIT: str = 'Worlds - author: Alessandro Nardini'
+            IMAGE_CREDIT: str = 'Worlds - author: F stands for liFe'
         
         # milliseconds
         FADE_IN_DURATION_MS: int = 0

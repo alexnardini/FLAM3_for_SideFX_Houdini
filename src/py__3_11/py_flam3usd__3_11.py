@@ -2997,7 +2997,7 @@ class pyside_master:
             f"v{__version__} indie {flam3husd_scripts.flam3husd_compatible_h_versions_msg(False, True)}, {__license__} - {__copyright__} ( made in Italy )"
         )
         
-        IMAGE_CREDIT: str = 'Frozen - author: Alessandro Nardini'
+        IMAGE_CREDIT: str = 'Frozen - author: F stands for liFe'
         
         # milliseconds
         FADE_IN_DURATION_MS: int = 0
