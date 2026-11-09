@@ -5,7 +5,7 @@
              xmlns:dcterms="http://purl.org/dc/terms/">
       <rdf:Description rdf:about="" xml:lang="en">
         <dc:title>
-          F stands for liFe Brand Icon
+          Multi-Action UI Icon (SideFX Derivative)
         </dc:title>
         <dc:creator>
           F stands for liFe (made in Italy)
@@ -14,13 +14,16 @@
           2021
         </dcterms:created>
         <dc:rights>
-          Copyright (c) 2021 F stands for liFe. All rights reserved.
+          copyright (c) 2021 F stands for liFe. All rights reserved. Contains elements copyright (c) 2026 Side Effects Software Inc. All rights reserved.
         </dc:rights>
         <dcterms:rightsHolder>
           F stands for liFe
         </dcterms:rightsHolder>
+        <dcterms:rightsHolder>
+          Side Effects Software Inc.
+        </dcterms:rightsHolder>
         <dc:description>
-          Original proprietary brand asset and interface icon.
+          Derivative UI asset incorporating modified SideFX Houdini iconography elements to indicate a multi-action button context.
         </dc:description>
       </rdf:Description>
     </rdf:RDF>
