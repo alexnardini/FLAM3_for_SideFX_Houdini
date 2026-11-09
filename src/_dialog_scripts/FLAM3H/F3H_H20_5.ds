@@ -4894,8 +4894,8 @@
                 default { "256" }
                 menu usetokenvalue {
                     "256"   "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]256"
-                    "512"   "![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg]512"
-                    "1024"  "![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]1024     "
+                    "512"   "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBSVG.svg]512"
+                    "1024"  "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBHSVG.svg]1024     "
                 }
                 parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
                 parmtag { "script_callback_language" "python" }

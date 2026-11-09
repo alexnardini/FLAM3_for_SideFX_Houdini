@@ -49,24 +49,6 @@
             parmtag { "script_callback_language" "python" }
         }
         parm {
-            name    "empty_3"
-            label   "Label"
-            type    data
-            nolabel
-            joinnext
-            default { "0" }
-            parmtag { "script_callback_language" "python" }
-        }
-        parm {
-            name    "empty_4"
-            label   "Label"
-            type    data
-            nolabel
-            joinnext
-            default { "0" }
-            parmtag { "script_callback_language" "python" }
-        }
-        parm {
             name    "flam3hpath"
             label   "FLAM3H™ node"
             type    oppath
