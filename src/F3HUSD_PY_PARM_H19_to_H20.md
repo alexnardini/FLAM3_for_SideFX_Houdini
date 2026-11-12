@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3H™USD. SideFX Houdini FLAM3USD: PYTHON MAP PRM Definitions
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       March 2025, Last revised September 2026
+#   date:       March 2025, Last revised November 2026
 #   License:    GPL
 #   Copyright:  2023, © F stands for liFe ( made in Italy )
 #
@@ -57,6 +57,15 @@
 
 # Contents
 
+<br>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FLAM3H™USD Scripts</h1>
+</summary>
+
+<br>
 <br>
 
 The needed **`py_flam3usd__x_x.py`** files are loaded inside the **Extra Files** section. Renamed as **`py_flam3usd__x_x`** (no extension).
@@ -478,12 +487,20 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_delet
 </br>
 </br>
 </br>
+
+</details>
+
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">SYS tab</h1>
+</summary>
+
+<br>
+<br>
 
 _FLAM3H™USD system utilities._
 
@@ -549,12 +566,17 @@ except TypeError:
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">PREFS tab</h1>
+</summary>
+
+<br>
+<br>
 
 _Here you will play with the main settings of FLAM3H™USD._
 
@@ -727,12 +749,17 @@ kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_ge
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">ABOUT tab</h1>
+</summary>
+
+<br>
+<br>
 
 _Here you will find informations about FLAM3H™USD._
 
@@ -880,6 +907,12 @@ f3h_web = node.hdaModule().flam3usd.f3h_web
 node.hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_run(f3h_web.FRACT_KEY_SITE)
 ```
 
+</br>
+</br>
+</br>
+</br>
+
+</details>
 
 <br/>
 <br/>

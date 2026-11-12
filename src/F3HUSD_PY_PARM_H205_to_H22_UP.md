@@ -59,6 +59,15 @@
 
 <br>
 
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FLAM3H™USD Scripts</h1>
+</summary>
+
+<br>
+<br>
+
 The needed **`py_flam3usd__x_x.py`** files are loaded inside the **Extra Files** section. Renamed as **`py_flam3usd__x_x`** (no extension).
 
 For example the file for python 3.11 is renamed<br>
@@ -714,12 +723,20 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_delet
 </br>
 </br>
 </br>
+
+</details>
+
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">SYS tab</h1>
+</summary>
+
+<br>
+<br>
 
 _FLAM3H™USD system utilities._
 
@@ -786,12 +803,17 @@ except TypeError:
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">PREFS tab</h1>
+</summary>
+
+<br>
+<br>
 
 _Here you will play with the main settings of FLAM3H™USD._
 
@@ -979,12 +1001,17 @@ kwargs['parm'].deleteAllKeyframes(), hou.phm().flam3usd.flam3husd_general_utils(
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">ABOUT tab</h1>
+</summary>
+
+<br>
+<br>
 
 _Here you will find informations about FLAM3H™USD._
 
@@ -1131,6 +1158,13 @@ node = kwargs['node']
 f3h_web = node.hdaModule().flam3usd.f3h_web
 node.hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_run(f3h_web.FRACT_KEY_SITE)
 ```
+
+</br>
+</br>
+</br>
+</br>
+
+</details>
 
 
 <br/>

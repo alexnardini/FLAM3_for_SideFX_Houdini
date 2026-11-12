@@ -60,6 +60,15 @@
 
 <br>
 
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FLAM3H™ Scripts</h1>
+</summary>
+
+<br>
+<br>
+
 The needed **`py_flam3__x_x.py`** files are loaded inside the **Extra Files** section. Renamed as **`py_flam3__x_x`** (no extension).
 
 For example the file for python 3.11 is renamed<br>
@@ -70,7 +79,7 @@ to: **py_flam3__3_11**
 </br>
 </br>
 
-# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H22.0 UP`
+# <img width="32" height="32" src="../icons/icon_pythonSVG.svg" /> PythonModule `H22.0 UP`
 
 
 | SCRIPT | Description | 
@@ -195,7 +204,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 </br>
 
 
-# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H21.0`
+# <img width="32" height="32" src="../icons/icon_pythonSVG.svg" /> PythonModule `H21.0`
 
 | SCRIPT | Description | 
 |:---|:---|
@@ -309,7 +318,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 </br>
 </br>
 
-# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H20.5`
+# <img width="32" height="32" src="../icons/icon_pythonSVG.svg" /> PythonModule `H20.5`
 
 | SCRIPT | Description | 
 |:---|:---|
@@ -423,7 +432,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 </br>
 </br>
 
-# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PreFirstCreate `H20.5 to H22.0 UP`
+# <img width="32" height="32" src="../icons/icon_pythonSVG.svg" /> PreFirstCreate `H20.5 to H22.0 UP`
 
 | SCRIPT | Description | 
 |:---|:---|
@@ -689,7 +698,7 @@ else:
 </br>
 </br>
 
-# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnCreated `H20.5 to H22.0 UP`
+# <img width="32" height="32" src="../icons/icon_pythonSVG.svg" /> OnCreated `H20.5 to H22.0 UP`
 
 | SCRIPT | Description | 
 |:---|:---|
@@ -718,7 +727,7 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_create()
 </br>
 </br>
 
-# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnLoaded `H20.5 to H22.0 UP`
+# <img width="32" height="32" src="../icons/icon_pythonSVG.svg" /> OnLoaded `H20.5 to H22.0 UP`
 
 | SCRIPT | Description | 
 |:---|:---|
@@ -747,7 +756,7 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
 </br>
 </br>
 
-# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnDeleted `H20.5 to H22.0 UP`
+# <img width="32" height="32" src="../icons/icon_pythonSVG.svg" /> OnDeleted `H20.5 to H22.0 UP`
 
 | SCRIPT | Description | 
 |:---|:---|
@@ -776,12 +785,20 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
 </br>
 </br>
 </br>
+
+</details>
+
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">GLOBAL tab</h1>
+</summary>
+
+<br>
+<br>
 
 _Parameters to define the quality of the fractal Flame algorithm solution._
 
@@ -861,12 +878,17 @@ n = None
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">SYS tab</h1>
+</summary>
+
+<br>
+<br>
 
 _Tools available to enhance and speed up the workflow.<br>
 I keep changing and adding functionalities, it is still a work in progress, but thus far, this most recent configuration has been successful._
@@ -1284,12 +1306,17 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FLAME tab</h1>
+</summary>
+
+<br>
+<br>
 
 _This is where you’ll spend the majority of your time, along with the FF Tab.<br>
 Here you will create your fractal Flame logic.<br>Since every parameter has the same name inside, if you have ever used Apophysis, Fractorium, or other fractal Flame editors, you will almost immediately feel at home. The logic you will operate with will be the same._
@@ -1572,12 +1599,17 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine(
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FF tab</h1>
+</summary>
+
+<br>
+<br>
 
 _Iterators like Final Flame (FF) or finalXform function like camera lenses.<br>
 It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result._
@@ -1772,12 +1804,17 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine_
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">CP tab</h1>
+</summary>
+
+<br>
+<br>
 
 _The palette colors used in a successful fractal Flame are crucial.<br>
 In addition to playing with the shader parameters for each iterator, fractal Flames can be transformed into something truly unique by trying out various color schemes._
@@ -1948,12 +1985,17 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">MB tab</h1>
+</summary>
+
+<br>
+<br>
 
 _Flame fractal moton blur._<br>
 _When animating your fractal Flame, turning this on will compute a proper temporal motion blur._
@@ -1973,12 +2015,18 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).reset_MB(False)
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">IN tab</h1>
+</summary>
+
+<br>
+<br>
+
 
 _The IN tab allows users to import and manage pre-existing fractal Flame files into FLAM3H™._</br>
 _This feature is essential for reloading saved Flames,_</br>
@@ -2156,12 +2204,17 @@ hou.phm().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">OUT tab</h1>
+</summary>
+
+<br>
+<br>
 
 _The OUT tab provides options to export your current fractal Flame work,_</br>
 _preserving all necessary data for future editing, sharing or rendering._</br>
@@ -2531,12 +2584,17 @@ hou.phm().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">PREFS tab</h1>
+</summary>
+
+<br>
+<br>
 
 _The Preferences tab allows users to customize global settings for FLAM3H™,_</br>
 _enabling a more tailored and efficient creative workflow._</br>
@@ -2874,12 +2932,17 @@ hou.phm().flam3.flam3h_general_utils.ocl_gpu_nvidia_beast()
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">ABOUT tab</h1>
+</summary>
+
+<br>
+<br>
 
 _Here you will find informations about FLAM3H™._
 
@@ -3027,6 +3090,12 @@ f3h_web = node.hdaModule().flam3.f3h_web
 node.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.FRACT_KEY_SITE)
 ```
 
+</br>
+</br>
+</br>
+</br>
+
+</details>
 
 <br/>
 <br/>

@@ -58,6 +58,15 @@
 
 <br>
 
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">GLOBAL tab</h1>
+</summary>
+
+<br>
+<br>
+
 _Parameters to define the quality of the fractal Flame algorithm solution._
 
 </br>
@@ -223,12 +232,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteToolSVG.svg
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">SYS tab</h1>
+</summary>
+
+<br>
+<br>
 
 _Tools available to enhance and speed up the workflow.<br>
 I keep changing and adding functionalities, it is still a work in progress, but thus far, this most recent configuration has been successful._
@@ -1093,12 +1107,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FLAME tab</h1>
+</summary>
+
+<br>
+<br>
 
 _This is where you’ll spend the majority of your time, along with the FF Tab.<br>
 Here you will create your fractal Flame logic.<br>Since every parameter has the same name inside, if you have ever used Apophysis, Fractorium, or other fractal Flame editors, you will almost immediately feel at home. The logic you will operate with will be the same._
@@ -1444,12 +1463,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FF tab</h1>
+</summary>
+
+<br>
+<br>
 
 _Iterators like Final Flame (FF) or finalXform function like camera lenses.<br>
 It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result._
@@ -1723,14 +1747,19 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineFFSVG.svg
 opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+</br>
+</br>
+</br>
+</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">CP tab</h1>
+</summary>
+
 <br>
 <br>
 
@@ -2003,14 +2032,19 @@ _The following are icons being used on demand based on the menu python script ne
 opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+</br>
+</br>
+</br>
+</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">MB tab</h1>
+</summary>
+
 <br>
 <br>
 
@@ -2032,17 +2066,21 @@ _When animating your fractal Flame, turning this on will compute a proper tempor
 opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+</br>
+</br>
+</br>
+</br>
 
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">IN tab</h1>
+</summary>
+
+<br>
+<br>
 
 _The IN tab allows users to import and manage pre-existing fractal Flame files into FLAM3H™._</br>
 _This feature is essential for reloading saved Flames,_</br>
@@ -2255,14 +2293,19 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+</br>
+</br>
+</br>
+</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">OUT tab</h1>
+</summary>
+
 <br>
 <br>
 
@@ -2482,14 +2525,19 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionPinkyRedSVG.svg
 opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 ```
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+</br>
+</br>
+</br>
+</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">PREFS tab</h1>
+</summary>
+
 <br>
 <br>
 
@@ -2733,14 +2781,19 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 ```
 
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+</br>
+</br>
+</br>
+</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">ABOUT tab</h1>
+</summary>
+
 <br>
 <br>
 
@@ -2955,6 +3008,12 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlueSVG.svg
 opdef:/alexnardini::Sop/FLAM3H?icon_FractoriumWebSVG.svg
 ```
 
+</br>
+</br>
+</br>
+</br>
+
+</details>
 
 <br/>
 <br/>

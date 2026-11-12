@@ -1,5 +1,17 @@
+# Contents PY 3.7
 
-# <img width="48" height="48" src="../../icons/icon_pythonSVG.svg" /> Python
+<br>
+
+<details>
+<summary>
+<img src="./../../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FLAM3H™</h1>
+</summary>
+
+<br>
+<br>
+
+# <img width="32" height="32" src="../../icons/icon_pythonSVG.svg" /> Python
 ## File name: [**`py_flam3__3_7.py`**](py_flam3__3_7.py)
 - _The ending filename digits represent the least python version needed to run this code_.
 ## FLAM3H™
@@ -20,8 +32,21 @@ This is the main FLAM3H™ python file that define:
 
 <br>
 <br>
+<br>
+<br>
 
-# <img width="48" height="48" src="../../icons/icon_pythonSVG.svg" /> Python
+</details>
+
+<details>
+<summary>
+<img src="./../../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FLAM3H™USD</h1>
+</summary>
+
+<br>
+<br>
+
+# <img width="32" height="32" src="../../icons/icon_pythonSVG.svg" /> Python
 ## File name: [**`py_flam3usd__3_7.py`**](py_flam3usd__3_7.py)
 - _The ending filename digits represent the least python version needed to run this code_.
 ## FLAM3H™USD
@@ -30,6 +55,12 @@ This is the main FLAM3H™ python file that define:
 
 Simple utility node to quickly setup fractal flames point clouds in Solaris for previews.
 
+<br/>
+<br/>
+<br/>
+<br/>
+
+</details>
 
 <br/>
 <br/>

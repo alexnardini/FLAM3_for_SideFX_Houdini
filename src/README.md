@@ -1,5 +1,14 @@
 
-# <img width="48" height="48" src="../icons/icon_mdSVG.svg" /> Markdown
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FLAM3H™</h1>
+</summary>
+
+<br>
+<br>
+
+# <img width="32" height="32" src="../icons/icon_mdSVG.svg" /> Markdown
 ## File name: [**`F3H_UI_ICON_H19_to_H20.md`**](F3H_UI_ICON_H19_to_H20.md)
 ### Description:
 List of all **FLAM3H™** UI parameters with ICONS associated with and the command string they are called from and from where.
@@ -9,7 +18,7 @@ List of all **FLAM3H™** UI parameters with ICONS associated with and the comma
 <br>
 <br>
 
-# <img width="48" height="48" src="../icons/icon_mdSVG.svg" /> Markdown
+# <img width="32" height="32" src="../icons/icon_mdSVG.svg" /> Markdown
 ## File name: [**`F3H_UI_ICON_H205_to_H22_UP.md`**](../src/F3H_UI_ICON_H205_to_H22_UP.md)
 ### Description:
 List of all **FLAM3H™** UI parameters with ICONS associated with and the command string they are called from and from where.
@@ -19,7 +28,7 @@ List of all **FLAM3H™** UI parameters with ICONS associated with and the comma
 <br>
 <br>
 
-# <img width="48" height="48" src="../icons/icon_mdSVG.svg" /> Markdown
+# <img width="32" height="32" src="../icons/icon_mdSVG.svg" /> Markdown
 ## File name: [**`F3H_PY_PARM_H19_to_H20.md`**](../src/F3H_PY_PARM_H19_to_H20.md)
 ### Description:
 List of all **FLAM3H™** UI parameters wired with a python definition and the command string they actually run and from where.
@@ -29,7 +38,7 @@ List of all **FLAM3H™** UI parameters wired with a python definition and the c
 <br>
 <br>
 
-# <img width="48" height="48" src="../icons/icon_mdSVG.svg" /> Markdown
+# <img width="32" height="32" src="../icons/icon_mdSVG.svg" /> Markdown
 ## File name: [**`F3H_PY_PARM_H205_to_H22_UP.md`**](../src/F3H_PY_PARM_H205_to_H22_UP.md)
 ### Description:
 List of all **FLAM3H™** UI parameters wired with a python definition and the command string they actually run and from where.
@@ -38,8 +47,21 @@ List of all **FLAM3H™** UI parameters wired with a python definition and the c
 
 <br>
 <br>
+<br>
+<br>
 
-# <img width="48" height="48" src="../icons/icon_mdSVG.svg" /> Markdown
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FLAM3H™USD</h1>
+</summary>
+
+<br>
+<br>
+
+# <img width="32" height="32" src="../icons/icon_mdSVG.svg" /> Markdown
 ## File name: [**`F3HUSD_UI_ICON.md`**](../src/F3HUSD_UI_ICON.md)
 ### Description:
 List of all **FLAM3H™USD** UI parameters with ICONS associated with and the command string they are called from and from where.
@@ -49,7 +71,7 @@ List of all **FLAM3H™USD** UI parameters with ICONS associated with and the co
 <br>
 <br>
 
-# <img width="48" height="48" src="../icons/icon_mdSVG.svg" /> Markdown
+# <img width="32" height="32" src="../icons/icon_mdSVG.svg" /> Markdown
 ## File name: [**`F3HUSD_PY_PARM_H19_to_H20`**](../src/F3HUSD_PY_PARM_H19_to_H20.md)
 ### Description:
 List of all **FLAM3H™USD** UI parameters wired with a python definition and the command string they actually run and from where.
@@ -59,13 +81,17 @@ List of all **FLAM3H™USD** UI parameters wired with a python definition and th
 <br>
 <br>
 
-# <img width="48" height="48" src="../icons/icon_mdSVG.svg" /> Markdown
+# <img width="32" height="32" src="../icons/icon_mdSVG.svg" /> Markdown
 ## File name: [**`F3HUSD_PY_PARM_H205_to_H22_UP`**](../src/F3HUSD_PY_PARM_H205_to_H22_UP.md)
 ### Description:
 List of all **FLAM3H™USD** UI parameters wired with a python definition and the command string they actually run and from where.
 - #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
 - #### H20.5 to H22.0 UP
 
+<br/>
+<br/>
+
+</details>
 
 <br/>
 <br/>

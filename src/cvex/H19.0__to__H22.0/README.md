@@ -1,5 +1,17 @@
+# Contents
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
+<br>
+
+<details>
+<summary>
+<img src="./../../../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FLAM3H™ CVEX Sources</h1>
+</summary>
+
+<br>
+<br>
+
+# <img width="32" height="32" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 ## File name: [**`cvex_TFFAcamcull.vfl`**](cvex_TFFAcamcull.vfl)
 ## Houdini version: H19 and up
 ### Description:
@@ -8,7 +20,7 @@ Cull points outside the camera view.
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
+# <img width="32" height="32" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 ## File name: [**`cvex_TFFAcamhandles.vfl`**](cvex_TFFAcamhandles.vfl)
 ## Houdini version: H19 and up
 ### Description:
@@ -18,7 +30,7 @@ It is only working if the camera type is Perspective and not Orthogonal.
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
+# <img width="32" height="32" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 ## File name: [**`cvex_TFFAcompensate.vfl`**](cvex_TFFAcompensate.vfl)
 ## Houdini version: H19 and up
 ### Description:
@@ -29,7 +41,7 @@ to form the final point cloud.
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
+# <img width="32" height="32" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 ## File name: [**`cvex_TFFAmbcalc.vfl`**](cvex_TFFAmbcalc.vfl)
 ## Houdini version: H19 and up
 ### Description:
@@ -39,7 +51,7 @@ for the Motion Blur to build its point cloud's layers.
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
+# <img width="32" height="32" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 ## File name: [**`cvex_TFFAsensor.vfl`**](cvex_TFFAsensor.vfl)
 ## Houdini version: H19 and up
 ### Description:
@@ -48,7 +60,7 @@ All the render settings required by third-party programs such as Apophysis and F
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
+# <img width="32" height="32" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 ## File name: [**`cvex_TFFAsensorbbox.vfl`**](cvex_TFFAsensorbbox.vfl)
 ## Houdini version: H19 and up
 ### Description:
@@ -57,7 +69,7 @@ Compute camera sensor bbox data. Used also to reframe the viewport properly.
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
+# <img width="32" height="32" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 ## File name: [**`cvex_TFFAsensorInfo.vfl`**](cvex_TFFAsensorInfo.vfl)
 ## Houdini version: H19 and up
 ### Description:
@@ -67,7 +79,7 @@ so they will scale proportionally with the Sensor resolution.
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
+# <img width="32" height="32" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 ## File name: [**`cvex_TFFAuicollect.vfl`**](cvex_TFFAuicollect.vfl)
 ## Houdini version: H19 and up
 ### Description:
@@ -78,7 +90,7 @@ like variations used, and many system infos.
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
+# <img width="32" height="32" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 ## File name: [**`cvex_TFFAxaos.vfl`**](cvex_TFFAxaos.vfl)
 ## Houdini version: H19 and up
 ### Description:
@@ -88,7 +100,7 @@ Build all the Xaos data to be used inside the Chaos game.
 <br>
 
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
+# <img width="32" height="32" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 ## File name: [**`cvex_TheFractalFlameAlgorithm.vfl`**](cvex_TheFractalFlameAlgorithm.vfl)
 ## Houdini version: H19 and up
 ### Description:
@@ -96,8 +108,21 @@ The Chaos game. This is where all the data is mixed, shuffled and executed based
 
 <br>
 <br>
+<br>
+<br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
+</details>
+
+<details>
+<summary>
+<img src="./../../../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">FLAM3H™ CVEX Headers</h1>
+</summary>
+
+<br>
+<br>
+
+# <img width="32" height="32" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
 ## File name: [**`flame.h`**](flame.h)
 ## Houdini version: H19 and up
 ### Description:
@@ -106,7 +131,7 @@ The path to the selected variations inside the iterator (PRE, VAR, POST). This f
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
+# <img width="32" height="32" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
 ## File name: [**`flameff.h`**](flameff.h)
 ## Houdini version: H19 and up
 ### Description:
@@ -115,7 +140,7 @@ The path to the selected variations inside the FF (PRE, VAR, POST). This file wi
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
+# <img width="32" height="32" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
 ## File name: [**`functions.h`**](functions.h)
 ## Houdini version: H19 and up
 ### Description:
@@ -124,7 +149,7 @@ The FLAM3 functions library used by the variations for their computation. Includ
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
+# <img width="32" height="32" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
 ## File name: [**`genome.h`**](genome.h)
 ## Houdini version: H19 and up
 ### Description:
@@ -133,7 +158,7 @@ Build the fractal flame genome entities. A genome is a structure that hold all t
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
+# <img width="32" height="32" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
 ## File name: [**`variations.h`**](variations.h)
 ## Houdini version: H19 and up
 ### Description:
@@ -142,12 +167,18 @@ All the variations functions are inside here.
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
+# <img width="32" height="32" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
 ## File name: [**`xaos.h`**](xaos.h)
 ## Houdini version: H19 and up
 ### Description:
 This define the path to arrive at the xaos values dictated by the choosen index at each iteration inside the chaos game.
 
+<br/>
+<br/>
+<br/>
+<br/>
+
+</details>
 
 <br/>
 <br/>

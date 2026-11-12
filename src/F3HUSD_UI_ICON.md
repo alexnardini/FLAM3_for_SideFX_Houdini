@@ -58,6 +58,15 @@
 
 <br>
 
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">SYS tab</h1>
+</summary>
+
+<br>
+<br>
+
 _FLAM3H™USD system utilities._
 
 </br>
@@ -135,12 +144,17 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionFlameINEntrieToolSVG.svg
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">PREFS tab</h1>
+</summary>
+
+<br>
+<br>
 
 
 _Here you will play with the main settings of FLAM3HUSD._
@@ -299,13 +313,17 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg
 </br>
 </br>
 </br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
 
+</details>
+
+<details>
+<summary>
+<img src="./../icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;">
+<h1 style="display: inline;">ABOUT tab</h1>
+</summary>
+
+<br>
+<br>
 
 _Here you will find informations about FLAM3H™USD._
 
@@ -313,7 +331,7 @@ _Here you will find informations about FLAM3H™USD._
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `icon_about_error` | `from H19` |
+| **ABOUT** | `icon_about_error` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWarningToolSVG.svg" /></p>
@@ -328,7 +346,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWarningToolSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `icon_about` | `from H19` |
+| **ABOUT** | `icon_about` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueToolSVG.svg" /></p>
@@ -487,6 +505,12 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubBlueSVG.svg
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_FractoriumWebSVG.svg
 ```
 
+</br>
+</br>
+</br>
+</br>
+
+</details>
 
 <br/>
 <br/>
