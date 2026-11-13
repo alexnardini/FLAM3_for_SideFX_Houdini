@@ -8,4 +8,4 @@ Each folder represent a JSON library file that are shipped with **FLAM3H™**.</
 <br/>
 <br/>
 
-_Copyright (c) 2021 F stands for liFe_<br/>
+_Copyright © 2021 F stands for liFe_<br/>

@@ -10,4 +10,4 @@ They are already embedded inside each HDA respectively and here only for easy re
 <br/>
 <br/>
 
-_Copyright (c) 2021 F stands for liFe_<br/>
+_Copyright © 2021 F stands for liFe_<br/>

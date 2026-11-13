@@ -333,4 +333,4 @@ _The number at the end of each preset's name indicates the iteration number that
 <br/>
 <br/>
 
-_Copyright (c) 2021 F stands for liFe_<br/>
+_Copyright © 2021 F stands for liFe_<br/>

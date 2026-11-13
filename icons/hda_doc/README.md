@@ -385,4 +385,4 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/hda_doc/
 <br/>
 <br/>
 
-_Copyright (c) 2021 F stands for liFe_<br/>
+_Copyright © 2021 F stands for liFe_<br/>

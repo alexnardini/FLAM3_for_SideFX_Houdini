@@ -101,4 +101,4 @@ List of all **FLAM3H™USD** UI parameters wired with a python definition and th
 <br/>
 <br/>
 
-_Copyright (c) 2021 F stands for liFe_<br/>
+_Copyright © 2021 F stands for liFe_<br/>

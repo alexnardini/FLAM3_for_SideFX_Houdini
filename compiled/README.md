@@ -9,4 +9,4 @@ They are already embedded inside the HDAs and Houdini will turn them into their 
 <br/>
 <br/>
 
-_Copyright (c) 2021 F stands for liFe_<br/>
+_Copyright © 2021 F stands for liFe_<br/>

@@ -9,4 +9,4 @@ They are already embedded inside each HDA and Houdini will use them every time y
 <br/>
 <br/>
 
-_Copyright (c) 2021 F stands for liFe_<br/>
+_Copyright © 2021 F stands for liFe_<br/>

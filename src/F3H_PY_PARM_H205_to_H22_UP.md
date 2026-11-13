@@ -3102,4 +3102,4 @@ node.hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run(f3h_web.FRACT_K
 <br/>
 <br/>
 
-_Copyright (c) 2021 F stands for liFe_<br/>
+_Copyright © 2021 F stands for liFe_<br/>

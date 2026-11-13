@@ -6353,4 +6353,4 @@ _Will update once H20 release._
 <br/>
 <br/>
 
-_Copyright (c) 2021 F stands for liFe_<br/>
+_Copyright © 2021 F stands for liFe_<br/>

@@ -9,4 +9,4 @@ They are kept here for reference and in case they come handy again at some point
 <br/>
 <br/>
 
-_Copyright (c) 2021 F stands for liFe_<br/>
+_Copyright © 2021 F stands for liFe_<br/>
