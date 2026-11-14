@@ -21,7 +21,7 @@
  /
  /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       December 2025, Last revised October 2026
+ /  date:       December 2025, Last revised November 2026
  /  License:    GPL
  /  Copyright:  2021, © F stands for liFe ( made in Italy )
  /
@@ -345,12 +345,13 @@ static inline float x_rng_next_0505(rng_state_t* restrict state)
 // because for a max of 20 xforms it might not be the fastest option,
 // even tho with more capable GPUs the xform limit may easily increase.
 // ----------------------------
-static inline int sample_cdf_binary(__local const float* CDF, const int length, const float u_rand) 
+static inline int sample_cdf_binary(__local const float* CDF, int high, const float u_rand) 
 {
-    if (length <= 0) return 0;
+    // Houdini OpenCL SOP can detect Zero sized attributes and will do nothing in that case
+    // so the following can be omitted
+    // if (length <= 0) return 0;
 
     int low = 0;
-    int high = length - 1;
 
     // scale u_rand to the range of the CDF
     float target = u_rand * CDF[high];
@@ -1949,7 +1950,7 @@ static float2 CL_V_BENT2(
 {
     float2 r = select(in, in * bent2, in < 0.0f);
 
-return w * r;
+    return w * r;
 }
 // ----------------------------
 // 053 VAR BIPOLAR - The most expensive so far
@@ -4269,6 +4270,7 @@ __kernel void cl_flam3(
     
     // init
     int idx;
+    int high = RES - 1;
     float clr = 0.0f;
     
     // init RNG
@@ -4279,7 +4281,7 @@ __kernel void cl_flam3(
     float2 mem = (float2)(x_rng_next_neg1pos1(&rng), x_rng_next_neg1pos1(&rng));
     
     // if XAOS, pick a starting iterator/xform from distribution
-    if(XS) idx = sample_cdf_binary(local_IW, RES, x_rng_next_float(&rng));
+    if(XS) idx = sample_cdf_binary(local_IW, high, x_rng_next_float(&rng));
 
     for (int i = 0; i < ITER; ++i){
         
@@ -4287,7 +4289,7 @@ __kernel void cl_flam3(
         if(any(!isfinite(mem))) mem = (float2)(x_rng_next_neg1pos1(&rng), x_rng_next_neg1pos1(&rng));
         
         // xform selection
-        idx = sample_cdf_binary(XS ? &local_XST[idx * RES] : local_IW, RES, x_rng_next_float(&rng));
+        idx = sample_cdf_binary(XS ? &local_XST[idx * RES] : local_IW, high, x_rng_next_float(&rng));
         
         // parameterics data
         __local float*  xf_prm_f  = &local_PRM_F[idx * PRM_NUM_F];
