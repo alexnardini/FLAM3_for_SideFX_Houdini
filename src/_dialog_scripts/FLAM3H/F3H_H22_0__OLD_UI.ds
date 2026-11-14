@@ -1933,7 +1933,7 @@
                     label   "post"
                     type    toggle
                     default { "0" }
-                    help    "OFF by default.\\nEnable post affine."
+                    help    "OFF by default.\\n\\nEnable post affine.\\n\\nThe term “post-affine” would be used to emphasize the sequential application of an affine transformation within a larger pipeline of operations.\\n\\n For example, if you first apply a perspective transformation to an image and then apply an affine transformation to correct for a slight remaining distortion or to further refine the image, you might refer to the latter as a “post-affine transformation” to distinguish its place in the sequence.\\n\\n In the context of fractal Flames, the “post-affine transformation” will be the very last to be applied to the incoming point/sample."
                     parmtag { "script_callback_language" "python" }
                 }
             }
@@ -3460,7 +3460,7 @@
                 label   "FF post"
                 type    toggle
                 default { "0" }
-                help    "OFF by default.\\nEnable FF post affine"
+                help    "OFF by default.\\n\\nEnable FF post affine.\\n\\nThe term “post-affine” would be used to emphasize the sequential application of an affine transformation within a larger pipeline of operations.\\n\\n For example, if you first apply a perspective transformation to an image and then apply an affine transformation to correct for a slight remaining distortion or to further refine the image, you might refer to the latter as a “post-affine transformation” to distinguish its place in the sequence.\\n\\n In the context of fractal Flames, the “post-affine transformation” will be the very last to be applied to the incoming point/sample."
                 parmtag { "script_callback_language" "python" }
             }
         }
