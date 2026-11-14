@@ -21191,6 +21191,9 @@ class out_flame_utils
                     if out: _MSG: str = f"OUT: Select a valid OUT flame directory location."
                     else: _MSG: str = f"IN: Select a valid IN flame file path."
                     flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
+                elif f3h_tabs.CP.DEFAULT_FILE_EXT == file_ext:
+                    _MSG: str = f"CP: Select a valid CP palette directory location or file path."
+                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                     
             else:
                 # If the path string is empty we do not want to print out
