@@ -53,6 +53,8 @@ They are all available in this Github repository.
 
 ## <img width="24" height="24" src="./icons/iconSVGR.svg" /> [<ins>v2.1.64 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.1.64)  ##
 
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
+
 #### FLAM3H™ v2.1.64 indie -> H22.0 UP</br>FLAM3H™ v2.1.10 indie -> H21.0</br>FLAM3H™ v2.0.76 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
 
 _This update require a restart of Houdini to fully pickup the changes_.
