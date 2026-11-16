@@ -191,8 +191,8 @@ Although Cvex it's not a real-time thing, it will still be a lot of fun if you h
 | :--- | :--- | :--- | :--- |
 | **ALU Core Math** | `FMA`, `FMUL`, `FADD` | **15,960** | Floating-point arithmetic operations. |
 | **Special Functions** | `MUFU` | **3,117** | Transcendental math functions (e.g., `sin`, `cos`, `log`). |
-| **Control Flow** | `BRA`, `BRX` | **2,482** | Branching and loop control instructions. |
-| **LOP3.LUT instructions** | `LOP3.LUT` | **2,709** | 3-input programmable bitwise logic instructions. |
+| **Control Flow** | `BRA`, `BRX` | **2,481** | Branching and loop control instructions. |
+| **LOP3.LUT instructions** | `LOP3.LUT` | **2,708** | 3-input programmable bitwise logic instructions. |
 | **Integer & Indexing** | `IADD3`, `IMAD` | **849** | Integer arithmetic and address calculations. |
 | **Shared Memory Cache** | `LDS`, `STS` | **454** | Shared memory load and store operations. |
 | **Global Memory Bus** | `LDG`, `STG` | **72** | Global memory load and store operations. |
