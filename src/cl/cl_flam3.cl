@@ -1963,9 +1963,8 @@ static float2 CL_V_BIPOLAR(
 {
 
     float x2y2 = dot(in, in);
-    float tt = x2y2 + 1.0f;
     float ps = -M_PI_2 * shift;
-
+    
 #if USE_FMA
     float y = fma(0.5f, atan2(2.0f * in.y, x2y2 - 1.0f), ps);
 #else
@@ -1974,6 +1973,7 @@ static float2 CL_V_BIPOLAR(
 
     y = y - M_PI * floor((y + M_PI_2) * M_1_PI);
 
+    float tt = x2y2 + 1.0f;
 #if USE_NATIVE
     #if USE_FMA
         float lx = native_log(native_divide(fma(2.0f, in.x, tt), fma(-2.0f, in.x, tt)));
@@ -3954,8 +3954,12 @@ static float2 CL_V_POINT_SYMMETRY(
 // ----------------------------
 // CL FLAM3 variations dispatch
 //
-// Each iterations of the chaos game will select one variation to be applied to the incoming point/sample.
-// The dispatch will take care of finding the one and execute it.
+// Each iterations of the chaos game will select one iterator (aka: xforms or tranforms) and exectute all its variations to be applied to the incoming point/sample.
+// The dispatch will take care of finding the iterator's variations and execute them.
+//
+// This dispatch can be compiled using a general-puropse version or a specialized one.
+// The specialized dispatch, together with specialized kernels body, can deliver a speed increase of approximately 10%–35% in parallel computation.
+// Some Flames have shown performance improvements of over 40%, but on average, you can expect a fairly consistent speed increase of around 15%–20%.
 // ----------------------------
 
 static float2 CL_V_DISPATCH(
@@ -4574,12 +4578,14 @@ __kernel void cl_flam3(
     for(int i = lid; i < (RES * PRM_NUM_F4); i += lsize)
         local_PRM_F4[i] = PRM_F4[i];
     // XST
+#ifdef USE_XAOS
     __attribute__((aligned(16)))
     __local float local_XST[MAX_XFORMS_XAOS_SIZE];
     if(XS){
         for(int i = lid; i < ((RES * RES + 3) >> 2); i += lsize)
             ((__local float4*)local_XST)[i] = ((__global float4*)XST)[i];
     }
+#endif
 
     barrier(CLK_LOCAL_MEM_FENCE);   // Wait for the copy to complete
 
@@ -4600,7 +4606,9 @@ __kernel void cl_flam3(
     float2 mem = (float2)(x_rng_next_neg1pos1(&rng), x_rng_next_neg1pos1(&rng));
     
     // if XAOS, pick a starting iterator/xform from distribution
+#ifdef USE_XAOS
     if(XS) idx = sample_cdf_binary(local_IW, high, x_rng_next_float(&rng));
+#endif
 
     for (int i = 0; i < ITER; ++i){
         
@@ -4608,8 +4616,12 @@ __kernel void cl_flam3(
         if(any(!isfinite(mem))) mem = (float2)(x_rng_next_neg1pos1(&rng), x_rng_next_neg1pos1(&rng));
         
         // xform selection
-        idx = sample_cdf_binary(XS ? &local_XST[idx * RES] : local_IW, high, x_rng_next_float(&rng));
-        
+#ifdef USE_XAOS
+        idx = sample_cdf_binary(&local_XST[idx * RES], high, x_rng_next_float(&rng));
+#else
+        idx = sample_cdf_binary(local_IW, high, x_rng_next_float(&rng));
+#endif
+    
         // parameterics data
         __local float*  xf_prm_f  = &local_PRM_F[idx * PRM_NUM_F];
         __local float2* xf_prm_f2 = &local_PRM_F2[idx * PRM_NUM_F2];
@@ -4657,6 +4669,11 @@ __kernel void cl_flam3(
     #if (defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && defined(USE_POST1)
         if (pvw > 0.0f) _tmp = CL_V_DISPATCH(pvt, _tmp, pvw, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
     #endif
+
+        // post affine
+    #ifdef USE_POST_AFFINE
+        if(local_POST[idx]) _tmp = affine(_tmp, local_POST_AFFINE[idx]);
+    #endif
 #else
         // PRE
         if (vw.x > 0.0f) mem += CL_V_PREBLUR(vw.x, &rng);
@@ -4675,10 +4692,10 @@ __kernel void cl_flam3(
 
         // POST
         if (pvw > 0.0f) _tmp = CL_V_DISPATCH(pvt, _tmp, pvw, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-#endif
 
         // post affine
         if(local_POST[idx]) _tmp = affine(_tmp, local_POST_AFFINE[idx]);
+#endif
 
         // color
         clr = local_SHD[idx] + local_SHD[idx + RES] * clr;
@@ -4829,6 +4846,11 @@ __kernel void cl_flam3_ff(
     #if (defined(USE_VAR1) || defined(USE_VAR2)) && defined(USE_POST2)
         _tmp = CL_V_DISPATCH(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
     #endif
+
+        // post affine
+    #ifdef USE_POST_AFFINE
+        _tmp = affine(_tmp, local_FF_AFFINE[1]);
+    #endif
 #else
     // PRE
     if (FF_PRE_VW.x > 0.0f) mem  = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
@@ -4841,10 +4863,10 @@ __kernel void cl_flam3_ff(
     // POST
     if (FF_VPP_VW.z > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
     if (FF_VPP_VW.w > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
-#endif
 
     // post affine    
     if(FF_POST) _tmp = affine(_tmp, local_FF_AFFINE[1]);
+#endif
     
     // update
     mem = _tmp;
