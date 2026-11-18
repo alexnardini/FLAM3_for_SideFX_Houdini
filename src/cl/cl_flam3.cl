@@ -4513,7 +4513,13 @@ __kernel void cl_flam3(
 
     // PRE/POST affine structs
     __local affine_t local_PRE_AFFINE[MAX_XFORMS];
+#ifdef USE_SPECIALIZE
+    #ifdef USE_POST_AFFINE
+        __local affine_t local_POST_AFFINE[MAX_XFORMS];
+    #endif
+#else
     __local affine_t local_POST_AFFINE[MAX_XFORMS];
+#endif
 
     // POST affine toggles
     __local int local_POST[MAX_XFORMS];
@@ -4537,9 +4543,17 @@ __kernel void cl_flam3(
         // pre affine
         local_PRE_AFFINE[i].xy = (float4)(X[i], Y[i]);
         local_PRE_AFFINE[i].o = (float4)(O[i], 0.0f, 0.0f);
+#ifdef USE_SPECIALIZE
+    #ifdef USE_POST_AFFINE
         // post affine
         local_POST_AFFINE[i].xy = (float4)(PX[i], PY[i]);
         local_POST_AFFINE[i].o = (float4)(PO[i], 0.0f, 0.0f);
+    #endif
+#else
+        // post affine
+        local_POST_AFFINE[i].xy = (float4)(PX[i], PY[i]);
+        local_POST_AFFINE[i].o = (float4)(PO[i], 0.0f, 0.0f);
+#endif
         // post affine toggles
         local_POST[i] = POST[i];
 
@@ -4559,6 +4573,45 @@ __kernel void cl_flam3(
     __local float local_SHD[MAX_XFORMS_SHD_SIZE];
     for(int i = lid; i < ((RES * SHD_NUM_SIZE + 3) >> 2); i += lsize)
         ((__local float4*)local_SHD)[i] = ((__global float4*)SHD)[i];
+#ifdef USE_SPECIALIZE
+    #if defined(USE_35) || defined(USE_37) || defined(USE_53) || defined(USE_56) || defined(USE_61) || defined(USE_69) || defined(USE_95)
+        // PRM_F
+        __attribute__((aligned(16)))
+        __local float local_PRM_F[PRM_NUM_F_SIZE];
+        for(int i = lid; i < ((RES * PRM_NUM_F) >> 2); i += lsize)
+            ((__local float4*)local_PRM_F)[i] = ((__global float4*)PRM_F)[i];
+    #endif
+    #if defined(USE_27) || defined(USE_31) || defined(USE_32) || defined(USE_34) || defined(USE_36) || defined(USE_47) || defined(USE_49) || defined(USE_50) || defined(USE_51) || defined(USE_52) || defined(USE_63) || defined(USE_66) || defined(USE_69) || defined(USE_71) || defined(USE_72) || defined(USE_73) || defined(USE_74) || defined(USE_78) || defined(USE_79) || defined(USE_97) || defined(USE_98) || defined(USE_99) || defined(USE_101) || defined(USE_102)
+        // PRM_F2
+        __attribute__((aligned(16)))
+        __local float2 local_PRM_F2[PRM_NUM_F2_SIZE];
+        for(int i = lid; i < ((RES * PRM_NUM_F2) >> 1); i += lsize)
+            ((__local float4*)local_PRM_F2)[i] = ((__global float4*)PRM_F2)[i];
+    #else
+        __local float2* xf_prm_f2 = 0;
+    #endif
+    #if defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105)
+        // PRM_F3
+        __local float4 local_PRM_F3[PRM_NUM_F3_SIZE]; // Marked as F3 becasue it was meant to be a vector array from vex
+        for(int i = lid; i < (RES * PRM_NUM_F3); i += lsize)
+            local_PRM_F3[i] = PRM_F3[i];
+    #endif
+    #if defined(USE_28) || defined(USE_29) || defined(USE_67) || defined(USE_75) || defined(USE_76) || defined(USE_77) || defined(USE_94) || defined(USE_96) || defined(USE_102)
+        // PRM_F4
+        __local float4 local_PRM_F4[PRM_NUM_F4_SIZE];
+        for(int i = lid; i < (RES * PRM_NUM_F4); i += lsize)
+            local_PRM_F4[i] = PRM_F4[i];
+    #endif
+    #ifdef USE_XAOS
+        // XST
+        __attribute__((aligned(16)))
+        __local float local_XST[MAX_XFORMS_XAOS_SIZE];
+        if(XS){
+            for(int i = lid; i < ((RES * RES + 3) >> 2); i += lsize)
+                ((__local float4*)local_XST)[i] = ((__global float4*)XST)[i];
+        }
+    #endif
+#else
     // PRM_F
     __attribute__((aligned(16)))
     __local float local_PRM_F[PRM_NUM_F_SIZE];
@@ -4578,16 +4631,6 @@ __kernel void cl_flam3(
     for(int i = lid; i < (RES * PRM_NUM_F4); i += lsize)
         local_PRM_F4[i] = PRM_F4[i];
     // XST
-#ifdef USE_SPECIALIZE
-    #ifdef USE_XAOS
-        __attribute__((aligned(16)))
-        __local float local_XST[MAX_XFORMS_XAOS_SIZE];
-        if(XS){
-            for(int i = lid; i < ((RES * RES + 3) >> 2); i += lsize)
-                ((__local float4*)local_XST)[i] = ((__global float4*)XST)[i];
-        }
-    #endif
-#else
     __attribute__((aligned(16)))
     __local float local_XST[MAX_XFORMS_XAOS_SIZE];
     if(XS){
@@ -4640,10 +4683,33 @@ __kernel void cl_flam3(
 #endif
     
         // parameterics data
+#ifdef USE_SPECIALIZE
+    #if defined(USE_35) || defined(USE_37) || defined(USE_53) || defined(USE_56) || defined(USE_61) || defined(USE_69) || defined(USE_95)
+        __local float*  xf_prm_f  = &local_PRM_F[idx * PRM_NUM_F];
+    #else
+        __local float* xf_prm_f = 0;
+    #endif
+    #if defined(USE_27) || defined(USE_31) || defined(USE_32) || defined(USE_34) || defined(USE_36) || defined(USE_47) || defined(USE_49) || defined(USE_50) || defined(USE_51) || defined(USE_52) || defined(USE_63) || defined(USE_66) || defined(USE_69) || defined(USE_71) || defined(USE_72) || defined(USE_73) || defined(USE_74) || defined(USE_78) || defined(USE_79) || defined(USE_97) || defined(USE_98) || defined(USE_99) || defined(USE_101) || defined(USE_102)
+        __local float2* xf_prm_f2 = &local_PRM_F2[idx * PRM_NUM_F2];
+    #else
+        __local float2* xf_prm_f2 = 0;
+    #endif
+    #if defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105)
+        __local float4* xf_prm_f3 = &local_PRM_F3[idx * PRM_NUM_F3];
+    #else
+        __local float4* xf_prm_f3 = 0;
+    #endif
+    #if defined(USE_28) || defined(USE_29) || defined(USE_67) || defined(USE_75) || defined(USE_76) || defined(USE_77) || defined(USE_94) || defined(USE_96) || defined(USE_102)
+        __local float4* xf_prm_f4 = &local_PRM_F4[idx * PRM_NUM_F4];
+    #else
+        __local float4* xf_prm_f4 = 0;
+    #endif
+#else
         __local float*  xf_prm_f  = &local_PRM_F[idx * PRM_NUM_F];
         __local float2* xf_prm_f2 = &local_PRM_F2[idx * PRM_NUM_F2];
         __local float4* xf_prm_f3 = &local_PRM_F3[idx * PRM_NUM_F3];
         __local float4* xf_prm_f4 = &local_PRM_F4[idx * PRM_NUM_F4];
+#endif
         
         // pre affine 
         affine_t pa = local_PRE_AFFINE[idx];
