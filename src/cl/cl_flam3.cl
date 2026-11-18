@@ -4409,8 +4409,6 @@ static float2 CL_V_DISPATCH(
 }
 
 
-
-
 // ----------------------------
 // CL FLAM3 kernel (xforms/iterators)
 //
@@ -4505,7 +4503,7 @@ __kernel void cl_flam3(
     __global int * restrict PRM_F4_index,
     __global float4 * restrict PRM_F4
 )
-{        
+{   
     // copy data to local memory
     
     // CDF
@@ -4574,27 +4572,27 @@ __kernel void cl_flam3(
     for(int i = lid; i < ((RES * SHD_NUM_SIZE + 3) >> 2); i += lsize)
         ((__local float4*)local_SHD)[i] = ((__global float4*)SHD)[i];
 #ifdef USE_SPECIALIZE
-    #if defined(USE_35) || defined(USE_37) || defined(USE_53) || defined(USE_56) || defined(USE_61) || defined(USE_69) || defined(USE_95)
+    #if ((defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && (defined(USE_35) || defined(USE_37) || defined(USE_53) || defined(USE_56) || defined(USE_61) || defined(USE_69) || defined(USE_95)))
         // PRM_F
         __attribute__((aligned(16)))
         __local float local_PRM_F[PRM_NUM_F_SIZE];
         for(int i = lid; i < ((RES * PRM_NUM_F) >> 2); i += lsize)
             ((__local float4*)local_PRM_F)[i] = ((__global float4*)PRM_F)[i];
     #endif
-    #if defined(USE_27) || defined(USE_31) || defined(USE_32) || defined(USE_34) || defined(USE_36) || defined(USE_47) || defined(USE_49) || defined(USE_50) || defined(USE_51) || defined(USE_52) || defined(USE_63) || defined(USE_66) || defined(USE_69) || defined(USE_71) || defined(USE_72) || defined(USE_73) || defined(USE_74) || defined(USE_78) || defined(USE_79) || defined(USE_97) || defined(USE_98) || defined(USE_99) || defined(USE_101) || defined(USE_102)
+    #if ((defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && (defined(USE_27) || defined(USE_31) || defined(USE_32) || defined(USE_34) || defined(USE_36) || defined(USE_47) || defined(USE_49) || defined(USE_50) || defined(USE_51) || defined(USE_52) || defined(USE_63) || defined(USE_66) || defined(USE_69) || defined(USE_71) || defined(USE_72) || defined(USE_73) || defined(USE_74) || defined(USE_78) || defined(USE_79) || defined(USE_97) || defined(USE_98) || defined(USE_99) || defined(USE_101) || defined(USE_102)))
         // PRM_F2
         __attribute__((aligned(16)))
         __local float2 local_PRM_F2[PRM_NUM_F2_SIZE];
         for(int i = lid; i < ((RES * PRM_NUM_F2) >> 1); i += lsize)
             ((__local float4*)local_PRM_F2)[i] = ((__global float4*)PRM_F2)[i];
     #endif
-    #if defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105)
+    #if ((defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && (defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105)))
         // PRM_F3
         __local float4 local_PRM_F3[PRM_NUM_F3_SIZE]; // Marked as F3 becasue it was meant to be a vector array from vex
         for(int i = lid; i < (RES * PRM_NUM_F3); i += lsize)
             local_PRM_F3[i] = PRM_F3[i];
     #endif
-    #if defined(USE_28) || defined(USE_29) || defined(USE_67) || defined(USE_75) || defined(USE_76) || defined(USE_77) || defined(USE_94) || defined(USE_96) || defined(USE_102)
+    #if ((defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && (defined(USE_28) || defined(USE_29) || defined(USE_67) || defined(USE_75) || defined(USE_76) || defined(USE_77) || defined(USE_94) || defined(USE_96) || defined(USE_102)))
         // PRM_F4
         __local float4 local_PRM_F4[PRM_NUM_F4_SIZE];
         for(int i = lid; i < (RES * PRM_NUM_F4); i += lsize)
@@ -4682,22 +4680,22 @@ __kernel void cl_flam3(
     
         // parameterics data
 #ifdef USE_SPECIALIZE
-    #if defined(USE_35) || defined(USE_37) || defined(USE_53) || defined(USE_56) || defined(USE_61) || defined(USE_69) || defined(USE_95)
+    #if ((defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && (defined(USE_35) || defined(USE_37) || defined(USE_53) || defined(USE_56) || defined(USE_61) || defined(USE_69) || defined(USE_95)))
         __local float*  xf_prm_f  = &local_PRM_F[idx * PRM_NUM_F];
     #else
         __local float* xf_prm_f = 0;
     #endif
-    #if defined(USE_27) || defined(USE_31) || defined(USE_32) || defined(USE_34) || defined(USE_36) || defined(USE_47) || defined(USE_49) || defined(USE_50) || defined(USE_51) || defined(USE_52) || defined(USE_63) || defined(USE_66) || defined(USE_69) || defined(USE_71) || defined(USE_72) || defined(USE_73) || defined(USE_74) || defined(USE_78) || defined(USE_79) || defined(USE_97) || defined(USE_98) || defined(USE_99) || defined(USE_101) || defined(USE_102)
+    #if ((defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && (defined(USE_27) || defined(USE_31) || defined(USE_32) || defined(USE_34) || defined(USE_36) || defined(USE_47) || defined(USE_49) || defined(USE_50) || defined(USE_51) || defined(USE_52) || defined(USE_63) || defined(USE_66) || defined(USE_69) || defined(USE_71) || defined(USE_72) || defined(USE_73) || defined(USE_74) || defined(USE_78) || defined(USE_79) || defined(USE_97) || defined(USE_98) || defined(USE_99) || defined(USE_101) || defined(USE_102)))
         __local float2* xf_prm_f2 = &local_PRM_F2[idx * PRM_NUM_F2];
     #else
         __local float2* xf_prm_f2 = 0;
     #endif
-    #if defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105)
+    #if ((defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && (defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105)))
         __local float4* xf_prm_f3 = &local_PRM_F3[idx * PRM_NUM_F3];
     #else
         __local float4* xf_prm_f3 = 0;
     #endif
-    #if defined(USE_28) || defined(USE_29) || defined(USE_67) || defined(USE_75) || defined(USE_76) || defined(USE_77) || defined(USE_94) || defined(USE_96) || defined(USE_102)
+    #if ((defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && (defined(USE_28) || defined(USE_29) || defined(USE_67) || defined(USE_75) || defined(USE_76) || defined(USE_77) || defined(USE_94) || defined(USE_96) || defined(USE_102)))
         __local float4* xf_prm_f4 = &local_PRM_F4[idx * PRM_NUM_F4];
     #else
         __local float4* xf_prm_f4 = 0;
@@ -4718,7 +4716,7 @@ __kernel void cl_flam3(
         float4 vw = local_PPVW[idx];
 #ifdef USE_SPECIALIZE
         // PRE
-    #if defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)
+    #if (defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4))
         #ifdef USE_POST1
             // POST1 data
             int pvt = vt.w;
@@ -4754,7 +4752,7 @@ __kernel void cl_flam3(
     #endif
 
         // POST
-    #if defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)
+    #if (defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4))
         #ifdef USE_POST1
             if (pvw > 0.0f) _tmp = CL_V_DISPATCH(pvt, _tmp, pvw, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         #endif
@@ -4878,7 +4876,7 @@ __kernel void cl_flam3_ff(
     // Copy arrays of floats in chunks of float4s
 
 #ifdef USE_SPECIALIZE
-    #if defined(USE_35) || defined(USE_37) || defined(USE_53) || defined(USE_56) || defined(USE_61) || defined(USE_69) || defined(USE_95)
+    #if ((defined(USE_VAR1) || defined(USE_VAR2)) && (defined(USE_35) || defined(USE_37) || defined(USE_53) || defined(USE_56) || defined(USE_61) || defined(USE_69) || defined(USE_95)))
         // FF PRM_F
         __attribute__((aligned(16)))
         __local float local_FF_PRM_F[FF_PRM_NUM_F_SIZE];
@@ -4887,7 +4885,7 @@ __kernel void cl_flam3_ff(
     #else
         __local float* local_FF_PRM_F = 0;
     #endif
-    #if defined(USE_27) || defined(USE_31) || defined(USE_32) || defined(USE_34) || defined(USE_36) || defined(USE_47) || defined(USE_49) || defined(USE_50) || defined(USE_51) || defined(USE_52) || defined(USE_63) || defined(USE_66) || defined(USE_69) || defined(USE_71) || defined(USE_72) || defined(USE_73) || defined(USE_74) || defined(USE_78) || defined(USE_79) || defined(USE_97) || defined(USE_98) || defined(USE_99) || defined(USE_101) || defined(USE_102)
+    #if ((defined(USE_VAR1) || defined(USE_VAR2)) && (defined(USE_27) || defined(USE_31) || defined(USE_32) || defined(USE_34) || defined(USE_36) || defined(USE_47) || defined(USE_49) || defined(USE_50) || defined(USE_51) || defined(USE_52) || defined(USE_63) || defined(USE_66) || defined(USE_69) || defined(USE_71) || defined(USE_72) || defined(USE_73) || defined(USE_74) || defined(USE_78) || defined(USE_79) || defined(USE_97) || defined(USE_98) || defined(USE_99) || defined(USE_101) || defined(USE_102)))
         // FF PRM_F2
         __attribute__((aligned(16)))
         __local float2 local_FF_PRM_F2[FF_PRM_NUM_F2_SIZE];
@@ -4896,7 +4894,7 @@ __kernel void cl_flam3_ff(
     #else
         __local float2* local_FF_PRM_F2 = 0;
     #endif
-    #if defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105)
+    #if ((defined(USE_VAR1) || defined(USE_VAR2)) && (defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105)))
         // FF PRM_F3
         __local float4 local_FF_PRM_F3[FF_PRM_NUM_F3_SIZE]; // Marked as F3 becasue it was meant to be a vector array from vex
         for(int i = lid; i < (FF_RES_PRM * PRM_NUM_F3); i += lsize)
@@ -4904,7 +4902,7 @@ __kernel void cl_flam3_ff(
     #else
         __local float4* local_FF_PRM_F3 = 0;
     #endif
-    #if defined(USE_28) || defined(USE_29) || defined(USE_67) || defined(USE_75) || defined(USE_76) || defined(USE_77) || defined(USE_94) || defined(USE_96) || defined(USE_102)
+    #if ((defined(USE_VAR1) || defined(USE_VAR2)) && (defined(USE_28) || defined(USE_29) || defined(USE_67) || defined(USE_75) || defined(USE_76) || defined(USE_77) || defined(USE_94) || defined(USE_96) || defined(USE_102)))
         // FF PRM_F4
         __local float4 local_FF_PRM_F4[FF_PRM_NUM_F4_SIZE];
         for(int i = lid; i < (FF_RES_PRM * PRM_NUM_F4); i += lsize)
@@ -4948,23 +4946,23 @@ __kernel void cl_flam3_ff(
     
     // pp parameterics data
 #ifdef USE_SPECIALIZE
-    #if defined(USE_PRE1) || defined(USE_POST1) || defined(USE_POST2)
-        #if defined(USE_35) || defined(USE_37) || defined(USE_53) || defined(USE_56) || defined(USE_61) || defined(USE_69) || defined(USE_95)
+    #if (((defined(USE_VAR1) || defined(USE_VAR2))) && (defined(USE_PRE1) || defined(USE_POST1) || defined(USE_POST2)))
+        #if (defined(USE_35) || defined(USE_37) || defined(USE_53) || defined(USE_56) || defined(USE_61) || defined(USE_69) || defined(USE_95))
             __local float*  ff_pp_prm_f  = &local_FF_PRM_F[PRM_NUM_F];
         #else
             __local float* ff_pp_prm_f = 0;
         #endif
-        #if defined(USE_27) || defined(USE_31) || defined(USE_32) || defined(USE_34) || defined(USE_36) || defined(USE_47) || defined(USE_49) || defined(USE_50) || defined(USE_51) || defined(USE_52) || defined(USE_63) || defined(USE_66) || defined(USE_69) || defined(USE_71) || defined(USE_72) || defined(USE_73) || defined(USE_74) || defined(USE_78) || defined(USE_79) || defined(USE_97) || defined(USE_98) || defined(USE_99) || defined(USE_101) || defined(USE_102)
+        #if (defined(USE_27) || defined(USE_31) || defined(USE_32) || defined(USE_34) || defined(USE_36) || defined(USE_47) || defined(USE_49) || defined(USE_50) || defined(USE_51) || defined(USE_52) || defined(USE_63) || defined(USE_66) || defined(USE_69) || defined(USE_71) || defined(USE_72) || defined(USE_73) || defined(USE_74) || defined(USE_78) || defined(USE_79) || defined(USE_97) || defined(USE_98) || defined(USE_99) || defined(USE_101) || defined(USE_102))
             __local float2* ff_pp_prm_f2 = &local_FF_PRM_F2[PRM_NUM_F2];
         #else
             __local float2* ff_pp_prm_f2 = 0;
         #endif
-        #if defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105)
+        #if (defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105))
             __local float4* ff_pp_prm_f3 = &local_FF_PRM_F3[PRM_NUM_F3];
         #else
             __local float4* ff_pp_prm_f3 = 0;
         #endif
-        #if defined(USE_28) || defined(USE_29) || defined(USE_67) || defined(USE_75) || defined(USE_76) || defined(USE_77) || defined(USE_94) || defined(USE_96) || defined(USE_102)
+        #if (defined(USE_28) || defined(USE_29) || defined(USE_67) || defined(USE_75) || defined(USE_76) || defined(USE_77) || defined(USE_94) || defined(USE_96) || defined(USE_102))
             __local float4* ff_pp_prm_f4 = &local_FF_PRM_F4[PRM_NUM_F4];
         #else
             __local float4* ff_pp_prm_f4 = 0;
@@ -4987,7 +4985,7 @@ __kernel void cl_flam3_ff(
     mem = affine(mem, pa);
 #ifdef USE_SPECIALIZE
         // PRE
-    #if defined(USE_VAR1) || defined(USE_VAR2)
+    #if (defined(USE_VAR1) || defined(USE_VAR2))
         #ifdef USE_PRE1
             mem  = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
         #endif
@@ -5003,7 +5001,7 @@ __kernel void cl_flam3_ff(
     #endif
         
         // POST
-    #if defined(USE_VAR1) || defined(USE_VAR2)
+    #if (defined(USE_VAR1) || defined(USE_VAR2))
         #ifdef USE_POST1
             _tmp = CL_V_DISPATCH(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
         #endif
