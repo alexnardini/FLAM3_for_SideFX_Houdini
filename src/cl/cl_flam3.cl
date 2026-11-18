@@ -3949,8 +3949,6 @@ static float2 CL_V_POINT_SYMMETRY(
 }
 
 
-
-
 // ----------------------------
 // CL FLAM3 variations dispatch
 //
@@ -4174,7 +4172,9 @@ static float2 CL_V_DISPATCH(
     #ifdef USE_64
         case 64:    return CL_V_LOONIE(in, w);
     #endif
+
         //   65:    return CL_V_PREBLUR(w, state) -> Not dispached but hard coded inside the Chaos Game instead
+
     #ifdef USE_66
         case 66:    return CL_V_MODULUS(in, w, PRM_F2[PRM_F2_IDX_MODULUS]);
     #endif
@@ -4587,8 +4587,6 @@ __kernel void cl_flam3(
         __local float2 local_PRM_F2[PRM_NUM_F2_SIZE];
         for(int i = lid; i < ((RES * PRM_NUM_F2) >> 1); i += lsize)
             ((__local float4*)local_PRM_F2)[i] = ((__global float4*)PRM_F2)[i];
-    #else
-        __local float2* xf_prm_f2 = 0;
     #endif
     #if defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105)
         // PRM_F3
@@ -4879,6 +4877,42 @@ __kernel void cl_flam3_ff(
 
     // Copy arrays of floats in chunks of float4s
 
+#ifdef USE_SPECIALIZE
+    #if defined(USE_35) || defined(USE_37) || defined(USE_53) || defined(USE_56) || defined(USE_61) || defined(USE_69) || defined(USE_95)
+        // FF PRM_F
+        __attribute__((aligned(16)))
+        __local float local_FF_PRM_F[FF_PRM_NUM_F_SIZE];
+        for(int i = lid; i < ((FF_RES_PRM * PRM_NUM_F) >> 2); i += lsize)
+            ((__local float4*)local_FF_PRM_F)[i] = ((__global float4*)FF_PRM_F)[i];
+    #else
+        __local float* local_FF_PRM_F = 0;
+    #endif
+    #if defined(USE_27) || defined(USE_31) || defined(USE_32) || defined(USE_34) || defined(USE_36) || defined(USE_47) || defined(USE_49) || defined(USE_50) || defined(USE_51) || defined(USE_52) || defined(USE_63) || defined(USE_66) || defined(USE_69) || defined(USE_71) || defined(USE_72) || defined(USE_73) || defined(USE_74) || defined(USE_78) || defined(USE_79) || defined(USE_97) || defined(USE_98) || defined(USE_99) || defined(USE_101) || defined(USE_102)
+        // FF PRM_F2
+        __attribute__((aligned(16)))
+        __local float2 local_FF_PRM_F2[FF_PRM_NUM_F2_SIZE];
+        for(int i = lid; i < ((FF_RES_PRM * PRM_NUM_F2) >> 1); i += lsize)
+            ((__local float4*)local_FF_PRM_F2)[i] = ((__global float4*)FF_PRM_F2)[i];
+    #else
+        __local float2* local_FF_PRM_F2 = 0;
+    #endif
+    #if defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105)
+        // FF PRM_F3
+        __local float4 local_FF_PRM_F3[FF_PRM_NUM_F3_SIZE]; // Marked as F3 becasue it was meant to be a vector array from vex
+        for(int i = lid; i < (FF_RES_PRM * PRM_NUM_F3); i += lsize)
+            local_FF_PRM_F3[i] = FF_PRM_F3[i];
+    #else
+        __local float4* local_FF_PRM_F3 = 0;
+    #endif
+    #if defined(USE_28) || defined(USE_29) || defined(USE_67) || defined(USE_75) || defined(USE_76) || defined(USE_77) || defined(USE_94) || defined(USE_96) || defined(USE_102)
+        // FF PRM_F4
+        __local float4 local_FF_PRM_F4[FF_PRM_NUM_F4_SIZE];
+        for(int i = lid; i < (FF_RES_PRM * PRM_NUM_F4); i += lsize)
+            local_FF_PRM_F4[i] = FF_PRM_F4[i];
+    #else
+        __local float4* local_FF_PRM_F4 = 0;
+    #endif
+#else
     // FF PRM_F
     __attribute__((aligned(16)))
     __local float local_FF_PRM_F[FF_PRM_NUM_F_SIZE];
@@ -4897,6 +4931,7 @@ __kernel void cl_flam3_ff(
     __local float4 local_FF_PRM_F4[FF_PRM_NUM_F4_SIZE];
     for(int i = lid; i < (FF_RES_PRM * PRM_NUM_F4); i += lsize)
         local_FF_PRM_F4[i] = FF_PRM_F4[i];
+#endif
 
     barrier(CLK_LOCAL_MEM_FENCE);   // Wait for the copy to complete
 
@@ -4912,10 +4947,40 @@ __kernel void cl_flam3_ff(
     x_rng_init(&rng, gid + OPID);  // unique per thread, per node
     
     // pp parameterics data
+#ifdef USE_SPECIALIZE
+    #if defined(USE_PRE1) || defined(USE_POST1) || defined(USE_POST2)
+        #if defined(USE_35) || defined(USE_37) || defined(USE_53) || defined(USE_56) || defined(USE_61) || defined(USE_69) || defined(USE_95)
+            __local float*  ff_pp_prm_f  = &local_FF_PRM_F[PRM_NUM_F];
+        #else
+            __local float* ff_pp_prm_f = 0;
+        #endif
+        #if defined(USE_27) || defined(USE_31) || defined(USE_32) || defined(USE_34) || defined(USE_36) || defined(USE_47) || defined(USE_49) || defined(USE_50) || defined(USE_51) || defined(USE_52) || defined(USE_63) || defined(USE_66) || defined(USE_69) || defined(USE_71) || defined(USE_72) || defined(USE_73) || defined(USE_74) || defined(USE_78) || defined(USE_79) || defined(USE_97) || defined(USE_98) || defined(USE_99) || defined(USE_101) || defined(USE_102)
+            __local float2* ff_pp_prm_f2 = &local_FF_PRM_F2[PRM_NUM_F2];
+        #else
+            __local float2* ff_pp_prm_f2 = 0;
+        #endif
+        #if defined(USE_30) || defined(USE_38) || defined(USE_47) || defined(USE_48) || defined(USE_57) || defined(USE_63) || defined(USE_99) || defined(USE_105)
+            __local float4* ff_pp_prm_f3 = &local_FF_PRM_F3[PRM_NUM_F3];
+        #else
+            __local float4* ff_pp_prm_f3 = 0;
+        #endif
+        #if defined(USE_28) || defined(USE_29) || defined(USE_67) || defined(USE_75) || defined(USE_76) || defined(USE_77) || defined(USE_94) || defined(USE_96) || defined(USE_102)
+            __local float4* ff_pp_prm_f4 = &local_FF_PRM_F4[PRM_NUM_F4];
+        #else
+            __local float4* ff_pp_prm_f4 = 0;
+        #endif
+    #else
+        __local float* ff_pp_prm_f = 0;
+        __local float2* ff_pp_prm_f2 = 0;
+        __local float4* ff_pp_prm_f3 = 0;
+        __local float4* ff_pp_prm_f4 = 0;
+    #endif
+#else
     __local float*  ff_pp_prm_f  = &local_FF_PRM_F[PRM_NUM_F];
     __local float2* ff_pp_prm_f2 = &local_FF_PRM_F2[PRM_NUM_F2];
     __local float4* ff_pp_prm_f3 = &local_FF_PRM_F3[PRM_NUM_F3];
     __local float4* ff_pp_prm_f4 = &local_FF_PRM_F4[PRM_NUM_F4];
+#endif
     
     // pre affine 
     affine_t pa = local_FF_AFFINE[0];
