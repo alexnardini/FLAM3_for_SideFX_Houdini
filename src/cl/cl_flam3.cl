@@ -4637,14 +4637,16 @@ __kernel void cl_flam3(
         float4 vw = local_PPVW[idx]; float pvw = vw.w;
 #ifdef USE_SPECIALIZE
         // PRE
-    #if (defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && defined(USE_PB)
-        if (vw.x > 0.0f) mem += CL_V_PREBLUR(vw.x, &rng);
-    #endif
-    #if (defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && defined(USE_PRE1)
-        if (vw.y > 0.0f) mem  = CL_V_DISPATCH(vt.y, mem, vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-    #endif
-    #if (defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && defined(USE_PRE2)
-        if (vw.z > 0.0f) mem  = CL_V_DISPATCH(vt.z, mem, vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+    #if defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)
+        # ifdef USE_PB
+            if (vw.x > 0.0f) mem += CL_V_PREBLUR(vw.x, &rng);
+        #endif
+        #ifdef USE_PRE1
+            if (vw.y > 0.0f) mem  = CL_V_DISPATCH(vt.y, mem, vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #endif
+        #ifdef USE_PRE2
+            if (vw.z > 0.0f) mem  = CL_V_DISPATCH(vt.z, mem, vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #endif
     #endif
         
         // VAR data
@@ -4666,8 +4668,10 @@ __kernel void cl_flam3(
     #endif
 
         // POST
-    #if (defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)) && defined(USE_POST1)
-        if (pvw > 0.0f) _tmp = CL_V_DISPATCH(pvt, _tmp, pvw, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+    #if defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4)
+        #ifdef USE_POST1
+            if (pvw > 0.0f) _tmp = CL_V_DISPATCH(pvt, _tmp, pvw, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #endif
     #endif
 
         // post affine
@@ -4826,8 +4830,10 @@ __kernel void cl_flam3_ff(
     mem = affine(mem, pa);
 #ifdef USE_SPECIALIZE
         // PRE
-    #if (defined(USE_VAR1) || defined(USE_VAR2)) && defined(USE_PRE1)
-        mem  = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
+    #if defined(USE_VAR1) || defined(USE_VAR2)
+        #ifdef USE_PRE1
+            mem  = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
+        #endif
     #endif
         
         // VAR
@@ -4840,11 +4846,13 @@ __kernel void cl_flam3_ff(
     #endif
         
         // POST
-    #if (defined(USE_VAR1) || defined(USE_VAR2)) && defined(USE_POST1)
-        _tmp = CL_V_DISPATCH(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
-    #endif
-    #if (defined(USE_VAR1) || defined(USE_VAR2)) && defined(USE_POST2)
-        _tmp = CL_V_DISPATCH(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
+    #if defined(USE_VAR1) || defined(USE_VAR2)
+        #ifdef USE_POST1
+            _tmp = CL_V_DISPATCH(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
+        #endif
+        #ifdef USE_POST2
+            _tmp = CL_V_DISPATCH(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
+        #endif
     #endif
 
         // post affine
