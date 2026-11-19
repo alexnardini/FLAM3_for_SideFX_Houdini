@@ -4393,7 +4393,7 @@ Specialize Kernels (GPU) [Icon:DATATYPES/boolean]:
     #id: prefs
     *`Off`* by default.
 
-    By defaults, FLAM3H(tm) GPU mode uses general-purpose OpenCl kernels.<br />
+    By defaults, FLAM3H(tm) GPU mode uses general-purpose OpenCL kernels.<br />
 
     A general-purpose kernel is essentially a small program that contains all the code required to support every possible functionality and combination of features.
     This allows FLAM3H(tm) to operate without interruptions or kernel recompilation when adding new variations and/or switching between functionalities, since all supported execution paths have already been implemented within the kernel.
