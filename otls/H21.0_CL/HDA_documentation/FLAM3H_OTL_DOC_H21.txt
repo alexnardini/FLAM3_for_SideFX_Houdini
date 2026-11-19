@@ -4336,7 +4336,7 @@ use GPU [Icon:DATATYPES/boolean]:
     
     <br />
 
-iterations (GPU):
+menu iterations (GPU) [Icon:BUTTONS/pane_menu]:
     #id: prefs
     Number of iterations to use with the GPU implementation.
 
@@ -4350,6 +4350,40 @@ Reset iterations (GPU) [Icon:opdef:.?icon_actionButtonSVG.svg]:
     [Largeicon:opdef:.?icon_optionOCLSVG.svg] [Third-Party Notices|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/THIRD-PARTY_NOTICES.md#2-opencl]
     
     ((LMB)) to reset the GPU iterations to its default: *`1024`*<br />
+
+    <br />
+
+
+Specialize Kernels (GPU) [Icon:DATATYPES/boolean]:
+    #id: prefs
+    *`Off`* by default.
+
+    By defaults, FLAM3H(tm) GPU mode uses general-purpose OpenCl kernels.<br />
+
+    A general-purpose kernel is essentially a small program that contains all the code required to support every possible functionality and combination of features.
+    This allows FLAM3H(tm) to operate without interruptions or kernel recompilation when adding new variations and/or switching between functionalities, since all supported execution paths have already been implemented within the kernel.
+
+    When this toggle is turned *`On`*/Active, the OpenCL kernels are specialized for the current Flame setup, stripping away almost all unnecessary code and retaining only the functionality and execution paths required by the current configuration.
+
+    This option can deliver a speed increase of approximately *`10%`*–*`35%`* in parallel computation.
+
+    Some Flames have shown performance improvements of over *`40%`*, but on average, you can expect a fairly consistent speed increase of around *`15%`*–*`20%`*.
+
+    This is the first step toward complete kernel specialization. More granular and aggressive specialization options will eventually be introduced in the future.
+
+    <br />
+
+    NOTE:
+        #display: raised
+
+        The downside is that the kernels will need to be recompiled whenever new variations are added to the current Flame setup or other options are enabled.
+        
+        Compilation is generally very quick, but the time required increases with the complexity of the Flame setup. For this reason, general-purpose kernels remain the default choice for now.
+
+    TIP:
+        #display: orange
+
+        You can enable this while editing if you wish, but its most effective use is to activate it when generating high-density point clouds of your Flame for rendering purposes.
 
 
 
