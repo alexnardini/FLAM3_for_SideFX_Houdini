@@ -3955,9 +3955,6 @@ static float2 CL_V_POINT_SYMMETRY(
 // Each iterations of the chaos game will select one iterator (aka: xforms or tranforms) and exectute all its variations to be applied to the incoming point/sample.
 // The dispatch will take care of finding the iterator's variations and execute them.
 //
-// This dispatch can be compiled using a general-puropse version or a specialized one.
-// The specialized dispatch, together with specialized kernels body, can deliver a speed increase of approximately 10%–35% in parallel computation.
-// Some Flames have shown performance improvements of over 40%, but on average, you can expect a fairly consistent speed increase of around 15%–20%.
 // ----------------------------
 
 static float2 CL_V_DISPATCH(
@@ -4788,7 +4785,11 @@ __kernel void cl_flam3(
 #endif
 
         // color
+    #ifdef USE_FMA
+        clr = fma(local_SHD[idx + RES], clr, local_SHD[idx]);
+    #else
         clr = local_SHD[idx] + local_SHD[idx + RES] * clr;
+    #endif
         
         // update
         mem = _tmp;
