@@ -4602,10 +4602,8 @@ __kernel void cl_flam3(
         // XST
         __attribute__((aligned(16)))
         __local float local_XST[MAX_XFORMS_XAOS_SIZE];
-        if(XS){
-            for(int i = lid; i < ((RES * RES + 3) >> 2); i += lsize)
-                ((__local float4*)local_XST)[i] = ((__global float4*)XST)[i];
-        }
+        for(int i = lid; i < ((RES * RES + 3) >> 2); i += lsize)
+            ((__local float4*)local_XST)[i] = ((__global float4*)XST)[i];
     #endif
 #else
     // PRM_F
@@ -4656,7 +4654,7 @@ __kernel void cl_flam3(
     // if XAOS, pick a starting iterator/xform from distribution
 #ifdef USE_SPECIALIZE
     #ifdef USE_XAOS
-        if(XS) idx = sample_cdf_binary(local_IW, high, x_rng_next_float(&rng));
+        idx = sample_cdf_binary(local_IW, high, x_rng_next_float(&rng));
     #endif
 #else
     if(XS) idx = sample_cdf_binary(local_IW, high, x_rng_next_float(&rng));
