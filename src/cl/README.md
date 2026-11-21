@@ -29,6 +29,8 @@ the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
 
 * To take advantage of GPU parallelism, most, if not all, variations have been adapted to be GPU-friendly. Where possible, they have been made branchless and include both a ground-truth implementation and a performance-oriented variant that relies exclusively on OpenCL `native_*()` functions. Many mathematical blocks have also been rewritten using lighter-weight approximations better suited to GPU execution.
 
+* A kernels specialization mode is also provided, stripping away almost all unnecessary code and retaining only the functionality and execution paths required by the current configuration. More granular and aggressive specialization options will eventually be introduced in the future.
+
 * The CVEX codebase could now benefit from the knowledge gained during the development of the GPU implementation. However, it has intentionally been left unchanged to mirror the original Flam3 codebase as closely as possible and serve as the sole reference for correctness. This ensures that the GPU implementation always has a reliable ground truth against which it can be validated.
 
 * If and when SideFX expands the capabilities of the CVEX language, I may revisit the implementation and attempt a rewrite to improve performance and, hopefully, overcome some of the current limitations of CVEX.
@@ -58,6 +60,7 @@ Those kernels will compile once on their first cook, and never again.
 <a id="opencl-hardware-performance-profile-cl-flam3"></a>
 ## <img width="48" height="48" src="../../icons/icon_tag_oclSVG.svg" /> OpenCL Kernel: <u>**cl_flam3**</u> 
 
+**Kernel type:** general-purpose  
 **Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
 **Tested On:** NVIDIA GeForce RTX 4090  
 **NVIDIA Driver Version:** 580.97  
@@ -113,6 +116,7 @@ Those kernels will compile once on their first cook, and never again.
 <a id="opencl-hardware-performance-profile-cl-flam3-ff"></a>
 ## <img width="48" height="48" src="../../icons/icon_tag_oclSVG.svg" /> OpenCL Kernel: <u>**cl_flam3_ff**</u>
 
+**Kernel type:** general-purpose  
 **Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
 **Tested On:** NVIDIA GeForce RTX 4090  
 **NVIDIA Driver Version:** 580.97  
