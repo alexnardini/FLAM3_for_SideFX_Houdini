@@ -45,7 +45,7 @@ For transparency, the following list identifies the individual graphical element
     
 - **FLAM3H™ icons incorporating individual graphical elements**: 
 
-    - <img width="48" height="" src="./icons/icon_FrameBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_FrameRedToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionToolOCLSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionCPToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWhiteToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWhiteKwargsSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWarningToolSVG.svg" /><img width="48" height="" src="./icons/icon_TagOBlueToolSVG_disabled.svg" /><img width="48" height="" src="./icons/icon_TagOBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_TagOBlueMenuBigToolSVG.svg" /><img width="48" height="" src="./icons/icon_xfHandlesEnabledToolSVG.svg" /><img width="48" height="" src="./icons/icon_ffHandlesEnabledToolSVG.svg" /><img width="48" height="" src="./icons/icon_xfHandlesEnabledMPIDXToolSVG.svg" />
+    - <img width="48" height="" src="./icons/icon_FrameBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_FrameRedToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionToolOCLSVG.svg" /><img width="48" height="" src="./icons/icon_optionToolOCLSpecSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionCPToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWhiteToolSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWhiteKwargsSVG.svg" /><img width="48" height="" src="./icons/icon_optionStarWarningToolSVG.svg" /><img width="48" height="" src="./icons/icon_TagOBlueToolSVG_disabled.svg" /><img width="48" height="" src="./icons/icon_TagOBlueToolSVG.svg" /><img width="48" height="" src="./icons/icon_TagOBlueMenuBigToolSVG.svg" /><img width="48" height="" src="./icons/icon_xfHandlesEnabledToolSVG.svg" /><img width="48" height="" src="./icons/icon_ffHandlesEnabledToolSVG.svg" /><img width="48" height="" src="./icons/icon_xfHandlesEnabledMPIDXToolSVG.svg" />
 
 <br/>
 
@@ -72,7 +72,7 @@ SideFX publishes official logo assets and usage guidelines for designated purpos
 
 - **Referenced Logos and Icons**:
 
-    - <img width="48" height="" src="./icons/icon_optionOCLSVG.svg" /><img width="48" height="" src="./icons/icon_optionToolOCLSVG.svg" /><img width="48" height="" src="./icons/icon_tag_oclSVG.svg" />
+    - <img width="48" height="" src="./icons/icon_optionOCLSVG.svg" /><img width="48" height="" src="./icons/icon_optionOCLSpecSVG.svg" /><img width="48" height="" src="./icons/icon_optionToolOCLSVG.svg" /><img width="48" height="" src="./icons/icon_optionToolOCLSpecSVG.svg" /><img width="48" height="" src="./icons/icon_tag_oclSVG.svg" /><img width="48" height="" src="./icons/icon_tag_ocl_specSVG.svg" />
 
 </br>
 
