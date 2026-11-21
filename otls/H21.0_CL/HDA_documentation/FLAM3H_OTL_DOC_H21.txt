@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H(tm)
-#version: 2.1.10 - Production
+#version: 2.2.10 - Production
 
 """The Fractal Flame Algorithm: FLAM3 - Create fractal art in Houdini"""
 
@@ -173,21 +173,27 @@ _It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`*
 
 iterations (GPU):
     #id: GLOBAL
-    [Largeicon:opdef:.?icon_optionToolOCLSVG.svg] [Third-Party Notices|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/THIRD-PARTY_NOTICES.md#2-opencl]
+    - [Largeicon:opdef:.?icon_optionToolOCLSVG.svg]  [Third-Party Notices|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/THIRD-PARTY_NOTICES.md#2-opencl]<br />Uses general-purpose OpenCL kernels.
+    - [Largeicon:opdef:.?icon_optionToolOCLSpecSVG.svg]  [Third-Party Notices|https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/THIRD-PARTY_NOTICES.md#2-opencl]<br />Uses specialized OpenCL kernels.
 
-    When this icon is visible mean FLAM3H™ is running in GPU mode.<br />
+    When one of these icons is visible mean FLAM3H™ is running in GPU mode.<br />
     It is intended to be an handy shortcut instead of always going inside the Preference's tab to change the GPU iterations number.
     
     _Usage_:
     - ((LMB)) to cycle through the available GPU iterations presets.<br />Presets are: *`128`*, *`256`*, *`512`*, *`1024`*, *`2048`*, *`4096`*.<br />It will cycle backward.
     - ((SHIFT)) + ((LMB)) It will cycle forward.
-    - ((CTRL)) + ((LMB)) It will switch to the CPU(_Cvex_) mode ([Smallicon:opdef:.?icon_optionStarBlueSVG.svg]).<br />When switching to CPU(Cvex) mode for the very first time,<br />Houdini will compile all the FLAM3H™ CPU(CVEX) nodes.<br />Depending on your PC configuration it can take up to 1(one) minute.<br />It is a one time compile process.
+    - ((CTRL)) + ((LMB)) It will switch to the CPU(_Cvex_) mode ([Icon:NETWORKS/vop]).<br />When switching to CPU(Cvex) mode for the very first time,<br />Houdini will compile all the FLAM3H™ CPU(CVEX) nodes.<br />Depending on your PC configuration it can take up to 1(one) minute.<br />It is a one time compile process.
     
     _Additionally_,<br />
     _you can change the number of iterations being used by the GPU in the preferences tab under the GPU section_.
     
     <br />
     
+    TIP:
+        #display: orange
+
+        You can switch between general-purpose ([Smallicon:opdef:.?icon_optionToolOCLSVG.svg]) and specialized ([Smallicon:opdef:.?icon_optionToolOCLSpecSVG.svg]) OpenCL kernels from the preferences tab under the GPU section.
+
     NOTE:
         #display: raised
 
@@ -207,7 +213,7 @@ switch to GPU (CPU):
     When this icon is visible mean FLAM3H™ is running in CPU mode.<br />
 
     _Usage_:
-    - ((LMB)) to switch to the GPU mode ([Smallicon:opdef:.?icon_optionOCLSVG.svg]).
+    - ((LMB)) to switch to the GPU mode (general-purpose [Smallicon:opdef:.?icon_optionToolOCLSVG.svg] or specialized [Smallicon:opdef:.?icon_optionToolOCLSpecSVG.svg]).
 
     <br />
 
@@ -3807,7 +3813,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-CL-WIN-2.1.10" ... >
+          <flame version="FLAM3H-CL-WIN-2.2.10" ... >
               ...
         }}}
         
@@ -3816,7 +3822,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-CL-WIN-2.1.10" ... >
+          <flame version="EMBER-FLAM3H-CL-WIN-2.2.10" ... >
               ...
         }}}
         
@@ -4179,7 +4185,7 @@ _The following is an example of what the default Sierpiński triangle preset loo
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-CL-WIN-2.1.10" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-CL-WIN-2.2.10" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.5" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.28867513 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.28867513 0" opacity="1" linear="1"/>
@@ -4239,7 +4245,7 @@ _In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle:
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-CL-WIN-2.1.10" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-CL-WIN-2.2.10" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     ...
   </flame>
 </flames>
@@ -4252,7 +4258,7 @@ _Under the [Icon:TOP/xmlinput] *`flame`* preset XML key lives all its data: [Ico
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-CL-WIN-2.1.10" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-CL-WIN-2.2.10" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
@@ -4270,7 +4276,7 @@ _When the FF_(_finalXform_) _is *`On`*/Active, its data will be included in the 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-CL-WIN-2.1.10" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-CL-WIN-2.2.10" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
@@ -4367,7 +4373,11 @@ Specialize Kernels (GPU) [Icon:DATATYPES/boolean]:
 
     This option can deliver a speed increase of approximately *`10%`*–*`35%`* in parallel computation.
 
-    Some Flames have shown performance improvements of over *`40%`*, but on average, you can expect a fairly consistent speed increase of around *`15%`*–*`20%`*.
+    Some Flames have shown performance improvements of over *`40%`* while others have shown little to no improvements at all, but on average, you can expect a fairly consistent speed increase of around *`15%`*–*`20%`*.
+
+    The effectiveness of compile-time kernel specialization is not limited to the elimination of unused computational paths. It also depends on the reduction of the generated instruction footprint and control-flow complexity.
+    
+    The performance impact of these reductions is architecture-dependent, with older GPU architectures exhibiting greater sensitivity to the number of compiled nonlinear variations.
 
     This is the first step toward complete kernel specialization. More granular and aggressive specialization options will eventually be introduced in the future.
 
@@ -5703,7 +5713,7 @@ _Documentation for each of them is also provided_.
     It makes real-time fractal flame editing in Houdini possible<br />
     by running billions of iterations per second on AMD and Nvidia GPUs.<br />
 
-    At its current stage, the GPU implementation is intentionally general-purpose.<br />
+    By defaults, the GPU mode intentionally uses general-purpose OpenCL kernels.<br />
     It lets you explore different combinations of variations and settings<br />
     without needing to compile a new kernel every time something changes.<br />
     
@@ -5715,6 +5725,11 @@ _Documentation for each of them is also provided_.
 
     The entire data and memory layout has also been designed from the ground up around this approach,<br />
     with the goal of making the most of the GPU and squeezing every bit of performance possible out of the hardware.
+
+    Additionally,<br />
+    the OpenCL kernels can be specialized for the current Flame setup,<br />
+    stripping away almost all unnecessary code and retaining only the functionality and execution paths<br />
+    required by the current configuration.
 
     <br />
 
