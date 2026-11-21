@@ -4785,11 +4785,7 @@ __kernel void cl_flam3(
 #endif
 
         // color
-    #ifdef USE_FMA
-        clr = fma(local_SHD[idx + RES], clr, local_SHD[idx]);
-    #else
         clr = local_SHD[idx] + local_SHD[idx + RES] * clr;
-    #endif
         
         // update
         mem = _tmp;
