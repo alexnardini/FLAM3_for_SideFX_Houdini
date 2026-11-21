@@ -72,9 +72,22 @@
             nolabel
             joinnext
             default { "0" }
-            help    "FLAM3H™ is running in GPU mode.\\n\\n[LMB]\\nto cycle through the available GPU iterations presets.\\nPresets are: 128, 256, 512, 1024, 2048, 4096.\\nIt will cycle backward.\\n\\n[SHIFT+LMB]\\nIt will cycle forward.\\n\\n[CTRL+LMB]\\nIt will switch to the CPU(Cvex) mode.\\nWhen switching to CPU(Cvex) mode for the very first time,\\nHoudini will compile all the FLAM3H™ CPU(CVEX) nodes.\\nDepending on your PC configuration it can take up to 1(one) minute.\\nIt is a one time compile process.\\n\\nAdditionally,\\nyou can change the number of iterations being used by the GPU\\nin the preferences tab under the GPU section.\\n\\nNOTE:\\nEverytime you either:\\n- load a Flame preset\\n- reset FLAM3H™ to the Sierpiński triangle\\n- set its iterator's count to 0(Zero)\\nthe GPU iterations will be reset to its default value of: 1024"
-            hidewhen "{ flamefunc == 0 } { gpu == 0 }"
+            help    "FLAM3H™ is running in GPU mode.\\n\\nGeneral-purpose kernels.\\n\\n[LMB]\\nto cycle through the available GPU iterations presets.\\nPresets are: 128, 256, 512, 1024, 2048, 4096.\\nIt will cycle backward.\\n\\n[SHIFT+LMB]\\nIt will cycle forward.\\n\\n[CTRL+LMB]\\nIt will switch to the CPU(Cvex) mode.\\nWhen switching to CPU(Cvex) mode for the very first time,\\nHoudini will compile all the FLAM3H™ CPU(CVEX) nodes.\\nDepending on your PC configuration it can take up to 1(one) minute.\\nIt is a one time compile process.\\n\\nAdditionally,\\nyou can change the number of iterations being used by the GPU\\nin the preferences tab under the GPU section.\\n\\nNOTE:\\nEverytime you either:\\n- load a Flame preset\\n- reset FLAM3H™ to the Sierpiński triangle\\n- set its iterator's count to 0(Zero)\\nthe GPU iterations will be reset to its default value of: 1024"
+            hidewhen "{ flamefunc == 0 } { gpu == 0 } { gpu_specialize == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSVG.svg" }
+            parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).gpu_iterations_cycle()" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "icon_iter_gpu_s"
+            label   "Iterations"
+            type    button
+            nolabel
+            joinnext
+            default { "0" }
+            help    "FLAM3H™ is running in GPU mode.\\n\\nSpecialized kernels.\\n\\n[LMB]\\nto cycle through the available GPU iterations presets.\\nPresets are: 128, 256, 512, 1024, 2048, 4096.\\nIt will cycle backward.\\n\\n[SHIFT+LMB]\\nIt will cycle forward.\\n\\n[CTRL+LMB]\\nIt will switch to the CPU(Cvex) mode.\\nWhen switching to CPU(Cvex) mode for the very first time,\\nHoudini will compile all the FLAM3H™ CPU(CVEX) nodes.\\nDepending on your PC configuration it can take up to 1(one) minute.\\nIt is a one time compile process.\\n\\nAdditionally,\\nyou can change the number of iterations being used by the GPU\\nin the preferences tab under the GPU section.\\n\\nNOTE:\\nEverytime you either:\\n- load a Flame preset\\n- reset FLAM3H™ to the Sierpiński triangle\\n- set its iterator's count to 0(Zero)\\nthe GPU iterations will be reset to its default value of: 1024"
+            hidewhen "{ flamefunc == 0 } { gpu == 0 } { gpu_specialize == 0 }"
+            parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSpecSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).gpu_iterations_cycle()" }
             parmtag { "script_callback_language" "python" }
         }
@@ -6037,6 +6050,16 @@
                     parmtag { "script_action_help" "[LMB] to reset the GPU iterations to the default: 1024" }
                     parmtag { "script_action_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionOCLSVG.svg" }
                     parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes()" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "gpu_specialize"
+                    label   "specialize kernels"
+                    type    toggle
+                    default { "0" }
+                    help    "OFF by default\\n\\nSpecialize OpenCL Kernels\\n\\nBy defaults, FLAM3H™ GPU mode uses general-purpose OpenCL kernels.\\n\\nWhen this toggle is turned ON, the OpenCL kernels are specialized for the current Flame setup, stripping away almost all unnecessary code and retaining only the functionality and execution paths required by the current configuration.\\n\\nThis option can deliver a speed increase of approximately 10%–35% in parallel computation.\\n\\nSome Flames have shown performance improvements of over 40% while others have shown little to no improvements at all, but on average, you can expect a fairly consistent speed increase of around 15%–20%.\\n\\nThis is the first step toward complete kernel specialization. More granular and aggressive specialization options will eventually be introduced in the future.\\n\\nNOTE:\\nThe downside is that the kernels will need to be recompiled whenever new variations are added to the current Flame setup or other options are enabled.\\n\\nCompilation is generally very quick, but the time required increases with the complexity of the Flame setup. For this reason, general-purpose kernels remain the default choice for now.\\n\\nTIP:\\nYou can enable this while editing if you wish, but its most effective use is to activate it when generating high-density point clouds of your Flame for rendering purposes."
+                    disablewhen "{ gpu == 0 }"
+                    parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
                 }
             }
