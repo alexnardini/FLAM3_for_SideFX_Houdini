@@ -61,7 +61,7 @@ They are already embedded inside each HDA and available in this repository for e
 </br>
 
 **Note**: _The project logo and this icon set are NOT covered by the **CC BY-SA 4.0** license_.</br>
-_They remain Copyright of (c) 2021 F stands for liFe (and their other respective owners), and may not be redistributed without permission_.
+_They remain Copyright of © 2021 F stands for liFe (and their other respective owners), and may not be redistributed without permission_.
 
 </br>
 </br>
