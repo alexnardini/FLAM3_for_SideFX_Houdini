@@ -1870,6 +1870,45 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_optionOCLSpecSVG.svg" /></p>
+<b><p align="center">icon_optionOCLSpecSVG.svg</b><br/><i>Copyright (c) Apple Inc. (OpenCL name and logo); The Khronos Group Inc. (OpenCL specification and related technologies). The OpenCL logo is represented in this project by a simplified reproduction created by the project author. The reproduction was independently created and visually adapted to match the style, proportions, and color scheme of the other icons used throughout the software interface, ensuring a consistent appearance across the UI.</br>See <a href="../THIRD-PARTY_NOTICES.md#2-opencl">Third-Party Notices</a> for usage details.</br></i></p>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionOCLSpecSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionOCLSpecSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_optionOCLSpecSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_optionOCLSpecSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_optionOCLSpecSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionOCLSpecSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_optionToolOCLSVG.svg" /></p>
 <b><p align="center">icon_optionToolOCLSVG.svg</b><br/><i>Copyright (c) Apple Inc. (OpenCL name and logo); The Khronos Group Inc. (OpenCL specification and related technologies). The OpenCL logo is represented in this project by a simplified reproduction created by the project author. The reproduction was independently created and visually adapted to match the style, proportions, and color scheme of the other icons used throughout the software interface, ensuring a consistent appearance across the UI.</br>See <a href="../THIRD-PARTY_NOTICES.md#2-opencl">Third-Party Notices</a> for usage details.</br></i></p>
 <p align="center">......</p>
@@ -1904,6 +1943,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionToolOCLSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_optionToolOCLSpecSVG.svg" /></p>
+<b><p align="center">icon_optionToolOCLSpecSVG.svg</b><br/><i>Copyright (c) Apple Inc. (OpenCL name and logo); The Khronos Group Inc. (OpenCL specification and related technologies). The OpenCL logo is represented in this project by a simplified reproduction created by the project author. The reproduction was independently created and visually adapted to match the style, proportions, and color scheme of the other icons used throughout the software interface, ensuring a consistent appearance across the UI.</br>See <a href="../THIRD-PARTY_NOTICES.md#2-opencl">Third-Party Notices</a> for usage details.</br></i></p>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSpecSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSpecSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_optionToolOCLSpecSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_optionToolOCLSpecSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_optionToolOCLSpecSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionToolOCLSpecSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -4598,6 +4676,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_tag_oclSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_tag_oclSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_tag_ocl_specSVG.svg" /></p>
+<b><p align="center">icon_tag_ocl_specSVG.svg</b> (<i>used only for DOC purposes</i>)<br/><i>Copyright (c) Apple Inc. (OpenCL name and logo); The Khronos Group Inc. (OpenCL specification and related technologies). The OpenCL logo is represented in this project by a simplified reproduction created by the project author. The reproduction was independently created and visually adapted to match the style, proportions, and color scheme of the other icons used throughout the software interface, ensuring a consistent appearance across the UI.</br>See <a href="../THIRD-PARTY_NOTICES.md#2-opencl">Third-Party Notices</a> for usage details.</br></i></p>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_tag_ocl_specSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_tag_ocl_specSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_tag_ocl_specSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_tag_ocl_specSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_tag_ocl_specSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_tag_ocl_specSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
