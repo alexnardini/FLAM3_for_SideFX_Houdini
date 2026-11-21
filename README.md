@@ -112,7 +112,7 @@ fully developed within the SideFX Houdini environment, no HDK.
 
 - **GPU OpenCL**<br>OpenCL (_-cl-std=CL1.2_) has been used to implement the algorithm so it can fully run on the system GPU device. 
 It makes real-time fractal Flame editing in Houdini possible by running billions of iterations per second on AMD and Nvidia GPUs.<br><br>
-At its current stage, the GPU implementation is intentionally general-purpose.<br>
+By defaults, the GPU mode intentionally uses general-purpose OpenCL kernels.<br>
 It lets you explore different combinations of variations and settings<br>
 without needing to compile a new kernel every time something changes.<br><br>
 Since it runs directly inside SideFX Houdini,<br>
@@ -122,8 +122,15 @@ without constantly stopping to wait for a new kernel to compile.<br>
 The goal is to keep the process fluid and preserve that state of flow while exploring.<br><br>
 The entire data and memory layout has also been designed from the ground up around this approach, 
 with the goal of making the most of the GPU and squeezing every bit of performance possible out of the hardware.<br><br>
+Additionally,<br />
+the OpenCL kernels can be specialized for the current Flame setup,<br />
+stripping away almost all unnecessary code and retaining only the functionality and execution paths required by the current configuration.<br><br>
 
-- **GPU performance**<br>Depending on the GPU device being used in the system, the FLAM3H™ GPU mode (_the default in H20.5 and up_) can be hundreds of times quicker than the CPU (_Cvex_) mode. Tests using an Nvidia RTX 4090 device show throughput ranging from ~40 to ~140 billion iterations per second, which practically enables the creation of high-quality point clouds with hundreds of millions of points in seconds as well as real-time fractal Flame editing within Houdini. A range of Flame settings were tested across 500 million points at 1024 (_the GPU mode iterations default_) and 2048 iterations, respectively.<br><br>_Simpler Flames like the Sierpiński triangle which features 3 xforms, weighted probability xform selection, color accumulation and output for position, color ramp lookup value, Alpha and point scale reached ~176 billions iterations per second with a 1 billions points cloud at 4096 iterations each on the same Nvidia RTX 4090 GPU device._<br><br>
+- **GPU performance**
+
+  - **General-Purpose Kernels**<br>Depending on the GPU device being used in the system, the FLAM3H™ GPU mode (_the default in H20.5 and up_) can be hundreds of times quicker than the CPU (_Cvex_) mode.<br><br>Tests using an Nvidia RTX 4090 device show throughput ranging from ~40 to ~140 billion iterations per second, which practically enables the creation of high-quality point clouds with hundreds of millions of points in seconds as well as real-time fractal Flame editing within Houdini.<br><br>A range of Flame settings were tested across 500 million points at 1024 (_the GPU mode iterations default_) and 2048 iterations, respectively.<br><br>Simpler Flames like the Sierpiński triangle which features 3 xforms, weighted probability xform selection, color accumulation and output for position, color ramp lookup value, Alpha and point scale reached ~176 billions iterations per second with a 1 billions points cloud at 4096 iterations each on the same Nvidia RTX 4090 GPU device.<br><br>
+
+  - **Specialized Kernels**<br>This option can deliver a speed increase of approximately 10%–35% in parallel computation over general-purpose kernels.<br><br>Some Flames have shown performance improvements of over 40% while others have shown little to no improvements at all,<br>but on average, you can expect a fairly consistent speed increase of around 15%–20%.<br><br>Simpler Flames like the Sierpiński triangle reached ~320 billions iterations per second with a 1 billions points cloud at 4096 iterations each on the same Nvidia RTX 4090 GPU device.<br><br>_More granular and aggressive specialization options will eventually be introduced in the future._<br><br>
 
 - **CPU**<br>CPU mode uses Houdini's Cvex (_Callable vector expression language_).<br>
 Although Cvex it's not a real-time thing, it will still be a lot of fun if you have a powerful CPU (_two powerful CPUs are even better_).<br><br>
@@ -155,6 +162,7 @@ Although Cvex it's not a real-time thing, it will still be a lot of fun if you h
 # <img width="48" height="48" src="./icons/icon_tag_oclSVG.svg" /> OpenCL Hardware Performance Profile
 
 **FLAM3H™ OpenCL Kernel:** [**`cl_flam3`**](./src/cl/)  
+**Kernel type:** general-purpose  
 **Target Architecture:** NVIDIA Ada Lovelace (`sm_89` / RTX 40-Series)  
 **Tested On:** NVIDIA GeForce RTX 4090  
 **NVIDIA Driver Version:** 580.97  
