@@ -106,7 +106,7 @@ import toolutils
 
 # Set some HDA infos
 __v__ = 2
-__version__ = "2.1.64"
+__version__ = "2.2.64"
 __status__  = "Production"
 # Note:
 # The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
@@ -230,7 +230,7 @@ import toolutils
 
 # Set some HDA infos
 __v__ = 2
-__version__ = "2.1.10"
+__version__ = "2.2.10"
 __status__  = "Production"
 # Note:
 # The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
@@ -344,7 +344,7 @@ import toolutils
 
 # Set some HDA infos
 __v__ = 2
-__version__ = "2.0.76"
+__version__ = "2.1.76"
 __status__  = "Production"
 # Note:
 # The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
@@ -820,6 +820,19 @@ hou.phm().flam3.flam3h_general_utils(kwargs).cpu_switch_to_gpu()
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
 | **GLOBAL** | `icon_iter_gpu` | `button` | `from H20.5` | `v2.x` |
+
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script `(Some functionalities only work from H21.0 up.)`
+```python
+hou.phm().flam3.flam3h_general_utils(kwargs).gpu_iterations_cycle()
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|---:|
+| **GLOBAL** | `icon_iter_gpu_s` | `button` | `from H20.5` | `v2.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script `(Some functionalities only work from H21.0 up.)`
 ```python

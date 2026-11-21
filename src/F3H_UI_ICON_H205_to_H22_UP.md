@@ -131,11 +131,40 @@ hicon:/SVGIcons.index?NETWORKS_vop.svg
 |:---|:---|---:|---:|
 | **GLOBAL** | `icon_iter_gpu` | `from H20.5` | `v2.x` |
 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H20.5 Button icon (_v2.x_)
+<p align="left"><img width="80" height="80" src="../icons/icon_optionOCLSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#2-opencl">Third-Party Notices</a> for usage details.</p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSVG.svg
+```
+
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21, H22* Button icon (_v2.x_)
 <p align="left"><img width="80" height="80" src="../icons/icon_optionToolOCLSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#2-opencl">Third-Party Notices</a> for usage details.</p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSVG.svg
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
+| **GLOBAL** | `icon_iter_gpu_s` | `from H20.5` | `v2.x` |
+
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H20.5 Button icon (_v2.x_)
+<p align="left"><img width="80" height="80" src="../icons/icon_optionOCLSpecSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#2-opencl">Third-Party Notices</a> for usage details.</p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSpecSVG.svg
+```
+
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H21, H22* Button icon (_v2.x_)
+<p align="left"><img width="80" height="80" src="../icons/icon_optionToolOCLSpecSVG.svg" /></br>See <a href="../THIRD-PARTY_NOTICES.md#2-opencl">Third-Party Notices</a> for usage details.</p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSpecSVG.svg
 ```
 
 </br>
@@ -1129,7 +1158,7 @@ Here you will create your fractal Flame logic.<br>Since every parameter has the 
 | **FLAME** | `mp_add_#` | `from H21 UP` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> H21 Action Button icon 
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H22 Button icon 
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> H22* Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_AddDelIteratorSVG.svg" /></p>
 
 ```
