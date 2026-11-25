@@ -3952,6 +3952,8 @@ static float2 CL_V_POINT_SYMMETRY(
 // ----------------------------
 // CL FLAM3 variations dispatch
 //
+// GENERAL-PURPOSE
+//
 // Each iterations of the chaos game will select one iterator (aka: xforms or tranforms) and exectute all its variations to be applied to the incoming point/sample.
 // The dispatch will take care of finding the iterator's variations and execute them.
 //
@@ -3973,326 +3975,6 @@ static float2 CL_V_DISPATCH(
 {
     switch(type)
     {
-#ifdef USE_SPECIALIZE
-    #ifdef USE_0
-        case 0:     return CL_V_LINEAR(in, w);
-    #endif
-    #ifdef USE_1
-        case 1:     return CL_V_SINUSOIDAL(in, w);
-    #endif
-    #ifdef USE_2
-        case 2:     return CL_V_SPHERICAL(in, w);
-    #endif
-    #ifdef USE_3
-        case 3:     return CL_V_SWIRL(in, w);
-    #endif
-    #ifdef USE_4
-        case 4:     return CL_V_HORSESHOE(in, w);
-    #endif
-    #ifdef USE_5
-        case 5:     return CL_V_POLAR(in, w);
-    #endif
-    #ifdef USE_6
-        case 6:     return CL_V_HANDKERCHIEF(in, w);
-    #endif
-    #ifdef USE_7
-        case 7:     return CL_V_HEART(in, w);
-    #endif
-    #ifdef USE_8
-        case 8:     return CL_V_DISC(in, w);
-    #endif
-    #ifdef USE_9
-        case 9:     return CL_V_SPIRAL(in, w);
-    #endif
-    #ifdef USE_10
-        case 10:    return CL_V_HIPERBOLIC(in, w);
-    #endif
-    #ifdef USE_11
-        case 11:    return CL_V_DIAMOND(in, w);
-    #endif
-    #ifdef USE_12
-        case 12:    return CL_V_EX(in, w);
-    #endif
-    #ifdef USE_13
-        case 13:    return CL_V_JULIA(in, w, state);
-    #endif
-    #ifdef USE_14
-        case 14:    return CL_V_BENT(in, w);
-    #endif
-    #ifdef USE_15
-        case 15:    return CL_V_WAVES(in, w, y.x, o.x, y.y, o.y);
-    #endif
-    #ifdef USE_16
-        case 16:    return CL_V_FISHEYE(in, w);
-    #endif
-    #ifdef USE_17
-        case 17:    return CL_V_POPCORN(in, w, o.x, o.y);
-    #endif
-    #ifdef USE_18
-        case 18:    return CL_V_EXPONENTIAL(in, w);
-    #endif
-    #ifdef USE_19
-        case 19:    return CL_V_POWER(in, w);
-    #endif
-    #ifdef USE_20
-        case 20:    return CL_V_COSINE(in, w);
-    #endif
-    #ifdef USE_21
-        case 21:    return CL_V_RINGS(in, w, o.x);
-    #endif
-    #ifdef USE_22
-        case 22:    return CL_V_FAN(in, w, o.x, o.y);
-    #endif
-    #ifdef USE_23
-        case 23:    return CL_V_BUBBLE(in, w);
-    #endif
-    #ifdef USE_24
-        case 24:    return CL_V_CYLINDER(in, w);
-    #endif
-    #ifdef USE_25
-        case 25:    return CL_V_EYEFISH(in, w);
-    #endif
-    #ifdef USE_26
-        case 26:    return CL_V_BLUR(w, state);
-    #endif
-    #ifdef USE_27
-        case 27:    return CL_V_CURL(in, w, PRM_F2[PRM_F2_IDX_CURL]);
-    #endif
-    #ifdef USE_28
-        case 28:    return CL_V_NGON(in, w, PRM_F4[PRM_F4_IDX_NGON], PRM_F4[PRM_F4_IDX_NGON_PRECALC]);
-    #endif
-    #ifdef USE_29
-        case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
-    #endif
-    #ifdef USE_30
-        case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
-    #endif
-    #ifdef USE_31
-        case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
-    #endif
-    #ifdef USE_32
-        case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
-    #endif
-    #ifdef USE_33
-        case 33:    return CL_V_GAUSSIAN_BLUR(w, state);
-    #endif
-    #ifdef USE_34
-        case 34:    return CL_V_FAN2(in, w, F3C, PRM_F2[PRM_F2_IDX_FAN2]);
-    #endif
-    #ifdef USE_35
-        case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
-    #endif
-    #ifdef USE_36
-        case 36:    return CL_V_RECTANGLES(in, w, PRM_F2[PRM_F2_IDX_RECTANGLES]);
-    #endif
-    #ifdef USE_37
-        case 37:    return CL_V_RADIALBLUR(in, w, state, PRM_F[PRM_F_IDX_RADIALBLUR]);
-    #endif
-    #ifdef USE_38
-        case 38:    return CL_V_PIE(w, state, PRM_F3[PRM_F3_IDX_PIE]);
-    #endif
-    #ifdef USE_39
-        case 39:    return CL_V_ARCH(in, w, state);
-    #endif
-    #ifdef USE_40
-        case 40:    return CL_V_TANGENT(in, w);
-    #endif
-    #ifdef USE_41
-        case 41:    return CL_V_SQUARE(w, state);
-    #endif
-    #ifdef USE_42
-        case 42:    return CL_V_RAYS(in, w, state);
-    #endif
-    #ifdef USE_43
-        case 43:    return CL_V_BLADE(in, w, state);
-    #endif
-    #ifdef USE_44
-        case 44:    return CL_V_SECANT2(in, w);
-    #endif
-    #ifdef USE_45
-        case 45:    return CL_V_TWINTRIAN(in, w, state);
-    #endif
-    #ifdef USE_46
-        case 46:    return CL_V_CROSS(in, w, F3C);
-    #endif
-    #ifdef USE_47
-        case 47:    return CL_V_DISC2(in, w, PRM_F2[PRM_F2_IDX_DISC2], PRM_F3[PRM_F3_IDX_DISC2_PRECALC]);
-    #endif
-    #ifdef USE_48
-        case 48:    return CL_V_SUPERSHAPE(in, w, state, PRM_F3[PRM_F3_IDX_SUPERSHAPE], PRM_F3[PRM_F3_IDX_SUPERSHAPEN]);
-    #endif
-    #ifdef USE_49
-        case 49:    return CL_V_FLOWER(in, w, state, PRM_F2[PRM_F2_IDX_FLOWER]);
-    #endif
-    #ifdef USE_50
-        case 50:    return CL_V_CONIC(in, w, state, PRM_F2[PRM_F2_IDX_CONIC]);
-    #endif
-    #ifdef USE_51
-        case 51:    return CL_V_PARABOLA(in, w, state, PRM_F2[PRM_F2_IDX_PARABOLA]);
-    #endif
-    #ifdef USE_52
-        case 52:    return CL_V_BENT2(in, w, PRM_F2[PRM_F2_IDX_BENT2]);
-    #endif
-    #ifdef USE_53
-        case 53:    return CL_V_BIPOLAR(in, w, PRM_F[PRM_F_IDX_BIPOLARSHIFT]);
-    #endif
-    #ifdef USE_54
-        case 54:    return CL_V_BOARDERS(in, w, state);
-    #endif
-    #ifdef USE_55
-        case 55:    return CL_V_BUTTERFLY(in, w);
-    #endif
-    #ifdef USE_56
-        case 56:    return CL_V_CELL(in, w, PRM_F[PRM_F_IDX_CELLSIZE]);
-    #endif
-    #ifdef USE_57
-        case 57:    return CL_V_CPOW(in, w, state, PRM_F3[PRM_F3_IDX_CPOW]);
-    #endif
-    #ifdef USE_58
-        case 58:    return CL_V_EDISC(in, w, F3C);
-    #endif
-    #ifdef USE_59
-        case 59:    return CL_V_ELLIPTIC(in, w);
-    #endif
-    #ifdef USE_60
-        case 60:    return CL_V_NOISE(in, w, state);
-    #endif
-    #ifdef USE_61
-        case 61:    return CL_V_ESCHER(in, w, F3C, PRM_F[PRM_F_IDX_ESCHERBETA]);
-    #endif
-    #ifdef USE_62
-        case 62:    return CL_V_FOCI(in, w);
-    #endif
-    #ifdef USE_63
-        case 63:    return CL_V_LAZYSUSAN(in, w, PRM_F3[PRM_F3_IDX_LAZYSUSANSTS], PRM_F2[PRM_F2_IDX_LAZYSUSAN]);
-    #endif
-    #ifdef USE_64
-        case 64:    return CL_V_LOONIE(in, w);
-    #endif
-
-        //   65:    return CL_V_PREBLUR(w, state) -> Not dispached but hard coded inside the Chaos Game instead
-
-    #ifdef USE_66
-        case 66:    return CL_V_MODULUS(in, w, PRM_F2[PRM_F2_IDX_MODULUS]);
-    #endif
-    #ifdef USE_67
-        case 67:    return CL_V_OSCOPE(in, w, PRM_F4[PRM_F4_IDX_OSCOPE]);
-    #endif
-    #ifdef USE_68
-        case 68:    return CL_V_POLAR2(in, w);
-    #endif
-    #ifdef USE_69
-        case 69:    return CL_V_POPCORN2(in, w, PRM_F[PRM_F_IDX_POPCORN2C], PRM_F2[PRM_F2_IDX_POPCORN2]);
-    #endif
-    #ifdef USE_70
-        case 70:    return CL_V_SCRY(in, w);
-    #endif
-    #ifdef USE_71
-        case 71:    return CL_V_SEPARATION(in, w, PRM_F2[PRM_F2_IDX_SEPARATION], PRM_F2[PRM_F2_IDX_SEPARATIONIN]);
-    #endif
-    #ifdef USE_72
-        case 72:    return CL_V_SPLIT(in, w, PRM_F2[PRM_F2_IDX_SPLIT]);
-    #endif
-    #ifdef USE_73
-        case 73:    return CL_V_SPLITS(in, w, PRM_F2[PRM_F2_IDX_SPLITS]);
-    #endif
-    #ifdef USE_74
-        case 74:    return CL_V_STRIPES(in, w, PRM_F2[PRM_F2_IDX_STRIPES]);
-    #endif
-    #ifdef USE_75
-        case 75:    return CL_V_WEDGE(in, w, PRM_F4[PRM_F4_IDX_WEDGE]);
-    #endif
-    #ifdef USE_76
-        case 76:    return CL_V_WEDGEJULIA(in, w, state, PRM_F4[PRM_F4_IDX_WEDGEJULIA]);
-    #endif
-    #ifdef USE_77
-        case 77:    return CL_V_WEDGESPH(in, w, PRM_F4[PRM_F4_IDX_WEDGESPH]);
-    #endif
-    #ifdef USE_78
-        case 78:    return CL_V_WHORL(in, w, PRM_F2[PRM_F2_IDX_WHORL]);
-    #endif
-    #ifdef USE_79
-        case 79:    return CL_V_WAVES2(in, w, PRM_F2[PRM_F2_IDX_WAVES2SCALE], PRM_F2[PRM_F2_IDX_WAVES2FREQ]);
-    #endif
-    #ifdef USE_80
-        case 80:    return CL_V_EXP(in, w);
-    #endif
-    #ifdef USE_81
-        case 81:    return CL_V_LOG(in, w);
-    #endif
-    #ifdef USE_82
-        case 82:    return CL_V_SIN(in, w, F3C);
-    #endif
-    #ifdef USE_83
-        case 83:    return CL_V_COS(in, w, F3C);
-    #endif
-    #ifdef USE_84
-        case 84:    return CL_V_TAN(in, w, F3C);
-    #endif
-    #ifdef USE_85
-        case 85:    return CL_V_SEC(in, w, F3C);
-    #endif
-    #ifdef USE_86
-        case 86:    return CL_V_CSC(in, w, F3C);
-    #endif
-    #ifdef USE_87
-        case 87:    return CL_V_COT(in, w, F3C);
-    #endif
-    #ifdef USE_88
-        case 88:    return CL_V_SINH(in, w, F3C);
-    #endif
-    #ifdef USE_89
-        case 89:    return CL_V_COSH(in, w, F3C);
-    #endif
-    #ifdef USE_90
-        case 90:    return CL_V_TANH(in, w, F3C);
-    #endif
-    #ifdef USE_91
-        case 91:    return CL_V_SECH(in, w, F3C);
-    #endif
-    #ifdef USE_92
-        case 92:    return CL_V_CSCH(in, w, F3C);
-    #endif
-    #ifdef USE_93
-        case 93:    return CL_V_COTH(in, w, F3C);
-    #endif
-    #ifdef USE_94
-        case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
-    #endif
-    #ifdef USE_95
-        case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
-    #endif
-    #ifdef USE_96
-        case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
-    #endif
-    #ifdef USE_97
-        case 97:    return CL_V_CURVE(in, w, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
-    #endif
-    #ifdef USE_98
-        case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
-    #endif
-    #ifdef USE_99
-        case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
-    #endif
-    #ifdef USE_100
-        case 100:   return CL_V_HEMISPHERE(in, w);
-    #endif
-    #ifdef USE_101
-        case 101:   return CL_V_POLYNOMIAL(in, w, PRM_F2[PRM_F2_IDX_POLYNOMIALPOW], PRM_F2[PRM_F2_IDX_POLYNOMIALLC], PRM_F2[PRM_F2_IDX_POLYNOMIALSC]);
-    #endif
-    #ifdef USE_102
-        case 102:   return CL_V_CROP(in, w, state, PRM_F4[PRM_F4_IDX_CROPLTRB], PRM_F2[PRM_F2_IDX_CROP]);
-    #endif
-    #ifdef USE_103
-        case 103:   return CL_V_UNPOLAR(in, w);
-    #endif
-    #ifdef USE_104
-        case 104:   return CL_V_GLYNNIA(in, w, state);
-    #endif
-    #ifdef USE_105
-        case 105:   return CL_V_POINT_SYMMETRY(in, w, state, PRM_F3[PRM_F3_IDX_PTSYM]);
-    #endif
-#else
         case 0:     return CL_V_LINEAR(in, w);
         case 1:     return CL_V_SINUSOIDAL(in, w);
         case 2:     return CL_V_SPHERICAL(in, w);
@@ -4399,9 +4081,2824 @@ static float2 CL_V_DISPATCH(
         case 103:   return CL_V_UNPOLAR(in, w);
         case 104:   return CL_V_GLYNNIA(in, w, state);
         case 105:   return CL_V_POINT_SYMMETRY(in, w, state, PRM_F3[PRM_F3_IDX_PTSYM]);
-#endif
 
         default:    return w * in;
+    }
+}
+
+// ----------------------------
+// CL FLAM3 variations dispatch
+//
+// SPECIALIZE PRE1
+//
+// Each iterations of the chaos game will select one iterator (aka: xforms or tranforms) and exectute all its variations to be applied to the incoming point/sample.
+// The dispatch will take care of finding the iterator's variations and execute them.
+//
+// ----------------------------
+
+__attribute__((always_inline)) inline 
+static float2 CL_V_DISPATCH_PRE1(
+    const int     type, 
+    const float2  in, 
+    const float   w, 
+    const float2  y,
+    const float2  o, 
+    const int     F3C, 
+    rng_state_t* restrict state, 
+    __local const float*    PRM_F, 
+    __local const float2*   PRM_F2, 
+    __local const float4*   PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
+    __local const float4*   PRM_F4 
+    )
+{
+    switch(type)
+    {
+#ifdef USE_SPECIALIZE
+    #ifdef USE_PRE1_0
+        case 0:     return CL_V_LINEAR(in, w);
+    #endif
+    #ifdef USE_PRE1_1
+        case 1:     return CL_V_SINUSOIDAL(in, w);
+    #endif
+    #ifdef USE_PRE1_2
+        case 2:     return CL_V_SPHERICAL(in, w);
+    #endif
+    #ifdef USE_PRE1_3
+        case 3:     return CL_V_SWIRL(in, w);
+    #endif
+    #ifdef USE_PRE1_4
+        case 4:     return CL_V_HORSESHOE(in, w);
+    #endif
+    #ifdef USE_PRE1_5
+        case 5:     return CL_V_POLAR(in, w);
+    #endif
+    #ifdef USE_PRE1_6
+        case 6:     return CL_V_HANDKERCHIEF(in, w);
+    #endif
+    #ifdef USE_PRE1_7
+        case 7:     return CL_V_HEART(in, w);
+    #endif
+    #ifdef USE_PRE1_8
+        case 8:     return CL_V_DISC(in, w);
+    #endif
+    #ifdef USE_PRE1_9
+        case 9:     return CL_V_SPIRAL(in, w);
+    #endif
+    #ifdef USE_PRE1_10
+        case 10:    return CL_V_HIPERBOLIC(in, w);
+    #endif
+    #ifdef USE_PRE1_11
+        case 11:    return CL_V_DIAMOND(in, w);
+    #endif
+    #ifdef USE_PRE1_12
+        case 12:    return CL_V_EX(in, w);
+    #endif
+    #ifdef USE_PRE1_13
+        case 13:    return CL_V_JULIA(in, w, state);
+    #endif
+    #ifdef USE_PRE1_14
+        case 14:    return CL_V_BENT(in, w);
+    #endif
+    #ifdef USE_PRE1_15
+        case 15:    return CL_V_WAVES(in, w, y.x, o.x, y.y, o.y);
+    #endif
+    #ifdef USE_PRE1_16
+        case 16:    return CL_V_FISHEYE(in, w);
+    #endif
+    #ifdef USE_PRE1_17
+        case 17:    return CL_V_POPCORN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_PRE1_18
+        case 18:    return CL_V_EXPONENTIAL(in, w);
+    #endif
+    #ifdef USE_PRE1_19
+        case 19:    return CL_V_POWER(in, w);
+    #endif
+    #ifdef USE_PRE1_20
+        case 20:    return CL_V_COSINE(in, w);
+    #endif
+    #ifdef USE_PRE1_21
+        case 21:    return CL_V_RINGS(in, w, o.x);
+    #endif
+    #ifdef USE_PRE1_22
+        case 22:    return CL_V_FAN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_PRE1_23
+        case 23:    return CL_V_BUBBLE(in, w);
+    #endif
+    #ifdef USE_PRE1_24
+        case 24:    return CL_V_CYLINDER(in, w);
+    #endif
+    #ifdef USE_PRE1_25
+        case 25:    return CL_V_EYEFISH(in, w);
+    #endif
+    #ifdef USE_PRE1_26
+        case 26:    return CL_V_BLUR(w, state);
+    #endif
+    #ifdef USE_PRE1_27
+        case 27:    return CL_V_CURL(in, w, PRM_F2[PRM_F2_IDX_CURL]);
+    #endif
+    #ifdef USE_PRE1_28
+        case 28:    return CL_V_NGON(in, w, PRM_F4[PRM_F4_IDX_NGON], PRM_F4[PRM_F4_IDX_NGON_PRECALC]);
+    #endif
+    #ifdef USE_PRE1_29
+        case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
+    #endif
+    #ifdef USE_PRE1_30
+        case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
+    #endif
+    #ifdef USE_PRE1_31
+        case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
+    #endif
+    #ifdef USE_PRE1_32
+        case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
+    #endif
+    #ifdef USE_PRE1_33
+        case 33:    return CL_V_GAUSSIAN_BLUR(w, state);
+    #endif
+    #ifdef USE_PRE1_34
+        case 34:    return CL_V_FAN2(in, w, F3C, PRM_F2[PRM_F2_IDX_FAN2]);
+    #endif
+    #ifdef USE_PRE1_35
+        case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
+    #endif
+    #ifdef USE_PRE1_36
+        case 36:    return CL_V_RECTANGLES(in, w, PRM_F2[PRM_F2_IDX_RECTANGLES]);
+    #endif
+    #ifdef USE_PRE1_37
+        case 37:    return CL_V_RADIALBLUR(in, w, state, PRM_F[PRM_F_IDX_RADIALBLUR]);
+    #endif
+    #ifdef USE_PRE1_38
+        case 38:    return CL_V_PIE(w, state, PRM_F3[PRM_F3_IDX_PIE]);
+    #endif
+    #ifdef USE_PRE1_39
+        case 39:    return CL_V_ARCH(in, w, state);
+    #endif
+    #ifdef USE_PRE1_40
+        case 40:    return CL_V_TANGENT(in, w);
+    #endif
+    #ifdef USE_PRE1_41
+        case 41:    return CL_V_SQUARE(w, state);
+    #endif
+    #ifdef USE_PRE1_42
+        case 42:    return CL_V_RAYS(in, w, state);
+    #endif
+    #ifdef USE_PRE1_43
+        case 43:    return CL_V_BLADE(in, w, state);
+    #endif
+    #ifdef USE_PRE1_44
+        case 44:    return CL_V_SECANT2(in, w);
+    #endif
+    #ifdef USE_PRE1_45
+        case 45:    return CL_V_TWINTRIAN(in, w, state);
+    #endif
+    #ifdef USE_PRE1_46
+        case 46:    return CL_V_CROSS(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_47
+        case 47:    return CL_V_DISC2(in, w, PRM_F2[PRM_F2_IDX_DISC2], PRM_F3[PRM_F3_IDX_DISC2_PRECALC]);
+    #endif
+    #ifdef USE_PRE1_48
+        case 48:    return CL_V_SUPERSHAPE(in, w, state, PRM_F3[PRM_F3_IDX_SUPERSHAPE], PRM_F3[PRM_F3_IDX_SUPERSHAPEN]);
+    #endif
+    #ifdef USE_PRE1_49
+        case 49:    return CL_V_FLOWER(in, w, state, PRM_F2[PRM_F2_IDX_FLOWER]);
+    #endif
+    #ifdef USE_PRE1_50
+        case 50:    return CL_V_CONIC(in, w, state, PRM_F2[PRM_F2_IDX_CONIC]);
+    #endif
+    #ifdef USE_PRE1_51
+        case 51:    return CL_V_PARABOLA(in, w, state, PRM_F2[PRM_F2_IDX_PARABOLA]);
+    #endif
+    #ifdef USE_PRE1_52
+        case 52:    return CL_V_BENT2(in, w, PRM_F2[PRM_F2_IDX_BENT2]);
+    #endif
+    #ifdef USE_PRE1_53
+        case 53:    return CL_V_BIPOLAR(in, w, PRM_F[PRM_F_IDX_BIPOLARSHIFT]);
+    #endif
+    #ifdef USE_PRE1_54
+        case 54:    return CL_V_BOARDERS(in, w, state);
+    #endif
+    #ifdef USE_PRE1_55
+        case 55:    return CL_V_BUTTERFLY(in, w);
+    #endif
+    #ifdef USE_PRE1_56
+        case 56:    return CL_V_CELL(in, w, PRM_F[PRM_F_IDX_CELLSIZE]);
+    #endif
+    #ifdef USE_PRE1_57
+        case 57:    return CL_V_CPOW(in, w, state, PRM_F3[PRM_F3_IDX_CPOW]);
+    #endif
+    #ifdef USE_PRE1_58
+        case 58:    return CL_V_EDISC(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_59
+        case 59:    return CL_V_ELLIPTIC(in, w);
+    #endif
+    #ifdef USE_PRE1_60
+        case 60:    return CL_V_NOISE(in, w, state);
+    #endif
+    #ifdef USE_PRE1_61
+        case 61:    return CL_V_ESCHER(in, w, F3C, PRM_F[PRM_F_IDX_ESCHERBETA]);
+    #endif
+    #ifdef USE_PRE1_62
+        case 62:    return CL_V_FOCI(in, w);
+    #endif
+    #ifdef USE_PRE1_63
+        case 63:    return CL_V_LAZYSUSAN(in, w, PRM_F3[PRM_F3_IDX_LAZYSUSANSTS], PRM_F2[PRM_F2_IDX_LAZYSUSAN]);
+    #endif
+    #ifdef USE_PRE1_64
+        case 64:    return CL_V_LOONIE(in, w);
+    #endif
+
+        //   65:    return CL_V_PREBLUR(w, state) -> Not dispached but hard coded inside the Chaos Game instead
+
+    #ifdef USE_PRE1_66
+        case 66:    return CL_V_MODULUS(in, w, PRM_F2[PRM_F2_IDX_MODULUS]);
+    #endif
+    #ifdef USE_PRE1_67
+        case 67:    return CL_V_OSCOPE(in, w, PRM_F4[PRM_F4_IDX_OSCOPE]);
+    #endif
+    #ifdef USE_PRE1_68
+        case 68:    return CL_V_POLAR2(in, w);
+    #endif
+    #ifdef USE_PRE1_69
+        case 69:    return CL_V_POPCORN2(in, w, PRM_F[PRM_F_IDX_POPCORN2C], PRM_F2[PRM_F2_IDX_POPCORN2]);
+    #endif
+    #ifdef USE_PRE1_70
+        case 70:    return CL_V_SCRY(in, w);
+    #endif
+    #ifdef USE_PRE1_71
+        case 71:    return CL_V_SEPARATION(in, w, PRM_F2[PRM_F2_IDX_SEPARATION], PRM_F2[PRM_F2_IDX_SEPARATIONIN]);
+    #endif
+    #ifdef USE_PRE1_72
+        case 72:    return CL_V_SPLIT(in, w, PRM_F2[PRM_F2_IDX_SPLIT]);
+    #endif
+    #ifdef USE_PRE1_73
+        case 73:    return CL_V_SPLITS(in, w, PRM_F2[PRM_F2_IDX_SPLITS]);
+    #endif
+    #ifdef USE_PRE1_74
+        case 74:    return CL_V_STRIPES(in, w, PRM_F2[PRM_F2_IDX_STRIPES]);
+    #endif
+    #ifdef USE_PRE1_75
+        case 75:    return CL_V_WEDGE(in, w, PRM_F4[PRM_F4_IDX_WEDGE]);
+    #endif
+    #ifdef USE_PRE1_76
+        case 76:    return CL_V_WEDGEJULIA(in, w, state, PRM_F4[PRM_F4_IDX_WEDGEJULIA]);
+    #endif
+    #ifdef USE_PRE1_77
+        case 77:    return CL_V_WEDGESPH(in, w, PRM_F4[PRM_F4_IDX_WEDGESPH]);
+    #endif
+    #ifdef USE_PRE1_78
+        case 78:    return CL_V_WHORL(in, w, PRM_F2[PRM_F2_IDX_WHORL]);
+    #endif
+    #ifdef USE_PRE1_79
+        case 79:    return CL_V_WAVES2(in, w, PRM_F2[PRM_F2_IDX_WAVES2SCALE], PRM_F2[PRM_F2_IDX_WAVES2FREQ]);
+    #endif
+    #ifdef USE_PRE1_80
+        case 80:    return CL_V_EXP(in, w);
+    #endif
+    #ifdef USE_PRE1_81
+        case 81:    return CL_V_LOG(in, w);
+    #endif
+    #ifdef USE_PRE1_82
+        case 82:    return CL_V_SIN(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_83
+        case 83:    return CL_V_COS(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_84
+        case 84:    return CL_V_TAN(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_85
+        case 85:    return CL_V_SEC(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_86
+        case 86:    return CL_V_CSC(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_87
+        case 87:    return CL_V_COT(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_88
+        case 88:    return CL_V_SINH(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_89
+        case 89:    return CL_V_COSH(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_90
+        case 90:    return CL_V_TANH(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_91
+        case 91:    return CL_V_SECH(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_92
+        case 92:    return CL_V_CSCH(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_93
+        case 93:    return CL_V_COTH(in, w, F3C);
+    #endif
+    #ifdef USE_PRE1_94
+        case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
+    #endif
+    #ifdef USE_PRE1_95
+        case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
+    #endif
+    #ifdef USE_PRE1_96
+        case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
+    #endif
+    #ifdef USE_PRE1_97
+        case 97:    return CL_V_CURVE(in, w, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
+    #endif
+    #ifdef USE_PRE1_98
+        case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
+    #endif
+    #ifdef USE_PRE1_99
+        case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
+    #endif
+    #ifdef USE_PRE1_100
+        case 100:   return CL_V_HEMISPHERE(in, w);
+    #endif
+    #ifdef USE_PRE1_101
+        case 101:   return CL_V_POLYNOMIAL(in, w, PRM_F2[PRM_F2_IDX_POLYNOMIALPOW], PRM_F2[PRM_F2_IDX_POLYNOMIALLC], PRM_F2[PRM_F2_IDX_POLYNOMIALSC]);
+    #endif
+    #ifdef USE_PRE1_102
+        case 102:   return CL_V_CROP(in, w, state, PRM_F4[PRM_F4_IDX_CROPLTRB], PRM_F2[PRM_F2_IDX_CROP]);
+    #endif
+    #ifdef USE_PRE1_103
+        case 103:   return CL_V_UNPOLAR(in, w);
+    #endif
+    #ifdef USE_PRE1_104
+        case 104:   return CL_V_GLYNNIA(in, w, state);
+    #endif
+    #ifdef USE_PRE1_105
+        case 105:   return CL_V_POINT_SYMMETRY(in, w, state, PRM_F3[PRM_F3_IDX_PTSYM]);
+    #endif
+#endif
+
+    default:    return w * in;
+    }
+}
+
+// ----------------------------
+// CL FLAM3 variations dispatch
+//
+// SPECIALIZE PRE2
+//
+// Each iterations of the chaos game will select one iterator (aka: xforms or tranforms) and exectute all its variations to be applied to the incoming point/sample.
+// The dispatch will take care of finding the iterator's variations and execute them.
+//
+// ----------------------------
+
+__attribute__((always_inline)) inline 
+static float2 CL_V_DISPATCH_PRE2(
+    const int     type, 
+    const float2  in, 
+    const float   w, 
+    const float2  y,
+    const float2  o, 
+    const int     F3C, 
+    rng_state_t* restrict state, 
+    __local const float*    PRM_F, 
+    __local const float2*   PRM_F2, 
+    __local const float4*   PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
+    __local const float4*   PRM_F4 
+    )
+{
+    switch(type)
+    {
+#ifdef USE_SPECIALIZE
+    #ifdef USE_PRE2_0
+        case 0:     return CL_V_LINEAR(in, w);
+    #endif
+    #ifdef USE_PRE2_1
+        case 1:     return CL_V_SINUSOIDAL(in, w);
+    #endif
+    #ifdef USE_PRE2_2
+        case 2:     return CL_V_SPHERICAL(in, w);
+    #endif
+    #ifdef USE_PRE2_3
+        case 3:     return CL_V_SWIRL(in, w);
+    #endif
+    #ifdef USE_PRE2_4
+        case 4:     return CL_V_HORSESHOE(in, w);
+    #endif
+    #ifdef USE_PRE2_5
+        case 5:     return CL_V_POLAR(in, w);
+    #endif
+    #ifdef USE_PRE2_6
+        case 6:     return CL_V_HANDKERCHIEF(in, w);
+    #endif
+    #ifdef USE_PRE2_7
+        case 7:     return CL_V_HEART(in, w);
+    #endif
+    #ifdef USE_PRE2_8
+        case 8:     return CL_V_DISC(in, w);
+    #endif
+    #ifdef USE_PRE2_9
+        case 9:     return CL_V_SPIRAL(in, w);
+    #endif
+    #ifdef USE_PRE2_10
+        case 10:    return CL_V_HIPERBOLIC(in, w);
+    #endif
+    #ifdef USE_PRE2_11
+        case 11:    return CL_V_DIAMOND(in, w);
+    #endif
+    #ifdef USE_PRE2_12
+        case 12:    return CL_V_EX(in, w);
+    #endif
+    #ifdef USE_PRE2_13
+        case 13:    return CL_V_JULIA(in, w, state);
+    #endif
+    #ifdef USE_PRE2_14
+        case 14:    return CL_V_BENT(in, w);
+    #endif
+    #ifdef USE_PRE2_15
+        case 15:    return CL_V_WAVES(in, w, y.x, o.x, y.y, o.y);
+    #endif
+    #ifdef USE_PRE2_16
+        case 16:    return CL_V_FISHEYE(in, w);
+    #endif
+    #ifdef USE_PRE2_17
+        case 17:    return CL_V_POPCORN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_PRE2_18
+        case 18:    return CL_V_EXPONENTIAL(in, w);
+    #endif
+    #ifdef USE_PRE2_19
+        case 19:    return CL_V_POWER(in, w);
+    #endif
+    #ifdef USE_PRE2_20
+        case 20:    return CL_V_COSINE(in, w);
+    #endif
+    #ifdef USE_PRE2_21
+        case 21:    return CL_V_RINGS(in, w, o.x);
+    #endif
+    #ifdef USE_PRE2_22
+        case 22:    return CL_V_FAN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_PRE2_23
+        case 23:    return CL_V_BUBBLE(in, w);
+    #endif
+    #ifdef USE_PRE2_24
+        case 24:    return CL_V_CYLINDER(in, w);
+    #endif
+    #ifdef USE_PRE2_25
+        case 25:    return CL_V_EYEFISH(in, w);
+    #endif
+    #ifdef USE_PRE2_26
+        case 26:    return CL_V_BLUR(w, state);
+    #endif
+    #ifdef USE_PRE2_27
+        case 27:    return CL_V_CURL(in, w, PRM_F2[PRM_F2_IDX_CURL]);
+    #endif
+    #ifdef USE_PRE2_28
+        case 28:    return CL_V_NGON(in, w, PRM_F4[PRM_F4_IDX_NGON], PRM_F4[PRM_F4_IDX_NGON_PRECALC]);
+    #endif
+    #ifdef USE_PRE2_29
+        case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
+    #endif
+    #ifdef USE_PRE2_30
+        case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
+    #endif
+    #ifdef USE_PRE2_31
+        case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
+    #endif
+    #ifdef USE_PRE2_32
+        case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
+    #endif
+    #ifdef USE_PRE2_33
+        case 33:    return CL_V_GAUSSIAN_BLUR(w, state);
+    #endif
+    #ifdef USE_PRE2_34
+        case 34:    return CL_V_FAN2(in, w, F3C, PRM_F2[PRM_F2_IDX_FAN2]);
+    #endif
+    #ifdef USE_PRE2_35
+        case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
+    #endif
+    #ifdef USE_PRE2_36
+        case 36:    return CL_V_RECTANGLES(in, w, PRM_F2[PRM_F2_IDX_RECTANGLES]);
+    #endif
+    #ifdef USE_PRE2_37
+        case 37:    return CL_V_RADIALBLUR(in, w, state, PRM_F[PRM_F_IDX_RADIALBLUR]);
+    #endif
+    #ifdef USE_PRE2_38
+        case 38:    return CL_V_PIE(w, state, PRM_F3[PRM_F3_IDX_PIE]);
+    #endif
+    #ifdef USE_PRE2_39
+        case 39:    return CL_V_ARCH(in, w, state);
+    #endif
+    #ifdef USE_PRE2_40
+        case 40:    return CL_V_TANGENT(in, w);
+    #endif
+    #ifdef USE_PRE2_41
+        case 41:    return CL_V_SQUARE(w, state);
+    #endif
+    #ifdef USE_PRE2_42
+        case 42:    return CL_V_RAYS(in, w, state);
+    #endif
+    #ifdef USE_PRE2_43
+        case 43:    return CL_V_BLADE(in, w, state);
+    #endif
+    #ifdef USE_PRE2_44
+        case 44:    return CL_V_SECANT2(in, w);
+    #endif
+    #ifdef USE_PRE2_45
+        case 45:    return CL_V_TWINTRIAN(in, w, state);
+    #endif
+    #ifdef USE_PRE2_46
+        case 46:    return CL_V_CROSS(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_47
+        case 47:    return CL_V_DISC2(in, w, PRM_F2[PRM_F2_IDX_DISC2], PRM_F3[PRM_F3_IDX_DISC2_PRECALC]);
+    #endif
+    #ifdef USE_PRE2_48
+        case 48:    return CL_V_SUPERSHAPE(in, w, state, PRM_F3[PRM_F3_IDX_SUPERSHAPE], PRM_F3[PRM_F3_IDX_SUPERSHAPEN]);
+    #endif
+    #ifdef USE_PRE2_49
+        case 49:    return CL_V_FLOWER(in, w, state, PRM_F2[PRM_F2_IDX_FLOWER]);
+    #endif
+    #ifdef USE_PRE2_50
+        case 50:    return CL_V_CONIC(in, w, state, PRM_F2[PRM_F2_IDX_CONIC]);
+    #endif
+    #ifdef USE_PRE2_51
+        case 51:    return CL_V_PARABOLA(in, w, state, PRM_F2[PRM_F2_IDX_PARABOLA]);
+    #endif
+    #ifdef USE_PRE2_52
+        case 52:    return CL_V_BENT2(in, w, PRM_F2[PRM_F2_IDX_BENT2]);
+    #endif
+    #ifdef USE_PRE2_53
+        case 53:    return CL_V_BIPOLAR(in, w, PRM_F[PRM_F_IDX_BIPOLARSHIFT]);
+    #endif
+    #ifdef USE_PRE2_54
+        case 54:    return CL_V_BOARDERS(in, w, state);
+    #endif
+    #ifdef USE_PRE2_55
+        case 55:    return CL_V_BUTTERFLY(in, w);
+    #endif
+    #ifdef USE_PRE2_56
+        case 56:    return CL_V_CELL(in, w, PRM_F[PRM_F_IDX_CELLSIZE]);
+    #endif
+    #ifdef USE_PRE2_57
+        case 57:    return CL_V_CPOW(in, w, state, PRM_F3[PRM_F3_IDX_CPOW]);
+    #endif
+    #ifdef USE_PRE2_58
+        case 58:    return CL_V_EDISC(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_59
+        case 59:    return CL_V_ELLIPTIC(in, w);
+    #endif
+    #ifdef USE_PRE2_60
+        case 60:    return CL_V_NOISE(in, w, state);
+    #endif
+    #ifdef USE_PRE2_61
+        case 61:    return CL_V_ESCHER(in, w, F3C, PRM_F[PRM_F_IDX_ESCHERBETA]);
+    #endif
+    #ifdef USE_PRE2_62
+        case 62:    return CL_V_FOCI(in, w);
+    #endif
+    #ifdef USE_PRE2_63
+        case 63:    return CL_V_LAZYSUSAN(in, w, PRM_F3[PRM_F3_IDX_LAZYSUSANSTS], PRM_F2[PRM_F2_IDX_LAZYSUSAN]);
+    #endif
+    #ifdef USE_PRE2_64
+        case 64:    return CL_V_LOONIE(in, w);
+    #endif
+
+        //   65:    return CL_V_PREBLUR(w, state) -> Not dispached but hard coded inside the Chaos Game instead
+
+    #ifdef USE_PRE2_66
+        case 66:    return CL_V_MODULUS(in, w, PRM_F2[PRM_F2_IDX_MODULUS]);
+    #endif
+    #ifdef USE_PRE2_67
+        case 67:    return CL_V_OSCOPE(in, w, PRM_F4[PRM_F4_IDX_OSCOPE]);
+    #endif
+    #ifdef USE_PRE2_68
+        case 68:    return CL_V_POLAR2(in, w);
+    #endif
+    #ifdef USE_PRE2_69
+        case 69:    return CL_V_POPCORN2(in, w, PRM_F[PRM_F_IDX_POPCORN2C], PRM_F2[PRM_F2_IDX_POPCORN2]);
+    #endif
+    #ifdef USE_PRE2_70
+        case 70:    return CL_V_SCRY(in, w);
+    #endif
+    #ifdef USE_PRE2_71
+        case 71:    return CL_V_SEPARATION(in, w, PRM_F2[PRM_F2_IDX_SEPARATION], PRM_F2[PRM_F2_IDX_SEPARATIONIN]);
+    #endif
+    #ifdef USE_PRE2_72
+        case 72:    return CL_V_SPLIT(in, w, PRM_F2[PRM_F2_IDX_SPLIT]);
+    #endif
+    #ifdef USE_PRE2_73
+        case 73:    return CL_V_SPLITS(in, w, PRM_F2[PRM_F2_IDX_SPLITS]);
+    #endif
+    #ifdef USE_PRE2_74
+        case 74:    return CL_V_STRIPES(in, w, PRM_F2[PRM_F2_IDX_STRIPES]);
+    #endif
+    #ifdef USE_PRE2_75
+        case 75:    return CL_V_WEDGE(in, w, PRM_F4[PRM_F4_IDX_WEDGE]);
+    #endif
+    #ifdef USE_PRE2_76
+        case 76:    return CL_V_WEDGEJULIA(in, w, state, PRM_F4[PRM_F4_IDX_WEDGEJULIA]);
+    #endif
+    #ifdef USE_PRE2_77
+        case 77:    return CL_V_WEDGESPH(in, w, PRM_F4[PRM_F4_IDX_WEDGESPH]);
+    #endif
+    #ifdef USE_PRE2_78
+        case 78:    return CL_V_WHORL(in, w, PRM_F2[PRM_F2_IDX_WHORL]);
+    #endif
+    #ifdef USE_PRE2_79
+        case 79:    return CL_V_WAVES2(in, w, PRM_F2[PRM_F2_IDX_WAVES2SCALE], PRM_F2[PRM_F2_IDX_WAVES2FREQ]);
+    #endif
+    #ifdef USE_PRE2_80
+        case 80:    return CL_V_EXP(in, w);
+    #endif
+    #ifdef USE_PRE2_81
+        case 81:    return CL_V_LOG(in, w);
+    #endif
+    #ifdef USE_PRE2_82
+        case 82:    return CL_V_SIN(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_83
+        case 83:    return CL_V_COS(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_84
+        case 84:    return CL_V_TAN(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_85
+        case 85:    return CL_V_SEC(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_86
+        case 86:    return CL_V_CSC(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_87
+        case 87:    return CL_V_COT(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_88
+        case 88:    return CL_V_SINH(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_89
+        case 89:    return CL_V_COSH(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_90
+        case 90:    return CL_V_TANH(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_91
+        case 91:    return CL_V_SECH(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_92
+        case 92:    return CL_V_CSCH(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_93
+        case 93:    return CL_V_COTH(in, w, F3C);
+    #endif
+    #ifdef USE_PRE2_94
+        case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
+    #endif
+    #ifdef USE_PRE2_95
+        case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
+    #endif
+    #ifdef USE_PRE2_96
+        case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
+    #endif
+    #ifdef USE_PRE2_97
+        case 97:    return CL_V_CURVE(in, w, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
+    #endif
+    #ifdef USE_PRE2_98
+        case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
+    #endif
+    #ifdef USE_PRE2_99
+        case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
+    #endif
+    #ifdef USE_PRE2_100
+        case 100:   return CL_V_HEMISPHERE(in, w);
+    #endif
+    #ifdef USE_PRE2_101
+        case 101:   return CL_V_POLYNOMIAL(in, w, PRM_F2[PRM_F2_IDX_POLYNOMIALPOW], PRM_F2[PRM_F2_IDX_POLYNOMIALLC], PRM_F2[PRM_F2_IDX_POLYNOMIALSC]);
+    #endif
+    #ifdef USE_PRE2_102
+        case 102:   return CL_V_CROP(in, w, state, PRM_F4[PRM_F4_IDX_CROPLTRB], PRM_F2[PRM_F2_IDX_CROP]);
+    #endif
+    #ifdef USE_PRE2_103
+        case 103:   return CL_V_UNPOLAR(in, w);
+    #endif
+    #ifdef USE_PRE2_104
+        case 104:   return CL_V_GLYNNIA(in, w, state);
+    #endif
+    #ifdef USE_PRE2_105
+        case 105:   return CL_V_POINT_SYMMETRY(in, w, state, PRM_F3[PRM_F3_IDX_PTSYM]);
+    #endif
+#endif
+
+    default:    return w * in;
+    }
+}
+
+// ----------------------------
+// CL FLAM3 variations dispatch
+//
+// SPECIALIZE VAR1
+//
+// Each iterations of the chaos game will select one iterator (aka: xforms or tranforms) and exectute all its variations to be applied to the incoming point/sample.
+// The dispatch will take care of finding the iterator's variations and execute them.
+//
+// ----------------------------
+
+__attribute__((always_inline)) inline 
+static float2 CL_V_DISPATCH_VAR1(
+    const int     type, 
+    const float2  in, 
+    const float   w, 
+    const float2  y,
+    const float2  o, 
+    const int     F3C, 
+    rng_state_t* restrict state, 
+    __local const float*    PRM_F, 
+    __local const float2*   PRM_F2, 
+    __local const float4*   PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
+    __local const float4*   PRM_F4 
+    )
+{
+    switch(type)
+    {
+#ifdef USE_SPECIALIZE
+    #ifdef USE_VAR1_0
+        case 0:     return CL_V_LINEAR(in, w);
+    #endif
+    #ifdef USE_VAR1_1
+        case 1:     return CL_V_SINUSOIDAL(in, w);
+    #endif
+    #ifdef USE_VAR1_2
+        case 2:     return CL_V_SPHERICAL(in, w);
+    #endif
+    #ifdef USE_VAR1_3
+        case 3:     return CL_V_SWIRL(in, w);
+    #endif
+    #ifdef USE_VAR1_4
+        case 4:     return CL_V_HORSESHOE(in, w);
+    #endif
+    #ifdef USE_VAR1_5
+        case 5:     return CL_V_POLAR(in, w);
+    #endif
+    #ifdef USE_VAR1_6
+        case 6:     return CL_V_HANDKERCHIEF(in, w);
+    #endif
+    #ifdef USE_VAR1_7
+        case 7:     return CL_V_HEART(in, w);
+    #endif
+    #ifdef USE_VAR1_8
+        case 8:     return CL_V_DISC(in, w);
+    #endif
+    #ifdef USE_VAR1_9
+        case 9:     return CL_V_SPIRAL(in, w);
+    #endif
+    #ifdef USE_VAR1_10
+        case 10:    return CL_V_HIPERBOLIC(in, w);
+    #endif
+    #ifdef USE_VAR1_11
+        case 11:    return CL_V_DIAMOND(in, w);
+    #endif
+    #ifdef USE_VAR1_12
+        case 12:    return CL_V_EX(in, w);
+    #endif
+    #ifdef USE_VAR1_13
+        case 13:    return CL_V_JULIA(in, w, state);
+    #endif
+    #ifdef USE_VAR1_14
+        case 14:    return CL_V_BENT(in, w);
+    #endif
+    #ifdef USE_VAR1_15
+        case 15:    return CL_V_WAVES(in, w, y.x, o.x, y.y, o.y);
+    #endif
+    #ifdef USE_VAR1_16
+        case 16:    return CL_V_FISHEYE(in, w);
+    #endif
+    #ifdef USE_VAR1_17
+        case 17:    return CL_V_POPCORN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_VAR1_18
+        case 18:    return CL_V_EXPONENTIAL(in, w);
+    #endif
+    #ifdef USE_VAR1_19
+        case 19:    return CL_V_POWER(in, w);
+    #endif
+    #ifdef USE_VAR1_20
+        case 20:    return CL_V_COSINE(in, w);
+    #endif
+    #ifdef USE_VAR1_21
+        case 21:    return CL_V_RINGS(in, w, o.x);
+    #endif
+    #ifdef USE_VAR1_22
+        case 22:    return CL_V_FAN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_VAR1_23
+        case 23:    return CL_V_BUBBLE(in, w);
+    #endif
+    #ifdef USE_VAR1_24
+        case 24:    return CL_V_CYLINDER(in, w);
+    #endif
+    #ifdef USE_VAR1_25
+        case 25:    return CL_V_EYEFISH(in, w);
+    #endif
+    #ifdef USE_VAR1_26
+        case 26:    return CL_V_BLUR(w, state);
+    #endif
+    #ifdef USE_VAR1_27
+        case 27:    return CL_V_CURL(in, w, PRM_F2[PRM_F2_IDX_CURL]);
+    #endif
+    #ifdef USE_VAR1_28
+        case 28:    return CL_V_NGON(in, w, PRM_F4[PRM_F4_IDX_NGON], PRM_F4[PRM_F4_IDX_NGON_PRECALC]);
+    #endif
+    #ifdef USE_VAR1_29
+        case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
+    #endif
+    #ifdef USE_VAR1_30
+        case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
+    #endif
+    #ifdef USE_VAR1_31
+        case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
+    #endif
+    #ifdef USE_VAR1_32
+        case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
+    #endif
+    #ifdef USE_VAR1_33
+        case 33:    return CL_V_GAUSSIAN_BLUR(w, state);
+    #endif
+    #ifdef USE_VAR1_34
+        case 34:    return CL_V_FAN2(in, w, F3C, PRM_F2[PRM_F2_IDX_FAN2]);
+    #endif
+    #ifdef USE_VAR1_35
+        case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
+    #endif
+    #ifdef USE_VAR1_36
+        case 36:    return CL_V_RECTANGLES(in, w, PRM_F2[PRM_F2_IDX_RECTANGLES]);
+    #endif
+    #ifdef USE_VAR1_37
+        case 37:    return CL_V_RADIALBLUR(in, w, state, PRM_F[PRM_F_IDX_RADIALBLUR]);
+    #endif
+    #ifdef USE_VAR1_38
+        case 38:    return CL_V_PIE(w, state, PRM_F3[PRM_F3_IDX_PIE]);
+    #endif
+    #ifdef USE_VAR1_39
+        case 39:    return CL_V_ARCH(in, w, state);
+    #endif
+    #ifdef USE_VAR1_40
+        case 40:    return CL_V_TANGENT(in, w);
+    #endif
+    #ifdef USE_VAR1_41
+        case 41:    return CL_V_SQUARE(w, state);
+    #endif
+    #ifdef USE_VAR1_42
+        case 42:    return CL_V_RAYS(in, w, state);
+    #endif
+    #ifdef USE_VAR1_43
+        case 43:    return CL_V_BLADE(in, w, state);
+    #endif
+    #ifdef USE_VAR1_44
+        case 44:    return CL_V_SECANT2(in, w);
+    #endif
+    #ifdef USE_VAR1_45
+        case 45:    return CL_V_TWINTRIAN(in, w, state);
+    #endif
+    #ifdef USE_VAR1_46
+        case 46:    return CL_V_CROSS(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_47
+        case 47:    return CL_V_DISC2(in, w, PRM_F2[PRM_F2_IDX_DISC2], PRM_F3[PRM_F3_IDX_DISC2_PRECALC]);
+    #endif
+    #ifdef USE_VAR1_48
+        case 48:    return CL_V_SUPERSHAPE(in, w, state, PRM_F3[PRM_F3_IDX_SUPERSHAPE], PRM_F3[PRM_F3_IDX_SUPERSHAPEN]);
+    #endif
+    #ifdef USE_VAR1_49
+        case 49:    return CL_V_FLOWER(in, w, state, PRM_F2[PRM_F2_IDX_FLOWER]);
+    #endif
+    #ifdef USE_VAR1_50
+        case 50:    return CL_V_CONIC(in, w, state, PRM_F2[PRM_F2_IDX_CONIC]);
+    #endif
+    #ifdef USE_VAR1_51
+        case 51:    return CL_V_PARABOLA(in, w, state, PRM_F2[PRM_F2_IDX_PARABOLA]);
+    #endif
+    #ifdef USE_VAR1_52
+        case 52:    return CL_V_BENT2(in, w, PRM_F2[PRM_F2_IDX_BENT2]);
+    #endif
+    #ifdef USE_VAR1_53
+        case 53:    return CL_V_BIPOLAR(in, w, PRM_F[PRM_F_IDX_BIPOLARSHIFT]);
+    #endif
+    #ifdef USE_VAR1_54
+        case 54:    return CL_V_BOARDERS(in, w, state);
+    #endif
+    #ifdef USE_VAR1_55
+        case 55:    return CL_V_BUTTERFLY(in, w);
+    #endif
+    #ifdef USE_VAR1_56
+        case 56:    return CL_V_CELL(in, w, PRM_F[PRM_F_IDX_CELLSIZE]);
+    #endif
+    #ifdef USE_VAR1_57
+        case 57:    return CL_V_CPOW(in, w, state, PRM_F3[PRM_F3_IDX_CPOW]);
+    #endif
+    #ifdef USE_VAR1_58
+        case 58:    return CL_V_EDISC(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_59
+        case 59:    return CL_V_ELLIPTIC(in, w);
+    #endif
+    #ifdef USE_VAR1_60
+        case 60:    return CL_V_NOISE(in, w, state);
+    #endif
+    #ifdef USE_VAR1_61
+        case 61:    return CL_V_ESCHER(in, w, F3C, PRM_F[PRM_F_IDX_ESCHERBETA]);
+    #endif
+    #ifdef USE_VAR1_62
+        case 62:    return CL_V_FOCI(in, w);
+    #endif
+    #ifdef USE_VAR1_63
+        case 63:    return CL_V_LAZYSUSAN(in, w, PRM_F3[PRM_F3_IDX_LAZYSUSANSTS], PRM_F2[PRM_F2_IDX_LAZYSUSAN]);
+    #endif
+    #ifdef USE_VAR1_64
+        case 64:    return CL_V_LOONIE(in, w);
+    #endif
+
+        //   65:    return CL_V_PREBLUR(w, state) -> Not dispached but hard coded inside the Chaos Game instead
+
+    #ifdef USE_VAR1_66
+        case 66:    return CL_V_MODULUS(in, w, PRM_F2[PRM_F2_IDX_MODULUS]);
+    #endif
+    #ifdef USE_VAR1_67
+        case 67:    return CL_V_OSCOPE(in, w, PRM_F4[PRM_F4_IDX_OSCOPE]);
+    #endif
+    #ifdef USE_VAR1_68
+        case 68:    return CL_V_POLAR2(in, w);
+    #endif
+    #ifdef USE_VAR1_69
+        case 69:    return CL_V_POPCORN2(in, w, PRM_F[PRM_F_IDX_POPCORN2C], PRM_F2[PRM_F2_IDX_POPCORN2]);
+    #endif
+    #ifdef USE_VAR1_70
+        case 70:    return CL_V_SCRY(in, w);
+    #endif
+    #ifdef USE_VAR1_71
+        case 71:    return CL_V_SEPARATION(in, w, PRM_F2[PRM_F2_IDX_SEPARATION], PRM_F2[PRM_F2_IDX_SEPARATIONIN]);
+    #endif
+    #ifdef USE_VAR1_72
+        case 72:    return CL_V_SPLIT(in, w, PRM_F2[PRM_F2_IDX_SPLIT]);
+    #endif
+    #ifdef USE_VAR1_73
+        case 73:    return CL_V_SPLITS(in, w, PRM_F2[PRM_F2_IDX_SPLITS]);
+    #endif
+    #ifdef USE_VAR1_74
+        case 74:    return CL_V_STRIPES(in, w, PRM_F2[PRM_F2_IDX_STRIPES]);
+    #endif
+    #ifdef USE_VAR1_75
+        case 75:    return CL_V_WEDGE(in, w, PRM_F4[PRM_F4_IDX_WEDGE]);
+    #endif
+    #ifdef USE_VAR1_76
+        case 76:    return CL_V_WEDGEJULIA(in, w, state, PRM_F4[PRM_F4_IDX_WEDGEJULIA]);
+    #endif
+    #ifdef USE_VAR1_77
+        case 77:    return CL_V_WEDGESPH(in, w, PRM_F4[PRM_F4_IDX_WEDGESPH]);
+    #endif
+    #ifdef USE_VAR1_78
+        case 78:    return CL_V_WHORL(in, w, PRM_F2[PRM_F2_IDX_WHORL]);
+    #endif
+    #ifdef USE_VAR1_79
+        case 79:    return CL_V_WAVES2(in, w, PRM_F2[PRM_F2_IDX_WAVES2SCALE], PRM_F2[PRM_F2_IDX_WAVES2FREQ]);
+    #endif
+    #ifdef USE_VAR1_80
+        case 80:    return CL_V_EXP(in, w);
+    #endif
+    #ifdef USE_VAR1_81
+        case 81:    return CL_V_LOG(in, w);
+    #endif
+    #ifdef USE_VAR1_82
+        case 82:    return CL_V_SIN(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_83
+        case 83:    return CL_V_COS(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_84
+        case 84:    return CL_V_TAN(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_85
+        case 85:    return CL_V_SEC(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_86
+        case 86:    return CL_V_CSC(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_87
+        case 87:    return CL_V_COT(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_88
+        case 88:    return CL_V_SINH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_89
+        case 89:    return CL_V_COSH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_90
+        case 90:    return CL_V_TANH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_91
+        case 91:    return CL_V_SECH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_92
+        case 92:    return CL_V_CSCH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_93
+        case 93:    return CL_V_COTH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR1_94
+        case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
+    #endif
+    #ifdef USE_VAR1_95
+        case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
+    #endif
+    #ifdef USE_VAR1_96
+        case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
+    #endif
+    #ifdef USE_VAR1_97
+        case 97:    return CL_V_CURVE(in, w, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
+    #endif
+    #ifdef USE_VAR1_98
+        case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
+    #endif
+    #ifdef USE_VAR1_99
+        case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
+    #endif
+    #ifdef USE_VAR1_100
+        case 100:   return CL_V_HEMISPHERE(in, w);
+    #endif
+    #ifdef USE_VAR1_101
+        case 101:   return CL_V_POLYNOMIAL(in, w, PRM_F2[PRM_F2_IDX_POLYNOMIALPOW], PRM_F2[PRM_F2_IDX_POLYNOMIALLC], PRM_F2[PRM_F2_IDX_POLYNOMIALSC]);
+    #endif
+    #ifdef USE_VAR1_102
+        case 102:   return CL_V_CROP(in, w, state, PRM_F4[PRM_F4_IDX_CROPLTRB], PRM_F2[PRM_F2_IDX_CROP]);
+    #endif
+    #ifdef USE_VAR1_103
+        case 103:   return CL_V_UNPOLAR(in, w);
+    #endif
+    #ifdef USE_VAR1_104
+        case 104:   return CL_V_GLYNNIA(in, w, state);
+    #endif
+    #ifdef USE_VAR1_105
+        case 105:   return CL_V_POINT_SYMMETRY(in, w, state, PRM_F3[PRM_F3_IDX_PTSYM]);
+    #endif
+#endif
+
+    default:    return w * in;
+    }
+}
+
+// ----------------------------
+// CL FLAM3 variations dispatch
+//
+// SPECIALIZE VAR2
+//
+// Each iterations of the chaos game will select one iterator (aka: xforms or tranforms) and exectute all its variations to be applied to the incoming point/sample.
+// The dispatch will take care of finding the iterator's variations and execute them.
+//
+// ----------------------------
+
+__attribute__((always_inline)) inline 
+static float2 CL_V_DISPATCH_VAR2(
+    const int     type, 
+    const float2  in, 
+    const float   w, 
+    const float2  y,
+    const float2  o, 
+    const int     F3C, 
+    rng_state_t* restrict state, 
+    __local const float*    PRM_F, 
+    __local const float2*   PRM_F2, 
+    __local const float4*   PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
+    __local const float4*   PRM_F4 
+    )
+{
+    switch(type)
+    {
+#ifdef USE_SPECIALIZE
+    #ifdef USE_VAR2_0
+        case 0:     return CL_V_LINEAR(in, w);
+    #endif
+    #ifdef USE_VAR2_1
+        case 1:     return CL_V_SINUSOIDAL(in, w);
+    #endif
+    #ifdef USE_VAR2_2
+        case 2:     return CL_V_SPHERICAL(in, w);
+    #endif
+    #ifdef USE_VAR2_3
+        case 3:     return CL_V_SWIRL(in, w);
+    #endif
+    #ifdef USE_VAR2_4
+        case 4:     return CL_V_HORSESHOE(in, w);
+    #endif
+    #ifdef USE_VAR2_5
+        case 5:     return CL_V_POLAR(in, w);
+    #endif
+    #ifdef USE_VAR2_6
+        case 6:     return CL_V_HANDKERCHIEF(in, w);
+    #endif
+    #ifdef USE_VAR2_7
+        case 7:     return CL_V_HEART(in, w);
+    #endif
+    #ifdef USE_VAR2_8
+        case 8:     return CL_V_DISC(in, w);
+    #endif
+    #ifdef USE_VAR2_9
+        case 9:     return CL_V_SPIRAL(in, w);
+    #endif
+    #ifdef USE_VAR2_10
+        case 10:    return CL_V_HIPERBOLIC(in, w);
+    #endif
+    #ifdef USE_VAR2_11
+        case 11:    return CL_V_DIAMOND(in, w);
+    #endif
+    #ifdef USE_VAR2_12
+        case 12:    return CL_V_EX(in, w);
+    #endif
+    #ifdef USE_VAR2_13
+        case 13:    return CL_V_JULIA(in, w, state);
+    #endif
+    #ifdef USE_VAR2_14
+        case 14:    return CL_V_BENT(in, w);
+    #endif
+    #ifdef USE_VAR2_15
+        case 15:    return CL_V_WAVES(in, w, y.x, o.x, y.y, o.y);
+    #endif
+    #ifdef USE_VAR2_16
+        case 16:    return CL_V_FISHEYE(in, w);
+    #endif
+    #ifdef USE_VAR2_17
+        case 17:    return CL_V_POPCORN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_VAR2_18
+        case 18:    return CL_V_EXPONENTIAL(in, w);
+    #endif
+    #ifdef USE_VAR2_19
+        case 19:    return CL_V_POWER(in, w);
+    #endif
+    #ifdef USE_VAR2_20
+        case 20:    return CL_V_COSINE(in, w);
+    #endif
+    #ifdef USE_VAR2_21
+        case 21:    return CL_V_RINGS(in, w, o.x);
+    #endif
+    #ifdef USE_VAR2_22
+        case 22:    return CL_V_FAN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_VAR2_23
+        case 23:    return CL_V_BUBBLE(in, w);
+    #endif
+    #ifdef USE_VAR2_24
+        case 24:    return CL_V_CYLINDER(in, w);
+    #endif
+    #ifdef USE_VAR2_25
+        case 25:    return CL_V_EYEFISH(in, w);
+    #endif
+    #ifdef USE_VAR2_26
+        case 26:    return CL_V_BLUR(w, state);
+    #endif
+    #ifdef USE_VAR2_27
+        case 27:    return CL_V_CURL(in, w, PRM_F2[PRM_F2_IDX_CURL]);
+    #endif
+    #ifdef USE_VAR2_28
+        case 28:    return CL_V_NGON(in, w, PRM_F4[PRM_F4_IDX_NGON], PRM_F4[PRM_F4_IDX_NGON_PRECALC]);
+    #endif
+    #ifdef USE_VAR2_29
+        case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
+    #endif
+    #ifdef USE_VAR2_30
+        case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
+    #endif
+    #ifdef USE_VAR2_31
+        case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
+    #endif
+    #ifdef USE_VAR2_32
+        case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
+    #endif
+    #ifdef USE_VAR2_33
+        case 33:    return CL_V_GAUSSIAN_BLUR(w, state);
+    #endif
+    #ifdef USE_VAR2_34
+        case 34:    return CL_V_FAN2(in, w, F3C, PRM_F2[PRM_F2_IDX_FAN2]);
+    #endif
+    #ifdef USE_VAR2_35
+        case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
+    #endif
+    #ifdef USE_VAR2_36
+        case 36:    return CL_V_RECTANGLES(in, w, PRM_F2[PRM_F2_IDX_RECTANGLES]);
+    #endif
+    #ifdef USE_VAR2_37
+        case 37:    return CL_V_RADIALBLUR(in, w, state, PRM_F[PRM_F_IDX_RADIALBLUR]);
+    #endif
+    #ifdef USE_VAR2_38
+        case 38:    return CL_V_PIE(w, state, PRM_F3[PRM_F3_IDX_PIE]);
+    #endif
+    #ifdef USE_VAR2_39
+        case 39:    return CL_V_ARCH(in, w, state);
+    #endif
+    #ifdef USE_VAR2_40
+        case 40:    return CL_V_TANGENT(in, w);
+    #endif
+    #ifdef USE_VAR2_41
+        case 41:    return CL_V_SQUARE(w, state);
+    #endif
+    #ifdef USE_VAR2_42
+        case 42:    return CL_V_RAYS(in, w, state);
+    #endif
+    #ifdef USE_VAR2_43
+        case 43:    return CL_V_BLADE(in, w, state);
+    #endif
+    #ifdef USE_VAR2_44
+        case 44:    return CL_V_SECANT2(in, w);
+    #endif
+    #ifdef USE_VAR2_45
+        case 45:    return CL_V_TWINTRIAN(in, w, state);
+    #endif
+    #ifdef USE_VAR2_46
+        case 46:    return CL_V_CROSS(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_47
+        case 47:    return CL_V_DISC2(in, w, PRM_F2[PRM_F2_IDX_DISC2], PRM_F3[PRM_F3_IDX_DISC2_PRECALC]);
+    #endif
+    #ifdef USE_VAR2_48
+        case 48:    return CL_V_SUPERSHAPE(in, w, state, PRM_F3[PRM_F3_IDX_SUPERSHAPE], PRM_F3[PRM_F3_IDX_SUPERSHAPEN]);
+    #endif
+    #ifdef USE_VAR2_49
+        case 49:    return CL_V_FLOWER(in, w, state, PRM_F2[PRM_F2_IDX_FLOWER]);
+    #endif
+    #ifdef USE_VAR2_50
+        case 50:    return CL_V_CONIC(in, w, state, PRM_F2[PRM_F2_IDX_CONIC]);
+    #endif
+    #ifdef USE_VAR2_51
+        case 51:    return CL_V_PARABOLA(in, w, state, PRM_F2[PRM_F2_IDX_PARABOLA]);
+    #endif
+    #ifdef USE_VAR2_52
+        case 52:    return CL_V_BENT2(in, w, PRM_F2[PRM_F2_IDX_BENT2]);
+    #endif
+    #ifdef USE_VAR2_53
+        case 53:    return CL_V_BIPOLAR(in, w, PRM_F[PRM_F_IDX_BIPOLARSHIFT]);
+    #endif
+    #ifdef USE_VAR2_54
+        case 54:    return CL_V_BOARDERS(in, w, state);
+    #endif
+    #ifdef USE_VAR2_55
+        case 55:    return CL_V_BUTTERFLY(in, w);
+    #endif
+    #ifdef USE_VAR2_56
+        case 56:    return CL_V_CELL(in, w, PRM_F[PRM_F_IDX_CELLSIZE]);
+    #endif
+    #ifdef USE_VAR2_57
+        case 57:    return CL_V_CPOW(in, w, state, PRM_F3[PRM_F3_IDX_CPOW]);
+    #endif
+    #ifdef USE_VAR2_58
+        case 58:    return CL_V_EDISC(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_59
+        case 59:    return CL_V_ELLIPTIC(in, w);
+    #endif
+    #ifdef USE_VAR2_60
+        case 60:    return CL_V_NOISE(in, w, state);
+    #endif
+    #ifdef USE_VAR2_61
+        case 61:    return CL_V_ESCHER(in, w, F3C, PRM_F[PRM_F_IDX_ESCHERBETA]);
+    #endif
+    #ifdef USE_VAR2_62
+        case 62:    return CL_V_FOCI(in, w);
+    #endif
+    #ifdef USE_VAR2_63
+        case 63:    return CL_V_LAZYSUSAN(in, w, PRM_F3[PRM_F3_IDX_LAZYSUSANSTS], PRM_F2[PRM_F2_IDX_LAZYSUSAN]);
+    #endif
+    #ifdef USE_VAR2_64
+        case 64:    return CL_V_LOONIE(in, w);
+    #endif
+
+        //   65:    return CL_V_PREBLUR(w, state) -> Not dispached but hard coded inside the Chaos Game instead
+
+    #ifdef USE_VAR2_66
+        case 66:    return CL_V_MODULUS(in, w, PRM_F2[PRM_F2_IDX_MODULUS]);
+    #endif
+    #ifdef USE_VAR2_67
+        case 67:    return CL_V_OSCOPE(in, w, PRM_F4[PRM_F4_IDX_OSCOPE]);
+    #endif
+    #ifdef USE_VAR2_68
+        case 68:    return CL_V_POLAR2(in, w);
+    #endif
+    #ifdef USE_VAR2_69
+        case 69:    return CL_V_POPCORN2(in, w, PRM_F[PRM_F_IDX_POPCORN2C], PRM_F2[PRM_F2_IDX_POPCORN2]);
+    #endif
+    #ifdef USE_VAR2_70
+        case 70:    return CL_V_SCRY(in, w);
+    #endif
+    #ifdef USE_VAR2_71
+        case 71:    return CL_V_SEPARATION(in, w, PRM_F2[PRM_F2_IDX_SEPARATION], PRM_F2[PRM_F2_IDX_SEPARATIONIN]);
+    #endif
+    #ifdef USE_VAR2_72
+        case 72:    return CL_V_SPLIT(in, w, PRM_F2[PRM_F2_IDX_SPLIT]);
+    #endif
+    #ifdef USE_VAR2_73
+        case 73:    return CL_V_SPLITS(in, w, PRM_F2[PRM_F2_IDX_SPLITS]);
+    #endif
+    #ifdef USE_VAR2_74
+        case 74:    return CL_V_STRIPES(in, w, PRM_F2[PRM_F2_IDX_STRIPES]);
+    #endif
+    #ifdef USE_VAR2_75
+        case 75:    return CL_V_WEDGE(in, w, PRM_F4[PRM_F4_IDX_WEDGE]);
+    #endif
+    #ifdef USE_VAR2_76
+        case 76:    return CL_V_WEDGEJULIA(in, w, state, PRM_F4[PRM_F4_IDX_WEDGEJULIA]);
+    #endif
+    #ifdef USE_VAR2_77
+        case 77:    return CL_V_WEDGESPH(in, w, PRM_F4[PRM_F4_IDX_WEDGESPH]);
+    #endif
+    #ifdef USE_VAR2_78
+        case 78:    return CL_V_WHORL(in, w, PRM_F2[PRM_F2_IDX_WHORL]);
+    #endif
+    #ifdef USE_VAR2_79
+        case 79:    return CL_V_WAVES2(in, w, PRM_F2[PRM_F2_IDX_WAVES2SCALE], PRM_F2[PRM_F2_IDX_WAVES2FREQ]);
+    #endif
+    #ifdef USE_VAR2_80
+        case 80:    return CL_V_EXP(in, w);
+    #endif
+    #ifdef USE_VAR2_81
+        case 81:    return CL_V_LOG(in, w);
+    #endif
+    #ifdef USE_VAR2_82
+        case 82:    return CL_V_SIN(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_83
+        case 83:    return CL_V_COS(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_84
+        case 84:    return CL_V_TAN(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_85
+        case 85:    return CL_V_SEC(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_86
+        case 86:    return CL_V_CSC(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_87
+        case 87:    return CL_V_COT(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_88
+        case 88:    return CL_V_SINH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_89
+        case 89:    return CL_V_COSH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_90
+        case 90:    return CL_V_TANH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_91
+        case 91:    return CL_V_SECH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_92
+        case 92:    return CL_V_CSCH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_93
+        case 93:    return CL_V_COTH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR2_94
+        case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
+    #endif
+    #ifdef USE_VAR2_95
+        case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
+    #endif
+    #ifdef USE_VAR2_96
+        case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
+    #endif
+    #ifdef USE_VAR2_97
+        case 97:    return CL_V_CURVE(in, w, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
+    #endif
+    #ifdef USE_VAR2_98
+        case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
+    #endif
+    #ifdef USE_VAR2_99
+        case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
+    #endif
+    #ifdef USE_VAR2_100
+        case 100:   return CL_V_HEMISPHERE(in, w);
+    #endif
+    #ifdef USE_VAR2_101
+        case 101:   return CL_V_POLYNOMIAL(in, w, PRM_F2[PRM_F2_IDX_POLYNOMIALPOW], PRM_F2[PRM_F2_IDX_POLYNOMIALLC], PRM_F2[PRM_F2_IDX_POLYNOMIALSC]);
+    #endif
+    #ifdef USE_VAR2_102
+        case 102:   return CL_V_CROP(in, w, state, PRM_F4[PRM_F4_IDX_CROPLTRB], PRM_F2[PRM_F2_IDX_CROP]);
+    #endif
+    #ifdef USE_VAR2_103
+        case 103:   return CL_V_UNPOLAR(in, w);
+    #endif
+    #ifdef USE_VAR2_104
+        case 104:   return CL_V_GLYNNIA(in, w, state);
+    #endif
+    #ifdef USE_VAR2_105
+        case 105:   return CL_V_POINT_SYMMETRY(in, w, state, PRM_F3[PRM_F3_IDX_PTSYM]);
+    #endif
+#endif
+
+    default:    return w * in;
+    }
+}
+
+// ----------------------------
+// CL FLAM3 variations dispatch
+//
+// SPECIALIZE VAR3
+//
+// Each iterations of the chaos game will select one iterator (aka: xforms or tranforms) and exectute all its variations to be applied to the incoming point/sample.
+// The dispatch will take care of finding the iterator's variations and execute them.
+//
+// ----------------------------
+
+__attribute__((always_inline)) inline 
+static float2 CL_V_DISPATCH_VAR3(
+    const int     type, 
+    const float2  in, 
+    const float   w, 
+    const float2  y,
+    const float2  o, 
+    const int     F3C, 
+    rng_state_t* restrict state, 
+    __local const float*    PRM_F, 
+    __local const float2*   PRM_F2, 
+    __local const float4*   PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
+    __local const float4*   PRM_F4 
+    )
+{
+    switch(type)
+    {
+#ifdef USE_SPECIALIZE
+    #ifdef USE_VAR3_0
+        case 0:     return CL_V_LINEAR(in, w);
+    #endif
+    #ifdef USE_VAR3_1
+        case 1:     return CL_V_SINUSOIDAL(in, w);
+    #endif
+    #ifdef USE_VAR3_2
+        case 2:     return CL_V_SPHERICAL(in, w);
+    #endif
+    #ifdef USE_VAR3_3
+        case 3:     return CL_V_SWIRL(in, w);
+    #endif
+    #ifdef USE_VAR3_4
+        case 4:     return CL_V_HORSESHOE(in, w);
+    #endif
+    #ifdef USE_VAR3_5
+        case 5:     return CL_V_POLAR(in, w);
+    #endif
+    #ifdef USE_VAR3_6
+        case 6:     return CL_V_HANDKERCHIEF(in, w);
+    #endif
+    #ifdef USE_VAR3_7
+        case 7:     return CL_V_HEART(in, w);
+    #endif
+    #ifdef USE_VAR3_8
+        case 8:     return CL_V_DISC(in, w);
+    #endif
+    #ifdef USE_VAR3_9
+        case 9:     return CL_V_SPIRAL(in, w);
+    #endif
+    #ifdef USE_VAR3_10
+        case 10:    return CL_V_HIPERBOLIC(in, w);
+    #endif
+    #ifdef USE_VAR3_11
+        case 11:    return CL_V_DIAMOND(in, w);
+    #endif
+    #ifdef USE_VAR3_12
+        case 12:    return CL_V_EX(in, w);
+    #endif
+    #ifdef USE_VAR3_13
+        case 13:    return CL_V_JULIA(in, w, state);
+    #endif
+    #ifdef USE_VAR3_14
+        case 14:    return CL_V_BENT(in, w);
+    #endif
+    #ifdef USE_VAR3_15
+        case 15:    return CL_V_WAVES(in, w, y.x, o.x, y.y, o.y);
+    #endif
+    #ifdef USE_VAR3_16
+        case 16:    return CL_V_FISHEYE(in, w);
+    #endif
+    #ifdef USE_VAR3_17
+        case 17:    return CL_V_POPCORN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_VAR3_18
+        case 18:    return CL_V_EXPONENTIAL(in, w);
+    #endif
+    #ifdef USE_VAR3_19
+        case 19:    return CL_V_POWER(in, w);
+    #endif
+    #ifdef USE_VAR3_20
+        case 20:    return CL_V_COSINE(in, w);
+    #endif
+    #ifdef USE_VAR3_21
+        case 21:    return CL_V_RINGS(in, w, o.x);
+    #endif
+    #ifdef USE_VAR3_22
+        case 22:    return CL_V_FAN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_VAR3_23
+        case 23:    return CL_V_BUBBLE(in, w);
+    #endif
+    #ifdef USE_VAR3_24
+        case 24:    return CL_V_CYLINDER(in, w);
+    #endif
+    #ifdef USE_VAR3_25
+        case 25:    return CL_V_EYEFISH(in, w);
+    #endif
+    #ifdef USE_VAR3_26
+        case 26:    return CL_V_BLUR(w, state);
+    #endif
+    #ifdef USE_VAR3_27
+        case 27:    return CL_V_CURL(in, w, PRM_F2[PRM_F2_IDX_CURL]);
+    #endif
+    #ifdef USE_VAR3_28
+        case 28:    return CL_V_NGON(in, w, PRM_F4[PRM_F4_IDX_NGON], PRM_F4[PRM_F4_IDX_NGON_PRECALC]);
+    #endif
+    #ifdef USE_VAR3_29
+        case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
+    #endif
+    #ifdef USE_VAR3_30
+        case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
+    #endif
+    #ifdef USE_VAR3_31
+        case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
+    #endif
+    #ifdef USE_VAR3_32
+        case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
+    #endif
+    #ifdef USE_VAR3_33
+        case 33:    return CL_V_GAUSSIAN_BLUR(w, state);
+    #endif
+    #ifdef USE_VAR3_34
+        case 34:    return CL_V_FAN2(in, w, F3C, PRM_F2[PRM_F2_IDX_FAN2]);
+    #endif
+    #ifdef USE_VAR3_35
+        case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
+    #endif
+    #ifdef USE_VAR3_36
+        case 36:    return CL_V_RECTANGLES(in, w, PRM_F2[PRM_F2_IDX_RECTANGLES]);
+    #endif
+    #ifdef USE_VAR3_37
+        case 37:    return CL_V_RADIALBLUR(in, w, state, PRM_F[PRM_F_IDX_RADIALBLUR]);
+    #endif
+    #ifdef USE_VAR3_38
+        case 38:    return CL_V_PIE(w, state, PRM_F3[PRM_F3_IDX_PIE]);
+    #endif
+    #ifdef USE_VAR3_39
+        case 39:    return CL_V_ARCH(in, w, state);
+    #endif
+    #ifdef USE_VAR3_40
+        case 40:    return CL_V_TANGENT(in, w);
+    #endif
+    #ifdef USE_VAR3_41
+        case 41:    return CL_V_SQUARE(w, state);
+    #endif
+    #ifdef USE_VAR3_42
+        case 42:    return CL_V_RAYS(in, w, state);
+    #endif
+    #ifdef USE_VAR3_43
+        case 43:    return CL_V_BLADE(in, w, state);
+    #endif
+    #ifdef USE_VAR3_44
+        case 44:    return CL_V_SECANT2(in, w);
+    #endif
+    #ifdef USE_VAR3_45
+        case 45:    return CL_V_TWINTRIAN(in, w, state);
+    #endif
+    #ifdef USE_VAR3_46
+        case 46:    return CL_V_CROSS(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_47
+        case 47:    return CL_V_DISC2(in, w, PRM_F2[PRM_F2_IDX_DISC2], PRM_F3[PRM_F3_IDX_DISC2_PRECALC]);
+    #endif
+    #ifdef USE_VAR3_48
+        case 48:    return CL_V_SUPERSHAPE(in, w, state, PRM_F3[PRM_F3_IDX_SUPERSHAPE], PRM_F3[PRM_F3_IDX_SUPERSHAPEN]);
+    #endif
+    #ifdef USE_VAR3_49
+        case 49:    return CL_V_FLOWER(in, w, state, PRM_F2[PRM_F2_IDX_FLOWER]);
+    #endif
+    #ifdef USE_VAR3_50
+        case 50:    return CL_V_CONIC(in, w, state, PRM_F2[PRM_F2_IDX_CONIC]);
+    #endif
+    #ifdef USE_VAR3_51
+        case 51:    return CL_V_PARABOLA(in, w, state, PRM_F2[PRM_F2_IDX_PARABOLA]);
+    #endif
+    #ifdef USE_VAR3_52
+        case 52:    return CL_V_BENT2(in, w, PRM_F2[PRM_F2_IDX_BENT2]);
+    #endif
+    #ifdef USE_VAR3_53
+        case 53:    return CL_V_BIPOLAR(in, w, PRM_F[PRM_F_IDX_BIPOLARSHIFT]);
+    #endif
+    #ifdef USE_VAR3_54
+        case 54:    return CL_V_BOARDERS(in, w, state);
+    #endif
+    #ifdef USE_VAR3_55
+        case 55:    return CL_V_BUTTERFLY(in, w);
+    #endif
+    #ifdef USE_VAR3_56
+        case 56:    return CL_V_CELL(in, w, PRM_F[PRM_F_IDX_CELLSIZE]);
+    #endif
+    #ifdef USE_VAR3_57
+        case 57:    return CL_V_CPOW(in, w, state, PRM_F3[PRM_F3_IDX_CPOW]);
+    #endif
+    #ifdef USE_VAR3_58
+        case 58:    return CL_V_EDISC(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_59
+        case 59:    return CL_V_ELLIPTIC(in, w);
+    #endif
+    #ifdef USE_VAR3_60
+        case 60:    return CL_V_NOISE(in, w, state);
+    #endif
+    #ifdef USE_VAR3_61
+        case 61:    return CL_V_ESCHER(in, w, F3C, PRM_F[PRM_F_IDX_ESCHERBETA]);
+    #endif
+    #ifdef USE_VAR3_62
+        case 62:    return CL_V_FOCI(in, w);
+    #endif
+    #ifdef USE_VAR3_63
+        case 63:    return CL_V_LAZYSUSAN(in, w, PRM_F3[PRM_F3_IDX_LAZYSUSANSTS], PRM_F2[PRM_F2_IDX_LAZYSUSAN]);
+    #endif
+    #ifdef USE_VAR3_64
+        case 64:    return CL_V_LOONIE(in, w);
+    #endif
+
+        //   65:    return CL_V_PREBLUR(w, state) -> Not dispached but hard coded inside the Chaos Game instead
+
+    #ifdef USE_VAR3_66
+        case 66:    return CL_V_MODULUS(in, w, PRM_F2[PRM_F2_IDX_MODULUS]);
+    #endif
+    #ifdef USE_VAR3_67
+        case 67:    return CL_V_OSCOPE(in, w, PRM_F4[PRM_F4_IDX_OSCOPE]);
+    #endif
+    #ifdef USE_VAR3_68
+        case 68:    return CL_V_POLAR2(in, w);
+    #endif
+    #ifdef USE_VAR3_69
+        case 69:    return CL_V_POPCORN2(in, w, PRM_F[PRM_F_IDX_POPCORN2C], PRM_F2[PRM_F2_IDX_POPCORN2]);
+    #endif
+    #ifdef USE_VAR3_70
+        case 70:    return CL_V_SCRY(in, w);
+    #endif
+    #ifdef USE_VAR3_71
+        case 71:    return CL_V_SEPARATION(in, w, PRM_F2[PRM_F2_IDX_SEPARATION], PRM_F2[PRM_F2_IDX_SEPARATIONIN]);
+    #endif
+    #ifdef USE_VAR3_72
+        case 72:    return CL_V_SPLIT(in, w, PRM_F2[PRM_F2_IDX_SPLIT]);
+    #endif
+    #ifdef USE_VAR3_73
+        case 73:    return CL_V_SPLITS(in, w, PRM_F2[PRM_F2_IDX_SPLITS]);
+    #endif
+    #ifdef USE_VAR3_74
+        case 74:    return CL_V_STRIPES(in, w, PRM_F2[PRM_F2_IDX_STRIPES]);
+    #endif
+    #ifdef USE_VAR3_75
+        case 75:    return CL_V_WEDGE(in, w, PRM_F4[PRM_F4_IDX_WEDGE]);
+    #endif
+    #ifdef USE_VAR3_76
+        case 76:    return CL_V_WEDGEJULIA(in, w, state, PRM_F4[PRM_F4_IDX_WEDGEJULIA]);
+    #endif
+    #ifdef USE_VAR3_77
+        case 77:    return CL_V_WEDGESPH(in, w, PRM_F4[PRM_F4_IDX_WEDGESPH]);
+    #endif
+    #ifdef USE_VAR3_78
+        case 78:    return CL_V_WHORL(in, w, PRM_F2[PRM_F2_IDX_WHORL]);
+    #endif
+    #ifdef USE_VAR3_79
+        case 79:    return CL_V_WAVES2(in, w, PRM_F2[PRM_F2_IDX_WAVES2SCALE], PRM_F2[PRM_F2_IDX_WAVES2FREQ]);
+    #endif
+    #ifdef USE_VAR3_80
+        case 80:    return CL_V_EXP(in, w);
+    #endif
+    #ifdef USE_VAR3_81
+        case 81:    return CL_V_LOG(in, w);
+    #endif
+    #ifdef USE_VAR3_82
+        case 82:    return CL_V_SIN(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_83
+        case 83:    return CL_V_COS(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_84
+        case 84:    return CL_V_TAN(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_85
+        case 85:    return CL_V_SEC(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_86
+        case 86:    return CL_V_CSC(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_87
+        case 87:    return CL_V_COT(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_88
+        case 88:    return CL_V_SINH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_89
+        case 89:    return CL_V_COSH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_90
+        case 90:    return CL_V_TANH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_91
+        case 91:    return CL_V_SECH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_92
+        case 92:    return CL_V_CSCH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_93
+        case 93:    return CL_V_COTH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR3_94
+        case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
+    #endif
+    #ifdef USE_VAR3_95
+        case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
+    #endif
+    #ifdef USE_VAR3_96
+        case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
+    #endif
+    #ifdef USE_VAR3_97
+        case 97:    return CL_V_CURVE(in, w, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
+    #endif
+    #ifdef USE_VAR3_98
+        case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
+    #endif
+    #ifdef USE_VAR3_99
+        case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
+    #endif
+    #ifdef USE_VAR3_100
+        case 100:   return CL_V_HEMISPHERE(in, w);
+    #endif
+    #ifdef USE_VAR3_101
+        case 101:   return CL_V_POLYNOMIAL(in, w, PRM_F2[PRM_F2_IDX_POLYNOMIALPOW], PRM_F2[PRM_F2_IDX_POLYNOMIALLC], PRM_F2[PRM_F2_IDX_POLYNOMIALSC]);
+    #endif
+    #ifdef USE_VAR3_102
+        case 102:   return CL_V_CROP(in, w, state, PRM_F4[PRM_F4_IDX_CROPLTRB], PRM_F2[PRM_F2_IDX_CROP]);
+    #endif
+    #ifdef USE_VAR3_103
+        case 103:   return CL_V_UNPOLAR(in, w);
+    #endif
+    #ifdef USE_VAR3_104
+        case 104:   return CL_V_GLYNNIA(in, w, state);
+    #endif
+    #ifdef USE_VAR3_105
+        case 105:   return CL_V_POINT_SYMMETRY(in, w, state, PRM_F3[PRM_F3_IDX_PTSYM]);
+    #endif
+#endif
+
+    default:    return w * in;
+    }
+}
+
+// ----------------------------
+// CL FLAM3 variations dispatch
+//
+// SPECIALIZE VAR4
+//
+// Each iterations of the chaos game will select one iterator (aka: xforms or tranforms) and exectute all its variations to be applied to the incoming point/sample.
+// The dispatch will take care of finding the iterator's variations and execute them.
+//
+// ----------------------------
+
+__attribute__((always_inline)) inline 
+static float2 CL_V_DISPATCH_VAR4(
+    const int     type, 
+    const float2  in, 
+    const float   w, 
+    const float2  y,
+    const float2  o, 
+    const int     F3C, 
+    rng_state_t* restrict state, 
+    __local const float*    PRM_F, 
+    __local const float2*   PRM_F2, 
+    __local const float4*   PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
+    __local const float4*   PRM_F4 
+    )
+{
+    switch(type)
+    {
+#ifdef USE_SPECIALIZE
+    #ifdef USE_VAR4_0
+        case 0:     return CL_V_LINEAR(in, w);
+    #endif
+    #ifdef USE_VAR4_1
+        case 1:     return CL_V_SINUSOIDAL(in, w);
+    #endif
+    #ifdef USE_VAR4_2
+        case 2:     return CL_V_SPHERICAL(in, w);
+    #endif
+    #ifdef USE_VAR4_3
+        case 3:     return CL_V_SWIRL(in, w);
+    #endif
+    #ifdef USE_VAR4_4
+        case 4:     return CL_V_HORSESHOE(in, w);
+    #endif
+    #ifdef USE_VAR4_5
+        case 5:     return CL_V_POLAR(in, w);
+    #endif
+    #ifdef USE_VAR4_6
+        case 6:     return CL_V_HANDKERCHIEF(in, w);
+    #endif
+    #ifdef USE_VAR4_7
+        case 7:     return CL_V_HEART(in, w);
+    #endif
+    #ifdef USE_VAR4_8
+        case 8:     return CL_V_DISC(in, w);
+    #endif
+    #ifdef USE_VAR4_9
+        case 9:     return CL_V_SPIRAL(in, w);
+    #endif
+    #ifdef USE_VAR4_10
+        case 10:    return CL_V_HIPERBOLIC(in, w);
+    #endif
+    #ifdef USE_VAR4_11
+        case 11:    return CL_V_DIAMOND(in, w);
+    #endif
+    #ifdef USE_VAR4_12
+        case 12:    return CL_V_EX(in, w);
+    #endif
+    #ifdef USE_VAR4_13
+        case 13:    return CL_V_JULIA(in, w, state);
+    #endif
+    #ifdef USE_VAR4_14
+        case 14:    return CL_V_BENT(in, w);
+    #endif
+    #ifdef USE_VAR4_15
+        case 15:    return CL_V_WAVES(in, w, y.x, o.x, y.y, o.y);
+    #endif
+    #ifdef USE_VAR4_16
+        case 16:    return CL_V_FISHEYE(in, w);
+    #endif
+    #ifdef USE_VAR4_17
+        case 17:    return CL_V_POPCORN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_VAR4_18
+        case 18:    return CL_V_EXPONENTIAL(in, w);
+    #endif
+    #ifdef USE_VAR4_19
+        case 19:    return CL_V_POWER(in, w);
+    #endif
+    #ifdef USE_VAR4_20
+        case 20:    return CL_V_COSINE(in, w);
+    #endif
+    #ifdef USE_VAR4_21
+        case 21:    return CL_V_RINGS(in, w, o.x);
+    #endif
+    #ifdef USE_VAR4_22
+        case 22:    return CL_V_FAN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_VAR4_23
+        case 23:    return CL_V_BUBBLE(in, w);
+    #endif
+    #ifdef USE_VAR4_24
+        case 24:    return CL_V_CYLINDER(in, w);
+    #endif
+    #ifdef USE_VAR4_25
+        case 25:    return CL_V_EYEFISH(in, w);
+    #endif
+    #ifdef USE_VAR4_26
+        case 26:    return CL_V_BLUR(w, state);
+    #endif
+    #ifdef USE_VAR4_27
+        case 27:    return CL_V_CURL(in, w, PRM_F2[PRM_F2_IDX_CURL]);
+    #endif
+    #ifdef USE_VAR4_28
+        case 28:    return CL_V_NGON(in, w, PRM_F4[PRM_F4_IDX_NGON], PRM_F4[PRM_F4_IDX_NGON_PRECALC]);
+    #endif
+    #ifdef USE_VAR4_29
+        case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
+    #endif
+    #ifdef USE_VAR4_30
+        case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
+    #endif
+    #ifdef USE_VAR4_31
+        case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
+    #endif
+    #ifdef USE_VAR4_32
+        case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
+    #endif
+    #ifdef USE_VAR4_33
+        case 33:    return CL_V_GAUSSIAN_BLUR(w, state);
+    #endif
+    #ifdef USE_VAR4_34
+        case 34:    return CL_V_FAN2(in, w, F3C, PRM_F2[PRM_F2_IDX_FAN2]);
+    #endif
+    #ifdef USE_VAR4_35
+        case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
+    #endif
+    #ifdef USE_VAR4_36
+        case 36:    return CL_V_RECTANGLES(in, w, PRM_F2[PRM_F2_IDX_RECTANGLES]);
+    #endif
+    #ifdef USE_VAR4_37
+        case 37:    return CL_V_RADIALBLUR(in, w, state, PRM_F[PRM_F_IDX_RADIALBLUR]);
+    #endif
+    #ifdef USE_VAR4_38
+        case 38:    return CL_V_PIE(w, state, PRM_F3[PRM_F3_IDX_PIE]);
+    #endif
+    #ifdef USE_VAR4_39
+        case 39:    return CL_V_ARCH(in, w, state);
+    #endif
+    #ifdef USE_VAR4_40
+        case 40:    return CL_V_TANGENT(in, w);
+    #endif
+    #ifdef USE_VAR4_41
+        case 41:    return CL_V_SQUARE(w, state);
+    #endif
+    #ifdef USE_VAR4_42
+        case 42:    return CL_V_RAYS(in, w, state);
+    #endif
+    #ifdef USE_VAR4_43
+        case 43:    return CL_V_BLADE(in, w, state);
+    #endif
+    #ifdef USE_VAR4_44
+        case 44:    return CL_V_SECANT2(in, w);
+    #endif
+    #ifdef USE_VAR4_45
+        case 45:    return CL_V_TWINTRIAN(in, w, state);
+    #endif
+    #ifdef USE_VAR4_46
+        case 46:    return CL_V_CROSS(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_47
+        case 47:    return CL_V_DISC2(in, w, PRM_F2[PRM_F2_IDX_DISC2], PRM_F3[PRM_F3_IDX_DISC2_PRECALC]);
+    #endif
+    #ifdef USE_VAR4_48
+        case 48:    return CL_V_SUPERSHAPE(in, w, state, PRM_F3[PRM_F3_IDX_SUPERSHAPE], PRM_F3[PRM_F3_IDX_SUPERSHAPEN]);
+    #endif
+    #ifdef USE_VAR4_49
+        case 49:    return CL_V_FLOWER(in, w, state, PRM_F2[PRM_F2_IDX_FLOWER]);
+    #endif
+    #ifdef USE_VAR4_50
+        case 50:    return CL_V_CONIC(in, w, state, PRM_F2[PRM_F2_IDX_CONIC]);
+    #endif
+    #ifdef USE_VAR4_51
+        case 51:    return CL_V_PARABOLA(in, w, state, PRM_F2[PRM_F2_IDX_PARABOLA]);
+    #endif
+    #ifdef USE_VAR4_52
+        case 52:    return CL_V_BENT2(in, w, PRM_F2[PRM_F2_IDX_BENT2]);
+    #endif
+    #ifdef USE_VAR4_53
+        case 53:    return CL_V_BIPOLAR(in, w, PRM_F[PRM_F_IDX_BIPOLARSHIFT]);
+    #endif
+    #ifdef USE_VAR4_54
+        case 54:    return CL_V_BOARDERS(in, w, state);
+    #endif
+    #ifdef USE_VAR4_55
+        case 55:    return CL_V_BUTTERFLY(in, w);
+    #endif
+    #ifdef USE_VAR4_56
+        case 56:    return CL_V_CELL(in, w, PRM_F[PRM_F_IDX_CELLSIZE]);
+    #endif
+    #ifdef USE_VAR4_57
+        case 57:    return CL_V_CPOW(in, w, state, PRM_F3[PRM_F3_IDX_CPOW]);
+    #endif
+    #ifdef USE_VAR4_58
+        case 58:    return CL_V_EDISC(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_59
+        case 59:    return CL_V_ELLIPTIC(in, w);
+    #endif
+    #ifdef USE_VAR4_60
+        case 60:    return CL_V_NOISE(in, w, state);
+    #endif
+    #ifdef USE_VAR4_61
+        case 61:    return CL_V_ESCHER(in, w, F3C, PRM_F[PRM_F_IDX_ESCHERBETA]);
+    #endif
+    #ifdef USE_VAR4_62
+        case 62:    return CL_V_FOCI(in, w);
+    #endif
+    #ifdef USE_VAR4_63
+        case 63:    return CL_V_LAZYSUSAN(in, w, PRM_F3[PRM_F3_IDX_LAZYSUSANSTS], PRM_F2[PRM_F2_IDX_LAZYSUSAN]);
+    #endif
+    #ifdef USE_VAR4_64
+        case 64:    return CL_V_LOONIE(in, w);
+    #endif
+
+        //   65:    return CL_V_PREBLUR(w, state) -> Not dispached but hard coded inside the Chaos Game instead
+
+    #ifdef USE_VAR4_66
+        case 66:    return CL_V_MODULUS(in, w, PRM_F2[PRM_F2_IDX_MODULUS]);
+    #endif
+    #ifdef USE_VAR4_67
+        case 67:    return CL_V_OSCOPE(in, w, PRM_F4[PRM_F4_IDX_OSCOPE]);
+    #endif
+    #ifdef USE_VAR4_68
+        case 68:    return CL_V_POLAR2(in, w);
+    #endif
+    #ifdef USE_VAR4_69
+        case 69:    return CL_V_POPCORN2(in, w, PRM_F[PRM_F_IDX_POPCORN2C], PRM_F2[PRM_F2_IDX_POPCORN2]);
+    #endif
+    #ifdef USE_VAR4_70
+        case 70:    return CL_V_SCRY(in, w);
+    #endif
+    #ifdef USE_VAR4_71
+        case 71:    return CL_V_SEPARATION(in, w, PRM_F2[PRM_F2_IDX_SEPARATION], PRM_F2[PRM_F2_IDX_SEPARATIONIN]);
+    #endif
+    #ifdef USE_VAR4_72
+        case 72:    return CL_V_SPLIT(in, w, PRM_F2[PRM_F2_IDX_SPLIT]);
+    #endif
+    #ifdef USE_VAR4_73
+        case 73:    return CL_V_SPLITS(in, w, PRM_F2[PRM_F2_IDX_SPLITS]);
+    #endif
+    #ifdef USE_VAR4_74
+        case 74:    return CL_V_STRIPES(in, w, PRM_F2[PRM_F2_IDX_STRIPES]);
+    #endif
+    #ifdef USE_VAR4_75
+        case 75:    return CL_V_WEDGE(in, w, PRM_F4[PRM_F4_IDX_WEDGE]);
+    #endif
+    #ifdef USE_VAR4_76
+        case 76:    return CL_V_WEDGEJULIA(in, w, state, PRM_F4[PRM_F4_IDX_WEDGEJULIA]);
+    #endif
+    #ifdef USE_VAR4_77
+        case 77:    return CL_V_WEDGESPH(in, w, PRM_F4[PRM_F4_IDX_WEDGESPH]);
+    #endif
+    #ifdef USE_VAR4_78
+        case 78:    return CL_V_WHORL(in, w, PRM_F2[PRM_F2_IDX_WHORL]);
+    #endif
+    #ifdef USE_VAR4_79
+        case 79:    return CL_V_WAVES2(in, w, PRM_F2[PRM_F2_IDX_WAVES2SCALE], PRM_F2[PRM_F2_IDX_WAVES2FREQ]);
+    #endif
+    #ifdef USE_VAR4_80
+        case 80:    return CL_V_EXP(in, w);
+    #endif
+    #ifdef USE_VAR4_81
+        case 81:    return CL_V_LOG(in, w);
+    #endif
+    #ifdef USE_VAR4_82
+        case 82:    return CL_V_SIN(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_83
+        case 83:    return CL_V_COS(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_84
+        case 84:    return CL_V_TAN(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_85
+        case 85:    return CL_V_SEC(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_86
+        case 86:    return CL_V_CSC(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_87
+        case 87:    return CL_V_COT(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_88
+        case 88:    return CL_V_SINH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_89
+        case 89:    return CL_V_COSH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_90
+        case 90:    return CL_V_TANH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_91
+        case 91:    return CL_V_SECH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_92
+        case 92:    return CL_V_CSCH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_93
+        case 93:    return CL_V_COTH(in, w, F3C);
+    #endif
+    #ifdef USE_VAR4_94
+        case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
+    #endif
+    #ifdef USE_VAR4_95
+        case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
+    #endif
+    #ifdef USE_VAR4_96
+        case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
+    #endif
+    #ifdef USE_VAR4_97
+        case 97:    return CL_V_CURVE(in, w, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
+    #endif
+    #ifdef USE_VAR4_98
+        case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
+    #endif
+    #ifdef USE_VAR4_99
+        case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
+    #endif
+    #ifdef USE_VAR4_100
+        case 100:   return CL_V_HEMISPHERE(in, w);
+    #endif
+    #ifdef USE_VAR4_101
+        case 101:   return CL_V_POLYNOMIAL(in, w, PRM_F2[PRM_F2_IDX_POLYNOMIALPOW], PRM_F2[PRM_F2_IDX_POLYNOMIALLC], PRM_F2[PRM_F2_IDX_POLYNOMIALSC]);
+    #endif
+    #ifdef USE_VAR4_102
+        case 102:   return CL_V_CROP(in, w, state, PRM_F4[PRM_F4_IDX_CROPLTRB], PRM_F2[PRM_F2_IDX_CROP]);
+    #endif
+    #ifdef USE_VAR4_103
+        case 103:   return CL_V_UNPOLAR(in, w);
+    #endif
+    #ifdef USE_VAR4_104
+        case 104:   return CL_V_GLYNNIA(in, w, state);
+    #endif
+    #ifdef USE_VAR4_105
+        case 105:   return CL_V_POINT_SYMMETRY(in, w, state, PRM_F3[PRM_F3_IDX_PTSYM]);
+    #endif
+#endif
+
+    default:    return w * in;
+    }
+}
+
+// ----------------------------
+// CL FLAM3 variations dispatch
+//
+// SPECIALIZE POST1
+//
+// Each iterations of the chaos game will select one iterator (aka: xforms or tranforms) and exectute all its variations to be applied to the incoming point/sample.
+// The dispatch will take care of finding the iterator's variations and execute them.
+//
+// ----------------------------
+
+__attribute__((always_inline)) inline 
+static float2 CL_V_DISPATCH_POST1(
+    const int     type, 
+    const float2  in, 
+    const float   w, 
+    const float2  y,
+    const float2  o, 
+    const int     F3C, 
+    rng_state_t* restrict state, 
+    __local const float*    PRM_F, 
+    __local const float2*   PRM_F2, 
+    __local const float4*   PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
+    __local const float4*   PRM_F4 
+    )
+{
+    switch(type)
+    {
+#ifdef USE_SPECIALIZE
+    #ifdef USE_POST1_0
+        case 0:     return CL_V_LINEAR(in, w);
+    #endif
+    #ifdef USE_POST1_1
+        case 1:     return CL_V_SINUSOIDAL(in, w);
+    #endif
+    #ifdef USE_POST1_2
+        case 2:     return CL_V_SPHERICAL(in, w);
+    #endif
+    #ifdef USE_POST1_3
+        case 3:     return CL_V_SWIRL(in, w);
+    #endif
+    #ifdef USE_POST1_4
+        case 4:     return CL_V_HORSESHOE(in, w);
+    #endif
+    #ifdef USE_POST1_5
+        case 5:     return CL_V_POLAR(in, w);
+    #endif
+    #ifdef USE_POST1_6
+        case 6:     return CL_V_HANDKERCHIEF(in, w);
+    #endif
+    #ifdef USE_POST1_7
+        case 7:     return CL_V_HEART(in, w);
+    #endif
+    #ifdef USE_POST1_8
+        case 8:     return CL_V_DISC(in, w);
+    #endif
+    #ifdef USE_POST1_9
+        case 9:     return CL_V_SPIRAL(in, w);
+    #endif
+    #ifdef USE_POST1_10
+        case 10:    return CL_V_HIPERBOLIC(in, w);
+    #endif
+    #ifdef USE_POST1_11
+        case 11:    return CL_V_DIAMOND(in, w);
+    #endif
+    #ifdef USE_POST1_12
+        case 12:    return CL_V_EX(in, w);
+    #endif
+    #ifdef USE_POST1_13
+        case 13:    return CL_V_JULIA(in, w, state);
+    #endif
+    #ifdef USE_POST1_14
+        case 14:    return CL_V_BENT(in, w);
+    #endif
+    #ifdef USE_POST1_15
+        case 15:    return CL_V_WAVES(in, w, y.x, o.x, y.y, o.y);
+    #endif
+    #ifdef USE_POST1_16
+        case 16:    return CL_V_FISHEYE(in, w);
+    #endif
+    #ifdef USE_POST1_17
+        case 17:    return CL_V_POPCORN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_POST1_18
+        case 18:    return CL_V_EXPONENTIAL(in, w);
+    #endif
+    #ifdef USE_POST1_19
+        case 19:    return CL_V_POWER(in, w);
+    #endif
+    #ifdef USE_POST1_20
+        case 20:    return CL_V_COSINE(in, w);
+    #endif
+    #ifdef USE_POST1_21
+        case 21:    return CL_V_RINGS(in, w, o.x);
+    #endif
+    #ifdef USE_POST1_22
+        case 22:    return CL_V_FAN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_POST1_23
+        case 23:    return CL_V_BUBBLE(in, w);
+    #endif
+    #ifdef USE_POST1_24
+        case 24:    return CL_V_CYLINDER(in, w);
+    #endif
+    #ifdef USE_POST1_25
+        case 25:    return CL_V_EYEFISH(in, w);
+    #endif
+    #ifdef USE_POST1_26
+        case 26:    return CL_V_BLUR(w, state);
+    #endif
+    #ifdef USE_POST1_27
+        case 27:    return CL_V_CURL(in, w, PRM_F2[PRM_F2_IDX_CURL]);
+    #endif
+    #ifdef USE_POST1_28
+        case 28:    return CL_V_NGON(in, w, PRM_F4[PRM_F4_IDX_NGON], PRM_F4[PRM_F4_IDX_NGON_PRECALC]);
+    #endif
+    #ifdef USE_POST1_29
+        case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
+    #endif
+    #ifdef USE_POST1_30
+        case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
+    #endif
+    #ifdef USE_POST1_31
+        case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
+    #endif
+    #ifdef USE_POST1_32
+        case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
+    #endif
+    #ifdef USE_POST1_33
+        case 33:    return CL_V_GAUSSIAN_BLUR(w, state);
+    #endif
+    #ifdef USE_POST1_34
+        case 34:    return CL_V_FAN2(in, w, F3C, PRM_F2[PRM_F2_IDX_FAN2]);
+    #endif
+    #ifdef USE_POST1_35
+        case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
+    #endif
+    #ifdef USE_POST1_36
+        case 36:    return CL_V_RECTANGLES(in, w, PRM_F2[PRM_F2_IDX_RECTANGLES]);
+    #endif
+    #ifdef USE_POST1_37
+        case 37:    return CL_V_RADIALBLUR(in, w, state, PRM_F[PRM_F_IDX_RADIALBLUR]);
+    #endif
+    #ifdef USE_POST1_38
+        case 38:    return CL_V_PIE(w, state, PRM_F3[PRM_F3_IDX_PIE]);
+    #endif
+    #ifdef USE_POST1_39
+        case 39:    return CL_V_ARCH(in, w, state);
+    #endif
+    #ifdef USE_POST1_40
+        case 40:    return CL_V_TANGENT(in, w);
+    #endif
+    #ifdef USE_POST1_41
+        case 41:    return CL_V_SQUARE(w, state);
+    #endif
+    #ifdef USE_POST1_42
+        case 42:    return CL_V_RAYS(in, w, state);
+    #endif
+    #ifdef USE_POST1_43
+        case 43:    return CL_V_BLADE(in, w, state);
+    #endif
+    #ifdef USE_POST1_44
+        case 44:    return CL_V_SECANT2(in, w);
+    #endif
+    #ifdef USE_POST1_45
+        case 45:    return CL_V_TWINTRIAN(in, w, state);
+    #endif
+    #ifdef USE_POST1_46
+        case 46:    return CL_V_CROSS(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_47
+        case 47:    return CL_V_DISC2(in, w, PRM_F2[PRM_F2_IDX_DISC2], PRM_F3[PRM_F3_IDX_DISC2_PRECALC]);
+    #endif
+    #ifdef USE_POST1_48
+        case 48:    return CL_V_SUPERSHAPE(in, w, state, PRM_F3[PRM_F3_IDX_SUPERSHAPE], PRM_F3[PRM_F3_IDX_SUPERSHAPEN]);
+    #endif
+    #ifdef USE_POST1_49
+        case 49:    return CL_V_FLOWER(in, w, state, PRM_F2[PRM_F2_IDX_FLOWER]);
+    #endif
+    #ifdef USE_POST1_50
+        case 50:    return CL_V_CONIC(in, w, state, PRM_F2[PRM_F2_IDX_CONIC]);
+    #endif
+    #ifdef USE_POST1_51
+        case 51:    return CL_V_PARABOLA(in, w, state, PRM_F2[PRM_F2_IDX_PARABOLA]);
+    #endif
+    #ifdef USE_POST1_52
+        case 52:    return CL_V_BENT2(in, w, PRM_F2[PRM_F2_IDX_BENT2]);
+    #endif
+    #ifdef USE_POST1_53
+        case 53:    return CL_V_BIPOLAR(in, w, PRM_F[PRM_F_IDX_BIPOLARSHIFT]);
+    #endif
+    #ifdef USE_POST1_54
+        case 54:    return CL_V_BOARDERS(in, w, state);
+    #endif
+    #ifdef USE_POST1_55
+        case 55:    return CL_V_BUTTERFLY(in, w);
+    #endif
+    #ifdef USE_POST1_56
+        case 56:    return CL_V_CELL(in, w, PRM_F[PRM_F_IDX_CELLSIZE]);
+    #endif
+    #ifdef USE_POST1_57
+        case 57:    return CL_V_CPOW(in, w, state, PRM_F3[PRM_F3_IDX_CPOW]);
+    #endif
+    #ifdef USE_POST1_58
+        case 58:    return CL_V_EDISC(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_59
+        case 59:    return CL_V_ELLIPTIC(in, w);
+    #endif
+    #ifdef USE_POST1_60
+        case 60:    return CL_V_NOISE(in, w, state);
+    #endif
+    #ifdef USE_POST1_61
+        case 61:    return CL_V_ESCHER(in, w, F3C, PRM_F[PRM_F_IDX_ESCHERBETA]);
+    #endif
+    #ifdef USE_POST1_62
+        case 62:    return CL_V_FOCI(in, w);
+    #endif
+    #ifdef USE_POST1_63
+        case 63:    return CL_V_LAZYSUSAN(in, w, PRM_F3[PRM_F3_IDX_LAZYSUSANSTS], PRM_F2[PRM_F2_IDX_LAZYSUSAN]);
+    #endif
+    #ifdef USE_POST1_64
+        case 64:    return CL_V_LOONIE(in, w);
+    #endif
+
+        //   65:    return CL_V_PREBLUR(w, state) -> Not dispached but hard coded inside the Chaos Game instead
+
+    #ifdef USE_POST1_66
+        case 66:    return CL_V_MODULUS(in, w, PRM_F2[PRM_F2_IDX_MODULUS]);
+    #endif
+    #ifdef USE_POST1_67
+        case 67:    return CL_V_OSCOPE(in, w, PRM_F4[PRM_F4_IDX_OSCOPE]);
+    #endif
+    #ifdef USE_POST1_68
+        case 68:    return CL_V_POLAR2(in, w);
+    #endif
+    #ifdef USE_POST1_69
+        case 69:    return CL_V_POPCORN2(in, w, PRM_F[PRM_F_IDX_POPCORN2C], PRM_F2[PRM_F2_IDX_POPCORN2]);
+    #endif
+    #ifdef USE_POST1_70
+        case 70:    return CL_V_SCRY(in, w);
+    #endif
+    #ifdef USE_POST1_71
+        case 71:    return CL_V_SEPARATION(in, w, PRM_F2[PRM_F2_IDX_SEPARATION], PRM_F2[PRM_F2_IDX_SEPARATIONIN]);
+    #endif
+    #ifdef USE_POST1_72
+        case 72:    return CL_V_SPLIT(in, w, PRM_F2[PRM_F2_IDX_SPLIT]);
+    #endif
+    #ifdef USE_POST1_73
+        case 73:    return CL_V_SPLITS(in, w, PRM_F2[PRM_F2_IDX_SPLITS]);
+    #endif
+    #ifdef USE_POST1_74
+        case 74:    return CL_V_STRIPES(in, w, PRM_F2[PRM_F2_IDX_STRIPES]);
+    #endif
+    #ifdef USE_POST1_75
+        case 75:    return CL_V_WEDGE(in, w, PRM_F4[PRM_F4_IDX_WEDGE]);
+    #endif
+    #ifdef USE_POST1_76
+        case 76:    return CL_V_WEDGEJULIA(in, w, state, PRM_F4[PRM_F4_IDX_WEDGEJULIA]);
+    #endif
+    #ifdef USE_POST1_77
+        case 77:    return CL_V_WEDGESPH(in, w, PRM_F4[PRM_F4_IDX_WEDGESPH]);
+    #endif
+    #ifdef USE_POST1_78
+        case 78:    return CL_V_WHORL(in, w, PRM_F2[PRM_F2_IDX_WHORL]);
+    #endif
+    #ifdef USE_POST1_79
+        case 79:    return CL_V_WAVES2(in, w, PRM_F2[PRM_F2_IDX_WAVES2SCALE], PRM_F2[PRM_F2_IDX_WAVES2FREQ]);
+    #endif
+    #ifdef USE_POST1_80
+        case 80:    return CL_V_EXP(in, w);
+    #endif
+    #ifdef USE_POST1_81
+        case 81:    return CL_V_LOG(in, w);
+    #endif
+    #ifdef USE_POST1_82
+        case 82:    return CL_V_SIN(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_83
+        case 83:    return CL_V_COS(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_84
+        case 84:    return CL_V_TAN(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_85
+        case 85:    return CL_V_SEC(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_86
+        case 86:    return CL_V_CSC(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_87
+        case 87:    return CL_V_COT(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_88
+        case 88:    return CL_V_SINH(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_89
+        case 89:    return CL_V_COSH(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_90
+        case 90:    return CL_V_TANH(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_91
+        case 91:    return CL_V_SECH(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_92
+        case 92:    return CL_V_CSCH(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_93
+        case 93:    return CL_V_COTH(in, w, F3C);
+    #endif
+    #ifdef USE_POST1_94
+        case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
+    #endif
+    #ifdef USE_POST1_95
+        case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
+    #endif
+    #ifdef USE_POST1_96
+        case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
+    #endif
+    #ifdef USE_POST1_97
+        case 97:    return CL_V_CURVE(in, w, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
+    #endif
+    #ifdef USE_POST1_98
+        case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
+    #endif
+    #ifdef USE_POST1_99
+        case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
+    #endif
+    #ifdef USE_POST1_100
+        case 100:   return CL_V_HEMISPHERE(in, w);
+    #endif
+    #ifdef USE_POST1_101
+        case 101:   return CL_V_POLYNOMIAL(in, w, PRM_F2[PRM_F2_IDX_POLYNOMIALPOW], PRM_F2[PRM_F2_IDX_POLYNOMIALLC], PRM_F2[PRM_F2_IDX_POLYNOMIALSC]);
+    #endif
+    #ifdef USE_POST1_102
+        case 102:   return CL_V_CROP(in, w, state, PRM_F4[PRM_F4_IDX_CROPLTRB], PRM_F2[PRM_F2_IDX_CROP]);
+    #endif
+    #ifdef USE_POST1_103
+        case 103:   return CL_V_UNPOLAR(in, w);
+    #endif
+    #ifdef USE_POST1_104
+        case 104:   return CL_V_GLYNNIA(in, w, state);
+    #endif
+    #ifdef USE_POST1_105
+        case 105:   return CL_V_POINT_SYMMETRY(in, w, state, PRM_F3[PRM_F3_IDX_PTSYM]);
+    #endif
+#endif
+
+    default:    return w * in;
+    }
+}
+
+// ----------------------------
+// CL FLAM3 variations dispatch
+//
+// SPECIALIZE POST2 (only FF for now)
+//
+// Each iterations of the chaos game will select one iterator (aka: xforms or tranforms) and exectute all its variations to be applied to the incoming point/sample.
+// The dispatch will take care of finding the iterator's variations and execute them.
+//
+// ----------------------------
+
+__attribute__((always_inline)) inline 
+static float2 CL_V_DISPATCH_POST2(
+    const int     type, 
+    const float2  in, 
+    const float   w, 
+    const float2  y,
+    const float2  o, 
+    const int     F3C, 
+    rng_state_t* restrict state, 
+    __local const float*    PRM_F, 
+    __local const float2*   PRM_F2, 
+    __local const float4*   PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
+    __local const float4*   PRM_F4 
+    )
+{
+    switch(type)
+    {
+#ifdef USE_SPECIALIZE
+    #ifdef USE_POST2_0
+        case 0:     return CL_V_LINEAR(in, w);
+    #endif
+    #ifdef USE_POST2_1
+        case 1:     return CL_V_SINUSOIDAL(in, w);
+    #endif
+    #ifdef USE_POST2_2
+        case 2:     return CL_V_SPHERICAL(in, w);
+    #endif
+    #ifdef USE_POST2_3
+        case 3:     return CL_V_SWIRL(in, w);
+    #endif
+    #ifdef USE_POST2_4
+        case 4:     return CL_V_HORSESHOE(in, w);
+    #endif
+    #ifdef USE_POST2_5
+        case 5:     return CL_V_POLAR(in, w);
+    #endif
+    #ifdef USE_POST2_6
+        case 6:     return CL_V_HANDKERCHIEF(in, w);
+    #endif
+    #ifdef USE_POST2_7
+        case 7:     return CL_V_HEART(in, w);
+    #endif
+    #ifdef USE_POST2_8
+        case 8:     return CL_V_DISC(in, w);
+    #endif
+    #ifdef USE_POST2_9
+        case 9:     return CL_V_SPIRAL(in, w);
+    #endif
+    #ifdef USE_POST2_10
+        case 10:    return CL_V_HIPERBOLIC(in, w);
+    #endif
+    #ifdef USE_POST2_11
+        case 11:    return CL_V_DIAMOND(in, w);
+    #endif
+    #ifdef USE_POST2_12
+        case 12:    return CL_V_EX(in, w);
+    #endif
+    #ifdef USE_POST2_13
+        case 13:    return CL_V_JULIA(in, w, state);
+    #endif
+    #ifdef USE_POST2_14
+        case 14:    return CL_V_BENT(in, w);
+    #endif
+    #ifdef USE_POST2_15
+        case 15:    return CL_V_WAVES(in, w, y.x, o.x, y.y, o.y);
+    #endif
+    #ifdef USE_POST2_16
+        case 16:    return CL_V_FISHEYE(in, w);
+    #endif
+    #ifdef USE_POST2_17
+        case 17:    return CL_V_POPCORN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_POST2_18
+        case 18:    return CL_V_EXPONENTIAL(in, w);
+    #endif
+    #ifdef USE_POST2_19
+        case 19:    return CL_V_POWER(in, w);
+    #endif
+    #ifdef USE_POST2_20
+        case 20:    return CL_V_COSINE(in, w);
+    #endif
+    #ifdef USE_POST2_21
+        case 21:    return CL_V_RINGS(in, w, o.x);
+    #endif
+    #ifdef USE_POST2_22
+        case 22:    return CL_V_FAN(in, w, o.x, o.y);
+    #endif
+    #ifdef USE_POST2_23
+        case 23:    return CL_V_BUBBLE(in, w);
+    #endif
+    #ifdef USE_POST2_24
+        case 24:    return CL_V_CYLINDER(in, w);
+    #endif
+    #ifdef USE_POST2_25
+        case 25:    return CL_V_EYEFISH(in, w);
+    #endif
+    #ifdef USE_POST2_26
+        case 26:    return CL_V_BLUR(w, state);
+    #endif
+    #ifdef USE_POST2_27
+        case 27:    return CL_V_CURL(in, w, PRM_F2[PRM_F2_IDX_CURL]);
+    #endif
+    #ifdef USE_POST2_28
+        case 28:    return CL_V_NGON(in, w, PRM_F4[PRM_F4_IDX_NGON], PRM_F4[PRM_F4_IDX_NGON_PRECALC]);
+    #endif
+    #ifdef USE_POST2_29
+        case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
+    #endif
+    #ifdef USE_POST2_30
+        case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
+    #endif
+    #ifdef USE_POST2_31
+        case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
+    #endif
+    #ifdef USE_POST2_32
+        case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
+    #endif
+    #ifdef USE_POST2_33
+        case 33:    return CL_V_GAUSSIAN_BLUR(w, state);
+    #endif
+    #ifdef USE_POST2_34
+        case 34:    return CL_V_FAN2(in, w, F3C, PRM_F2[PRM_F2_IDX_FAN2]);
+    #endif
+    #ifdef USE_POST2_35
+        case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
+    #endif
+    #ifdef USE_POST2_36
+        case 36:    return CL_V_RECTANGLES(in, w, PRM_F2[PRM_F2_IDX_RECTANGLES]);
+    #endif
+    #ifdef USE_POST2_37
+        case 37:    return CL_V_RADIALBLUR(in, w, state, PRM_F[PRM_F_IDX_RADIALBLUR]);
+    #endif
+    #ifdef USE_POST2_38
+        case 38:    return CL_V_PIE(w, state, PRM_F3[PRM_F3_IDX_PIE]);
+    #endif
+    #ifdef USE_POST2_39
+        case 39:    return CL_V_ARCH(in, w, state);
+    #endif
+    #ifdef USE_POST2_40
+        case 40:    return CL_V_TANGENT(in, w);
+    #endif
+    #ifdef USE_POST2_41
+        case 41:    return CL_V_SQUARE(w, state);
+    #endif
+    #ifdef USE_POST2_42
+        case 42:    return CL_V_RAYS(in, w, state);
+    #endif
+    #ifdef USE_POST2_43
+        case 43:    return CL_V_BLADE(in, w, state);
+    #endif
+    #ifdef USE_POST2_44
+        case 44:    return CL_V_SECANT2(in, w);
+    #endif
+    #ifdef USE_POST2_45
+        case 45:    return CL_V_TWINTRIAN(in, w, state);
+    #endif
+    #ifdef USE_POST2_46
+        case 46:    return CL_V_CROSS(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_47
+        case 47:    return CL_V_DISC2(in, w, PRM_F2[PRM_F2_IDX_DISC2], PRM_F3[PRM_F3_IDX_DISC2_PRECALC]);
+    #endif
+    #ifdef USE_POST2_48
+        case 48:    return CL_V_SUPERSHAPE(in, w, state, PRM_F3[PRM_F3_IDX_SUPERSHAPE], PRM_F3[PRM_F3_IDX_SUPERSHAPEN]);
+    #endif
+    #ifdef USE_POST2_49
+        case 49:    return CL_V_FLOWER(in, w, state, PRM_F2[PRM_F2_IDX_FLOWER]);
+    #endif
+    #ifdef USE_POST2_50
+        case 50:    return CL_V_CONIC(in, w, state, PRM_F2[PRM_F2_IDX_CONIC]);
+    #endif
+    #ifdef USE_POST2_51
+        case 51:    return CL_V_PARABOLA(in, w, state, PRM_F2[PRM_F2_IDX_PARABOLA]);
+    #endif
+    #ifdef USE_POST2_52
+        case 52:    return CL_V_BENT2(in, w, PRM_F2[PRM_F2_IDX_BENT2]);
+    #endif
+    #ifdef USE_POST2_53
+        case 53:    return CL_V_BIPOLAR(in, w, PRM_F[PRM_F_IDX_BIPOLARSHIFT]);
+    #endif
+    #ifdef USE_POST2_54
+        case 54:    return CL_V_BOARDERS(in, w, state);
+    #endif
+    #ifdef USE_POST2_55
+        case 55:    return CL_V_BUTTERFLY(in, w);
+    #endif
+    #ifdef USE_POST2_56
+        case 56:    return CL_V_CELL(in, w, PRM_F[PRM_F_IDX_CELLSIZE]);
+    #endif
+    #ifdef USE_POST2_57
+        case 57:    return CL_V_CPOW(in, w, state, PRM_F3[PRM_F3_IDX_CPOW]);
+    #endif
+    #ifdef USE_POST2_58
+        case 58:    return CL_V_EDISC(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_59
+        case 59:    return CL_V_ELLIPTIC(in, w);
+    #endif
+    #ifdef USE_POST2_60
+        case 60:    return CL_V_NOISE(in, w, state);
+    #endif
+    #ifdef USE_POST2_61
+        case 61:    return CL_V_ESCHER(in, w, F3C, PRM_F[PRM_F_IDX_ESCHERBETA]);
+    #endif
+    #ifdef USE_POST2_62
+        case 62:    return CL_V_FOCI(in, w);
+    #endif
+    #ifdef USE_POST2_63
+        case 63:    return CL_V_LAZYSUSAN(in, w, PRM_F3[PRM_F3_IDX_LAZYSUSANSTS], PRM_F2[PRM_F2_IDX_LAZYSUSAN]);
+    #endif
+    #ifdef USE_POST2_64
+        case 64:    return CL_V_LOONIE(in, w);
+    #endif
+
+        //   65:    return CL_V_PREBLUR(w, state) -> Not dispached but hard coded inside the Chaos Game instead
+
+    #ifdef USE_POST2_66
+        case 66:    return CL_V_MODULUS(in, w, PRM_F2[PRM_F2_IDX_MODULUS]);
+    #endif
+    #ifdef USE_POST2_67
+        case 67:    return CL_V_OSCOPE(in, w, PRM_F4[PRM_F4_IDX_OSCOPE]);
+    #endif
+    #ifdef USE_POST2_68
+        case 68:    return CL_V_POLAR2(in, w);
+    #endif
+    #ifdef USE_POST2_69
+        case 69:    return CL_V_POPCORN2(in, w, PRM_F[PRM_F_IDX_POPCORN2C], PRM_F2[PRM_F2_IDX_POPCORN2]);
+    #endif
+    #ifdef USE_POST2_70
+        case 70:    return CL_V_SCRY(in, w);
+    #endif
+    #ifdef USE_POST2_71
+        case 71:    return CL_V_SEPARATION(in, w, PRM_F2[PRM_F2_IDX_SEPARATION], PRM_F2[PRM_F2_IDX_SEPARATIONIN]);
+    #endif
+    #ifdef USE_POST2_72
+        case 72:    return CL_V_SPLIT(in, w, PRM_F2[PRM_F2_IDX_SPLIT]);
+    #endif
+    #ifdef USE_POST2_73
+        case 73:    return CL_V_SPLITS(in, w, PRM_F2[PRM_F2_IDX_SPLITS]);
+    #endif
+    #ifdef USE_POST2_74
+        case 74:    return CL_V_STRIPES(in, w, PRM_F2[PRM_F2_IDX_STRIPES]);
+    #endif
+    #ifdef USE_POST2_75
+        case 75:    return CL_V_WEDGE(in, w, PRM_F4[PRM_F4_IDX_WEDGE]);
+    #endif
+    #ifdef USE_POST2_76
+        case 76:    return CL_V_WEDGEJULIA(in, w, state, PRM_F4[PRM_F4_IDX_WEDGEJULIA]);
+    #endif
+    #ifdef USE_POST2_77
+        case 77:    return CL_V_WEDGESPH(in, w, PRM_F4[PRM_F4_IDX_WEDGESPH]);
+    #endif
+    #ifdef USE_POST2_78
+        case 78:    return CL_V_WHORL(in, w, PRM_F2[PRM_F2_IDX_WHORL]);
+    #endif
+    #ifdef USE_POST2_79
+        case 79:    return CL_V_WAVES2(in, w, PRM_F2[PRM_F2_IDX_WAVES2SCALE], PRM_F2[PRM_F2_IDX_WAVES2FREQ]);
+    #endif
+    #ifdef USE_POST2_80
+        case 80:    return CL_V_EXP(in, w);
+    #endif
+    #ifdef USE_POST2_81
+        case 81:    return CL_V_LOG(in, w);
+    #endif
+    #ifdef USE_POST2_82
+        case 82:    return CL_V_SIN(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_83
+        case 83:    return CL_V_COS(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_84
+        case 84:    return CL_V_TAN(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_85
+        case 85:    return CL_V_SEC(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_86
+        case 86:    return CL_V_CSC(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_87
+        case 87:    return CL_V_COT(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_88
+        case 88:    return CL_V_SINH(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_89
+        case 89:    return CL_V_COSH(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_90
+        case 90:    return CL_V_TANH(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_91
+        case 91:    return CL_V_SECH(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_92
+        case 92:    return CL_V_CSCH(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_93
+        case 93:    return CL_V_COTH(in, w, F3C);
+    #endif
+    #ifdef USE_POST2_94
+        case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
+    #endif
+    #ifdef USE_POST2_95
+        case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
+    #endif
+    #ifdef USE_POST2_96
+        case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
+    #endif
+    #ifdef USE_POST2_97
+        case 97:    return CL_V_CURVE(in, w, F3C, state, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
+    #endif
+    #ifdef USE_POST2_98
+        case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
+    #endif
+    #ifdef USE_POST2_99
+        case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
+    #endif
+    #ifdef USE_POST2_100
+        case 100:   return CL_V_HEMISPHERE(in, w);
+    #endif
+    #ifdef USE_POST2_101
+        case 101:   return CL_V_POLYNOMIAL(in, w, PRM_F2[PRM_F2_IDX_POLYNOMIALPOW], PRM_F2[PRM_F2_IDX_POLYNOMIALLC], PRM_F2[PRM_F2_IDX_POLYNOMIALSC]);
+    #endif
+    #ifdef USE_POST2_102
+        case 102:   return CL_V_CROP(in, w, state, PRM_F4[PRM_F4_IDX_CROPLTRB], PRM_F2[PRM_F2_IDX_CROP]);
+    #endif
+    #ifdef USE_POST2_103
+        case 103:   return CL_V_UNPOLAR(in, w);
+    #endif
+    #ifdef USE_POST2_104
+        case 104:   return CL_V_GLYNNIA(in, w, state);
+    #endif
+    #ifdef USE_POST2_105
+        case 105:   return CL_V_POINT_SYMMETRY(in, w, state, PRM_F3[PRM_F3_IDX_PTSYM]);
+    #endif
+#endif
+
+    default:    return w * in;
     }
 }
 
@@ -4718,13 +7215,25 @@ __kernel void cl_flam3(
             float pvw = vw.w;
         #endif
         #ifdef USE_PB
-            if (vw.x > 0.0f) mem += CL_V_PREBLUR(vw.x, &rng);
+            #ifdef USE_PB_ALL
+                mem += CL_V_PREBLUR(vw.x, &rng);
+            #else
+                if (vw.x > 0.0f) mem += CL_V_PREBLUR(vw.x, &rng);
+            #endif
         #endif
         #ifdef USE_PRE1
-            if (vw.y > 0.0f) mem  = CL_V_DISPATCH(vt.y, mem, vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+            #ifdef USE_PRE1_ALL
+                mem = CL_V_DISPATCH_PRE1(vt.y, mem, vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+            #else
+                if (vw.y > 0.0f) mem = CL_V_DISPATCH_PRE1(vt.y, mem, vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+            #endif
         #endif
         #ifdef USE_PRE2
-            if (vw.z > 0.0f) mem  = CL_V_DISPATCH(vt.z, mem, vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+            #ifdef USE_PRE2_ALL
+                mem = CL_V_DISPATCH_PRE2(vt.z, mem, vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+            #else
+                if (vw.z > 0.0f) mem = CL_V_DISPATCH_PRE2(vt.z, mem, vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+            #endif
         #endif
     #endif
         
@@ -4734,28 +7243,52 @@ __kernel void cl_flam3(
         // VAR
         float2 _tmp = (float2)(0.0f);
     #ifdef USE_VAR1
-        if (vw.x != 0.0f) _tmp += CL_V_DISPATCH(vt.x, mem, vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #ifdef USE_VAR1_ALL
+            _tmp += CL_V_DISPATCH_VAR1(vt.x, mem, vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #else
+            if (vw.x != 0.0f) _tmp += CL_V_DISPATCH_VAR1(vt.x, mem, vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #endif
     #endif
     #ifdef USE_VAR2
-        if (vw.y != 0.0f) _tmp += CL_V_DISPATCH(vt.y, mem, vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #ifdef USE_VAR2_ALL
+            _tmp += CL_V_DISPATCH_VAR2(vt.y, mem, vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #else
+            if (vw.y != 0.0f) _tmp += CL_V_DISPATCH_VAR2(vt.y, mem, vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #endif
     #endif
     #ifdef USE_VAR3
-        if (vw.z != 0.0f) _tmp += CL_V_DISPATCH(vt.z, mem, vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #ifdef USE_VAR3_ALL
+            _tmp += CL_V_DISPATCH_VAR3(vt.z, mem, vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #else
+            if (vw.z != 0.0f) _tmp += CL_V_DISPATCH_VAR3(vt.z, mem, vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #endif
     #endif
     #ifdef USE_VAR4
-        if (vw.w != 0.0f) _tmp += CL_V_DISPATCH(vt.w, mem, vw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #ifdef USE_VAR4_ALL
+            _tmp += CL_V_DISPATCH_VAR4(vt.w, mem, vw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #else
+            if (vw.w != 0.0f) _tmp += CL_V_DISPATCH_VAR4(vt.w, mem, vw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        #endif
     #endif
 
         // POST
     #if (defined(USE_VAR1) || defined(USE_VAR2) || defined(USE_VAR3) || defined(USE_VAR4))
         #ifdef USE_POST1
-            if (pvw > 0.0f) _tmp = CL_V_DISPATCH(pvt, _tmp, pvw, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+            #ifdef USE_POST1_ALL
+                _tmp = CL_V_DISPATCH_POST1(pvt, _tmp, pvw, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+            #else
+                if (pvw > 0.0f) _tmp = CL_V_DISPATCH_POST1(pvt, _tmp, pvw, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+            #endif
         #endif
     #endif
 
         // post affine
     #ifdef USE_POST_AFFINE
-        if(local_POST[idx]) _tmp = affine(_tmp, local_POST_AFFINE[idx]);
+        #ifdef USE_POST_AFFINE_ALL
+            _tmp = affine(_tmp, local_POST_AFFINE[idx]);
+        #else
+            if(local_POST[idx]) _tmp = affine(_tmp, local_POST_AFFINE[idx]);
+        #endif
     #endif
 #else
         // POST1 data
@@ -4982,26 +7515,26 @@ __kernel void cl_flam3_ff(
         // PRE
     #if (defined(USE_VAR1) || defined(USE_VAR2))
         #ifdef USE_PRE1
-            mem  = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
+            mem  = CL_V_DISPATCH_PRE1(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
         #endif
     #endif
         
         // VAR
         float2 _tmp = (float2)(0.0f);
     #ifdef USE_VAR1
-        _tmp += CL_V_DISPATCH(FF_VPP_VT.x, mem, FF_VPP_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
+        _tmp += CL_V_DISPATCH_VAR1(FF_VPP_VT.x, mem, FF_VPP_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
     #endif
     #ifdef USE_VAR2
-        _tmp += CL_V_DISPATCH(FF_VPP_VT.y, mem, FF_VPP_VW.y, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
+        _tmp += CL_V_DISPATCH_VAR2(FF_VPP_VT.y, mem, FF_VPP_VW.y, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
     #endif
         
         // POST
     #if (defined(USE_VAR1) || defined(USE_VAR2))
         #ifdef USE_POST1
-            _tmp = CL_V_DISPATCH(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
+            _tmp = CL_V_DISPATCH_POST1(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
         #endif
         #ifdef USE_POST2
-            _tmp = CL_V_DISPATCH(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
+            _tmp = CL_V_DISPATCH_POST2(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, ff_pp_prm_f, ff_pp_prm_f2, ff_pp_prm_f3, ff_pp_prm_f4);
         #endif
     #endif
 

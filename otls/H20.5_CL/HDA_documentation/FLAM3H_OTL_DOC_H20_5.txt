@@ -3544,9 +3544,9 @@ Specialize Kernels (GPU) [Icon:DATATYPES/boolean]:
 
     When this toggle is turned *`On`*/Active, the OpenCL kernels are specialized for the current Flame setup, stripping away almost all unnecessary code and retaining only the functionality and execution paths required by the current configuration.
 
-    This option can deliver a speed increase of approximately *`10%`*–*`35%`* in parallel computation.
-
-    Some Flames have shown performance improvements of over *`40%`* while others have shown little to no improvements at all, but on average, you can expect a fairly consistent speed increase of around *`15%`*–*`20%`*.
+    Some Flames have shown significant performance improvements, while others have shown little to no improvement at all. On average, you can expect a fairly consistent speed increase of around *`15%`*–*`25%`*.
+    
+    However, the more complex the Flame setup becomes (_with many iterators, each having multiple variations_), the more effectively specialized kernels can optimize it, delivering *`2x` to `4x` the performance of general-purpose kernels*.
 
     The effectiveness of compile-time kernel specialization is not limited to the elimination of unused computational paths. It also depends on the reduction of the generated instruction footprint and control-flow complexity.
     
