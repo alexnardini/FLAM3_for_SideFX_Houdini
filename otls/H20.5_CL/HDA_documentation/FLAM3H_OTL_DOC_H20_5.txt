@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H(tm)
-#version: 2.1.76 - Production
+#version: 2.2.00 - Production
 
 """The Fractal Flame Algorithm: FLAM3 - Create fractal art in Houdini"""
 
@@ -2987,7 +2987,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-CL-WIN-2.1.76" ... >
+          <flame version="FLAM3H-CL-WIN-2.2.00" ... >
               ...
         }}}
         
@@ -2996,7 +2996,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-CL-WIN-2.1.76" ... >
+          <flame version="EMBER-FLAM3H-CL-WIN-2.2.00" ... >
               ...
         }}}
         
@@ -3359,7 +3359,7 @@ _The following is an example of what the default Sierpiński triangle preset loo
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-CL-WIN-2.1.76" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-CL-WIN-2.2.00" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.5" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.28867513 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.28867513 0" opacity="1" linear="1"/>
@@ -3419,7 +3419,7 @@ _In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle:
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-CL-WIN-2.1.76" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-CL-WIN-2.2.00" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     ...
   </flame>
 </flames>
@@ -3432,7 +3432,7 @@ _Under the [Icon:TOP/xmlinput] *`flame`* preset XML key lives all its data: [Ico
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-CL-WIN-2.1.76" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-CL-WIN-2.2.00" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
@@ -3450,7 +3450,7 @@ _When the FF_(_finalXform_) _is *`On`*/Active, its data will be included in the 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-CL-WIN-2.1.76" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-CL-WIN-2.2.00" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
@@ -3567,6 +3567,71 @@ Specialize Kernels (GPU) [Icon:DATATYPES/boolean]:
         #display: orange
 
         You can enable this while editing if you wish, but its most effective use is to activate it when generating high-density point clouds of your Flame for rendering purposes.
+
+:disclosure:GPU Performance Benchmark: Specialized vs. General-Purpose Kernels
+
+    <br />
+
+    _The following Flame preset is a mash-up of all variations, packed into 15 different iterators, designed to benchmark specialized kernels against general-purpose kernels_.
+
+    _It is not intended to produce visually pleasing results; rather, it is designed to stress-test the GPU. It represents the most extreme workload for performance benchmarking purposes_.
+
+    {{{
+    #!xml
+    <flames>
+      <flame version="EMBER-FLAM3H-CL-WIN-2.2.88" name="f3h_gpu_benchmark_all_variations" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.3333" highlight_power="5" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="pre_bipolar pre_blade pre_blob pre_blur pre_conic pre_cos pre_crop pre_cross pre_diamond pre_disc pre_exp pre_exponential pre_flux pre_foci pre_horseshoe pre_hyperbolic pre_loonie pre_mobius pre_perspective pre_pie pre_popcorn2 pre_power pre_scry pre_sec pre_sinusoidal pre_spherical pre_super_shape pre_swirl pre_waves pre_waves2 arch auger bent boarders bubble butterfly bwraps cosh cosine cot coth csc csch curl curve disc2 edisc elliptic escher eyefish fan fan2 fisheye gaussian_blur glynnia handkerchief heart julia julian juliascope lazysusan linear ngon noise oscilloscope parabola point_symmetry polar polar2 polynomial radial_blur rays rectangles rings secant2 sech separation sin spiral split splits square tan tangent tanh twintrian wedge wedge_julia wedge_sph whorl post_bent2 post_cell post_cpow post_cylinder post_ex post_flower post_hemisphere post_linear post_log post_pdj post_popcorn post_rings2 post_sinh post_stripes post_unpolar" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+        <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.5" post="0.99961012 -0.02792164 0.02792164 0.99961012 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="1.6" opacity="1" linear="1" arch="0.23" auger="0.268" auger_freq="1" auger_scale="2" auger_sym="1" auger_weight="1" bent="0.27" pre_bipolar="0.241" pre_bipolar_shift="1" pre_blade="0.283" post_bent2="1" post_bent2_x="1.5" post_bent2_y="0"/>
+        <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.46193977 -0.19134172 0.19134172 0.46193977 -0.28867513 0" f3h_coefs="0.5 0 0 0.5 -0.28867513 0" f3h_coefs_angle="22.5" post="0.85806491 0.51354125 -0.51354125 0.85806491 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="-30.9" opacity="1" boarders="1" bubble="1" butterfly="0.405" bwraps="1" bwraps_cellsize="0.5" bwraps_space="0" bwraps_gain="1" bwraps_inner_twist="3" bwraps_outer_twist="0" pre_blob="1" pre_blob_low="0.2" pre_blob_high="1" pre_blob_waves="6" pre_blur_pre="0.745" post_cell="1" post_cell_size="0.05"/>
+        <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.44310179 -0.23164802 0.23164802 0.44310179 0.28867513 0" f3h_coefs="0.5 0 0 0.5 0.28867513 0" f3h_coefs_angle="27.6" post="0.82412619 -0.56640624 0.56640624 0.82412619 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="34.5" opacity="1" cosh="1" cosine="1" cot="0.795" coth="0.751" pre_conic="0.797" pre_conic_eccentricity="1" pre_conic_holes="0" pre_cos="0.68" post_cpow="1" post_cpow_power="1" post_cpow_r="1" post_cpow_i="0"/>
+        <xform name="iterator_4" weight="0.5" color="0" symmetry="0" color_speed="0.5" coefs="0.91706007 0.39874907 -0.39874907 0.91706007 0 0" f3h_coefs="1 0 0 1 0 0" f3h_coefs_angle="-23.5" post="0.75011107 0.66131187 -0.66131187 0.75011107 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="-41.4" opacity="1" csc="1" csch="1" curl="1" curl_c1="0" curl_c2="0" curve="1" curve_xlength="1" curve_ylength="1" curve_xamp="0" curve_yamp="0" pre_crop="1" pre_crop_left="-1" pre_crop_top="-1" pre_crop_right="1" pre_crop_bottom="1" pre_crop_scatter_area="0" pre_crop_zero="0" pre_cross="1" post_cylinder="0.816"/>
+        <xform name="iterator_5" weight="0.5" color="0" symmetry="0" color_speed="0.5" coefs="1 0 0 1 0 0" post="0.92387953 0.38268343 -0.38268343 0.92387953 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="-22.5" opacity="1" disc2="1" disc2_rot="6" disc2_twist="0.5" edisc="1" elliptic="0.976" escher="0.968" escher_beta="1" pre_diamond="1" pre_disc="1" post_ex="1"/>
+        <xform name="iterator_6" weight="0.5" color="0" symmetry="0" color_speed="0.5" coefs="1 0 0 1 0 0" post="0.68327377 -0.73016228 0.73016228 0.68327377 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="46.9" opacity="1" eyefish="1" fan="0.851" fan2="0.768" fan2_x="0.707107" fan2_y="-0.707107" fisheye="0.93" pre_exp="1" pre_exponential="0.758" post_flower="0.881" post_flower_petals="5" post_flower_holes="0.5"/>
+        <xform name="iterator_7" weight="0.5" color="0" symmetry="0" color_speed="0.5" coefs="1 0 0 1 0 0" post="0.83484786 0.55048074 -0.55048074 0.83484786 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="-33.4" opacity="1" gaussian_blur="1" glynnia="0.824" handkerchief="0.914" heart="1" pre_flux="0.995" pre_flux_spread="0.5" pre_foci="0.866" post_hemisphere="1"/>
+        <xform name="iterator_8" weight="0.5" color="0" symmetry="0" color_speed="0.5" coefs="1 0 0 1 0 0" post="0.78585689 -0.6184084 0.6184084 0.78585689 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="38.2" opacity="1" julia="1" julian="0.827" julian_power="6" julian_dist="1" juliascope="0.811" juliascope_power="5" juliascope_dist="1" lazysusan="0.9" lazysusan_x="0" lazysusan_y="0" lazysusan_spin="3.14159" lazysusan_twist="0" lazysusan_space="0" pre_horseshoe="0.997" pre_hyperbolic="0.727" post_log="1"/>
+        <xform name="iterator_9" weight="0.5" color="0" symmetry="0" color_speed="0.5" coefs="1 0 0 1 0 0" post="0.77051324 0.63742399 -0.63742399 0.77051324 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="-39.6" opacity="1" ngon="1" ngon_power="2" ngon_sides="4" ngon_corners="1" ngon_circle="1" noise="0.959" oscilloscope="0.822" oscilloscope_frequency="3.14159" oscilloscope_amplitude="1" oscilloscope_damping="0" oscilloscope_separation="1" parabola="0.946" parabola_height="2" parabola_width="3" pre_loonie="0.962" pre_mobius="1" pre_Mobius_Re_A="1" pre_Mobius_Re_B="0" pre_Mobius_Re_C="0" pre_Mobius_Re_D="1" pre_Mobius_Im_A="0" pre_Mobius_Im_B="0" pre_Mobius_Im_C="1" pre_Mobius_Im_D="0" post_pdj="0.981" post_pdj_a="1" post_pdj_b="1" post_pdj_c="1" post_pdj_d="1"/>
+        <xform name="iterator_10" weight="0.5" color="0" symmetry="0" color_speed="0.5" coefs="1 0 0 1 0 0" post="0.79758393 -0.60320799 0.60320799 0.79758393 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="37.1" opacity="1" point_symmetry="1" point_symmetry_order="3" point_symmetry_centre_x="0" point_symmetry_centre_y="0" polar="0.768" polar2="0.978" polynomial="0.981" polynomial_powx="1" polynomial_powy="1" polynomial_lcx="0" polynomial_lcy="0" polynomial_scx="0" polynomial_scy="0" pre_perspective="1" pre_perspective_angle="0.5" pre_perspective_dist="0.5" pre_pie="0.73" pre_pie_slices="6" pre_pie_thickness="0.5" pre_pie_rotation="0" post_popcorn="1"/>
+        <xform name="iterator_11" weight="0.5" color="0" symmetry="0" color_speed="0.5" coefs="1 0 0 1 0 0" post="0.81310076 -0.58212297 0.58212297 0.81310076 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="35.6" opacity="1" radial_blur="1" radial_blur_angle="0.5" rays="1" rectangles="0.849" rectangles_x="1" rectangles_y="1" rings="0.908" pre_popcorn2="1" pre_popcorn2_x="0.1" pre_popcorn2_y="0.1" pre_popcorn2_c="2" pre_power="1" post_rings2="1" post_rings2_val="1"/>
+        <xform name="iterator_12" weight="0.5" color="0" symmetry="0" color_speed="0.5" coefs="1 0 0 1 0 0" post="0.37298778 0.92783625 -0.92783625 0.37298778 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="-68.1" opacity="1" secant2="1" sech="0.805" separation="0.7" separation_x="0.5" separation_y="0.5" separation_xinside="1.5" separation_yinside="1.5" sin="0.73" pre_scry="0.773" pre_sec="0.823" post_sinh="0.686"/>
+        <xform name="iterator_13" weight="0.5" color="0" symmetry="0" color_speed="0.5" coefs="1 0 0 1 0 0" post="0.7408046 0.67172059 -0.67172059 0.7408046 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="-42.2" opacity="1" spiral="1" split="0.743" split_xsize="4" split_ysize="1" splits="0.776" splits_x="1" splits_y="1" square="0.851" pre_sinusoidal="1" pre_spherical="0.745" post_stripes="0.697" post_stripes_space="0.5" post_stripes_warp="0"/>
+        <xform name="iterator_14" weight="0.5" color="0" symmetry="0" color_speed="0.5" coefs="1 0 0 1 0 0" post="0.81310076 -0.58212297 0.58212297 0.81310076 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="35.6" opacity="1" tan="1" tangent="0.819" tanh="0.9" twintrian="0.643" pre_super_shape="0.805" pre_super_shape_m="6" pre_super_shape_rnd="0" pre_super_shape_holes="2" pre_super_shape_n1="1" pre_super_shape_n2="1" pre_super_shape_n3="1" pre_swirl="0.82" post_unpolar="0.916"/>
+        <xform name="iterator_15" weight="0.5" color="0" symmetry="0" color_speed="0.5" coefs="1 0 0 1 0 0" post="0.93605954 -0.35184165 0.35184165 0.93605954 0 0" f3h_post="1 0 0 1 0 0" f3h_post_angle="20.6" chaos="1 1 1 1 1 1 1 1 1 1 1 1 1 1 0" opacity="1" wedge="0.503" wedge_swirl="0" wedge_angle="1.5708" wedge_hole="0" wedge_count="2" wedge_julia="0.53" wedge_julia_power="1" wedge_julia_angle="0" wedge_julia_dist="0" wedge_julia_count="1" wedge_sph="0.538" wedge_sph_swirl="0" wedge_sph_angle="1.5708" wedge_sph_hole="0" wedge_sph_count="2" whorl="0.638" whorl_inside="3" whorl_outside="0.5" pre_waves="0.876" pre_waves2="0.646" pre_waves2_scalex="1" pre_waves2_scaley="1" pre_waves2_freqx="1" pre_waves2_freqy="1" post_linear="0.4"/>
+        <palette count="256" format="RGB">
+            330DFF3310FF3213FF3216FF311AFF311DFF3120FF3023FF
+            3026FF2F2AFF2F2DFF2F30FF2E33FF2E36FF2D3AFF2D3DFF
+            2D40FF2C43FF2C46FF2B4AFF2B4DFF2B50FF2A53FF2A56FF
+            295AFF295DFF2960FF2863FF2866FF276AFF276DFF2770FF
+            2673FF2676FF257AFF257DFF2580FF2483FF2486FF238AFF
+            238DFF2390FF2293FF2296FF219AFF219DFF21A0FF20A3FF
+            20A6FF1FAAFF1FADFF1FB0FF1EB3FF1EB6FF1DBAFF1DBDFF
+            1DC0FF1CC3FF1CC6FF1BCAFF1BCDFF1BD0FF1AD3FF1AD6FF
+            19D9FE19DAFB19DAF719DBF319DBF018DCEC18DDE918DDE5
+            18DEE118DEDE17DFDA17E0D717E0D317E1CF17E1CC16E2C8
+            16E2C516E3C116E4BD16E4BA15E5B615E5B315E6AF15E7AB
+            15E7A814E8A414E8A114E99D14EA9914EA9613EB9213EB8F
+            13EC8B13ED8713ED8412EE8012EF7D12EF7912F07512F072
+            11F16E11F26B11F26711F36311F36010F45C10F45910F555
+            10F65110F64E0FF74A0FF8470FF8430FF93F0FF93C0EFA38
+            0EFB350EFB310EFC2D0EFC2A0DFD260DFE230DFE1F0DFF1B
+            0FFF1A12FF1A16FF1A19FF1A1DFF1A21FF1A24FF1A28FF1A
+            2BFF1A2FFF1A33FF1A36FF1A3AFF1A3DFF1A41FF1A45FF1A
+            48FF1A4CFF1A4FFF1A53FF1A57FF1A5AFF1A5EFF1A61FF1A
+            65FF1A69FF1A6CFF1A70FF1A73FF1A77FF1A7BFF1A7EFF1A
+            82FF1A85FF1A89FF1A8DFF1A90FF1A94FF1A97FF1A9BFF1A
+            9FFF1AA2FF1AA6FF1AA9FF1AADFF1AB1FF1AB4FF1AB8FF1A
+            BBFF1ABFFF1AC3FF1AC6FF1ACAFF1ACDFF1AD1FF1AD5FF1A
+            D8FF1ADCFF1ADFFF1AE3FF1AE7FF1AEAFF1AEEFF1AF1FF1A
+            F2FC19F3F819F3F519F3F119F3ED19F3E918F4E518F4E218
+            F4DE18F4DA18F4D617F5D217F5CF17F5CB17F5C717F5C316
+            F6BF16F6BC16F6B816F6B416F6B015F7AC15F7A915F7A515
+            F7A115F79D14F89914F89614F89214F88E14F88A13F98613
+            F98313F97F13F97B13F97712FA7312FA7012FA6C12FA6812
+            FA6411FB6011FB5D11FB5911FB5511FB5110FC4D10FC4A10
+            FC4610FC4210FC3E0FFD3A0FFD370FFD330FFD2F0FFD2B0E
+            FE270EFE240EFE200EFE1C0EFE180DFF140DFF110DFF0D0D
+          </palette>
+      </flame>
+    </flames>
+    }}}
 
 
 
