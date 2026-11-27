@@ -1832,7 +1832,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionOCLSVG.svg" /></p>
-<b><p align="center">icon_optionOCLSVG.svg</b><br/><i>Copyright © Apple Inc. (OpenCL name and logo); The Khronos Group Inc.<br/>(OpenCL specification and related technologies).</br>See <a href="../THIRD-PARTY_NOTICES.md#2-opencl">Third-Party Notices</a> for usage details.<br/>The OpenCL logo is represented in this project by a simplified reproduction created by the project author. The reproduction was independently created and visually adapted to match the style, proportions, and color scheme of the other icons used throughout the software interface, ensuring a consistent appearance across the UI.</i></p>
+<b><p align="center">icon_optionOCLSVG.svg</b><br/><i>Copyright © Apple Inc. (OpenCL name and logo);<br/>The Khronos Group Inc. (OpenCL specification and related technologies).</br>See <a href="../THIRD-PARTY_NOTICES.md#2-opencl">Third-Party Notices</a> for usage details.<br/>The OpenCL logo is represented in this project by a simplified reproduction created by the project author. The reproduction was independently created and visually adapted to match the style, proportions, and color scheme of the other icons used throughout the software interface, ensuring a consistent appearance across the UI.</i></p>
 <p align="center">......</p>
 <p align="center">
 
