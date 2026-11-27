@@ -51,6 +51,34 @@ They are all available in this Github repository.
 <br>
 <br>
 
+## <img width="24" height="24" src="./icons/iconSVGR.svg" /> [<ins>v2.2.88 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.2.88)  ##
+
+#### FLAM3H™ v2.2.88 indie -> H22.0 UP</br>FLAM3H™ v2.2.34 indie -> H21.0</br>FLAM3H™ v2.2.00 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+**Known Issue (Houdini 22.0)**: <i>`an issue in H22.0 allows parameters with a range set (unlocked) to spontaneously alter their slider ranges, affecting the UI/UX. This has been logged with SideFX` ( <u>**`#159157`**</u> ). `Development on the H22.0 branch continues. For immediate stability, please use FLAM3H™ for H21.0 version.`</i>
+
+- **OpenCL code updates H20.5, H21, H22 UP**: Improved OpenCL kernels specialization:
+
+   - Some Flames have shown significant performance improvements, while others have shown little to no improvement at all.
+   
+   - On average, it delivers a 15–20% performance improvement over the previously released specialized OpenCL kernels in simple to moderately complex Flame setups. However, it really starts to shine as setups become increasingly complex, with many iterators and multiple variations per iterator, delivering performance gains of 2x to 4x over general-purpose kernels.
+   
+- **Small fixes/improvements as part of an ongoing polishing pass**
+- **Updated HDA documentation**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ## <img width="24" height="24" src="./icons/iconSVGR.svg" /> [<ins>v2.2.64 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.2.64)  ##
 
 #### FLAM3H™ v2.2.64 indie -> H22.0 UP</br>FLAM3H™ v2.2.10 indie -> H21.0</br>FLAM3H™ v2.1.76 indie -> H20.5</br>FLAM3H™ v1.9.89 indie -> H19.0 to H20 ####
